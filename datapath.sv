@@ -22,17 +22,22 @@ module datapath(
 									ADDR1MUX,
 									MIO_EN,
 				input logic [1:0] 	ADDR2MUX,
-									ALUK
-									
-				//output logic [15:0] MAR, MDR, IR
+									ALUK,
+				input logic [15:0] MDR_In,					
+				output logic [15:0] MAR, MDR, IR
 
 );
 
 // Declare all registers
-logic [15:0] IR, PC, MAR, MDR;
+logic [15:0] IRreg, PC, MARreg, MDRreg;
+
+// Branch logic components
+logic [2:0] NZP;
+logic BEN;
 
 // Declares 2-1 MUX and associated wires
 mux2 ADDR1MUX (.select(ADDR1MUX), .inA(), .inB(), .out());
+
 mux2#(2) SR1MUX (.select(SR1MUX), .inA(), .inB(), .out(SR1MUXtoReg));
 wire [2:0] SR1MUXtoReg;
 mux2 SR2MUX (.select(SR2MUX), .inA(), .inB(), .out(SR2MUXtoALU));
@@ -62,24 +67,21 @@ ALU _ALU(.ALUK(ALUK), .inA(SR1_out), .inB(SR2MUXtoALU), .ALU_Out(ALU_Out));
 wire [15:0] ALU_Out; // Wire from ALU output to Data MUX
 
 // regfile
-regfile register(.Data(Data), .DR_in(DRMUXtoReg), .SR1_in(SR1MUXtoReg), .SR2_in(), .LD_REG(LD_REG),
+regfile register(.Data(Data), .DR_in(DRMUXtoReg), .SR1_in(SR1MUXtoReg), .SR2_in(IR[2:0]), .LD_REG(LD_REG),
 					  .SR1_out(SR1_out), .SR2_out(SR2_out));
 wire [15:0] SR1_out, SR2_out;
-
-// MAR zero extended
-//ZEXT MAR_ZEXT(.in(MAR), .out(ADDR));
-
 
 	always_ff @ (posedge Clk)
 	begin
 		if (LD_IR)
-			IR <= Data;
+			IRreg <= Data;
 		if (LD_MAR)
-			MAR <= Data;
+			MARreg <= Data;
 		if (LD_PC)
 			PC <= PCMUX_output;
-		if (LD_IR)
-			IR <= Data;
 	end
 
+	assign IR = IRreg;
+	assign MAR = MARreg;
+	
 endmodule

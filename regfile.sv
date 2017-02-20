@@ -9,13 +9,13 @@ module regfile(
 							  SR2_out
 );
 
+assign SR1_out = register[SR_in];
+
 logic [15:0] register [8:0];
-always_comb
+always_ff @ (posedge Clk)
 	begin
-		SR1_out = register[SR1_in];
-		SR2_out = register[SR2_in];
 		if(LD_REG)
-			REGISTER[DR_in] = Data;
+			REGISTER[DR_in] <= Data;
 	end
 
 endmodule
