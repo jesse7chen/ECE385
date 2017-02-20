@@ -1,2 +1,2 @@
 # ECE385
-Dank code for 385
+Code for 385
