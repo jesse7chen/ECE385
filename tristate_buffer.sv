@@ -9,7 +9,7 @@ input logic[15:0] MARMUX_Out,
 				PC_Out,
 				MDR_Out,
 				
-inout wire[15:0] Data
+output logic[15:0] Data
 );
 
 
@@ -24,7 +24,7 @@ else if(GateMDR)
 else if(GateALU)
 	Data = ALU_Out;
 else
-	Data = 16'bZZZZZZZZZZZZZZZZ;
+	Data = 16'bxxxxxxxxxxxxxxxx;
 end
 
 endmodule

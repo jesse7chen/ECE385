@@ -40,6 +40,8 @@ assign Run_ah = ~Run;
 // For Week 2, they will be patched into the MEM2IO module so that Memory-mapped IO can take place
 logic [3:0][3:0] hex_4;
 // Remove the following assignments for Week 2
+logic [15:0] IR;
+
 assign hex_4[3][3:0] = IR[15:12];
 assign hex_4[2][3:0] = IR[11:8];
 assign hex_4[1][3:0] = IR[7:4];
@@ -59,7 +61,7 @@ logic DRMUX, SR1MUX, SR2MUX, ADDR1MUX;
 logic MIO_EN;
 
 logic [15:0] MDR_In;
-logic [15:0] MAR, MDR, IR;
+logic [15:0] MAR, MDR; //IR was here before, but I had to move it up
 logic [15:0] Data_from_SRAM, Data_to_SRAM;
 
 // Connect MAR to ADDR, which is also connected as an input into MEM2IO
@@ -70,7 +72,7 @@ assign MIO_EN = ~OE;
 
 // You need to make your own datapath module and connect everything to the datapath
 // Be careful about whether Reset is active high or low
-datapath d0 (.*, .Clk(Clk), .Reset_ah(Reset_ah), .Data(Data), .LD_MAR(LD_MAR),
+datapath d0 (.*, .Clk(Clk), .Reset_ah(Reset_ah), /*.Data(Data),*/ .LD_MAR(LD_MAR),
 				 .LD_MDR(LD_MDR), .LD_IR(LD_IR), .LD_BEN(LD_BEN), .LD_CC(LD_CC),
 				 .LD_REG(LD_REG), .LD_PC(LD_PC), .LD_LED(LD_LED), 
 				 .GatePC(GatePC), .GateMDR(GateMDR), .GateALU(GateALU), .GateMARMUX(GateMARMUX),
