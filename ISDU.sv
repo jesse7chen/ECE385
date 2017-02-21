@@ -61,6 +61,7 @@ module ISDU ( 	input logic			Clk,
     					S_18, 
     					S_33_1, 
     					S_33_2, 
+						S_33_3,
     					S_35, 
     					S_32, 
     					S_01}   State, Next_state;   // Internal state logic
@@ -89,6 +90,8 @@ module ISDU ( 	input logic			Clk,
             S_33_1 : 
                 Next_state <= S_33_2;
             S_33_2 : 
+					Next_state <= S_33_3;
+				S_33_3:
                 Next_state <= S_35;
             S_35 : 
                 Next_state <= PauseIR1;
@@ -168,6 +171,11 @@ module ISDU ( 	input logic			Clk,
 				Mem_OE = 1'b0;
 			S_33_2 : 
 				begin 
+					Mem_OE = 1'b0;
+					LD_MDR = 1'b1;
+                end
+			 S_33_3 :
+					 begin 
 					Mem_OE = 1'b0;
 					LD_MDR = 1'b1;
                 end

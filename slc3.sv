@@ -12,7 +12,7 @@
 //    Revised 07-26-2013
 //    Spring 2015 Distribution
 //    Revised 09-22-2015 
-//    Revised 02-13-2017 
+//    Revised 02-19-2017 
 //    Spring 2017 Distribution
 //
 //------------------------------------------------------------------------------
@@ -26,6 +26,7 @@ module slc3(
 	output logic CE, UB, LB, OE, WE,
 	output logic [19:0] ADDR,
 	inout wire [15:0] Data //tristate buffers need to be of type wire
+	//output logic [15:0] IR_out1, MDR_out1, MAR_out1, PC_output1
 );
 
 // Declaration of push button active high signals	
@@ -40,13 +41,17 @@ assign Run_ah = ~Run;
 // For Week 2, they will be patched into the MEM2IO module so that Memory-mapped IO can take place
 logic [3:0][3:0] hex_4;
 // Remove the following assignments for Week 2
+logic [15:0] IR;
+
 assign hex_4[3][3:0] = IR[15:12];
 assign hex_4[2][3:0] = IR[11:8];
 assign hex_4[1][3:0] = IR[7:4];
 assign hex_4[0][3:0] = IR[3:0];
 
-HexDriver hex_drivers[3:0] (hex_4, {HEX3, HEX2, HEX1, HEX0});
-// This works thanks to http://stackoverflow.com/questions/1378159/verilog-can-we-have-an-array-of-custom-modules
+HexDriver hex_driver3 (hex_4[3][3:0], HEX3);
+HexDriver hex_driver2 (hex_4[2][3:0], HEX2);
+HexDriver hex_driver1 (hex_4[1][3:0], HEX1);
+HexDriver hex_driver0 (hex_4[0][3:0], HEX0);
 
 // Internal connections
 logic BEN;
@@ -57,27 +62,34 @@ logic DRMUX, SR1MUX, SR2MUX, ADDR1MUX;
 logic MIO_EN;
 
 logic [15:0] MDR_In;
-logic [15:0] MAR, MDR, IR;
+logic [15:0] MAR, MDR; //IR was here before, but I had to move it up
 logic [15:0] Data_from_SRAM, Data_to_SRAM;
 
 // Connect MAR to ADDR, which is also connected as an input into MEM2IO
 //	MEM2IO will determine what gets put onto Data_CPU (which serves as a potential
 //	input into MDR)
 assign ADDR = { 4'b00, MAR }; //Note, our external SRAM chip is 1Mx16, but address space is only 64Kx16
-assign MIO_EN = ~OE;
+//assign MIO_EN = ~OE;
+//assign PC_output1 = PC_out;
+//assign MDR_out1 = MDR;
+//assign MAR_out1 = MAR;
+//assign IR_out1 = IR;
 
 // You need to make your own datapath module and connect everything to the datapath
 // Be careful about whether Reset is active high or low
-
-
-
-datapath d0 (.*);
+datapath d0 (.*, .Clk(Clk), .Reset_ah(Reset_ah), /*.Data(Data),*/ .LD_MAR(LD_MAR),
+				 .LD_MDR(LD_MDR), .LD_IR(LD_IR), .LD_BEN(LD_BEN), .LD_CC(LD_CC),
+				 .LD_REG(LD_REG), .LD_PC(LD_PC), .LD_LED(LD_LED), 
+				 .GatePC(GatePC), .GateMDR(GateMDR), .GateALU(GateALU), .GateMARMUX(GateMARMUX),
+				 .PCMUX(PCMUX), .DRMUX(DRMUX), .SR1MUX(SR1MUX), .SR2MUX(SR2MUX), .ADDR1MUX(ADDR1MUX),
+				 .MIO_EN(MIO_EN), .ADDR2MUX(ADDR2MUX), .ALUK(ALUK), .MDR_In(MDR_In), .MAR(MAR),
+				 .MDR(MDR), .IR(IR));
 
 // Our SRAM and I/O controller
 Mem2IO memory_subsystem(
 	.*, .Reset(Reset_ah), .ADDR(ADDR), .Switches(S),
-//	Uncomment the following line for Week 2 to patch Hex display into Mem2IO
-//	.HEX0(hex_4[0][3:0]), .HEX1(hex_4[1][3:0]), .HEX2(hex_4[2][3:0]), .HEX3(hex_4[3][3:0]),
+	//Uncomment the following line for Week 2 to patch Hex display into Mem2IO
+	.HEX0(/*hex_4[0][3:0]*/), .HEX1(/*hex_4[1][3:0]*/), .HEX2(/*hex_4[2][3:0]*/), .HEX3(/*hex_4[3][3:0]*/),
 	.Data_from_CPU(MDR), .Data_to_CPU(MDR_In),
 	.Data_from_SRAM(Data_from_SRAM), .Data_to_SRAM(Data_to_SRAM)
 );
@@ -98,12 +110,11 @@ ISDU state_controller(
 // Read the instructions in the header of test_memory.sv about how to use it.
 // Test memory is only for simulation, and should NOT be included when circuit is tested on FPGA board.
 // Otherwise, the circuit will not function correctly.
-/*
-test_memory test_memory0(
+
+/*test_memory test_memory0(
 	.Clk(Clk), .Reset(~Reset),
 	.I_O(Data), .A(ADDR),
 	.*
-);
-*/
+);*/
 
 endmodule
