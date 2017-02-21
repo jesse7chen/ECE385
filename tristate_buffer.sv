@@ -9,22 +9,22 @@ input logic[15:0] MARMUX_Out,
 				PC_Out,
 				MDR_Out,
 				
-output logic[15:0] tristate_out
+inout wire[15:0] Data
 );
+
 
 always_comb
 begin
 if(GateMARMUX)
-	tristate_out = MARMUX_Out;
+	Data = MARMUX_Out;
 else if(GatePC)
-	tristate_out = PC_Out;
+	Data = PC_Out;
 else if(GateMDR)
-	tristate_out = MDR_Out;
+	Data = MDR_Out;
 else if(GateALU)
-	tristate_out = ALU_Out;
+	Data = ALU_Out;
 else
-	tristate_out = 16'bXXXXXXXXXXXXXXXX;
-
+	Data = 16'bZZZZZZZZZZZZZZZZ;
 end
 
 endmodule

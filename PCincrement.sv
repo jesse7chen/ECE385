@@ -3,7 +3,7 @@ module PCincrement(
 	output logic [15:0] PCoutput
 );
 
-assign PCouput = PCinput + 1'b1;
+assign PCoutput = PCinput + 1'b1;
 
 
 endmodule

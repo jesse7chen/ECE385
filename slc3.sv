@@ -12,7 +12,7 @@
 //    Revised 07-26-2013
 //    Spring 2015 Distribution
 //    Revised 09-22-2015 
-//    Revised 02-13-2017 
+//    Revised 02-19-2017 
 //    Spring 2017 Distribution
 //
 //------------------------------------------------------------------------------
@@ -45,8 +45,10 @@ assign hex_4[2][3:0] = IR[11:8];
 assign hex_4[1][3:0] = IR[7:4];
 assign hex_4[0][3:0] = IR[3:0];
 
-HexDriver hex_drivers[3:0] (hex_4, {HEX3, HEX2, HEX1, HEX0});
-// This works thanks to http://stackoverflow.com/questions/1378159/verilog-can-we-have-an-array-of-custom-modules
+HexDriver hex_driver3 (hex_4[3][3:0], HEX3);
+HexDriver hex_driver2 (hex_4[2][3:0], HEX2);
+HexDriver hex_driver1 (hex_4[1][3:0], HEX1);
+HexDriver hex_driver0 (hex_4[0][3:0], HEX0);
 
 // Internal connections
 logic BEN;
@@ -68,16 +70,19 @@ assign MIO_EN = ~OE;
 
 // You need to make your own datapath module and connect everything to the datapath
 // Be careful about whether Reset is active high or low
-
-
-
-datapath d0 (.*);
+datapath d0 (.*, .Clk(Clk), .Reset_ah(Reset_ah), .Data(Data), .LD_MAR(LD_MAR),
+				 .LD_MDR(LD_MDR), .LD_IR(LD_IR), .LD_BEN(LD_BEN), .LD_CC(LD_CC),
+				 .LD_REG(LD_REG), .LD_PC(LD_PC), .LD_LED(LD_LED), 
+				 .GatePC(GatePC), .GateMDR(GateMDR), .GateALU(GateALU), .GateMARMUX(GateMARMUX),
+				 .PCMUX(PCMUX), .DRMUX(DRMUX), .SR1MUX(SR1MUX), .SR2MUX(SR2MUX), .ADDR1MUX(ADDR1MUX),
+				 .MIO_EN(MIO_EN), .ADDR2MUX(ADDR2MUX), .ALUK(ALUK), .MDR_In(MDR_In), .MAR(MAR),
+				 .MDR(MDR), .IR(IR));
 
 // Our SRAM and I/O controller
 Mem2IO memory_subsystem(
 	.*, .Reset(Reset_ah), .ADDR(ADDR), .Switches(S),
 //	Uncomment the following line for Week 2 to patch Hex display into Mem2IO
-//	.HEX0(hex_4[0][3:0]), .HEX1(hex_4[1][3:0]), .HEX2(hex_4[2][3:0]), .HEX3(hex_4[3][3:0]),
+	.HEX0(/*hex_4[0][3:0]*/), .HEX1(/*hex_4[1][3:0]*/), .HEX2(/*hex_4[2][3:0]*/), .HEX3(/*hex_4[3][3:0]*/),
 	.Data_from_CPU(MDR), .Data_to_CPU(MDR_In),
 	.Data_from_SRAM(Data_from_SRAM), .Data_to_SRAM(Data_to_SRAM)
 );
@@ -98,12 +103,11 @@ ISDU state_controller(
 // Read the instructions in the header of test_memory.sv about how to use it.
 // Test memory is only for simulation, and should NOT be included when circuit is tested on FPGA board.
 // Otherwise, the circuit will not function correctly.
-/*
+
 test_memory test_memory0(
 	.Clk(Clk), .Reset(~Reset),
 	.I_O(Data), .A(ADDR),
 	.*
 );
-*/
 
 endmodule
