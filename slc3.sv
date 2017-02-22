@@ -69,7 +69,7 @@ logic [15:0] Data_from_SRAM, Data_to_SRAM;
 //	MEM2IO will determine what gets put onto Data_CPU (which serves as a potential
 //	input into MDR)
 assign ADDR = { 4'b00, MAR }; //Note, our external SRAM chip is 1Mx16, but address space is only 64Kx16
-//assign MIO_EN = ~OE;
+assign MIO_EN = ~OE;
 //assign PC_output1 = PC_out;
 //assign MDR_out1 = MDR;
 //assign MAR_out1 = MAR;
@@ -83,7 +83,7 @@ datapath d0 (.*, .Clk(Clk), .Reset_ah(Reset_ah), /*.Data(Data),*/ .LD_MAR(LD_MAR
 				 .GatePC(GatePC), .GateMDR(GateMDR), .GateALU(GateALU), .GateMARMUX(GateMARMUX),
 				 .PCMUX(PCMUX), .DRMUX(DRMUX), .SR1MUX(SR1MUX), .SR2MUX(SR2MUX), .ADDR1MUX(ADDR1MUX),
 				 .MIO_EN(MIO_EN), .ADDR2MUX(ADDR2MUX), .ALUK(ALUK), .MDR_In(MDR_In), .MAR(MAR),
-				 .MDR(MDR), .IR(IR));
+				 .MDR(MDR), .IR(IR), .BEN_out(BEN));
 
 // Our SRAM and I/O controller
 Mem2IO memory_subsystem(

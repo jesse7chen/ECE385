@@ -24,7 +24,8 @@ module datapath(
 				input logic [1:0] 	ADDR2MUX,
 									ALUK,
 				input logic [15:0] MDR_In,					
-				output logic [15:0] MAR, MDR, IR//, PC_out
+				output logic [15:0] MAR, MDR, IR,//, PC_out
+				output logic BEN_out
 
 );
 
@@ -34,7 +35,10 @@ logic [15:0] Data;
 
 // Branch logic components
 logic [2:0] NZP;
+wire [2:0] NZP_wire;
+
 logic BEN;
+wire BEN_wire;
 
 logic [15:0] increment; // Wire from PCIncrement to PCMUX
 logic [15:0] ALU_Out; // Wire from ALU output to Data MUX
@@ -49,15 +53,16 @@ logic [2:0] DRMUXtoReg;
 logic [15:0] MDRMUXtoMDR;
 
 logic [15:0] PCMUX_output; // Wire from PCMUX to PC register
-
 logic [15:0] ADDR2MUXtoAdder;
 
+logic [15:0] IRtoSR2MUX;
+SEXT#(4) SEXT_SR2MUX(.in(IR[4:0]), .out(IRtoSR2MUX));
 	
 // Declares 2-1 MUX
-mux2 _ADDR1MUX (.select(ADDR1MUX), .inA(), .inB(), .out(ADDR1MUXtoAdder));
-mux2#(2) _SR1MUX (.select(SR1MUX), .inA(SR1_out), .inB(PC), .out(SR1MUXtoReg));
-mux2 _SR2MUX (.select(SR2MUX), .inA(), .inB(), .out(SR2MUXtoALU));
-mux2#(2) _DRMUX (.select(DRMUX), .inA(), .inB(), .out(DRMUXtoReg));
+mux2 _ADDR1MUX (.select(ADDR1MUX), .inA(SR1_out), .inB(PC), .out(ADDR1MUXtoAdder));
+mux2#(2) _SR1MUX (.select(SR1MUX), .inA(IR[11:9]), .inB(IR[8:6]), .out(SR1MUXtoReg));
+mux2 _SR2MUX (.select(SR2MUX), .inA(IRtoSR2MUX), .inB(SR2_out), .out(SR2MUXtoALU));
+mux2#(2) _DRMUX (.select(DRMUX), .inA(3'b111), .inB(IR[11:9]), .out(DRMUXtoReg));
 mux2 _MDRMUX (.select(MIO_EN), .inA(Data), .inB(MDR_In), .out(MDRMUXtoMDR));
 
 // Declares PCMUX
@@ -65,7 +70,12 @@ mux2 _MDRMUX (.select(MIO_EN), .inA(Data), .inB(MDR_In), .out(MDRMUXtoMDR));
 mux3 _PCMUX(.select(PCMUX), .inA(increment), .inB(Adder_output), .inC(Data), .out(PCMUX_output));
 
 // Declare 4-1 MUX
-mux4 _ADDR2MUX(.select(ADDR2MUX), .inA(), .inB(), .inC(), .inD(16'b0000000000000000), .out(ADDR2MUXtoAdder));
+logic [15:0] ADDR2MUX_A, ADDR2MUX_B, ADDER2MUX_C;
+mux4 _ADDR2MUX(.select(ADDR2MUX), .inA(ADDR2MUX_A), .inB(ADDR2MUX_B), .inC(ADDER2MUX_C), 
+					.inD(16'b0000000000000000), .out(ADDR2MUXtoAdder));
+SEXT#(10) SEXT0(.in(IR[10:0]), .out(ADDER2MUX_A));
+SEXT#(8) SEXT1(.in(IR[8:0]), .out(ADDER2MUX_B));
+SEXT#(5) SEXT2(.in(IR[5:0]), .out(ADDER2MUX_C));
 
 // 5-1 MUX controlling flow to data bus
 tristate_buffer DATA_MUX(.GateALU(GateALU), .GateMARMUX(GateMARMUX), .GateMDR(GateMDR), .GatePC(GatePC),
@@ -84,6 +94,12 @@ regfile register(.Clk(Clk), .Data(Data), .DR_in(DRMUXtoReg), .SR1_in(SR1MUXtoReg
 // 16 bit adder
 assign Adder_output = ADDR2MUXtoAdder + ADDR1MUXtoAdder;
 
+// NZP logic
+NZPlogic NZP_logic(.Data(Data), .NZP_wire(NZP_wire));
+
+// BEN logic
+BENlogic BEN_logic(.NZP(NZP), .IR(IR[15:12]), .BEN(BEN_wire));
+
 	always_ff @ (posedge Clk)
 	begin
 		if (Reset_ah)
@@ -101,26 +117,17 @@ assign Adder_output = ADDR2MUXtoAdder + ADDR1MUXtoAdder;
 			PC <= PCMUX_output;
 		if (LD_MDR)
 			MDRreg <= MDRMUXtoMDR;
+		if (LD_CC)
+			NZP <= NZP_wire;
+		if (LD_BEN)
+			BEN <= BEN_wire;
+		// LD_REG is in register file
 	end
-
-	/*always_comb
-		begin
-			if(GatePC)
-				Data = PC;
-			else if(GateALU)
-				Data = ALU_Out;
-			else if(GateMARMUX)
-				Data = Adder_output;
-			else if(GateMDR)
-				Data = MDRreg;
-			else
-				Data = 
-		end*/
 		
 	assign IR = IRreg;
 	assign MAR = MARreg;
 	assign MDR = MDRreg;
-	assign PC_out = PC;
-	
+	assign BEN_out = BEN;
+	//assign PC_out = PC;
 	
 endmodule
