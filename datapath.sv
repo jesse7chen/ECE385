@@ -61,7 +61,7 @@ SEXT#(4) SEXT_SR2MUX(.in(IR[4:0]), .out(IRtoSR2MUX));
 // Declares 2-1 MUX
 mux2 _ADDR1MUX (.select(ADDR1MUX), .inA(SR1_out), .inB(PC), .out(ADDR1MUXtoAdder));
 mux2#(2) _SR1MUX (.select(SR1MUX), .inA(IR[11:9]), .inB(IR[8:6]), .out(SR1MUXtoReg));
-mux2 _SR2MUX (.select(SR2MUX), .inA(IRtoSR2MUX), .inB(SR2_out), .out(SR2MUXtoALU));
+mux2 _SR2MUX (.select(SR2MUX), .inA(SR2_out), .inB(IRtoSR2MUX), .out(SR2MUXtoALU));
 mux2#(2) _DRMUX (.select(DRMUX), .inA(3'b111), .inB(IR[11:9]), .out(DRMUXtoReg));
 mux2 _MDRMUX (.select(MIO_EN), .inA(Data), .inB(MDR_In), .out(MDRMUXtoMDR));
 

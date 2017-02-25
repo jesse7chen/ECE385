@@ -126,7 +126,7 @@ module ISDU ( 	input logic			Clk,
 						  
 						  
             S_32 : 
-				case (Opcode)
+				unique case (Opcode)
 				
 					4'b0001 : 
 					    Next_state <= S_01; //ADD
@@ -154,10 +154,6 @@ module ISDU ( 	input logic			Clk,
 
 					4'b1101 : 
 					    Next_state <= PauseIR1;	//PSE
-
-
-						 
-
 
 					default : 
 					    Next_state <= S_18;
@@ -259,13 +255,13 @@ module ISDU ( 	input logic			Clk,
 					 
 			S_01 : //ADD
 				begin 
-					SR2MUX			= IR_5;	//*******make sure when 1, it passes IR and when 0 passes SR2
-					ALUK 				= 2'b00;
+					SR2MUX			= IR_5;	//*******make sure when 1, it passes IR and when 0 passes SR2 - Fixed
+					ALUK 				= 2'b00; // Make sure this is add function - Checked
 					GateALU			= 1'b1;
 					LD_REG 			= 1'b1;
-					SR1MUX  			= 1'b1;
+					SR1MUX  			= 1'b1; // Make sure this is passing IR[8:6]
 					LD_CC 			= 1'b1;
-					DRMUX				= 1'b1;	//*****make sure when 1 it passes IR [11:9]
+					DRMUX				= 1'b1;	//*****make sure when 1 it passes IR [11:9] - Checked
 				end
 			
 			S_05 : //AND
@@ -275,106 +271,95 @@ module ISDU ( 	input logic			Clk,
 					ALUK = 2'b01;
 					GateALU = 1'b1;
 					LD_REG = 1'b1;
+					SR1MUX = 1'b1;
 					LD_CC = 1'b1; 
+					DRMUX	= 1'b1;
 				end	
 				
 				
-			S_09 : 
+			S_09 : // NOT
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
+					ALUK = 2'b10;
 					GateALU = 1'b1;
 					LD_REG = 1'b1;
+					SR1MUX = 1'b1;
+					LD_CC = 1'b1; 
+					DRMUX	= 1'b1;
 				end
 				
 				
-			S_06 : 
+			S_06 : // LDR - Load address into MAR
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
-					LD_REG = 1'b1;
+					LD_MAR = 1'b1;
+					SR1MUX = 1'b1;
+					ADDR2MUX = 2'b10;
+					GateMARMUX = 1'b1;
+					ADDR1MUX = 1'b0;
 				end	
 
 
-			S_25 : 
+			S_25 : // LDR - Call output
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
-					LD_REG = 1'b1;
+					Mem_OE = 1'b1;
 				end
 				
 				
-			S_25_2 : 
+			S_25_2 : // LDR - Load output into MDR
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
-					LD_REG = 1'b1;
+					Mem_OE = 1'b0;
+					LD_MDR = 1'b1;
+					// Do we need MIO.EN?
 				end	
 
 
-			S_27 : 
+			S_27 : // LDR - Load MDR into register
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
 					LD_REG = 1'b1;
+					DRMUX	= 1'b1;
+					GateMDR = 1'b1;
 				end
 				
 				
-			S_07 : 
+			S_07 : // Store - Load address into MAR - This code copied from S_06
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
-					LD_REG = 1'b1;
+					LD_MAR = 1'b1;
+					SR1MUX = 1'b1; // Use BaseR as address
+					ADDR2MUX = 2'b10;
+					GateMARMUX = 1'b1;
+					ADDR1MUX = 1'b0;	
 				end	
 
 
-			S_23 : 
+			S_23 : // Store - Get data to be stored, put in MDR
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
 					GateALU = 1'b1;
-					LD_REG = 1'b1;
+					LD_MDR = 1'b1;
+					// Set MIO_EN here
+					SR1MUX = 1'b0; // Use SR as address
+					ALUK = 2'b11; // Just pass SR1 register value
 				end
 				
-				
-			S_16 : 
+			S_16 :  // Store - 
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
-					LD_REG = 1'b1;
+					
 				end			
 		
 		
-			S_16_2 : 
+			S_16_2 : // Store - 
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
-					LD_REG = 1'b1;
+
+				
 				end
 				
 				
-			S_00 : 
+			S_00 : // Branch
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
-					LD_REG = 1'b1;
+					LD_BEN = 1'b1; // Make sure that BEN is actually being output wire of datapath
 				end	
 		
-
-			S_22 : 
+			S_22 : // Jump to proper instruction
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
-					LD_REG = 1'b1;
+
 				end
 				
 			S_12 : 
@@ -384,7 +369,6 @@ module ISDU ( 	input logic			Clk,
 					GateALU = 1'b1;
 					LD_REG = 1'b1;
 				end			
-				
 				
 			S_04 : 
 				begin 
