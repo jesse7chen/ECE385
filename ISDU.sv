@@ -52,7 +52,8 @@ module ISDU ( 	input logic			Clk,
 									Mem_UB,
 									Mem_LB,
 									Mem_OE,
-									Mem_WE
+									Mem_WE,
+									MIO_EN
 				);
 
     enum logic [4:0] {	Halted, 
@@ -126,7 +127,7 @@ module ISDU ( 	input logic			Clk,
 						  
 						  
             S_32 : 
-				unique case (Opcode)
+				/*unique */case (Opcode)	//shouldn't be unique since we don't use all opcodes
 				
 					4'b0001 : 
 					    Next_state <= S_01; //ADD
@@ -223,6 +224,9 @@ module ISDU ( 	input logic			Clk,
 		 
 	    Mem_OE = 1'b1;
 	    Mem_WE = 1'b1;
+		 
+		 MIO_EN = 1'b0;
+		 
 		
 		// Assign control signals based on current state
 	    case (State)
@@ -259,13 +263,13 @@ module ISDU ( 	input logic			Clk,
 					ALUK 				= 2'b00; // Make sure this is add function - Checked
 					GateALU			= 1'b1;
 					LD_REG 			= 1'b1;
-					SR1MUX  			= 1'b1; // Make sure this is passing IR[8:6]
+					SR1MUX  			= 1'b1; // Make sure this is passing IR[8:6]	- Checked
 					LD_CC 			= 1'b1;
 					DRMUX				= 1'b1;	//*****make sure when 1 it passes IR [11:9] - Checked
 				end
 			
-			S_05 : //AND
 			
+			S_05 : //AND
 				begin 
 					SR2MUX = IR_5;
 					ALUK = 2'b01;
@@ -300,15 +304,16 @@ module ISDU ( 	input logic			Clk,
 
 			S_25 : // LDR - Call output
 				begin 
-					Mem_OE = 1'b1;
+					Mem_OE = 1'b0;	//Active Low
 				end
 				
 				
 			S_25_2 : // LDR - Load output into MDR
 				begin 
-					Mem_OE = 1'b0;
+					Mem_OE = 1'b0;	// changed this to enable output for both states
 					LD_MDR = 1'b1;
-					// Do we need MIO.EN?
+					MIO_EN = 1'b0;
+					// Do we need MIO.EN? - Don't think so since it's active low anyway but just in case
 				end	
 
 
@@ -317,6 +322,7 @@ module ISDU ( 	input logic			Clk,
 					LD_REG = 1'b1;
 					DRMUX	= 1'b1;
 					GateMDR = 1'b1;
+					LD_CC = 1'b1;
 				end
 				
 				
@@ -334,21 +340,22 @@ module ISDU ( 	input logic			Clk,
 				begin 
 					GateALU = 1'b1;
 					LD_MDR = 1'b1;
-					// Set MIO_EN here
+					MIO_EN = 1'b0; // Set MIO_EN here
 					SR1MUX = 1'b0; // Use SR as address
 					ALUK = 2'b11; // Just pass SR1 register value
 				end
 				
 			S_16 :  // Store - 
 				begin 
-					
+				Mem_WE = 1'b0;
+				GateMDR = 1'b1;
 				end			
 		
 		
 			S_16_2 : // Store - 
 				begin 
-
-				
+					Mem_WE = 1'b0;
+					GateMDR = 1'b1;
 				end
 				
 				
@@ -357,33 +364,36 @@ module ISDU ( 	input logic			Clk,
 					LD_BEN = 1'b1; // Make sure that BEN is actually being output wire of datapath
 				end	
 		
-			S_22 : // Jump to proper instruction
+			S_22 : // Branch to proper instruction
 				begin 
-
+					PCMUX = 2'b01;
+					LD_PC = 1'b1;	
+					ADDR1MUX = 1'b1;
+					ADDR2MUX = 2'b01;	
 				end
 				
-			S_12 : 
+			S_12 : //Jump
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
-					LD_REG = 1'b1;
+					SR1MUX = 1'b1;
+					ADDR1MUX = 1'b0;
+					ADDR2MUX = 2'b11;
+					PCMUX = 2'b01;
+					LD_PC	= 1'b1;
 				end			
 				
-			S_04 : 
+			S_04 : //JSR
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
+					GatePC = 1'b1;
 					LD_REG = 1'b1;
+					DRMUX = 1'b0;
 				end
 				
-			S_21 : 
+			S_21 : //JSR
 				begin 
-					SR2MUX = IR_5;
-					ALUK = 2'b00;
-					GateALU = 1'b1;
-					LD_REG = 1'b1;
+					ADDR1MUX = 1'b1;
+					ADDR2MUX = 2'b00;
+					PCMUX = 2'b01;
+					LD_PC = 1'b1;
 				end	
 
 				

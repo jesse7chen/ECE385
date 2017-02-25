@@ -69,7 +69,9 @@ logic [15:0] Data_from_SRAM, Data_to_SRAM;
 //	MEM2IO will determine what gets put onto Data_CPU (which serves as a potential
 //	input into MDR)
 assign ADDR = { 4'b00, MAR }; //Note, our external SRAM chip is 1Mx16, but address space is only 64Kx16
-assign MIO_EN = ~OE;
+
+//assign MIO_EN = ~OE; //**********removed this
+
 //assign PC_output1 = PC_out;
 //assign MDR_out1 = MDR;
 //assign MAR_out1 = MAR;
@@ -103,7 +105,7 @@ tristate #(.N(16)) tr0(
 ISDU state_controller(
 	.*, .Reset(Reset_ah), .Run(Run_ah), .Continue(Continue_ah),
 	.Opcode(IR[15:12]), .IR_5(IR[5]), .IR_11(IR[11]),
-	.Mem_CE(CE), .Mem_UB(UB), .Mem_LB(LB), .Mem_OE(OE), .Mem_WE(WE)
+	.Mem_CE(CE), .Mem_UB(UB), .Mem_LB(LB), .Mem_OE(OE), .Mem_WE(WE), .MIO_EN(MIO_EN)
 );
 
 // An example of instantiating the test_memory. Do not instantiate it here.
