@@ -52,9 +52,11 @@ module ISDU ( 	input logic			Clk,
 									Mem_UB,
 									Mem_LB,
 									Mem_OE,
-									Mem_WE,
-									MIO_EN
+									Mem_WE
 				);
+				
+	 logic Mem_WE_Input;
+	 logic Mem_WE_Output;
 
     enum logic [4:0] {	Halted, 
     					PauseIR1, 
@@ -223,10 +225,7 @@ module ISDU ( 	input logic			Clk,
 	    ADDR2MUX = 2'b00;
 		 
 	    Mem_OE = 1'b1;
-	    Mem_WE = 1'b1;
-		 
-		 MIO_EN = 1'b0;
-		 
+	    Mem_WE_Input = 1'b1;
 		
 		// Assign control signals based on current state
 	    case (State)
@@ -310,9 +309,8 @@ module ISDU ( 	input logic			Clk,
 				
 			S_25_2 : // LDR - Load output into MDR
 				begin 
-					Mem_OE = 1'b0;	// changed this to enable output for both states
+					Mem_OE = 1'b0;	// changed this to enable output for both states - Means that we want 1'b1 to select MDR_IN on MDR_MUX
 					LD_MDR = 1'b1;
-					MIO_EN = 1'b0;
 					// Do we need MIO.EN? - Don't think so since it's active low anyway but just in case
 				end	
 
@@ -339,23 +337,20 @@ module ISDU ( 	input logic			Clk,
 			S_23 : // Store - Get data to be stored, put in MDR
 				begin 
 					GateALU = 1'b1;
-					LD_MDR = 1'b1;
-					MIO_EN = 1'b0; // Set MIO_EN here
+					LD_MDR = 1'b1; 
 					SR1MUX = 1'b0; // Use SR as address
 					ALUK = 2'b11; // Just pass SR1 register value
 				end
 				
 			S_16 :  // Store - 
 				begin 
-				Mem_WE = 1'b0;
-				GateMDR = 1'b1;
+				Mem_WE_Input = 1'b0;
 				end			
 		
 		
 			S_16_2 : // Store - 
 				begin 
-					Mem_WE = 1'b0;
-					GateMDR = 1'b1;
+					Mem_WE_Input = 1'b0;
 				end
 				
 				
@@ -366,37 +361,36 @@ module ISDU ( 	input logic			Clk,
 		
 			S_22 : // Branch to proper instruction
 				begin 
-					PCMUX = 2'b01;
+					PCMUX = 2'b01; //Should load output from adder - Checked
 					LD_PC = 1'b1;	
-					ADDR1MUX = 1'b1;
-					ADDR2MUX = 2'b01;	
+					ADDR1MUX = 1'b1; // Should load PC - Checked
+					ADDR2MUX = 2'b01;	// Should load offset 9 - Checked
 				end
 				
 			S_12 : //Jump
 				begin 
-					SR1MUX = 1'b1;
-					ADDR1MUX = 1'b0;
-					ADDR2MUX = 2'b11;
-					PCMUX = 2'b01;
+					SR1MUX = 1'b1; // Should load BaseR into SR1 - Checked
+					ADDR1MUX = 1'b0; // Should output SR1
+					ADDR2MUX = 2'b11; // Should output 0
+					PCMUX = 2'b01; // Should take adder as input
 					LD_PC	= 1'b1;
 				end			
 				
 			S_04 : //JSR
 				begin 
 					GatePC = 1'b1;
-					LD_REG = 1'b1;
-					DRMUX = 1'b0;
+					LD_REG = 1'b1; 
+					DRMUX = 1'b0; // DRMUX loads 111
 				end
 				
 			S_21 : //JSR
 				begin 
-					ADDR1MUX = 1'b1;
-					ADDR2MUX = 2'b00;
-					PCMUX = 2'b01;
-					LD_PC = 1'b1;
+					ADDR1MUX = 1'b1; // Adds PC
+					ADDR2MUX = 2'b00; // Ads offset11
+					PCMUX = 2'b01; // Takes input from adder
+					LD_PC = 1'b1; // Loads PC
 				end	
 
-				
             default : ;
         endcase
     end 
@@ -405,5 +399,8 @@ module ISDU ( 	input logic			Clk,
 	assign Mem_CE = 1'b0;
 	assign Mem_UB = 1'b0;
 	assign Mem_LB = 1'b0;
+	
+	FlipFlop MEM_WE(.Clk(Clk), .Reset(Reset), .Load(~Reset), .D(Mem_WE_Input), .Q(Mem_WE_Output));
+	assign Mem_WE = Mem_WE_Output;
 	
 endmodule

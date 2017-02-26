@@ -43,10 +43,10 @@ logic [3:0][3:0] hex_4;
 // Remove the following assignments for Week 2
 logic [15:0] IR;
 
-assign hex_4[3][3:0] = IR[15:12];
-assign hex_4[2][3:0] = IR[11:8];
-assign hex_4[1][3:0] = IR[7:4];
-assign hex_4[0][3:0] = IR[3:0];
+//assign hex_4[3][3:0] = IR[15:12];
+//assign hex_4[2][3:0] = IR[11:8];
+//assign hex_4[1][3:0] = IR[7:4];
+//assign hex_4[0][3:0] = IR[3:0];
 
 HexDriver hex_driver3 (hex_4[3][3:0], HEX3);
 HexDriver hex_driver2 (hex_4[2][3:0], HEX2);
@@ -69,9 +69,7 @@ logic [15:0] Data_from_SRAM, Data_to_SRAM;
 //	MEM2IO will determine what gets put onto Data_CPU (which serves as a potential
 //	input into MDR)
 assign ADDR = { 4'b00, MAR }; //Note, our external SRAM chip is 1Mx16, but address space is only 64Kx16
-
-//assign MIO_EN = ~OE; //**********removed this
-
+assign MIO_EN = ~OE;
 //assign PC_output1 = PC_out;
 //assign MDR_out1 = MDR;
 //assign MAR_out1 = MAR;
@@ -105,7 +103,7 @@ tristate #(.N(16)) tr0(
 ISDU state_controller(
 	.*, .Reset(Reset_ah), .Run(Run_ah), .Continue(Continue_ah),
 	.Opcode(IR[15:12]), .IR_5(IR[5]), .IR_11(IR[11]),
-	.Mem_CE(CE), .Mem_UB(UB), .Mem_LB(LB), .Mem_OE(OE), .Mem_WE(WE), .MIO_EN(MIO_EN)
+	.Mem_CE(CE), .Mem_UB(UB), .Mem_LB(LB), .Mem_OE(OE), .Mem_WE(WE)
 );
 
 // An example of instantiating the test_memory. Do not instantiate it here.
