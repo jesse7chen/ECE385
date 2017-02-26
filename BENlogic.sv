@@ -1,6 +1,6 @@
 module BENlogic(
-	input [2:0] NZP, IR,
-	output BEN
+	input logic [2:0] NZP, IR,
+	output logic BEN
 );
 
 always_comb

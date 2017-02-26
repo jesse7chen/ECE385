@@ -13,7 +13,7 @@ logic CE, UB, LB, OE, WE;
 logic [19:0] ADDR;
 wire [15:0] Data; //tristate buffers need to be of type wire
 
-logic [15:0] MAR_out, MDR_out, IR_out, PC_output;
+//logic [15:0] MAR_out, MDR_out, IR_out, PC_output;
 
 
 temp_top temp(.*);

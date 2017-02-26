@@ -1,6 +1,6 @@
 module NZPlogic (
-	input [15:0] Data,
-	output [2:0] NZP_wire
+	input logic [15:0] Data,
+	output logic [2:0] NZP_wire
 );
 
 
