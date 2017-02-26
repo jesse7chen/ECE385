@@ -42,6 +42,7 @@ assign Run_ah = ~Run;
 logic [3:0][3:0] hex_4;
 // Remove the following assignments for Week 2
 logic [15:0] IR;
+logic [11:0] LED_wire;
 
 //assign hex_4[3][3:0] = IR[15:12];
 //assign hex_4[2][3:0] = IR[11:8];
@@ -70,6 +71,7 @@ logic [15:0] Data_from_SRAM, Data_to_SRAM;
 //	input into MDR)
 assign ADDR = { 4'b00, MAR }; //Note, our external SRAM chip is 1Mx16, but address space is only 64Kx16
 assign MIO_EN = ~OE;
+assign LED = LED_wire;
 //assign PC_output1 = PC_out;
 //assign MDR_out1 = MDR;
 //assign MAR_out1 = MAR;
@@ -83,13 +85,13 @@ datapath d0 (.*, .Clk(Clk), .Reset_ah(Reset_ah), /*.Data(Data),*/ .LD_MAR(LD_MAR
 				 .GatePC(GatePC), .GateMDR(GateMDR), .GateALU(GateALU), .GateMARMUX(GateMARMUX),
 				 .PCMUX(PCMUX), .DRMUX(DRMUX), .SR1MUX(SR1MUX), .SR2MUX(SR2MUX), .ADDR1MUX(ADDR1MUX),
 				 .MIO_EN(MIO_EN), .ADDR2MUX(ADDR2MUX), .ALUK(ALUK), .MDR_In(MDR_In), .MAR(MAR),
-				 .MDR(MDR), .IR(IR), .BEN_out(BEN));
+				 .MDR(MDR), .IR(IR), .BEN_out(BEN), .LED(LED_wire));
 
 // Our SRAM and I/O controller
 Mem2IO memory_subsystem(
 	.*, .Reset(Reset_ah), .ADDR(ADDR), .Switches(S),
 	//Uncomment the following line for Week 2 to patch Hex display into Mem2IO
-	.HEX0(/*hex_4[0][3:0]*/), .HEX1(/*hex_4[1][3:0]*/), .HEX2(/*hex_4[2][3:0]*/), .HEX3(/*hex_4[3][3:0]*/),
+	.HEX0(hex_4[0][3:0]), .HEX1(hex_4[1][3:0]), .HEX2(hex_4[2][3:0]), .HEX3(hex_4[3][3:0]),
 	.Data_from_CPU(MDR), .Data_to_CPU(MDR_In),
 	.Data_from_SRAM(Data_from_SRAM), .Data_to_SRAM(Data_to_SRAM)
 );

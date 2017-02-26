@@ -25,8 +25,8 @@ module datapath(
 									ALUK,
 				input logic [15:0] MDR_In,					
 				output logic [15:0] MAR, MDR, IR,//, PC_out
-				output logic BEN_out
-
+				output logic BEN_out,
+				output logic [11:0] LED
 );
 
 // Declare all registers
@@ -70,12 +70,14 @@ mux2 _MDRMUX (.select(MIO_EN), .inA(Data), .inB(MDR_In), .out(MDRMUXtoMDR));
 mux3 _PCMUX(.select(PCMUX), .inA(increment), .inB(Adder_output), .inC(Data), .out(PCMUX_output));
 
 // Declare 4-1 MUX
-logic [15:0] ADDR2MUX_A, ADDR2MUX_B, ADDER2MUX_C;
-mux4 _ADDR2MUX(.select(ADDR2MUX), .inA(ADDR2MUX_A), .inB(ADDR2MUX_B), .inC(ADDER2MUX_C), 
+logic [15:0] ADDR2MUX_A;
+logic [15:0] ADDR2MUX_B;
+logic [15:0] ADDR2MUX_C;
+mux4 _ADDR2MUX(.select(ADDR2MUX), .inA(ADDR2MUX_A), .inB(ADDR2MUX_B), .inC(ADDR2MUX_C), 
 					.inD(16'b0000000000000000), .out(ADDR2MUXtoAdder));
-SEXT#(10) SEXT0(.in(IR[10:0]), .out(ADDER2MUX_A));
-SEXT#(8) SEXT1(.in(IR[8:0]), .out(ADDER2MUX_B));
-SEXT#(5) SEXT2(.in(IR[5:0]), .out(ADDER2MUX_C));
+SEXT#(10) SEXT0(.in(IR[10:0]), .out(ADDR2MUX_A));
+SEXT#(8) SEXT1(.in(IR[8:0]), .out(ADDR2MUX_B));
+SEXT#(5) SEXT2(.in(IR[5:0]), .out(ADDR2MUX_C));
 
 // 5-1 MUX controlling flow to data bus
 tristate_buffer DATA_MUX(.GateALU(GateALU), .GateMARMUX(GateMARMUX), .GateMDR(GateMDR), .GatePC(GatePC),
@@ -89,16 +91,16 @@ ALU _ALU(.ALUK(ALUK), .inA(SR1_out), .inB(SR2MUXtoALU), .ALU_Out(ALU_Out));
 
 // regfile
 regfile register(.Clk(Clk), .Data(Data), .DR_in(DRMUXtoReg), .SR1_in(SR1MUXtoReg), .SR2_in(IR[2:0]), .LD_REG(LD_REG),
-					  .SR1_out(SR1_out), .SR2_out(SR2_out));
+					  .SR1_out(SR1_out), .SR2_out(SR2_out), .Reset(Reset_ah));
 
 // 16 bit adder
-assign Adder_output = ADDR2MUXtoAdder + ADDR1MUXtoAdder;
+adder _adder(.inA(ADDR2MUXtoAdder), .inB(ADDR1MUXtoAdder), .out(Adder_output));
 
 // NZP logic
 NZPlogic NZP_logic(.Data(Data), .NZP_wire(NZP_wire));
 
 // BEN logic
-BENlogic BEN_logic(.NZP(NZP), .IR(IR[15:12]), .BEN(BEN_wire));
+BENlogic BEN_logic(.NZP(NZP), .IR(IR[11:9]), .BEN(BEN_wire));
 
 	always_ff @ (posedge Clk)
 	begin
@@ -121,6 +123,8 @@ BENlogic BEN_logic(.NZP(NZP), .IR(IR[15:12]), .BEN(BEN_wire));
 			NZP <= NZP_wire;
 		if (LD_BEN)
 			BEN <= BEN_wire;
+		if (LD_LED)
+			LED <= IR[11:0];
 		// LD_REG is in register file
 	end
 		

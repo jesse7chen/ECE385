@@ -249,8 +249,8 @@ module ISDU ( 	input logic			Clk,
 					GateMDR = 1'b1;
 					LD_IR = 1'b1;
 				end
-			PauseIR1: ;
-			PauseIR2: ;
+			PauseIR1: LD_LED = 1'b1;
+			PauseIR2: LD_LED = 1'b1;
 			S_32 : 
                 LD_BEN = 1'b1;
 					 
@@ -340,6 +340,8 @@ module ISDU ( 	input logic			Clk,
 					LD_MDR = 1'b1; 
 					SR1MUX = 1'b0; // Use SR as address
 					ALUK = 2'b11; // Just pass SR1 register value
+					Mem_WE_Input = 1'b0; // We set it high here because this is 
+												// sychronized and will appear high one cycle later
 				end
 				
 			S_16 :  // Store - 
@@ -350,7 +352,7 @@ module ISDU ( 	input logic			Clk,
 		
 			S_16_2 : // Store - 
 				begin 
-					Mem_WE_Input = 1'b0;
+					Mem_WE_Input = 1'b1;
 				end
 				
 				

@@ -6,7 +6,8 @@ timeprecision 0.1ms;
 
 logic [15:0] S;
 logic	Clk = 0;
-logic Reset, Run, Continue;
+logic Reset, Run; 
+logic Continue = 0;
 logic [11:0] LED;
 logic [6:0] HEX0, HEX1, HEX2, HEX3;
 logic CE, UB, LB, OE, WE;
@@ -23,89 +24,29 @@ always begin: CLOCK_GENERATION
 #1 Clk = ~Clk;
 end
 
+always begin: Continue_Generation
+#4 Continue = ~Continue;
+end
+
 initial begin: CLOCK_INITIALIZATION
 Clk = 0;
 end
 
 
 initial begin: TEST_VECTORS
-S = 16'b0000000000000000;
+S = 16'b0000000000110001;
 Reset = 0;
 Run = 1;
 Continue = 1;
 
-#8
+#4
 Reset = 1;
 
-#8
+#4
 Run = 0;
 
-#8
+#4
 Run = 1;
-
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
-
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
-
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
-
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
-
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
-
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
-
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
-
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
-
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
-#8
-Continue = 1;
-
-#8 
-Continue = 0;
 
 end
 
