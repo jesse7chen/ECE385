@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+<provider id="org.eclipse.egit.core.GitProvider">
+<project reference="1.0,https://github.com/gayde2/ECE385.git,master,Lab8_provided/RemoteSystemsTempFiles"/>
+<project reference="1.0,https://github.com/gayde2/ECE385.git,master,Lab8_provided/software/usb_kb"/>
+<project reference="1.0,https://github.com/gayde2/ECE385.git,master,Lab8_provided/software/usb_kb_bsp"/>
+</provider>
+</psf>
