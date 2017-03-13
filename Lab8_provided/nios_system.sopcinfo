@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<EnsembleReport name="lab8_soc" kind="lab8_soc" version="1.0" fabric="QSYS">
+<EnsembleReport name="nios_system" kind="nios_system" version="1.0" fabric="QSYS">
  <!-- Format version 15.0 145 (Future versions may contain additional information.) -->
- <!-- 2017.03.12.23:12:00 -->
+ <!-- 2017.03.13.15:14:53 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1489378320</value>
+  <value>1489436092</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1106,12 +1106,6 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>nios2_gen2_0</moduleName>
-    <slaveName>clk</slaveName>
-    <name>nios2_gen2_0.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
     <moduleName>sysid_qsys_0</moduleName>
     <slaveName>clk</slaveName>
     <name>sysid_qsys_0.clk</name>
@@ -1169,6 +1163,12 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>otg_hpi_w</moduleName>
     <slaveName>clk</slaveName>
     <name>otg_hpi_w.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>nios2_qsys_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>nios2_qsys_0.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -2749,10 +2749,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="nios2_gen2_0"
+   name="nios2_qsys_0"
    kind="altera_nios2_gen2"
    version="15.0"
-   path="nios2_gen2_0">
+   path="nios2_qsys_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <assignment>
@@ -2885,7 +2885,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.configuration.breakSlave</name>
-   <value>nios2_gen2_0.debug_mem_slave</value>
+   <value>nios2_qsys_0.debug_mem_slave</value>
   </assignment>
   <assignment>
    <name>embeddedsw.configuration.cpuArchitecture</name>
@@ -4117,7 +4117,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="breakSlave_derived">
    <type>java.lang.String</type>
-   <value>nios2_gen2_0.debug_mem_slave</value>
+   <value>nios2_qsys_0.debug_mem_slave</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -4327,7 +4327,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="instSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x1000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x1800' end='0x2000' /><slave name='key.s1' start='0x2090' end='0x20A0' /><slave name='switch.s1' start='0x20A0' end='0x20B0' /><slave name='sdram_pll.pll_slave' start='0x20B0' end='0x20C0' /><slave name='sysid_qsys_0.control_slave' start='0x20D0' end='0x20D8' /><slave name='sdram.s1' start='0x10000000' end='0x18000000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x1000' /><slave name='nios2_qsys_0.debug_mem_slave' start='0x1800' end='0x2000' /><slave name='key.s1' start='0x2090' end='0x20A0' /><slave name='switch.s1' start='0x20A0' end='0x20B0' /><slave name='sdram_pll.pll_slave' start='0x20B0' end='0x20C0' /><slave name='sysid_qsys_0.control_slave' start='0x20D0' end='0x20D8' /><slave name='sdram.s1' start='0x10000000' end='0x18000000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -4347,7 +4347,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x1000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x1800' end='0x2000' /><slave name='otg_hpi_w.s1' start='0x2030' end='0x2040' /><slave name='otg_hpi_r.s1' start='0x2040' end='0x2050' /><slave name='otg_hpi_data.s1' start='0x2050' end='0x2060' /><slave name='otg_hpi_address.s1' start='0x2060' end='0x2070' /><slave name='otg_hpi_cs.s1' start='0x2070' end='0x2080' /><slave name='Keycode.s1' start='0x2080' end='0x2090' /><slave name='key.s1' start='0x2090' end='0x20A0' /><slave name='switch.s1' start='0x20A0' end='0x20B0' /><slave name='sdram_pll.pll_slave' start='0x20B0' end='0x20C0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x20C8' end='0x20D0' /><slave name='sysid_qsys_0.control_slave' start='0x20D0' end='0x20D8' /><slave name='sdram.s1' start='0x10000000' end='0x18000000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x1000' /><slave name='nios2_qsys_0.debug_mem_slave' start='0x1800' end='0x2000' /><slave name='otg_hpi_w.s1' start='0x2030' end='0x2040' /><slave name='otg_hpi_r.s1' start='0x2040' end='0x2050' /><slave name='otg_hpi_data.s1' start='0x2050' end='0x2060' /><slave name='otg_hpi_address.s1' start='0x2060' end='0x2070' /><slave name='otg_hpi_cs.s1' start='0x2070' end='0x2080' /><slave name='Keycode.s1' start='0x2080' end='0x2090' /><slave name='key.s1' start='0x2090' end='0x20A0' /><slave name='switch.s1' start='0x20A0' end='0x20B0' /><slave name='sdram_pll.pll_slave' start='0x20B0' end='0x20C0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x20C8' end='0x20D0' /><slave name='sysid_qsys_0.control_slave' start='0x20D0' end='0x20D8' /><slave name='sdram.s1' start='0x10000000' end='0x18000000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -5031,9 +5031,9 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>nios2_gen2_0</moduleName>
+    <moduleName>nios2_qsys_0</moduleName>
     <slaveName>debug_mem_slave</slaveName>
-    <name>nios2_gen2_0.debug_mem_slave</name>
+    <name>nios2_qsys_0.debug_mem_slave</name>
     <baseAddress>6144</baseAddress>
     <span>2048</span>
    </memoryBlock>
@@ -5422,9 +5422,9 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>nios2_gen2_0</moduleName>
+    <moduleName>nios2_qsys_0</moduleName>
     <slaveName>debug_mem_slave</slaveName>
-    <name>nios2_gen2_0.debug_mem_slave</name>
+    <name>nios2_qsys_0.debug_mem_slave</name>
     <baseAddress>6144</baseAddress>
     <span>2048</span>
    </memoryBlock>
@@ -5475,7 +5475,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>nios2_gen2_0.data_master</value>
+    <value>nios2_qsys_0.data_master</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -6115,7 +6115,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INIT_CONTENTS_FILE</name>
-   <value>lab8_soc_onchip_memory2_0</value>
+   <value>nios_system_onchip_memory2_0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INIT_MEM_CONTENT</name>
@@ -6179,7 +6179,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.memoryInfo.MEM_INIT_FILENAME</name>
-   <value>lab8_soc_onchip_memory2_0</value>
+   <value>nios_system_onchip_memory2_0</value>
   </assignment>
   <assignment>
    <name>postgeneration.simulation.init_file.param_name</name>
@@ -6351,7 +6351,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="autoInitializationFileName">
    <type>java.lang.String</type>
-   <value>lab8_soc_onchip_memory2_0</value>
+   <value>nios_system_onchip_memory2_0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -6410,7 +6410,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="derived_init_file_name">
    <type>java.lang.String</type>
-   <value>lab8_soc_onchip_memory2_0.hex</value>
+   <value>nios_system_onchip_memory2_0.hex</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -11093,7 +11093,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="componentName">
    <type>java.lang.String</type>
-   <value>lab8_soc_sdram</value>
+   <value>nios_system_sdram</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -14592,7 +14592,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1489378320</value>
+   <value>1489436092</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -14612,7 +14612,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1489378320</value>
+   <value>1489436092</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -14628,7 +14628,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1489378320</value>
+   <value>1489436092</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -15100,10 +15100,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <connection
-   name="nios2_gen2_0.data_master/jtag_uart_0.avalon_jtag_slave"
+   name="nios2_qsys_0.data_master/jtag_uart_0.avalon_jtag_slave"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15145,16 +15145,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>jtag_uart_0</endModule>
   <endConnectionPoint>avalon_jtag_slave</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/sysid_qsys_0.control_slave"
+   name="nios2_qsys_0.data_master/sysid_qsys_0.control_slave"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="sysid_qsys_0.control_slave">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15196,17 +15196,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>sysid_qsys_0</endModule>
   <endConnectionPoint>control_slave</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/nios2_gen2_0.debug_mem_slave"
+   name="nios2_qsys_0.data_master/nios2_qsys_0.debug_mem_slave"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
-   end="nios2_gen2_0.debug_mem_slave">
+   start="nios2_qsys_0.data_master"
+   end="nios2_qsys_0.debug_mem_slave">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -15247,16 +15247,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
-  <endModule>nios2_gen2_0</endModule>
+  <endModule>nios2_qsys_0</endModule>
   <endConnectionPoint>debug_mem_slave</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/sdram_pll.pll_slave"
+   name="nios2_qsys_0.data_master/sdram_pll.pll_slave"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="sdram_pll.pll_slave">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15298,16 +15298,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>sdram_pll</endModule>
   <endConnectionPoint>pll_slave</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/onchip_memory2_0.s1"
+   name="nios2_qsys_0.data_master/onchip_memory2_0.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="onchip_memory2_0.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15349,16 +15349,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>onchip_memory2_0</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/sdram.s1"
+   name="nios2_qsys_0.data_master/sdram.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="sdram.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15400,16 +15400,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>sdram</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/switch.s1"
+   name="nios2_qsys_0.data_master/switch.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="switch.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15451,16 +15451,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>switch</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/key.s1"
+   name="nios2_qsys_0.data_master/key.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="key.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15502,16 +15502,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>key</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/Keycode.s1"
+   name="nios2_qsys_0.data_master/Keycode.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="Keycode.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15553,16 +15553,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>Keycode</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/otg_hpi_cs.s1"
+   name="nios2_qsys_0.data_master/otg_hpi_cs.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="otg_hpi_cs.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15604,16 +15604,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>otg_hpi_cs</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/otg_hpi_address.s1"
+   name="nios2_qsys_0.data_master/otg_hpi_address.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="otg_hpi_address.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15655,16 +15655,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>otg_hpi_address</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/otg_hpi_data.s1"
+   name="nios2_qsys_0.data_master/otg_hpi_data.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="otg_hpi_data.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15706,16 +15706,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>otg_hpi_data</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/otg_hpi_r.s1"
+   name="nios2_qsys_0.data_master/otg_hpi_r.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="otg_hpi_r.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15757,16 +15757,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>otg_hpi_r</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/otg_hpi_w.s1"
+   name="nios2_qsys_0.data_master/otg_hpi_w.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.data_master"
+   start="nios2_qsys_0.data_master"
    end="otg_hpi_w.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15808,16 +15808,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>otg_hpi_w</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.instruction_master/sysid_qsys_0.control_slave"
+   name="nios2_qsys_0.instruction_master/sysid_qsys_0.control_slave"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.instruction_master"
+   start="nios2_qsys_0.instruction_master"
    end="sysid_qsys_0.control_slave">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15859,17 +15859,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>instruction_master</startConnectionPoint>
   <endModule>sysid_qsys_0</endModule>
   <endConnectionPoint>control_slave</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.instruction_master/nios2_gen2_0.debug_mem_slave"
+   name="nios2_qsys_0.instruction_master/nios2_qsys_0.debug_mem_slave"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.instruction_master"
-   end="nios2_gen2_0.debug_mem_slave">
+   start="nios2_qsys_0.instruction_master"
+   end="nios2_qsys_0.debug_mem_slave">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -15910,16 +15910,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>instruction_master</startConnectionPoint>
-  <endModule>nios2_gen2_0</endModule>
+  <endModule>nios2_qsys_0</endModule>
   <endConnectionPoint>debug_mem_slave</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.instruction_master/sdram_pll.pll_slave"
+   name="nios2_qsys_0.instruction_master/sdram_pll.pll_slave"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.instruction_master"
+   start="nios2_qsys_0.instruction_master"
    end="sdram_pll.pll_slave">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -15961,16 +15961,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>instruction_master</startConnectionPoint>
   <endModule>sdram_pll</endModule>
   <endConnectionPoint>pll_slave</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.instruction_master/onchip_memory2_0.s1"
+   name="nios2_qsys_0.instruction_master/onchip_memory2_0.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.instruction_master"
+   start="nios2_qsys_0.instruction_master"
    end="onchip_memory2_0.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -16012,16 +16012,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>instruction_master</startConnectionPoint>
   <endModule>onchip_memory2_0</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.instruction_master/sdram.s1"
+   name="nios2_qsys_0.instruction_master/sdram.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.instruction_master"
+   start="nios2_qsys_0.instruction_master"
    end="sdram.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -16063,16 +16063,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>instruction_master</startConnectionPoint>
   <endModule>sdram</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.instruction_master/switch.s1"
+   name="nios2_qsys_0.instruction_master/switch.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.instruction_master"
+   start="nios2_qsys_0.instruction_master"
    end="switch.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -16114,16 +16114,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>instruction_master</startConnectionPoint>
   <endModule>switch</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.instruction_master/key.s1"
+   name="nios2_qsys_0.instruction_master/key.s1"
    kind="avalon"
    version="15.0"
-   start="nios2_gen2_0.instruction_master"
+   start="nios2_qsys_0.instruction_master"
    end="key.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -16165,7 +16165,7 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>instruction_master</startConnectionPoint>
   <endModule>key</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
@@ -16195,33 +16195,6 @@ parameters are a RESULT of the module parameters. -->
   <startModule>sdram_pll</startModule>
   <startConnectionPoint>c0</startConnectionPoint>
   <endModule>sdram</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk/nios2_gen2_0.clk"
-   kind="clock"
-   version="15.0"
-   start="clk_0.clk"
-   end="nios2_gen2_0.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>nios2_gen2_0</endModule>
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
@@ -16495,6 +16468,33 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
+   name="clk_0.clk/nios2_qsys_0.clk"
+   kind="clock"
+   version="15.0"
+   start="clk_0.clk"
+   end="nios2_qsys_0.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>nios2_qsys_0</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
    name="clk_0.clk/onchip_memory2_0.clk1"
    kind="clock"
    version="15.0"
@@ -16549,10 +16549,10 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>inclk_interface</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.irq/jtag_uart_0.irq"
+   name="nios2_qsys_0.irq/jtag_uart_0.irq"
    kind="interrupt"
    version="15.0"
-   start="nios2_gen2_0.irq"
+   start="nios2_qsys_0.irq"
    end="jtag_uart_0.irq">
   <parameter name="irqNumber">
    <type>int</type>
@@ -16578,7 +16578,7 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>irq</startConnectionPoint>
   <endModule>jtag_uart_0</endModule>
   <endConnectionPoint>irq</endConnectionPoint>
@@ -16609,33 +16609,6 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>clk_reset</startConnectionPoint>
   <endModule>sdram_pll</endModule>
   <endConnectionPoint>inclk_interface_reset</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk_reset/nios2_gen2_0.reset"
-   kind="reset"
-   version="15.0"
-   start="clk_0.clk_reset"
-   end="nios2_gen2_0.reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>nios2_gen2_0</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
    name="clk_0.clk_reset/sdram.reset"
@@ -16935,6 +16908,33 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
+   name="clk_0.clk_reset/nios2_qsys_0.reset"
+   kind="reset"
+   version="15.0"
+   start="clk_0.clk_reset"
+   end="nios2_qsys_0.reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>nios2_qsys_0</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
+ </connection>
+ <connection
    name="clk_0.clk_reset/onchip_memory2_0.reset1"
    kind="reset"
    version="15.0"
@@ -16962,10 +16962,10 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset1</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.debug_reset_request/otg_hpi_cs.reset"
+   name="nios2_qsys_0.debug_reset_request/otg_hpi_cs.reset"
    kind="reset"
    version="15.0"
-   start="nios2_gen2_0.debug_reset_request"
+   start="nios2_qsys_0.debug_reset_request"
    end="otg_hpi_cs.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -16983,16 +16983,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>debug_reset_request</startConnectionPoint>
   <endModule>otg_hpi_cs</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.debug_reset_request/Keycode.reset"
+   name="nios2_qsys_0.debug_reset_request/Keycode.reset"
    kind="reset"
    version="15.0"
-   start="nios2_gen2_0.debug_reset_request"
+   start="nios2_qsys_0.debug_reset_request"
    end="Keycode.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -17010,16 +17010,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>debug_reset_request</startConnectionPoint>
   <endModule>Keycode</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.debug_reset_request/otg_hpi_address.reset"
+   name="nios2_qsys_0.debug_reset_request/otg_hpi_address.reset"
    kind="reset"
    version="15.0"
-   start="nios2_gen2_0.debug_reset_request"
+   start="nios2_qsys_0.debug_reset_request"
    end="otg_hpi_address.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -17037,16 +17037,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>debug_reset_request</startConnectionPoint>
   <endModule>otg_hpi_address</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.debug_reset_request/otg_hpi_data.reset"
+   name="nios2_qsys_0.debug_reset_request/otg_hpi_data.reset"
    kind="reset"
    version="15.0"
-   start="nios2_gen2_0.debug_reset_request"
+   start="nios2_qsys_0.debug_reset_request"
    end="otg_hpi_data.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -17064,16 +17064,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>debug_reset_request</startConnectionPoint>
   <endModule>otg_hpi_data</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.debug_reset_request/otg_hpi_r.reset"
+   name="nios2_qsys_0.debug_reset_request/otg_hpi_r.reset"
    kind="reset"
    version="15.0"
-   start="nios2_gen2_0.debug_reset_request"
+   start="nios2_qsys_0.debug_reset_request"
    end="otg_hpi_r.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -17091,16 +17091,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>debug_reset_request</startConnectionPoint>
   <endModule>otg_hpi_r</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.debug_reset_request/otg_hpi_w.reset"
+   name="nios2_qsys_0.debug_reset_request/otg_hpi_w.reset"
    kind="reset"
    version="15.0"
-   start="nios2_gen2_0.debug_reset_request"
+   start="nios2_qsys_0.debug_reset_request"
    end="otg_hpi_w.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -17118,7 +17118,7 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>nios2_gen2_0</startModule>
+  <startModule>nios2_qsys_0</startModule>
   <startConnectionPoint>debug_reset_request</startConnectionPoint>
   <endModule>otg_hpi_w</endModule>
   <endConnectionPoint>reset</endConnectionPoint>

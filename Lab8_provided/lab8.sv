@@ -77,7 +77,7 @@ module lab8( input               CLOCK_50,
     );
      
      //The connections for nios_system might be named different depending on how you set up Qsys
-     lab8_soc nios_system(
+     nios_system nios_system(
                              .clk_clk(Clk),         
                              .reset_reset_n(KEY[0]),   
                              .sdram_wire_addr(DRAM_ADDR), 
