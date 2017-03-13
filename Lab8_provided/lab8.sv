@@ -73,12 +73,11 @@ module lab8( input               CLOCK_50,
                             .OTG_RD_N(OTG_RD_N),    
                             .OTG_WR_N(OTG_WR_N),    
                             .OTG_CS_N(OTG_CS_N),    
-                            .OTG_RST_N(OTG_RST_N),   
-                            .OTG_INT(OTG_INT)
+                            .OTG_RST_N(OTG_RST_N)
     );
      
      //The connections for nios_system might be named different depending on how you set up Qsys
-     nios_system nios_system(
+     lab8_soc nios_system(
                              .clk_clk(Clk),         
                              .reset_reset_n(KEY[0]),   
                              .sdram_wire_addr(DRAM_ADDR), 
@@ -90,7 +89,7 @@ module lab8( input               CLOCK_50,
                              .sdram_wire_dqm(DRAM_DQM),  
                              .sdram_wire_ras_n(DRAM_RAS_N),
                              .sdram_wire_we_n(DRAM_WE_N), 
-                             .sdram_out_clk(DRAM_CLK),
+                             .sdram_clk_clk(DRAM_CLK),
                              .keycode_export(keycode),  
                              .otg_hpi_address_export(hpi_addr),
                              .otg_hpi_data_in_port(hpi_data_in),
