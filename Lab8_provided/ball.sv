@@ -16,7 +16,7 @@
 
 module  ball ( input         Reset, 
                              frame_clk,          // The clock indicating a new frame (~60Hz)
-					input[15:0]	  keycode,		//The key bring pressed on the keyboard
+					input[15:0]	  keycode,		//The key being pressed on the keyboard
                output [9:0]  BallX, BallY, BallS // Ball coordinates and size
               );
     
@@ -33,8 +33,8 @@ module  ball ( input         Reset,
     parameter [9:0] Ball_Y_Step=1;      // Step size on the Y axis
     parameter [9:0] Ball_Size=4;        // Ball size
     
-    assign BallX = Ball_X_Pos;
-    assign BallY = Ball_Y_Pos;
+    assign BallX = Ball_X_Pos; // Assigning output values combinationally
+    assign BallY = Ball_Y_Pos; 
     assign BallS = Ball_Size;
     
     always_ff @ (posedge frame_clk)
@@ -43,7 +43,7 @@ module  ball ( input         Reset,
         begin
             Ball_X_Pos <= Ball_X_Center;
             Ball_Y_Pos <= Ball_Y_Center;
-            Ball_X_Motion <= 10'd0;
+            Ball_X_Motion <= 10'd0; // Setting ball motion to 0 (10 bits long)
             Ball_Y_Motion <= 10'd0;
         end
         else 
@@ -60,16 +60,54 @@ module  ball ( input         Reset,
         // By default, keep motion unchanged
         Ball_X_Motion_in = Ball_X_Motion;
         Ball_Y_Motion_in = Ball_Y_Motion;
-        
+		  
+		  // Make Ball respond to key input
+		  unique case(keycode[7:0])
+				8'h1A : // w (up)
+				  begin
+						Ball_X_Motion_in = 10'd0;
+						Ball_Y_Motion_in = (~(Ball_Y_Step) + 1'b1);
+					end
+				8'h16 : //s (down)
+					begin
+						Ball_X_Motion_in = 10'd0;
+						Ball_Y_Motion_in = Ball_Y_Step;
+					end
+				8'h04 : //a (left)
+					begin
+						Ball_Y_Motion_in = 10'd0;
+						Ball_X_Motion_in = (~(Ball_X_Step) + 1'b1);
+					end
+				8'h07 : //d (right)
+					begin
+						Ball_Y_Motion_in = 10'd0;
+						Ball_X_Motion_in = Ball_X_Step;
+					end
+				endcase
         // Be careful when using comparators with "logic" datatype becuase compiler treats 
         //   both sides of the operator UNSIGNED numbers. (unless with further type casting)
         // e.g. Ball_Y_Pos - Ball_Size <= Ball_Y_Min 
         // If Ball_Y_Pos is 0, then Ball_Y_Pos - Ball_Size will not be -4, but rather a large positive number.
         if( Ball_Y_Pos + Ball_Size >= Ball_Y_Max )  // Ball is at the bottom edge, BOUNCE!
-            Ball_Y_Motion_in = (~(Ball_Y_Step) + 1'b1);  // 2's complement.  
+            begin
+					Ball_X_Motion_in = 10'd0;
+					Ball_Y_Motion_in = (~(Ball_Y_Step) + 1'b1);  // 2's complement. 
+				end	
         else if ( Ball_Y_Pos <= Ball_Y_Min + Ball_Size )  // Ball is at the top edge, BOUNCE!
-            Ball_Y_Motion_in = Ball_Y_Step;
-        
+            begin
+					Ball_X_Motion_in = 10'd0;
+					Ball_Y_Motion_in = Ball_Y_Step;
+				end
+        else if (Ball_X_Pos + Ball_Size >= Ball_X_Max) // Ball is at right edge
+				begin
+					Ball_Y_Motion_in = 10'd0;
+					Ball_X_Motion_in = (~(Ball_X_Step) + 1'b1); 
+				end
+		  else if (Ball_X_Pos <= Ball_X_Min + Ball_Size) // Ball is at left edge
+				begin
+					Ball_Y_Motion_in = 10'd0;
+					Ball_X_Motion_in = Ball_X_Step;
+				end
         // Update the ball's position with its motion
         Ball_X_Pos_in = Ball_X_Pos + Ball_X_Motion;
         Ball_Y_Pos_in = Ball_Y_Pos + Ball_Y_Motion;
