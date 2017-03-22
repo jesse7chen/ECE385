@@ -142,7 +142,7 @@ ACDS_VERSION := 15.0
 ELF := lab9.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS :=
+C_SRCS := main.c
 CXX_SRCS :=
 ASM_SRCS :=
 
