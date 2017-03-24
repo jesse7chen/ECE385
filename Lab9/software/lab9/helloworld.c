@@ -26,8 +26,7 @@
 #define to_hw_port		(volatile char*) 	TO_HW_PORT_BASE
 #define to_hw_sig		(volatile char*)	TO_HW_SIG_BASE
 #define to_sw_port		(char*)		TO_SW_PORT_BASE
-#define to_sw_sig		(char*)		TO_SW_SIG_BASE  // Not sure if these should be volatile int or char? - Jesse
-
+#define to_sw_sig		(char*)		TO_SW_SIG_BASE
 
 char charToHex(char c)
 {
@@ -73,7 +72,9 @@ uint chartoInt(uchar* input){
 
 // TODO: AES Encryption related function calls
 
-void rotWord(uchar* input){ // Very naive implementation, may change later
+// Naive implementation, may change later. Other implementations call for a
+// a temp array, but then we have to copy that, and that takes time and space...
+void rotWord(uchar* input){
 	uchar temp = input[0];
 	for(int i = 0; i < 3; i++){
 		input[i] = input[i+1];
@@ -89,9 +90,9 @@ void subWord(uchar* input){
 }
 
 void Rcon(uchar* input, int i){
-	uint value = Rcon[i];
+	uint value = Rcon[i]; // Double check that this fits the endianness of the computer
 	uchar temp[4];
-	temp[0] = (uchar)((value >> 24) & 0x000000FF);
+	temp[0] = (uchar)((value >> 24) & 0x000000FF); // This value should be 0x01, 0x02, etc.
 	temp[1] = (uchar)((value >> 16) & 0x000000FF);
 	temp[2] = (uchar)((value >> 8) & 0x000000FF);
 	temp[3] = (uchar)(value & 0x000000FF);
@@ -113,21 +114,85 @@ void storeWord(uchar* store, uchar* data){
 }
 
 void KeyExpansion(uchar* key, uchar* keySchedule){
-	// Maybe use a temp word here?
 	uchar temp[4];
+	// Initialize first key
 	for(int i = 0; i <(4*4); i++) {
 		keySchedule[i] = key[i];
 	}
 
-	for(int i = (4*4); i < (4*44); i++){
-		storeWord(&temp, keySchedule[i-(4*1)]);
-		if(i%4 == 0){
+	for(int w = 4; w < 44; w++){ // iterates through words
+		storeWord(&temp, keySchedule[4*(w-1)]);
+		if(w%4 == 0){
 			subWord(rotWord(&temp));
-			Rcon(&temp, (i/16)-1);
+			Rcon(&temp, (w/4)-1);
 		}
-		XOR(&temp, keySchedule[i-(4*4)]);
-		storeWord(keySchedule[i], &temp);
+		XOR(&temp, keySchedule[4*(w-4)]);
+		storeWord(keySchedule[4*w], &temp);
 	}
+
+void addRoundKey(uchar* state, uchar* key_schedule, int round){
+	for(int w = 0; w < 4; w++){
+		XOR(state[4*w], key_schedule[4*(w+4*round)]);
+	}
+}
+
+void mixColumns(uchar* state){
+
+}
+
+void shiftRows(uchar* state){
+	// Storing values for later correction. See below.
+	uchar temp[3];
+	for(int i = 0; i < 3; i++){
+		temp[i] = state[i+1];
+	}
+	for(int w = 0; w < 4; w++){
+		for(int i = 1; i < 4; i++){
+			// Checking if in row 1,2,3. Row 0 is not worried about
+			if((4*w + i) % 4 == 1) {
+				//The modulus ensures that the column never overflows
+				state[4*w+i] = state[4*((w+1)%4) + i];
+			}
+			else if((4*w+i) % 4 == 2){
+				// We use w+2 here since we are shifting by two columns now
+				state[4*w+i] = state[4*((w+2)%4) + i];
+			}
+			else if((4*w+i) % 4 == 3) {
+				state[4*w+i] = state[4*((w+3)%4) + i];
+			}
+		}
+	}
+	// These states will be incorrectly set by the above function
+	// because when we set state[13] = state[0], state[0] has already changed
+	// its value to state[5]. Therefore we store the original value of state[0]
+	// and fix those errors here. We can also just make temp arrays for all
+	// of these, but again, more space and time.
+	state[13] = temp[0];
+	state[10] = temp[1];
+	state[7] = temp[2];
+}
+
+void subBytes(uchar* state){
+	for(int w = 0; w < 4; w++){
+		subWord(state[4*w]);
+	}
+}
+
+void encrypt(uchar* state, uchar* key_schedule){
+	int round = 0;
+	addRoundKey(state, key_schedule, round);
+	for(round = 1; round < 11; round++) {
+		subBytes(state);
+		shiftRows(state);
+		mixColumns(state);
+		addRoundKey(state, key_schedule, round);
+	}
+
+	subBytes(state);
+	shiftRows(state);
+	addRoundKey(state, key_schedule, round);
+}
+
 }
 
 int main()
@@ -135,6 +200,9 @@ int main()
 	int i;
 	unsigned char plaintext[33]; //should be 1 more character to account for string terminator
 	unsigned char key[33];
+	unsigned char encryptedMsg[16];
+	unsigned char key_hex[16];
+	unsigned char key_schedule[176];
 
 	// Start with pressing reset
 	*to_hw_sig = 0;
@@ -154,7 +222,18 @@ int main()
 		scanf ("%s", key);
 		printf ("\n");
 
+		// Convert ASCII string to char
+		for(int i = 0; i < 32; i++){
+			if(i%2 == 0){
+				encryptedMsg[i/2] = charstoHex(plaintext[i], plaintext[i+1]);
+				key_hex[i/2] = charstoHex(key[i], key[i+1]);
+			}
+		}
+
 		// TODO: Key Expansion and AES encryption using week 1's AES algorithm.
+
+		keyExpansion(&key_hex, &key_schedule);
+		encrypt(&encryptedMsg, &key_schedule);
 
 		// TODO: display the encrypted message.
 		printf("\nEncrypted message is\n");
