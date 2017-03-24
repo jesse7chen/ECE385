@@ -10,9 +10,27 @@
 ******************************************/
 
 #include <stdio.h>
+#include "system.h" // We include this so we can use the base addresses defined below - Jesse
 
 #define uchar unsigned char // 8-bit byte
 #define uint unsigned long // 32-bit word
+
+#define to_hw_port		(volatile int*) 		TO_HW_PORT_BASE
+#define to_hw_sig		(volatile int*)	    TO_HW_SIG_BASE
+#define to_sw_port		(volatile int*)		TO_SW_PORT_BASE
+#define to_sw_sig		(volatile int*)		TO_SW_SIG_BASE  // Not sure if these should be volatile int or char? - Jesse
+
+// These are from lab 8 FOR REFERENCE ONLY - Jesse
+/*
+#define otg_hpi_address		(volatile int*) 	OTG_HPI_ADDRESS_BASE
+#define otg_hpi_data		(volatile int*)	    OTG_HPI_DATA_BASE
+#define otg_hpi_r			(volatile char*)	OTG_HPI_R_BASE
+#define otg_hpi_cs			(volatile char*)	OTG_HPI_CS_BASE //FOR SOME REASON CS BASE BEHAVES WEIRDLY MIGHT HAVE TO SET MANUALLY
+#define otg_hpi_w			(volatile char*)	OTG_HPI_W_BASE
+ */
+
+
+
 
 // This is the specified AES SBox. To look up a substitution value, put the first
 // nibble in the first index (row) and the second nibble in the second index (column).
