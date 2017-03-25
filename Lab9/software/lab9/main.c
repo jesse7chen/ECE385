@@ -219,27 +219,4 @@ uint Rcon[]={0x01000000,0x02000000,0x04000000,0x08000000,0x10000000,0x20000000,
 
 
 //will have to change return types and add parameters for each function
-void KeyExpansion(){
-
-}
-
-void AddRoundKeys(){
-
-}
-
-void SubBytes(){
-
-}
-
-void ShiftRows(){
-
-}
-
-void MixColumns(){
-
-}
-
-int main(){
-
-}
 

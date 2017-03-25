@@ -13,20 +13,22 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "system.h" // We include this so we can use the base addresses defined below - Jesse
+//#include "system.h" // We include this so we can use the base addresses defined below - Jesse
 #include "aes.c"
 
-/*
-#define to_hw_port (volatile char*) 0x00000000 // actual address here
-#define to_hw_sig (volatile char*) 0x00000000 // actual address here
-#define to_sw_port (char*) 0x00000000 // actual address here
-#define to_sw_sig (char*) 0x00000000 // actual address here
-*/
 
+#define to_hw_port (volatile char*) 0x00002090 // actual address here
+#define to_hw_sig (volatile char*) 0x00002080 // actual address here
+#define to_sw_port (char*) 0x00002070 // actual address here
+#define to_sw_sig (char*) 0x00002060 // actual address here
+
+
+/*
 #define to_hw_port		(volatile char*) 	TO_HW_PORT_BASE
 #define to_hw_sig		(volatile char*)	TO_HW_SIG_BASE
 #define to_sw_port		(char*)		TO_SW_PORT_BASE
 #define to_sw_sig		(char*)		TO_SW_SIG_BASE
+*/
 
 char charToHex(char c)
 {
@@ -76,63 +78,75 @@ uint chartoInt(uchar* input){
 // a temp array, but then we have to copy that, and that takes time and space...
 void rotWord(uchar* input){
 	uchar temp = input[0];
-	for(int i = 0; i < 3; i++){
+	int i;
+	for(i = 0; i < 3; i++){
 		input[i] = input[i+1];
 	}
 	input[3] = temp;
 }
 
 void subWord(uchar* input){
-	for(int i = 0; i < 4; i++){
+	int i;
+	for(i = 0; i < 4; i++){
 		uchar c = input[i];
 		input[i] = aes_sbox[(c >> 4)& 0x0F][c&0x0F];
 	}
 }
 
-void Rcon(uchar* input, int i){
-	uint value = Rcon[i]; // Double check that this fits the endianness of the computer
+void rCon(uchar* input, int w){
+	uint value = Rcon[w]; // Double check that this fits the endianness of the computer
 	uchar temp[4];
+	int i;
 	temp[0] = (uchar)((value >> 24) & 0x000000FF); // This value should be 0x01, 0x02, etc.
 	temp[1] = (uchar)((value >> 16) & 0x000000FF);
 	temp[2] = (uchar)((value >> 8) & 0x000000FF);
 	temp[3] = (uchar)(value & 0x000000FF);
-	for(int i = 0; i < 4; i++){
+	for(i = 0; i < 4; i++){
 		input[i] = input[i] ^ temp[i];
 	}
 }
 
 void XOR(uchar* input1, uchar* input2){
-	for(int i = 0; i < 4; i++){
+	int i;
+	for(i = 0; i < 4; i++){
 		input1[i] = input1[i] ^ input2[i];
 	}
 }
 
 void storeWord(uchar* store, uchar* data){
-	for(int i = 0; i < 4; i++){
+	int i;
+	for(i = 0; i < 4; i++){
 		store[i] = data[i];
 	}
 }
 
-void KeyExpansion(uchar* key, uchar* keySchedule){
-	uchar temp[4];
+void keyExpansion(uchar* key, uchar* keySchedule){
+	uchar* temp;
+	temp = malloc(4*sizeof(uchar));
 	// Initialize first key
-	for(int i = 0; i <(4*4); i++) {
+	int i;
+	int w;
+	for(i = 0; i <(4*4); i++) {
 		keySchedule[i] = key[i];
 	}
 
-	for(int w = 4; w < 44; w++){ // iterates through words
-		storeWord(&temp, keySchedule[4*(w-1)]);
+	for(w = 4; w < 44; w++){ // iterates through words
+		storeWord(temp, &keySchedule[4*(w-1)]);
 		if(w%4 == 0){
-			subWord(rotWord(&temp));
-			Rcon(&temp, (w/4)-1);
+			rotWord(temp);
+			subWord(temp);
+			rCon(temp, (w/4)-1);
 		}
-		XOR(&temp, keySchedule[4*(w-4)]);
-		storeWord(keySchedule[4*w], &temp);
+		XOR(temp, &keySchedule[4*(w-4)]);
+		storeWord(&keySchedule[4*w], temp);
 	}
+	free(temp);
+}
 
 void addRoundKey(uchar* state, uchar* key_schedule, int round){
-	for(int w = 0; w < 4; w++){
-		XOR(state[4*w], key_schedule[4*(w+4*round)]);
+	int w;
+	for(w = 0; w < 4; w++){
+		XOR(&state[4*w], &key_schedule[4*(w+4*round)]);
 	}
 }
 
@@ -143,11 +157,12 @@ void mixColumns(uchar* state){
 void shiftRows(uchar* state){
 	// Storing values for later correction. See below.
 	uchar temp[3];
-	for(int i = 0; i < 3; i++){
+	int i, w;
+	for(i = 0; i < 3; i++){
 		temp[i] = state[i+1];
 	}
-	for(int w = 0; w < 4; w++){
-		for(int i = 1; i < 4; i++){
+	for(w = 0; w < 4; w++){
+		for(i = 1; i < 4; i++){
 			// Checking if in row 1,2,3. Row 0 is not worried about
 			if((4*w + i) % 4 == 1) {
 				//The modulus ensures that the column never overflows
@@ -158,6 +173,7 @@ void shiftRows(uchar* state){
 				state[4*w+i] = state[4*((w+2)%4) + i];
 			}
 			else if((4*w+i) % 4 == 3) {
+				// Now shifting by three columns
 				state[4*w+i] = state[4*((w+3)%4) + i];
 			}
 		}
@@ -173,8 +189,9 @@ void shiftRows(uchar* state){
 }
 
 void subBytes(uchar* state){
-	for(int w = 0; w < 4; w++){
-		subWord(state[4*w]);
+	int w;
+	for(w = 0; w < 4; w++){
+		subWord(&state[4*w]);
 	}
 }
 
@@ -187,16 +204,13 @@ void encrypt(uchar* state, uchar* key_schedule){
 		mixColumns(state);
 		addRoundKey(state, key_schedule, round);
 	}
-
 	subBytes(state);
 	shiftRows(state);
 	addRoundKey(state, key_schedule, round);
 }
 
-}
 
-int main()
-{
+int main(){
 	int i;
 	unsigned char plaintext[33]; //should be 1 more character to account for string terminator
 	unsigned char key[33];
@@ -222,18 +236,19 @@ int main()
 		scanf ("%s", key);
 		printf ("\n");
 
-		// Convert ASCII string to char
-		for(int i = 0; i < 32; i++){
+		// Convert ASCII strings to char
+		for(i = 0; i < 32; i++){
 			if(i%2 == 0){
-				encryptedMsg[i/2] = charstoHex(plaintext[i], plaintext[i+1]);
-				key_hex[i/2] = charstoHex(key[i], key[i+1]);
+				encryptedMsg[i/2] = charsToHex(plaintext[i], plaintext[i+1]);
+				key_hex[i/2] = charsToHex(key[i], key[i+1]);
 			}
 		}
 
 		// TODO: Key Expansion and AES encryption using week 1's AES algorithm.
 
-		keyExpansion(&key_hex, &key_schedule);
-		encrypt(&encryptedMsg, &key_schedule);
+		// Implicitly decays into a pointer
+		keyExpansion(key_hex, key_schedule);
+		encrypt(encryptedMsg, key_schedule);
 
 		// TODO: display the encrypted message.
 		printf("\nEncrypted message is\n");
@@ -265,7 +280,7 @@ int main()
 		{
 			*to_hw_sig = 1;
 			while (*to_sw_sig != 1);
-			str[i] = *to_sw_port;
+			//str[i] = *to_sw_port;
 			*to_hw_sig = 2;
 			while (*to_sw_sig != 0);
 		}
