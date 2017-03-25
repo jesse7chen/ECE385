@@ -37,7 +37,7 @@
 
 // This is the specified AES SBox. To look up a substitution value, put the first
 // nibble in the first index (row) and the second nibble in the second index (column).
-const uint8_t aes_sbox[16][16] = {
+const uchar aes_sbox[16][16] = {
    0x63,0x7C,0x77,0x7B,0xF2,0x6B,0x6F,0xC5,0x30,0x01,0x67,0x2B,0xFE,0xD7,0xAB,0x76,
    0xCA,0x82,0xC9,0x7D,0xFA,0x59,0x47,0xF0,0xAD,0xD4,0xA2,0xAF,0x9C,0xA4,0x72,0xC0,
    0xB7,0xFD,0x93,0x26,0x36,0x3F,0xF7,0xCC,0x34,0xA5,0xE5,0xF1,0x71,0xD8,0x31,0x15,
@@ -56,7 +56,7 @@ const uint8_t aes_sbox[16][16] = {
    0x8C,0xA1,0x89,0x0D,0xBF,0xE6,0x42,0x68,0x41,0x99,0x2D,0x0F,0xB0,0x54,0xBB,0x16
 };
 
-const uint8_t aes_invsbox[16][16] = {
+const uchar aes_invsbox[16][16] = {
    0x52,0x09,0x6A,0xD5,0x30,0x36,0xA5,0x38,0xBF,0x40,0xA3,0x9E,0x81,0xF3,0xD7,0xFB,
    0x7C,0xE3,0x39,0x82,0x9B,0x2F,0xFF,0x87,0x34,0x8E,0x43,0x44,0xC4,0xDE,0xE9,0xCB,
    0x54,0x7B,0x94,0x32,0xA6,0xC2,0x23,0x3D,0xEE,0x4C,0x95,0x0B,0x42,0xFA,0xC3,0x4E,
@@ -82,7 +82,7 @@ const uint8_t aes_invsbox[16][16] = {
 // 1 is negligible leaving only 6 coefficients. Each column of the table is devoted to one
 // of these coefficients, in the ascending order of value, from values 0x00 to 0xFF.
 // (Columns are listed double-wide to conserve vertical space.)
-const uint8_t gf_mul[256][6] = {
+const uchar gf_mul[256][6] = {
    {0x00,0x00,0x00,0x00,0x00,0x00},{0x02,0x03,0x09,0x0b,0x0d,0x0e},
    {0x04,0x06,0x12,0x16,0x1a,0x1c},{0x06,0x05,0x1b,0x1d,0x17,0x12},
    {0x08,0x0c,0x24,0x2c,0x34,0x38},{0x0a,0x0f,0x2d,0x27,0x39,0x36},
@@ -219,9 +219,9 @@ uint Rcon[]={0x01000000,0x02000000,0x04000000,0x08000000,0x10000000,0x20000000,
 
 
 #define to_hw_port (volatile uint32_t*) 0x00002090 // actual address here
-#define to_hw_sig (volatile uint8_t*) 0x00002080 // actual address here
+#define to_hw_sig (volatile uchar*) 0x00002080 // actual address here
 #define to_sw_port (volatile uint32_t*) 0x00002070 // actual address here
-#define to_sw_sig (volatile uint8_t*) 0x00002060 // actual address here
+#define to_sw_sig (volatile uchar*) 0x00002060 // actual address here
 
 
 /*
@@ -264,7 +264,7 @@ void hextoChar(char c) {
 
 // Maybe write char to int and int to char converters?
 
-uint chartoInt(uint8_t* input){
+uint chartoInt(uchar* input){
 	uint temp0 = (uint)input[0];
 	uint temp1 = (uint)input[1];
 	uint temp2 = (uint)input[2];
@@ -278,8 +278,8 @@ uint chartoInt(uint8_t* input){
 
 // Naive implementation, may change later. Other implementations call for a
 // a temp array, but then we have to copy that, and that takes time and space...
-void rotWord(uint8_t* input){
-	uint8_t temp = input[0];
+void rotWord(uchar* input){
+	uchar temp = input[0];
 	int i;
 	for(i = 0; i < 3; i++){
 		input[i] = input[i+1];
@@ -287,44 +287,44 @@ void rotWord(uint8_t* input){
 	input[3] = temp;
 }
 
-void subWord(uint8_t* input){
+void subWord(uchar* input){
 	int i;
 	for(i = 0; i < 4; i++){
-		uint8_t c = input[i];
+		uchar c = input[i];
 		input[i] = aes_sbox[(c >> 4)& 0x0F][c&0x0F];
 	}
 }
 
-void rCon(uint8_t* input, int w){
+void rCon(uchar* input, int w){
 	uint value = Rcon[w]; // Double check that this fits the endianness of the computer
-	uint8_t temp[4];
+	uchar temp[4];
 	int i;
-	temp[0] = (uint8_t)((value >> 24) & 0x000000FF); // This value should be 0x01, 0x02, etc.
-	temp[1] = (uint8_t)((value >> 16) & 0x000000FF);
-	temp[2] = (uint8_t)((value >> 8) & 0x000000FF);
-	temp[3] = (uint8_t)(value & 0x000000FF);
+	temp[0] = (uchar)((value >> 24) & 0x000000FF); // This value should be 0x01, 0x02, etc.
+	temp[1] = (uchar)((value >> 16) & 0x000000FF);
+	temp[2] = (uchar)((value >> 8) & 0x000000FF);
+	temp[3] = (uchar)(value & 0x000000FF);
 	for(i = 0; i < 4; i++){
 		input[i] = input[i] ^ temp[i];
 	}
 }
 
-void XOR(uint8_t* input1, uint8_t* input2){
+void XOR(uchar* input1, uchar* input2){
 	int i;
 	for(i = 0; i < 4; i++){
 		input1[i] = input1[i] ^ input2[i];
 	}
 }
 
-void storeWord(uint8_t* store, uint8_t* data){
+void storeWord(uchar* store, uchar* data){
 	int i;
 	for(i = 0; i < 4; i++){
 		store[i] = data[i];
 	}
 }
 
-void keyExpansion(uint8_t* key, uint8_t* keySchedule){
-	uint8_t* temp;
-	temp = malloc(4*sizeof(uint8_t));
+void keyExpansion(uchar* key, uchar* keySchedule){
+	uchar* temp;
+	temp = malloc(4*sizeof(uchar));
 	// Initialize first key
 	int i;
 	int w;
@@ -345,20 +345,57 @@ void keyExpansion(uint8_t* key, uint8_t* keySchedule){
 	free(temp);
 }
 
-void addRoundKey(uint8_t* state, uint8_t* key_schedule, int round){
+void addRoundKey(uchar* state, uchar* key_schedule, int round){
 	int w;
 	for(w = 0; w < 4; w++){
 		XOR(&state[4*w], &key_schedule[4*(w+4*round)]);
 	}
 }
 
-void mixColumns(uint8_t* state){
+void mixColumns(uchar* state){
 
+	int i = 0;
+	int j = 0;
+
+	uchar* temp0;
+	temp0 = malloc(4*sizeof(uchar));
+
+	uchar* temp1;
+	temp1 = malloc(4*sizeof(uchar));
+
+	uchar* temp2;
+	temp2 = malloc(4*sizeof(uchar));
+
+	uchar* temp3;
+	temp3 = malloc(4*sizeof(uchar));
+
+
+	for(j = 0; j < 4; j ++){
+		temp0[j] = state[0][j];
+		temp1[j] = state[1][j];
+		temp2[j] = state[2][j];
+		temp3[j] = state[3][j];
+	}
+	for(i = 0; 0 < 4; i++){
+
+		state[0][i] = (gf_mul[temp0[i]][0]) ^ (gf_mul[temp1[i]][1]) ^ temp2[i] ^ temp3[i];
+		state[1][i] = temp0[i] ^ (gf_mul[temp1[i]][0]) ^ (gf_mul[temp2[i]][1]) ^ temp3[i];
+		state[2][i] = temp0[i] ^ temp1[i] ^ (gf_mul[temp2[i]][0]) ^ (gf_mul[temp3[i]][1]);
+		state[3][i] = (gf_mul[temp0[i]][1]) ^ temp1[i] ^ temp2[i] ^ (gf_mul[temp3[i]][0]);
+
+	}
+
+	free(temp0);
+	free(temp1);
+	free(temp2);
+	free(temp3);
 }
 
-void shiftRows(uint8_t* state){
+
+
+void shiftRows(uchar* state){
 	// Storing values for later correction. See below.
-	uint8_t temp[3];
+	uchar temp[3];
 	int i, w;
 	for(i = 0; i < 3; i++){
 		temp[i] = state[i+1];
@@ -390,14 +427,14 @@ void shiftRows(uint8_t* state){
 	state[7] = temp[2];
 }
 
-void subBytes(uint8_t* state){
+void subBytes(uchar* state){
 	int w;
 	for(w = 0; w < 4; w++){
 		subWord(&state[4*w]);
 	}
 }
 
-void encrypt(uint8_t* state, uint8_t* key_schedule){
+void encrypt(uchar* state, uchar* key_schedule){
 	int round = 0;
 	addRoundKey(state, key_schedule, round);
 	for(round = 1; round < 11; round++) {
