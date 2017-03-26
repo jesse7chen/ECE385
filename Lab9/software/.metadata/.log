@@ -1327,3 +1327,471 @@ Binding(ALT+CTRL+I,
 
 !ENTRY com.altera.sbtgui.launch 1 0 2017-03-25 23:15:37.380
 !MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x20d0 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+!SESSION 2017-03-26 11:45:41.268 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -pluginCustomization S:/altera/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product -pluginCustomization S:/altera/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-03-26 11:45:50.208
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2017-03-26 11:48:56.137 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -pluginCustomization S:/altera/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product -pluginCustomization S:/altera/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-03-26 11:49:13.686
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:53:30.971
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:53:34.541
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:54:26.196
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:54:28.982
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:55:15.710
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:55:16.601
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:55:19.374
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY org.eclipse.jface 2 0 2017-03-26 11:56:48.494
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-03-26 11:56:48.494
+!MESSAGE A conflict occurred for F3:
+Binding(F3,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.edit.opendecl,Open Declaration,
+		Open an editor on the selected element's declaration(s),
+		Category(org.eclipse.cdt.ui.category.source,Source,Source commands,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4832813d,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cEditorScope,,,system)
+Binding(F3,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.edit.opendecl,Open Declaration,
+		Open an editor on the selected element's declaration(s),
+		Category(org.eclipse.cdt.ui.category.source,Source,Source commands,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4832813d,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cViewScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-03-26 11:56:48.494
+!MESSAGE A conflict occurred for ALT+CTRL+I:
+Binding(ALT+CTRL+I,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.edit.open.include.browser,Open Include Browser,
+		Open an include browser on the selected element,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@70c3483b,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cEditorScope,,,system)
+Binding(ALT+CTRL+I,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.edit.open.include.browser,Open Include Browser,
+		Open an include browser on the selected element,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@70c3483b,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cViewScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-03-26 11:56:48.494
+!MESSAGE A conflict occurred for F4:
+Binding(F4,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.edit.open.type.hierarchy,Open Type Hierarchy,
+		Open a type hierarchy on the selected element,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@276ac94c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cEditorScope,,,system)
+Binding(F4,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.edit.open.type.hierarchy,Open Type Hierarchy,
+		Open a type hierarchy on the selected element,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@276ac94c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cViewScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-03-26 11:56:48.494
+!MESSAGE A conflict occurred for ALT+SHIFT+R:
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.edit.text.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.cdt.ui.category.refactoring,Refactor - C++,C/C++ Refactorings,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5ccc07ae,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cEditorScope,,,system)
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.edit.text.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.cdt.ui.category.refactoring,Refactor - C++,C/C++ Refactorings,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5ccc07ae,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cViewScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-03-26 11:56:48.494
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.navigate.opentype,Open Element,
+		Open an element in an Editor,
+		Category(org.eclipse.cdt.ui.category.source,Source,Source commands,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@ab5e63,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cEditorScope,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.navigate.opentype,Open Element,
+		Open an element in an Editor,
+		Category(org.eclipse.cdt.ui.category.source,Source,Source commands,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@ab5e63,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cViewScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-03-26 11:56:48.494
+!MESSAGE A conflict occurred for CTRL+SHIFT+G:
+Binding(CTRL+SHIFT+G,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.search.findrefs,References,
+		Search for references to the selected element in the workspace,
+		Category(org.eclipse.cdt.ui.category.source,Source,Source commands,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6a434cdd,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cEditorScope,,,system)
+Binding(CTRL+SHIFT+G,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.search.findrefs,References,
+		Search for references to the selected element in the workspace,
+		Category(org.eclipse.cdt.ui.category.source,Source,Source commands,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6a434cdd,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cViewScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-03-26 11:56:48.494
+!MESSAGE A conflict occurred for CTRL+G:
+Binding(CTRL+G,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.search.finddecl,Declaration,
+		Search for declarations of the selected element in the workspace,
+		Category(org.eclipse.cdt.ui.category.source,Source,Source commands,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1b12c870,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cEditorScope,,,system)
+Binding(CTRL+G,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.search.finddecl,Declaration,
+		Search for declarations of the selected element in the workspace,
+		Category(org.eclipse.cdt.ui.category.source,Source,Source commands,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1b12c870,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cViewScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-03-26 11:56:48.494
+!MESSAGE A conflict occurred for ALT+CTRL+H:
+Binding(ALT+CTRL+H,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.edit.open.call.hierarchy,Open Call Hierarchy,
+		Open the call hierarchy for the selected element,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@27df4dcb,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cEditorScope,,,system)
+Binding(ALT+CTRL+H,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.edit.open.call.hierarchy,Open Call Hierarchy,
+		Open the call hierarchy for the selected element,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@27df4dcb,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cViewScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-03-26 11:56:48.494
+!MESSAGE A conflict occurred for CTRL+SHIFT+H:
+Binding(CTRL+SHIFT+H,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.navigate.open.type.in.hierarchy,Open Type in Hierarchy,
+		Open a type in the type hierarchy view,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@7ddd5715,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cEditorScope,,,system)
+Binding(CTRL+SHIFT+H,
+	ParameterizedCommand(Command(org.eclipse.cdt.ui.navigate.open.type.in.hierarchy,Open Type in Hierarchy,
+		Open a type in the type hierarchy view,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@7ddd5715,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.cdt.ui.cViewScope,,,system)
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:57:57.200
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x20d0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:57:59.633
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x20d0 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:58:56.795
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:58:58.584
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x20d0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 11:59:01.048
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x20d0 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:02:53.546
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:02:55.382
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x20d0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:02:58.604
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --stop, --accept-bad-sysid, --sidp=0x20d0] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:02:58.800
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x20d0 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:03:02.571
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --go, --accept-bad-sysid, --sidp=0x20d0, /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:03:02.571
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:03:40.744
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x20d0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:03:43.974
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --stop, --accept-bad-sysid, --sidp=0x20d0] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:03:44.155
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x20d0 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:03:47.911
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --go, --accept-bad-sysid, --sidp=0x20d0, /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:03:47.911
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:04:13.987
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x20d0]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:04:17.198
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --stop, --accept-bad-sysid, --sidp=0x20d0] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:04:17.406
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x20d0 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:04:21.190
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --go, --accept-bad-sysid, --sidp=0x20d0, /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf] return code: 4, 'other error'
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:04:21.190
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:06:02.971
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:06:05.730
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:09:14.633
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:09:17.417
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:15:54.521
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:15:57.289
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:17:39.465
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:17:40.315
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:17:43.069
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY org.eclipse.cdt.ui 4 0 2017-03-26 12:18:37.647
+!MESSAGE Error in CDT UI during reconcile
+!STACK 1
+C Model Exception: C Model Status [Element main.c does not exist.]
+	at org.eclipse.cdt.internal.core.model.CElement.newNotPresentException(CElement.java:484)
+	at org.eclipse.cdt.internal.core.model.TranslationUnit.makeConsistent(TranslationUnit.java:566)
+	at org.eclipse.cdt.internal.core.model.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:62)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.execute(CModelOperation.java:341)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.run(CModelOperation.java:607)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.runOperation(CModelOperation.java:635)
+	at org.eclipse.cdt.internal.core.model.WorkingCopy.reconcile(WorkingCopy.java:367)
+	at org.eclipse.cdt.internal.ui.text.CReconcilingStrategy.reconcile(CReconcilingStrategy.java:78)
+	at org.eclipse.cdt.internal.ui.text.CReconcilingStrategy.reconcile(CReconcilingStrategy.java:63)
+	at org.eclipse.cdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:87)
+	at org.eclipse.cdt.internal.ui.text.CCompositeReconcilingStrategy.reconcile(CCompositeReconcilingStrategy.java:90)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.cdt.internal.ui.text.CReconciler.process(CReconciler.java:358)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+!SUBENTRY 1 org.eclipse.cdt.core 4 969 2017-03-26 12:18:37.647
+!MESSAGE Element main.c does not exist.
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:19:05.542
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:19:06.422
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:19:09.184
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:20:31.437
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:20:32.336
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:20:35.144
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:23:06.230
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:23:08.975
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:24:06.457
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:24:07.346
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:24:10.129
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:25:51.448
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:25:52.372
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:25:55.146
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:33:46.582
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:33:47.454
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:33:50.206
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:35:19.752
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:35:20.634
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:35:23.395
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:36:27.534
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:36:30.285
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:36:55.621
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:36:56.519
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:36:59.288
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:38:00.356
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:38:01.237
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:38:04.034
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:39:58.167
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:39:59.070
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:40:01.837
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:42:43.799
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:42:44.713
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:42:47.467
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:45:37.784
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:45:38.672
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:45:41.453
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:48:59.617
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:49:00.550
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:49:01.966
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:49:03.715
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:49:04.639
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:49:08.155
+!MESSAGE Failed Executing: [nios2-download, '--cable=USB-Blaster on localhost [USB-0]', --device=1, --instance=0, --go, --sidp=0x20d0, --id=0x0, --timestamp=1490150232, /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf] return code: 8
+
+!ENTRY com.altera.sbtgui.launch 4 0 2017-03-26 12:49:08.156
+!MESSAGE Downloading ELF Process failed
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:49:14.393
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:49:15.433
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x20d0 --id=0x0 --timestamp=1490150232]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2017-03-26 12:49:18.239
+!MESSAGE Executing: [S:/altera/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x20d0 --id=0x0 --timestamp=1490150232 /cygdrive/c/Users/William/Documents/ECE385/Lab9/software/lab9/lab9.elf]

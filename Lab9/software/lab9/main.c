@@ -444,7 +444,7 @@ void encrypt(uchar* state, uchar* key_schedule){
 	addRoundKey(state, key_schedule, round);
 }
 
-
+/*
 int main(){
 	int i;
 	unsigned char plaintext[33]; //should be 1 more character to account for string terminator
@@ -457,7 +457,9 @@ int main(){
 	*to_hw_sig = 0;
 	*to_hw_port = 0;
 	printf("Press reset!\n");
-	while (*to_sw_sig != 3);
+	while (*to_sw_sig != 3){
+
+	}
 
 	while (1)
 	{
@@ -488,7 +490,7 @@ int main(){
 		// TODO: display the encrypted message.
 		printf("\nFinal encrypted message is\n");
         for(i = 0; i < 16; i++) {
-            printf("%x", encryptedMsg[i]);
+            printf("%02x", encryptedMsg[i]);
         }
 
 		// Transmit encrypted message to hardware side for decryption.
@@ -532,3 +534,43 @@ int main(){
 
 	return 0;
 }
+
+*/
+
+int main(){
+	int j = 0;
+	*to_hw_sig = 0;
+	*to_hw_port = 0;
+	printf("Press reset!\n");
+	while (*to_sw_sig != 3){
+
+	}
+	printf("Starting\n");
+
+
+	for(j = 0; j < 1000; j++){
+			int i;
+			unsigned char plaintext[33] = "ece298dcece298dcece298dcece298dc";
+			unsigned char key[33] = "000102030405060708090a0b0c0d0e0f";
+			unsigned char encryptedMsg[16];
+			unsigned char key_hex[16];
+			unsigned char key_schedule[176];
+
+
+				for(i = 0; i < 32; i++){
+					if(i%2 == 0){
+						encryptedMsg[i/2] = charsToHex(plaintext[i], plaintext[i+1]);
+						key_hex[i/2] = charsToHex(key[i], key[i+1]);
+					}
+				}
+
+
+				keyExpansion(key_hex, key_schedule);
+
+				encrypt(encryptedMsg, key_schedule);
+				//printf("%d\n", j);
+		}
+	printf("Done\n");
+	return 0;
+}
+
