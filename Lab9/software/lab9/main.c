@@ -444,7 +444,7 @@ void encrypt(uchar* state, uchar* key_schedule){
 	addRoundKey(state, key_schedule, round);
 }
 
-/*
+
 int main(){
 	int i;
 	unsigned char plaintext[33]; //should be 1 more character to account for string terminator
@@ -494,7 +494,9 @@ int main(){
         }
 
 		// Transmit encrypted message to hardware side for decryption.
-		printf("\nTransmitting message...\n");
+
+
+ 		printf("\nTransmitting message...\n");
 
 		for (i = 0; i < 16; i++)
 		{
@@ -507,6 +509,10 @@ int main(){
 		}
 		*to_hw_sig = 0;
 
+		while (*to_sw_sig != 3){
+
+		}
+/*
 		// Transmit encrypted message to hardware side for decryption.
 		printf("\nTransmitting key...\n");
 
@@ -530,13 +536,15 @@ int main(){
 		printf("Decoded message:\n");
 
 		// TODO: print decoded message
+
+		 */
 	}
 
 	return 0;
 }
 
-*/
 
+/*
 int main(){
 	int j = 0;
 	*to_hw_sig = 0;
@@ -573,4 +581,4 @@ int main(){
 	printf("Done\n");
 	return 0;
 }
-
+*/

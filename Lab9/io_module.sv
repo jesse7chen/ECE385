@@ -48,6 +48,7 @@ module io_module (  input                clk,
         if(reset_n == 1'b0) begin
             state <= RESET;
             msg_en <= 127'd0;
+				msg_en_in <= 127'd0;
             key <= 127'd0;
         end
         else begin

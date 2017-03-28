@@ -642,3 +642,252 @@ Info: Building ../lab9_bsp/
 S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
 [BSP build complete]
 [lab9 build complete]
+20:34:02 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../lab9_bsp//HAL/inc -I../lab9_bsp/ -I../lab9_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+Info: Linking lab9.elf
+nios2-elf-g++  -T'../lab9_bsp//linker.x' -msys-crt0='../lab9_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../lab9_bsp/   -Wl,-Map=lab9.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o lab9.elf obj/default/main.o -lm -msys-lib=m
+nios2-elf-insert lab9.elf --thread_model hal --cpu_name nios_system --qsys true --simulation_enabled false --id 0 --sidp 0x20d0 --timestamp 1490150232 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/Users/William/Documents/ECE385/Lab9" --jdi C:/Users/William/Documents/ECE385/Lab9/software/lab9_bsp/../../lab9.jdi --sopcinfo C:/Users/William/Documents/ECE385/Lab9/software/lab9_bsp/../../nios_system.sopcinfo
+Info: (lab9.elf) 112 KBytes program size (code + initialized data).
+Info:            130952 KBytes free for stack + heap.
+Info: Creating lab9.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source lab9.elf >lab9.objdump
+[lab9 build complete]
+20:34:11 **** Incremental Build of configuration Nios II for project lab9_bsp ****
+make all 
+[BSP build complete]
+20:37:16 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+20:37:54 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:05:22 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:06:04 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:06:23 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:09:51 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../lab9_bsp//HAL/inc -I../lab9_bsp/ -I../lab9_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:540:1: error: expected declaration or statement at end of input
+ }
+ ^
+make: *** [obj/default/main.o] Error 1
+21:09:53 **** Incremental Build of configuration Nios II for project lab9_bsp ****
+make all 
+[BSP build complete]
+21:10:02 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../lab9_bsp//HAL/inc -I../lab9_bsp/ -I../lab9_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:540:1: error: expected declaration or statement at end of input
+ }
+ ^
+make: *** [obj/default/main.o] Error 1
+21:10:29 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../lab9_bsp//HAL/inc -I../lab9_bsp/ -I../lab9_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+Info: Linking lab9.elf
+nios2-elf-g++  -T'../lab9_bsp//linker.x' -msys-crt0='../lab9_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../lab9_bsp/   -Wl,-Map=lab9.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o lab9.elf obj/default/main.o -lm -msys-lib=m
+nios2-elf-insert lab9.elf --thread_model hal --cpu_name nios_system --qsys true --simulation_enabled false --id 0 --sidp 0x20d0 --timestamp 1490150232 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/Users/William/Documents/ECE385/Lab9" --jdi C:/Users/William/Documents/ECE385/Lab9/software/lab9_bsp/../../lab9.jdi --sopcinfo C:/Users/William/Documents/ECE385/Lab9/software/lab9_bsp/../../nios_system.sopcinfo
+Info: (lab9.elf) 111 KBytes program size (code + initialized data).
+Info:            130953 KBytes free for stack + heap.
+Info: Creating lab9.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source lab9.elf >lab9.objdump
+[lab9 build complete]
+21:10:35 **** Incremental Build of configuration Nios II for project lab9_bsp ****
+make all 
+[BSP build complete]
+21:10:39 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:12:25 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../lab9_bsp//HAL/inc -I../lab9_bsp/ -I../lab9_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+Info: Linking lab9.elf
+nios2-elf-g++  -T'../lab9_bsp//linker.x' -msys-crt0='../lab9_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../lab9_bsp/   -Wl,-Map=lab9.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o lab9.elf obj/default/main.o -lm -msys-lib=m
+nios2-elf-insert lab9.elf --thread_model hal --cpu_name nios_system --qsys true --simulation_enabled false --id 0 --sidp 0x20d0 --timestamp 1490150232 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/Users/William/Documents/ECE385/Lab9" --jdi C:/Users/William/Documents/ECE385/Lab9/software/lab9_bsp/../../lab9.jdi --sopcinfo C:/Users/William/Documents/ECE385/Lab9/software/lab9_bsp/../../nios_system.sopcinfo
+Info: (lab9.elf) 111 KBytes program size (code + initialized data).
+Info:            130953 KBytes free for stack + heap.
+Info: Creating lab9.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source lab9.elf >lab9.objdump
+[lab9 build complete]
+21:16:19 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:17:11 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../lab9_bsp//HAL/inc -I../lab9_bsp/ -I../lab9_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+Info: Linking lab9.elf
+nios2-elf-g++  -T'../lab9_bsp//linker.x' -msys-crt0='../lab9_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../lab9_bsp/   -Wl,-Map=lab9.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o lab9.elf obj/default/main.o -lm -msys-lib=m
+nios2-elf-insert lab9.elf --thread_model hal --cpu_name nios_system --qsys true --simulation_enabled false --id 0 --sidp 0x20d0 --timestamp 1490150232 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/Users/William/Documents/ECE385/Lab9" --jdi C:/Users/William/Documents/ECE385/Lab9/software/lab9_bsp/../../lab9.jdi --sopcinfo C:/Users/William/Documents/ECE385/Lab9/software/lab9_bsp/../../nios_system.sopcinfo
+Info: (lab9.elf) 112 KBytes program size (code + initialized data).
+Info:            130952 KBytes free for stack + heap.
+Info: Creating lab9.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source lab9.elf >lab9.objdump
+[lab9 build complete]
+21:17:18 **** Incremental Build of configuration Nios II for project lab9_bsp ****
+make all 
+[BSP build complete]
+21:17:21 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:18:47 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../lab9_bsp//HAL/inc -I../lab9_bsp/ -I../lab9_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+Info: Linking lab9.elf
+nios2-elf-g++  -T'../lab9_bsp//linker.x' -msys-crt0='../lab9_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../lab9_bsp/   -Wl,-Map=lab9.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o lab9.elf obj/default/main.o -lm -msys-lib=m
+nios2-elf-insert lab9.elf --thread_model hal --cpu_name nios_system --qsys true --simulation_enabled false --id 0 --sidp 0x20d0 --timestamp 1490150232 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/Users/William/Documents/ECE385/Lab9" --jdi C:/Users/William/Documents/ECE385/Lab9/software/lab9_bsp/../../lab9.jdi --sopcinfo C:/Users/William/Documents/ECE385/Lab9/software/lab9_bsp/../../nios_system.sopcinfo
+Info: (lab9.elf) 111 KBytes program size (code + initialized data).
+Info:            130953 KBytes free for stack + heap.
+Info: Creating lab9.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source lab9.elf >lab9.objdump
+[lab9 build complete]
+21:18:53 **** Incremental Build of configuration Nios II for project lab9_bsp ****
+make all 
+[BSP build complete]
+21:18:58 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:29:58 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:30:11 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:30:33 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:30:56 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:31:36 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:32:26 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:32:42 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:32:44 **** Incremental Build of configuration Nios II for project lab9_bsp ****
+make all 
+[BSP build complete]
+21:32:49 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:33:23 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:33:28 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:34:19 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:34:40 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
+21:35:26 **** Incremental Build of configuration Nios II for project lab9 ****
+make all 
+Info: Building ../lab9_bsp/
+S:/altera/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab9_bsp/
+[BSP build complete]
+[lab9 build complete]
