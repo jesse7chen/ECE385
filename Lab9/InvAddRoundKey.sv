@@ -61,10 +61,10 @@ module InvAddRoundKey (
  
  end
  
- 		assign {b00, b10, b20, b30} = Result[31:0];
-		assign {b01, b11, b21, b31} = Result[63:32];
-		assign {b02, b12, b22, b32} = Result[95:64];
-		assign {b03, b13, b23, b33} = Result[127:96];
+ 		assign Result[31:0] = {b00, b10, b20, b30};
+		assign Result[63:32] = {b01, b11, b21, b31};
+		assign Result[95:64] = {b02, b12, b22, b32};
+		assign Result[127:96] = {b03, b13, b23, b33};
  
  
  endmodule
