@@ -77,7 +77,7 @@ io_module io_module0 (.clk(CLOCK_50),
                       .to_hw_port(to_hw_port),
                       .msg_en(msg_en),
                       .key(key),
-                      .msg_de(keyschedule),
+                      .msg_de(msg_de),
                       .io_ready(io_ready),
                       .aes_ready(aes_ready)
 );

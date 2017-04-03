@@ -6,23 +6,30 @@ state.COMPUTE 1 0 1
 state.READY 1 1 0 
 
 State Machine - |lab9|aes_controller:aes_controller0|AES:aes_0|state
-Name state.END state.ADDKEYFINAL state.SUBBYTESFINAL state.SHIFTROWFINAL state.MIXLOOP5 state.MIXLOOP4 state.MIXLOOP3 state.MIXLOOP2 state.MIXLOOP1 state.ADDKEYLOOP state.SUBBYTESLOOP state.SHIFTROWLOOP state.ADDKEYSTART state.LOAD_MSG state.WAIT state.RESET 
-state.RESET 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-state.WAIT 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
-state.LOAD_MSG 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
-state.ADDKEYSTART 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
-state.SHIFTROWLOOP 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
-state.SUBBYTESLOOP 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
-state.ADDKEYLOOP 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
-state.MIXLOOP1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
-state.MIXLOOP2 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
-state.MIXLOOP3 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
-state.MIXLOOP4 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
-state.MIXLOOP5 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
-state.SHIFTROWFINAL 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
-state.SUBBYTESFINAL 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
-state.ADDKEYFINAL 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
-state.END 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+Name state.END state.ADDKEYFINAL state.SUBBYTESFINAL2 state.SUBBYTESFINAL state.SHIFTROWFINAL state.MIXLOOP5 state.MIXLOOP4 state.MIXLOOP3 state.MIXLOOP2 state.MIXLOOP1 state.ADDKEYLOOP state.SUBBYTESLOOP2 state.SUBBYTESLOOP state.SHIFTROWLOOP state.ADDKEYSTART state.LD_KEY5 state.LD_KEY4 state.LD_KEY3 state.LD_KEY2 state.LD_KEY1 state.LOAD_MSG state.WAIT state.RESET 
+state.RESET 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.WAIT 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.LOAD_MSG 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.LD_KEY1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.LD_KEY2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.LD_KEY3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.LD_KEY4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.LD_KEY5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.ADDKEYSTART 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.SHIFTROWLOOP 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.SUBBYTESLOOP 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.SUBBYTESLOOP2 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.ADDKEYLOOP 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state.MIXLOOP1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.MIXLOOP2 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.MIXLOOP3 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.MIXLOOP4 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.MIXLOOP5 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.SHIFTROWFINAL 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.SUBBYTESFINAL 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.SUBBYTESFINAL2 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.ADDKEYFINAL 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.END 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 
 State Machine - |lab9|io_module:io_module0|state
 Name state.GOT_ACK_15 state.GOT_ACK_14 state.GOT_ACK_13 state.GOT_ACK_12 state.GOT_ACK_11 state.GOT_ACK_10 state.GOT_ACK_9 state.GOT_ACK_8 state.GOT_ACK_7 state.GOT_ACK_6 state.GOT_ACK_5 state.GOT_ACK_4 state.GOT_ACK_3 state.GOT_ACK_2 state.GOT_ACK_1 state.GOT_ACK_0 state.SEND_BACK_15 state.SEND_BACK_14 state.SEND_BACK_13 state.SEND_BACK_12 state.SEND_BACK_11 state.SEND_BACK_10 state.SEND_BACK_9 state.SEND_BACK_8 state.SEND_BACK_7 state.SEND_BACK_6 state.SEND_BACK_5 state.SEND_BACK_4 state.SEND_BACK_3 state.SEND_BACK_2 state.SEND_BACK_1 state.SEND_BACK_0 state.GET_FROM_AES state.SEND_TO_AES state.ACK_KEY_15 state.ACK_KEY_14 state.ACK_KEY_13 state.ACK_KEY_12 state.ACK_KEY_11 state.ACK_KEY_10 state.ACK_KEY_9 state.ACK_KEY_8 state.ACK_KEY_7 state.ACK_KEY_6 state.ACK_KEY_5 state.ACK_KEY_4 state.ACK_KEY_3 state.ACK_KEY_2 state.ACK_KEY_1 state.ACK_KEY_0 state.READ_KEY_15 state.READ_KEY_14 state.READ_KEY_13 state.READ_KEY_12 state.READ_KEY_11 state.READ_KEY_10 state.READ_KEY_9 state.READ_KEY_8 state.READ_KEY_7 state.READ_KEY_6 state.READ_KEY_5 state.READ_KEY_4 state.READ_KEY_3 state.READ_KEY_2 state.READ_KEY_1 state.READ_KEY_0 state.ACK_MSG_15 state.ACK_MSG_14 state.ACK_MSG_13 state.ACK_MSG_12 state.ACK_MSG_11 state.ACK_MSG_10 state.ACK_MSG_9 state.ACK_MSG_8 state.ACK_MSG_7 state.ACK_MSG_6 state.ACK_MSG_5 state.ACK_MSG_4 state.ACK_MSG_3 state.ACK_MSG_2 state.ACK_MSG_1 state.ACK_MSG_0 state.READ_MSG_15 state.READ_MSG_14 state.READ_MSG_13 state.READ_MSG_12 state.READ_MSG_11 state.READ_MSG_10 state.READ_MSG_9 state.READ_MSG_8 state.READ_MSG_7 state.READ_MSG_6 state.READ_MSG_5 state.READ_MSG_4 state.READ_MSG_3 state.READ_MSG_2 state.READ_MSG_1 state.READ_MSG_0 state.WAIT state.RESET 

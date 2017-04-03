@@ -34,7 +34,7 @@ logic [1407:0] keyschedule;
 logic [127:0] key_input;
 assign key_input = key;
 
-assign key_out = keyschedule[255:128];
+assign key_out = keyschedule[127:0];
 
 logic [3:0] round;
 logic [3:0] round_in; 
@@ -125,9 +125,10 @@ InvSubBytes invsubbytes_15(.clk(clk), .in(msg_de_in[127:120]), .out(InvSubBytes_
 
 // For week 2, write your own state machine here for AES decryption process.
 
-enum logic [6:0] { RESET, WAIT, LOAD_MSG, LD_KEY1, LD_KEY2, LD_KEY3, LD_KEY3, LD_KEY4, LD_KEY5,
-						 ADDKEYSTART, SHIFTROWLOOP, SUBBYTESLOOP, ADDKEYLOOP, MIXLOOP1,
-						 MIXLOOP2, MIXLOOP3, MIXLOOP4, MIXLOOP5, SHIFTROWFINAL, SUBBYTESFINAL, ADDKEYFINAL, END
+enum logic [6:0] { RESET, WAIT, LOAD_MSG, LD_KEY1, LD_KEY2, LD_KEY3, LD_KEY4, LD_KEY5,
+						 ADDKEYSTART, SHIFTROWLOOP, SUBBYTESLOOP, SUBBYTESLOOP2, ADDKEYLOOP, MIXLOOP1,
+						 MIXLOOP2, MIXLOOP3, MIXLOOP4, MIXLOOP5, SHIFTROWFINAL, SUBBYTESFINAL, SUBBYTESFINAL2,
+						 ADDKEYFINAL, END
 } state, next_state;
 
 assign msg_de = msg_de_in;
@@ -201,6 +202,10 @@ always_comb begin
 				end
 				
 				SUBBYTESLOOP: begin
+					next_state = SUBBYTESLOOP2;
+				end
+				
+				SUBBYTESLOOP2: begin
 					next_state = ADDKEYLOOP;
 				end
 				
@@ -240,6 +245,10 @@ always_comb begin
 				end
 				
 				SUBBYTESFINAL: begin
+					next_state = SUBBYTESFINAL2;
+				end
+				
+				SUBBYTESFINAL2: begin
 					next_state = ADDKEYFINAL;
 				end
 				
@@ -289,8 +298,11 @@ always_comb begin
 				end
 				
 				SUBBYTESLOOP: begin
-					REGmux_select = 3'b010;
 					curr_state = 4'b0100;
+				end
+				
+				SUBBYTESLOOP2: begin
+					REGmux_select = 3'b010;
 				end
 				
 				ADDKEYLOOP: begin
@@ -353,6 +365,10 @@ always_comb begin
 				SUBBYTESFINAL: begin
 					REGmux_select = 3'b010;
 					curr_state = 4'b1011;
+				end
+				
+				SUBBYTESFINAL2: begin
+					REGmux_select = 3'b010;
 				end
 				
 				ADDKEYFINAL: begin
