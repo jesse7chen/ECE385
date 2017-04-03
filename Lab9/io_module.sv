@@ -193,67 +193,67 @@ module io_module (  input                clk,
 				
 				
 				SEND_BACK_0: begin
-					to_sw_port[7:0] = msg_de[127:120]; 
+					to_sw_port[7:0] <= msg_de[127:120]; 
             end
 				
             SEND_BACK_1: begin
-					to_sw_port[7:0] = msg_de[119:112]; 					 
+					to_sw_port[7:0] <= msg_de[119:112]; 					 
             end
 				
             SEND_BACK_2: begin
-					to_sw_port[7:0] = msg_de[111:104]; 						 
+					to_sw_port[7:0] <= msg_de[111:104]; 						 
             end
 				
             SEND_BACK_3: begin
-					to_sw_port[7:0] = msg_de[103:96]; 						 
+					to_sw_port[7:0] <= msg_de[103:96]; 						 
             end
 
             SEND_BACK_4: begin
-					 to_sw_port[7:0] = msg_de[95:88]; 	
+					 to_sw_port[7:0] <= msg_de[95:88]; 	
             end
 				
             SEND_BACK_5: begin
-					 to_sw_port[7:0] = msg_de[87:80]; 	
+					 to_sw_port[7:0] <= msg_de[87:80]; 	
             end
 				
             SEND_BACK_6: begin
-					 to_sw_port[7:0] = msg_de[79:72]; 	
+					 to_sw_port[7:0] <= msg_de[79:72]; 	
             end
 				
             SEND_BACK_7: begin
-					 to_sw_port[7:0] = msg_de[71:64]; 	
+					 to_sw_port[7:0] <= msg_de[71:64]; 	
             end
 				
             SEND_BACK_8: begin
-					 to_sw_port[7:0] = msg_de[63:56]; 	
+					 to_sw_port[7:0] <= msg_de[63:56]; 	
             end
 				
             SEND_BACK_9: begin
-					 to_sw_port[7:0] = msg_de[55:48]; 	
+					 to_sw_port[7:0] <= msg_de[55:48]; 	
             end
 
             SEND_BACK_10: begin
-					 to_sw_port[7:0] = msg_de[47:40]; 	
+					 to_sw_port[7:0] <= msg_de[47:40]; 	
             end
 				
             SEND_BACK_11: begin
-					 to_sw_port[7:0] = msg_de[39:32]; 	
+					 to_sw_port[7:0] <= msg_de[39:32]; 	
             end
 
             SEND_BACK_12: begin
-					 to_sw_port[7:0] = msg_de[31:24]; 	
+					 to_sw_port[7:0] <= msg_de[31:24]; 	
             end
 				
             SEND_BACK_13: begin
-					 to_sw_port[7:0] = msg_de[23:16]; 	
+					 to_sw_port[7:0] <= msg_de[23:16]; 	
             end
 				
             SEND_BACK_14: begin
-					 to_sw_port[7:0] = msg_de[15:8]; 	
+					 to_sw_port[7:0] <= msg_de[15:8]; 	
             end
 				
             SEND_BACK_15: begin
-					 to_sw_port[7:0] = msg_de[7:0]; 	
+					 to_sw_port[7:0] <= msg_de[7:0]; 	
             end					
 									
 
@@ -739,7 +739,7 @@ module io_module (  input                clk,
 				  
 				GOT_ACK_6: begin
 					if (to_hw_sig == 2'd1)
-					  next_state = SEND_BACK_7; 	  
+					  next_state = SEND_BACK_7; 	 
 				  end
 				  
 				GOT_ACK_7: begin

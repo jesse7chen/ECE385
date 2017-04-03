@@ -1,7 +1,7 @@
 module InvAddRoundKey (
 	input [127:0] State,
 	input [127:0] Key,
-	output [120:0] Result
+	output [127:0] Result
 );
 
 
@@ -12,7 +12,7 @@ module InvAddRoundKey (
                  a20, a21, a22, a23,
                  a30, a31, a32, a33;
 
-    logic [7:0]  r00, r01, r02, r03,
+    logic [7:0]  r00, r01, r02, r03,0o
                  r10, r11, r12, r13,
                  r20, r21, r22, r23,
                  r30, r31, r32, r33;
@@ -32,11 +32,10 @@ module InvAddRoundKey (
 		
 		assign {r00, r10, r20, r30} = Key[31:0];
 		assign {r01, r11, r21, r31} = Key[63:32];
-		assign {r02, r12, r22, r32} = Key[95:65];
+		assign {r02, r12, r22, r32} = Key[95:64];
 		assign {r03, r13, r23, r33} = Key[127:96];
 		
  
- always_comb begin
  
 	assign b00 = a00 ^ r00;
 	assign b01 = a01 ^ r01;
@@ -59,7 +58,7 @@ module InvAddRoundKey (
 	assign b33 = a33 ^ r33;	
 
  
- end
+ 
  
  		assign Result[31:0] = {b00, b10, b20, b30};
 		assign Result[63:32] = {b01, b11, b21, b31};

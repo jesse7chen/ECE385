@@ -452,6 +452,7 @@ int main(){
 	unsigned char encryptedMsg[16];
 	unsigned char key_hex[16];
 	unsigned char key_schedule[176];
+	unsigned char decryptedMsg[16];
 
 	// Start with pressing reset
 	*to_hw_sig = 0;
@@ -500,33 +501,56 @@ int main(){
 
 		for (i = 0; i < 16; i++)
 		{
+			printf("Checkpoint0\n");
 			*to_hw_sig = 1;
 			*to_hw_port = encryptedMsg[i]; // encryptedMsg is your encrypted message
 			// Consider to use charToHex() if your encrypted message is a string.
-			while (*to_sw_sig != 1);
+			while (*to_sw_sig != 1){
+				printf("Checkpoint1\n");
+			}
 			*to_hw_sig = 2;
-			while (*to_sw_sig != 0);
+			while (*to_sw_sig != 0){
+				printf("Checkpoint2\n");
+			}
 		}
-		*to_hw_sig = 0;
 
-		while (*to_sw_sig != 3){
+		*to_hw_sig = 0; // Takes program to wait stage
 
-		}
-/*
-		// Transmit encrypted message to hardware side for decryption.
 		printf("\nTransmitting key...\n");
 
+		for (i = 0; i < 16; i++)
+		{
+			printf("Checkpoint3\n");
+			*to_hw_sig = 2;
+			*to_hw_port = key_hex[i]; // encryptedMsg is your encrypted message
+			// Consider to use charToHex() if your encrypted message is a string.
+			while (*to_sw_sig != 1){
+				printf("Checkpoint4\n");
+			}
+			*to_hw_sig = 1;
+			while (*to_sw_sig != 0){
+				printf("Checkpoint5\n");
+			}
+		}
+
+		printf("\nKey transmitted...\n");
+
+		*to_hw_sig = 3; // Takes hardware to WAIT and then SEND_TO_AES
+
+		// Transmit encrypted message to hardware side for decryption.
 		//TODO: Transmit key
 
 		printf("\n\n");
 
 		while (*to_sw_sig != 2);
+
 		printf("\nRetrieving message...\n");
 		for (i = 0; i < 16; ++i)
 		{
 			*to_hw_sig = 1;
 			while (*to_sw_sig != 1);
-			//str[i] = *to_sw_port;
+			decryptedMsg[i] = *to_sw_port;
+			while (*to_sw_sig != 1);
 			*to_hw_sig = 2;
 			while (*to_sw_sig != 0);
 		}
@@ -537,7 +561,10 @@ int main(){
 
 		// TODO: print decoded message
 
-		 */
+        for(i = 0; i < 16; i++) {
+            printf("%02x", decryptedMsg[i]);
+        }
+
 	}
 
 	return 0;
