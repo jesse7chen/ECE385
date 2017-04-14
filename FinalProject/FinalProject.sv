@@ -22,7 +22,7 @@ module FinalProject( input               CLOCK_50,
                                  VGA_BLANK_N,  //VGA Blank signal
                                  VGA_VS,       //VGA virtical sync signal
                                  VGA_HS,       //VGA horizontal sync signal
-				input		[35:0] GPIO,
+				input		[39:0] GPIO,
 											
 
 				
@@ -50,10 +50,12 @@ logic [3:0] KEYS;
 logic [7:0] Switches;	
 
 
+assign		video_pixel_clk_reset = !KEY[1]; //            .pixel_clk_reset
+
 assign		video_PIXEL_CLK = GPIO[10];       //       video.PIXEL_CLK
 assign 		video_LINE_VALID = GPIO[12];      //            .LINE_VALID
 assign		video_FRAME_VALID = GPIO[13];     //            .FRAME_VALID
-assign		video_pixel_clk_reset = KEY[1]; //            .pixel_clk_reset
+
 
 assign 		video_PIXEL_DATA[0] = GPIO[0];       //            .PIXEL_DATA	
 assign 		video_PIXEL_DATA[1] = GPIO[1];       //            .PIXEL_DATA	

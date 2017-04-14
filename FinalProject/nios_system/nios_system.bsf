@@ -240,7 +240,7 @@ agreement for further details.
 		(text "FRAME_VALID" (rect 149 579 364 1168)(font "Arial" (color 0 0 0)))
 		(text "pixel_clk_reset" (rect 149 595 388 1200)(font "Arial" (color 0 0 0)))
 		(text "PIXEL_DATA" (rect 149 611 358 1232)(font "Arial" (color 0 0 0)))
-		(text " nios_system " (rect 326 632 730 1274)(font "Arial" ))
+		(text " system " (rect 349 632 746 1274)(font "Arial" ))
 		(line (pt 144 32)(pt 240 32)(line_width 1))
 		(line (pt 240 32)(pt 240 632)(line_width 1))
 		(line (pt 144 632)(pt 240 632)(line_width 1))

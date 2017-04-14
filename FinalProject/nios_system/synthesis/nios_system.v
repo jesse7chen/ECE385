@@ -32,105 +32,101 @@ module nios_system (
 		input  wire [9:0]  video_PIXEL_DATA       //            .PIXEL_DATA
 	);
 
-	wire         video_bayer_resampler_0_avalon_bayer_source_valid;           // video_bayer_resampler_0:stream_out_valid -> video_rgb_resampler_0:stream_in_valid
-	wire  [23:0] video_bayer_resampler_0_avalon_bayer_source_data;            // video_bayer_resampler_0:stream_out_data -> video_rgb_resampler_0:stream_in_data
-	wire         video_bayer_resampler_0_avalon_bayer_source_ready;           // video_rgb_resampler_0:stream_in_ready -> video_bayer_resampler_0:stream_out_ready
-	wire         video_bayer_resampler_0_avalon_bayer_source_startofpacket;   // video_bayer_resampler_0:stream_out_startofpacket -> video_rgb_resampler_0:stream_in_startofpacket
-	wire         video_bayer_resampler_0_avalon_bayer_source_endofpacket;     // video_bayer_resampler_0:stream_out_endofpacket -> video_rgb_resampler_0:stream_in_endofpacket
-	wire         video_decoder_0_avalon_decoder_source_valid;                 // video_decoder_0:stream_out_valid -> video_bayer_resampler_0:stream_in_valid
-	wire   [7:0] video_decoder_0_avalon_decoder_source_data;                  // video_decoder_0:stream_out_data -> video_bayer_resampler_0:stream_in_data
-	wire         video_decoder_0_avalon_decoder_source_ready;                 // video_bayer_resampler_0:stream_in_ready -> video_decoder_0:stream_out_ready
-	wire         video_decoder_0_avalon_decoder_source_startofpacket;         // video_decoder_0:stream_out_startofpacket -> video_bayer_resampler_0:stream_in_startofpacket
-	wire         video_decoder_0_avalon_decoder_source_endofpacket;           // video_decoder_0:stream_out_endofpacket -> video_bayer_resampler_0:stream_in_endofpacket
-	wire         video_rgb_resampler_0_avalon_rgb_source_valid;               // video_rgb_resampler_0:stream_out_valid -> video_vga_controller_0:valid
-	wire  [29:0] video_rgb_resampler_0_avalon_rgb_source_data;                // video_rgb_resampler_0:stream_out_data -> video_vga_controller_0:data
-	wire         video_rgb_resampler_0_avalon_rgb_source_ready;               // video_vga_controller_0:ready -> video_rgb_resampler_0:stream_out_ready
-	wire         video_rgb_resampler_0_avalon_rgb_source_startofpacket;       // video_rgb_resampler_0:stream_out_startofpacket -> video_vga_controller_0:startofpacket
-	wire         video_rgb_resampler_0_avalon_rgb_source_endofpacket;         // video_rgb_resampler_0:stream_out_endofpacket -> video_vga_controller_0:endofpacket
-	wire         altpll_0_c0_clk;                                             // altpll_0:c0 -> [rst_controller_002:clk, video_bayer_resampler_0:clk, video_decoder_0:clk, video_rgb_resampler_0:clk, video_vga_controller_0:clk]
-	wire         sdram_pll_c1_clk;                                            // sdram_pll:c1 -> [mm_interconnect_0:sdram_pll_c1_clk, rst_controller_001:clk, sdram:clk]
-	wire  [31:0] nios2_qsys_0_data_master_readdata;                           // mm_interconnect_0:nios2_qsys_0_data_master_readdata -> nios2_qsys_0:d_readdata
-	wire         nios2_qsys_0_data_master_waitrequest;                        // mm_interconnect_0:nios2_qsys_0_data_master_waitrequest -> nios2_qsys_0:d_waitrequest
-	wire         nios2_qsys_0_data_master_debugaccess;                        // nios2_qsys_0:debug_mem_slave_debugaccess_to_roms -> mm_interconnect_0:nios2_qsys_0_data_master_debugaccess
-	wire  [28:0] nios2_qsys_0_data_master_address;                            // nios2_qsys_0:d_address -> mm_interconnect_0:nios2_qsys_0_data_master_address
-	wire   [3:0] nios2_qsys_0_data_master_byteenable;                         // nios2_qsys_0:d_byteenable -> mm_interconnect_0:nios2_qsys_0_data_master_byteenable
-	wire         nios2_qsys_0_data_master_read;                               // nios2_qsys_0:d_read -> mm_interconnect_0:nios2_qsys_0_data_master_read
-	wire         nios2_qsys_0_data_master_write;                              // nios2_qsys_0:d_write -> mm_interconnect_0:nios2_qsys_0_data_master_write
-	wire  [31:0] nios2_qsys_0_data_master_writedata;                          // nios2_qsys_0:d_writedata -> mm_interconnect_0:nios2_qsys_0_data_master_writedata
-	wire  [31:0] nios2_qsys_0_instruction_master_readdata;                    // mm_interconnect_0:nios2_qsys_0_instruction_master_readdata -> nios2_qsys_0:i_readdata
-	wire         nios2_qsys_0_instruction_master_waitrequest;                 // mm_interconnect_0:nios2_qsys_0_instruction_master_waitrequest -> nios2_qsys_0:i_waitrequest
-	wire  [28:0] nios2_qsys_0_instruction_master_address;                     // nios2_qsys_0:i_address -> mm_interconnect_0:nios2_qsys_0_instruction_master_address
-	wire         nios2_qsys_0_instruction_master_read;                        // nios2_qsys_0:i_read -> mm_interconnect_0:nios2_qsys_0_instruction_master_read
-	wire         mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_chipselect;  // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_chipselect -> jtag_uart_0:av_chipselect
-	wire  [31:0] mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_readdata;    // jtag_uart_0:av_readdata -> mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_readdata
-	wire         mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_waitrequest; // jtag_uart_0:av_waitrequest -> mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_waitrequest
-	wire   [0:0] mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_address;     // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_address -> jtag_uart_0:av_address
-	wire         mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_read;        // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_read -> jtag_uart_0:av_read_n
-	wire         mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write;       // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_write -> jtag_uart_0:av_write_n
-	wire  [31:0] mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_writedata;   // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_writedata -> jtag_uart_0:av_writedata
-	wire  [31:0] mm_interconnect_0_sysid_qsys_0_control_slave_readdata;       // sysid_qsys_0:readdata -> mm_interconnect_0:sysid_qsys_0_control_slave_readdata
-	wire   [0:0] mm_interconnect_0_sysid_qsys_0_control_slave_address;        // mm_interconnect_0:sysid_qsys_0_control_slave_address -> sysid_qsys_0:address
-	wire  [31:0] mm_interconnect_0_nios2_qsys_0_debug_mem_slave_readdata;     // nios2_qsys_0:debug_mem_slave_readdata -> mm_interconnect_0:nios2_qsys_0_debug_mem_slave_readdata
-	wire         mm_interconnect_0_nios2_qsys_0_debug_mem_slave_waitrequest;  // nios2_qsys_0:debug_mem_slave_waitrequest -> mm_interconnect_0:nios2_qsys_0_debug_mem_slave_waitrequest
-	wire         mm_interconnect_0_nios2_qsys_0_debug_mem_slave_debugaccess;  // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_debugaccess -> nios2_qsys_0:debug_mem_slave_debugaccess
-	wire   [8:0] mm_interconnect_0_nios2_qsys_0_debug_mem_slave_address;      // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_address -> nios2_qsys_0:debug_mem_slave_address
-	wire         mm_interconnect_0_nios2_qsys_0_debug_mem_slave_read;         // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_read -> nios2_qsys_0:debug_mem_slave_read
-	wire   [3:0] mm_interconnect_0_nios2_qsys_0_debug_mem_slave_byteenable;   // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_byteenable -> nios2_qsys_0:debug_mem_slave_byteenable
-	wire         mm_interconnect_0_nios2_qsys_0_debug_mem_slave_write;        // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_write -> nios2_qsys_0:debug_mem_slave_write
-	wire  [31:0] mm_interconnect_0_nios2_qsys_0_debug_mem_slave_writedata;    // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_writedata -> nios2_qsys_0:debug_mem_slave_writedata
-	wire  [31:0] mm_interconnect_0_sdram_pll_pll_slave_readdata;              // sdram_pll:readdata -> mm_interconnect_0:sdram_pll_pll_slave_readdata
-	wire   [1:0] mm_interconnect_0_sdram_pll_pll_slave_address;               // mm_interconnect_0:sdram_pll_pll_slave_address -> sdram_pll:address
-	wire         mm_interconnect_0_sdram_pll_pll_slave_read;                  // mm_interconnect_0:sdram_pll_pll_slave_read -> sdram_pll:read
-	wire         mm_interconnect_0_sdram_pll_pll_slave_write;                 // mm_interconnect_0:sdram_pll_pll_slave_write -> sdram_pll:write
-	wire  [31:0] mm_interconnect_0_sdram_pll_pll_slave_writedata;             // mm_interconnect_0:sdram_pll_pll_slave_writedata -> sdram_pll:writedata
-	wire         mm_interconnect_0_onchip_memory2_0_s1_chipselect;            // mm_interconnect_0:onchip_memory2_0_s1_chipselect -> onchip_memory2_0:chipselect
-	wire  [31:0] mm_interconnect_0_onchip_memory2_0_s1_readdata;              // onchip_memory2_0:readdata -> mm_interconnect_0:onchip_memory2_0_s1_readdata
-	wire   [9:0] mm_interconnect_0_onchip_memory2_0_s1_address;               // mm_interconnect_0:onchip_memory2_0_s1_address -> onchip_memory2_0:address
-	wire   [3:0] mm_interconnect_0_onchip_memory2_0_s1_byteenable;            // mm_interconnect_0:onchip_memory2_0_s1_byteenable -> onchip_memory2_0:byteenable
-	wire         mm_interconnect_0_onchip_memory2_0_s1_write;                 // mm_interconnect_0:onchip_memory2_0_s1_write -> onchip_memory2_0:write
-	wire  [31:0] mm_interconnect_0_onchip_memory2_0_s1_writedata;             // mm_interconnect_0:onchip_memory2_0_s1_writedata -> onchip_memory2_0:writedata
-	wire         mm_interconnect_0_onchip_memory2_0_s1_clken;                 // mm_interconnect_0:onchip_memory2_0_s1_clken -> onchip_memory2_0:clken
-	wire         mm_interconnect_0_sdram_s1_chipselect;                       // mm_interconnect_0:sdram_s1_chipselect -> sdram:az_cs
-	wire  [31:0] mm_interconnect_0_sdram_s1_readdata;                         // sdram:za_data -> mm_interconnect_0:sdram_s1_readdata
-	wire         mm_interconnect_0_sdram_s1_waitrequest;                      // sdram:za_waitrequest -> mm_interconnect_0:sdram_s1_waitrequest
-	wire  [24:0] mm_interconnect_0_sdram_s1_address;                          // mm_interconnect_0:sdram_s1_address -> sdram:az_addr
-	wire         mm_interconnect_0_sdram_s1_read;                             // mm_interconnect_0:sdram_s1_read -> sdram:az_rd_n
-	wire   [3:0] mm_interconnect_0_sdram_s1_byteenable;                       // mm_interconnect_0:sdram_s1_byteenable -> sdram:az_be_n
-	wire         mm_interconnect_0_sdram_s1_readdatavalid;                    // sdram:za_valid -> mm_interconnect_0:sdram_s1_readdatavalid
-	wire         mm_interconnect_0_sdram_s1_write;                            // mm_interconnect_0:sdram_s1_write -> sdram:az_wr_n
-	wire  [31:0] mm_interconnect_0_sdram_s1_writedata;                        // mm_interconnect_0:sdram_s1_writedata -> sdram:az_data
-	wire  [31:0] mm_interconnect_0_switch_s1_readdata;                        // switch:readdata -> mm_interconnect_0:switch_s1_readdata
-	wire   [1:0] mm_interconnect_0_switch_s1_address;                         // mm_interconnect_0:switch_s1_address -> switch:address
-	wire  [31:0] mm_interconnect_0_key_s1_readdata;                           // key:readdata -> mm_interconnect_0:key_s1_readdata
-	wire   [1:0] mm_interconnect_0_key_s1_address;                            // mm_interconnect_0:key_s1_address -> key:address
-	wire         irq_mapper_receiver0_irq;                                    // jtag_uart_0:av_irq -> irq_mapper:receiver0_irq
-	wire  [31:0] nios2_qsys_0_irq_irq;                                        // irq_mapper:sender_irq -> nios2_qsys_0:irq
-	wire         rst_controller_reset_out_reset;                              // rst_controller:reset_out -> [altpll_0:reset, irq_mapper:reset, jtag_uart_0:rst_n, key:reset_n, mm_interconnect_0:nios2_qsys_0_reset_reset_bridge_in_reset_reset, nios2_qsys_0:reset_n, onchip_memory2_0:reset, rst_translator:in_reset, sdram_pll:reset, switch:reset_n, sysid_qsys_0:reset_n]
-	wire         rst_controller_reset_out_reset_req;                          // rst_controller:reset_req -> [nios2_qsys_0:reset_req, onchip_memory2_0:reset_req, rst_translator:reset_req_in]
-	wire         rst_controller_001_reset_out_reset;                          // rst_controller_001:reset_out -> [mm_interconnect_0:sdram_reset_reset_bridge_in_reset_reset, sdram:reset_n]
-	wire         rst_controller_002_reset_out_reset;                          // rst_controller_002:reset_out -> [video_bayer_resampler_0:reset, video_decoder_0:reset, video_rgb_resampler_0:reset, video_vga_controller_0:reset]
+	wire         video_bayer_resampler_0_avalon_bayer_source_valid;               // video_bayer_resampler_0:stream_out_valid -> video_dual_clock_buffer_0:stream_in_valid
+	wire  [23:0] video_bayer_resampler_0_avalon_bayer_source_data;                // video_bayer_resampler_0:stream_out_data -> video_dual_clock_buffer_0:stream_in_data
+	wire         video_bayer_resampler_0_avalon_bayer_source_ready;               // video_dual_clock_buffer_0:stream_in_ready -> video_bayer_resampler_0:stream_out_ready
+	wire         video_bayer_resampler_0_avalon_bayer_source_startofpacket;       // video_bayer_resampler_0:stream_out_startofpacket -> video_dual_clock_buffer_0:stream_in_startofpacket
+	wire         video_bayer_resampler_0_avalon_bayer_source_endofpacket;         // video_bayer_resampler_0:stream_out_endofpacket -> video_dual_clock_buffer_0:stream_in_endofpacket
+	wire         video_dual_clock_buffer_0_avalon_dc_buffer_source_valid;         // video_dual_clock_buffer_0:stream_out_valid -> video_rgb_resampler_0:stream_in_valid
+	wire  [23:0] video_dual_clock_buffer_0_avalon_dc_buffer_source_data;          // video_dual_clock_buffer_0:stream_out_data -> video_rgb_resampler_0:stream_in_data
+	wire         video_dual_clock_buffer_0_avalon_dc_buffer_source_ready;         // video_rgb_resampler_0:stream_in_ready -> video_dual_clock_buffer_0:stream_out_ready
+	wire         video_dual_clock_buffer_0_avalon_dc_buffer_source_startofpacket; // video_dual_clock_buffer_0:stream_out_startofpacket -> video_rgb_resampler_0:stream_in_startofpacket
+	wire         video_dual_clock_buffer_0_avalon_dc_buffer_source_endofpacket;   // video_dual_clock_buffer_0:stream_out_endofpacket -> video_rgb_resampler_0:stream_in_endofpacket
+	wire         video_decoder_0_avalon_decoder_source_valid;                     // video_decoder_0:stream_out_valid -> video_bayer_resampler_0:stream_in_valid
+	wire   [7:0] video_decoder_0_avalon_decoder_source_data;                      // video_decoder_0:stream_out_data -> video_bayer_resampler_0:stream_in_data
+	wire         video_decoder_0_avalon_decoder_source_ready;                     // video_bayer_resampler_0:stream_in_ready -> video_decoder_0:stream_out_ready
+	wire         video_decoder_0_avalon_decoder_source_startofpacket;             // video_decoder_0:stream_out_startofpacket -> video_bayer_resampler_0:stream_in_startofpacket
+	wire         video_decoder_0_avalon_decoder_source_endofpacket;               // video_decoder_0:stream_out_endofpacket -> video_bayer_resampler_0:stream_in_endofpacket
+	wire         video_rgb_resampler_0_avalon_rgb_source_valid;                   // video_rgb_resampler_0:stream_out_valid -> video_vga_controller_0:valid
+	wire  [29:0] video_rgb_resampler_0_avalon_rgb_source_data;                    // video_rgb_resampler_0:stream_out_data -> video_vga_controller_0:data
+	wire         video_rgb_resampler_0_avalon_rgb_source_ready;                   // video_vga_controller_0:ready -> video_rgb_resampler_0:stream_out_ready
+	wire         video_rgb_resampler_0_avalon_rgb_source_startofpacket;           // video_rgb_resampler_0:stream_out_startofpacket -> video_vga_controller_0:startofpacket
+	wire         video_rgb_resampler_0_avalon_rgb_source_endofpacket;             // video_rgb_resampler_0:stream_out_endofpacket -> video_vga_controller_0:endofpacket
+	wire         sdram_pll_c1_clk;                                                // sdram_pll:c1 -> [mm_interconnect_0:sdram_pll_c1_clk, rst_controller_001:clk, sdram:clk]
+	wire         sdram_pll_c2_clk;                                                // sdram_pll:c2 -> [rst_controller_002:clk, video_bayer_resampler_0:clk, video_decoder_0:clk, video_dual_clock_buffer_0:clk_stream_in, video_dual_clock_buffer_0:clk_stream_out, video_rgb_resampler_0:clk, video_vga_controller_0:clk]
+	wire  [31:0] nios2_qsys_0_data_master_readdata;                               // mm_interconnect_0:nios2_qsys_0_data_master_readdata -> nios2_qsys_0:d_readdata
+	wire         nios2_qsys_0_data_master_waitrequest;                            // mm_interconnect_0:nios2_qsys_0_data_master_waitrequest -> nios2_qsys_0:d_waitrequest
+	wire         nios2_qsys_0_data_master_debugaccess;                            // nios2_qsys_0:debug_mem_slave_debugaccess_to_roms -> mm_interconnect_0:nios2_qsys_0_data_master_debugaccess
+	wire  [28:0] nios2_qsys_0_data_master_address;                                // nios2_qsys_0:d_address -> mm_interconnect_0:nios2_qsys_0_data_master_address
+	wire   [3:0] nios2_qsys_0_data_master_byteenable;                             // nios2_qsys_0:d_byteenable -> mm_interconnect_0:nios2_qsys_0_data_master_byteenable
+	wire         nios2_qsys_0_data_master_read;                                   // nios2_qsys_0:d_read -> mm_interconnect_0:nios2_qsys_0_data_master_read
+	wire         nios2_qsys_0_data_master_write;                                  // nios2_qsys_0:d_write -> mm_interconnect_0:nios2_qsys_0_data_master_write
+	wire  [31:0] nios2_qsys_0_data_master_writedata;                              // nios2_qsys_0:d_writedata -> mm_interconnect_0:nios2_qsys_0_data_master_writedata
+	wire  [31:0] nios2_qsys_0_instruction_master_readdata;                        // mm_interconnect_0:nios2_qsys_0_instruction_master_readdata -> nios2_qsys_0:i_readdata
+	wire         nios2_qsys_0_instruction_master_waitrequest;                     // mm_interconnect_0:nios2_qsys_0_instruction_master_waitrequest -> nios2_qsys_0:i_waitrequest
+	wire  [28:0] nios2_qsys_0_instruction_master_address;                         // nios2_qsys_0:i_address -> mm_interconnect_0:nios2_qsys_0_instruction_master_address
+	wire         nios2_qsys_0_instruction_master_read;                            // nios2_qsys_0:i_read -> mm_interconnect_0:nios2_qsys_0_instruction_master_read
+	wire         mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_chipselect;      // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_chipselect -> jtag_uart_0:av_chipselect
+	wire  [31:0] mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_readdata;        // jtag_uart_0:av_readdata -> mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_readdata
+	wire         mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_waitrequest;     // jtag_uart_0:av_waitrequest -> mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_waitrequest
+	wire   [0:0] mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_address;         // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_address -> jtag_uart_0:av_address
+	wire         mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_read;            // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_read -> jtag_uart_0:av_read_n
+	wire         mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write;           // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_write -> jtag_uart_0:av_write_n
+	wire  [31:0] mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_writedata;       // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_writedata -> jtag_uart_0:av_writedata
+	wire  [31:0] mm_interconnect_0_sysid_qsys_0_control_slave_readdata;           // sysid_qsys_0:readdata -> mm_interconnect_0:sysid_qsys_0_control_slave_readdata
+	wire   [0:0] mm_interconnect_0_sysid_qsys_0_control_slave_address;            // mm_interconnect_0:sysid_qsys_0_control_slave_address -> sysid_qsys_0:address
+	wire  [31:0] mm_interconnect_0_nios2_qsys_0_debug_mem_slave_readdata;         // nios2_qsys_0:debug_mem_slave_readdata -> mm_interconnect_0:nios2_qsys_0_debug_mem_slave_readdata
+	wire         mm_interconnect_0_nios2_qsys_0_debug_mem_slave_waitrequest;      // nios2_qsys_0:debug_mem_slave_waitrequest -> mm_interconnect_0:nios2_qsys_0_debug_mem_slave_waitrequest
+	wire         mm_interconnect_0_nios2_qsys_0_debug_mem_slave_debugaccess;      // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_debugaccess -> nios2_qsys_0:debug_mem_slave_debugaccess
+	wire   [8:0] mm_interconnect_0_nios2_qsys_0_debug_mem_slave_address;          // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_address -> nios2_qsys_0:debug_mem_slave_address
+	wire         mm_interconnect_0_nios2_qsys_0_debug_mem_slave_read;             // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_read -> nios2_qsys_0:debug_mem_slave_read
+	wire   [3:0] mm_interconnect_0_nios2_qsys_0_debug_mem_slave_byteenable;       // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_byteenable -> nios2_qsys_0:debug_mem_slave_byteenable
+	wire         mm_interconnect_0_nios2_qsys_0_debug_mem_slave_write;            // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_write -> nios2_qsys_0:debug_mem_slave_write
+	wire  [31:0] mm_interconnect_0_nios2_qsys_0_debug_mem_slave_writedata;        // mm_interconnect_0:nios2_qsys_0_debug_mem_slave_writedata -> nios2_qsys_0:debug_mem_slave_writedata
+	wire  [31:0] mm_interconnect_0_sdram_pll_pll_slave_readdata;                  // sdram_pll:readdata -> mm_interconnect_0:sdram_pll_pll_slave_readdata
+	wire   [1:0] mm_interconnect_0_sdram_pll_pll_slave_address;                   // mm_interconnect_0:sdram_pll_pll_slave_address -> sdram_pll:address
+	wire         mm_interconnect_0_sdram_pll_pll_slave_read;                      // mm_interconnect_0:sdram_pll_pll_slave_read -> sdram_pll:read
+	wire         mm_interconnect_0_sdram_pll_pll_slave_write;                     // mm_interconnect_0:sdram_pll_pll_slave_write -> sdram_pll:write
+	wire  [31:0] mm_interconnect_0_sdram_pll_pll_slave_writedata;                 // mm_interconnect_0:sdram_pll_pll_slave_writedata -> sdram_pll:writedata
+	wire         mm_interconnect_0_onchip_memory2_0_s1_chipselect;                // mm_interconnect_0:onchip_memory2_0_s1_chipselect -> onchip_memory2_0:chipselect
+	wire  [31:0] mm_interconnect_0_onchip_memory2_0_s1_readdata;                  // onchip_memory2_0:readdata -> mm_interconnect_0:onchip_memory2_0_s1_readdata
+	wire   [9:0] mm_interconnect_0_onchip_memory2_0_s1_address;                   // mm_interconnect_0:onchip_memory2_0_s1_address -> onchip_memory2_0:address
+	wire   [3:0] mm_interconnect_0_onchip_memory2_0_s1_byteenable;                // mm_interconnect_0:onchip_memory2_0_s1_byteenable -> onchip_memory2_0:byteenable
+	wire         mm_interconnect_0_onchip_memory2_0_s1_write;                     // mm_interconnect_0:onchip_memory2_0_s1_write -> onchip_memory2_0:write
+	wire  [31:0] mm_interconnect_0_onchip_memory2_0_s1_writedata;                 // mm_interconnect_0:onchip_memory2_0_s1_writedata -> onchip_memory2_0:writedata
+	wire         mm_interconnect_0_onchip_memory2_0_s1_clken;                     // mm_interconnect_0:onchip_memory2_0_s1_clken -> onchip_memory2_0:clken
+	wire         mm_interconnect_0_sdram_s1_chipselect;                           // mm_interconnect_0:sdram_s1_chipselect -> sdram:az_cs
+	wire  [31:0] mm_interconnect_0_sdram_s1_readdata;                             // sdram:za_data -> mm_interconnect_0:sdram_s1_readdata
+	wire         mm_interconnect_0_sdram_s1_waitrequest;                          // sdram:za_waitrequest -> mm_interconnect_0:sdram_s1_waitrequest
+	wire  [24:0] mm_interconnect_0_sdram_s1_address;                              // mm_interconnect_0:sdram_s1_address -> sdram:az_addr
+	wire         mm_interconnect_0_sdram_s1_read;                                 // mm_interconnect_0:sdram_s1_read -> sdram:az_rd_n
+	wire   [3:0] mm_interconnect_0_sdram_s1_byteenable;                           // mm_interconnect_0:sdram_s1_byteenable -> sdram:az_be_n
+	wire         mm_interconnect_0_sdram_s1_readdatavalid;                        // sdram:za_valid -> mm_interconnect_0:sdram_s1_readdatavalid
+	wire         mm_interconnect_0_sdram_s1_write;                                // mm_interconnect_0:sdram_s1_write -> sdram:az_wr_n
+	wire  [31:0] mm_interconnect_0_sdram_s1_writedata;                            // mm_interconnect_0:sdram_s1_writedata -> sdram:az_data
+	wire  [31:0] mm_interconnect_0_switch_s1_readdata;                            // switch:readdata -> mm_interconnect_0:switch_s1_readdata
+	wire   [1:0] mm_interconnect_0_switch_s1_address;                             // mm_interconnect_0:switch_s1_address -> switch:address
+	wire  [31:0] mm_interconnect_0_key_s1_readdata;                               // key:readdata -> mm_interconnect_0:key_s1_readdata
+	wire   [1:0] mm_interconnect_0_key_s1_address;                                // mm_interconnect_0:key_s1_address -> key:address
+	wire         irq_mapper_receiver0_irq;                                        // jtag_uart_0:av_irq -> irq_mapper:receiver0_irq
+	wire  [31:0] nios2_qsys_0_irq_irq;                                            // irq_mapper:sender_irq -> nios2_qsys_0:irq
+	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [audio_and_video_config_0:reset, irq_mapper:reset, jtag_uart_0:rst_n, key:reset_n, mm_interconnect_0:nios2_qsys_0_reset_reset_bridge_in_reset_reset, nios2_qsys_0:reset_n, onchip_memory2_0:reset, rst_translator:in_reset, sdram_pll:reset, switch:reset_n, sysid_qsys_0:reset_n]
+	wire         rst_controller_reset_out_reset_req;                              // rst_controller:reset_req -> [nios2_qsys_0:reset_req, onchip_memory2_0:reset_req, rst_translator:reset_req_in]
+	wire         rst_controller_001_reset_out_reset;                              // rst_controller_001:reset_out -> [mm_interconnect_0:sdram_reset_reset_bridge_in_reset_reset, sdram:reset_n]
+	wire         rst_controller_002_reset_out_reset;                              // rst_controller_002:reset_out -> [video_bayer_resampler_0:reset, video_decoder_0:reset, video_dual_clock_buffer_0:reset_stream_in, video_dual_clock_buffer_0:reset_stream_out, video_rgb_resampler_0:reset, video_vga_controller_0:reset]
 
-	nios_system_altpll_0 altpll_0 (
-		.clk                (clk_clk),                        //       inclk_interface.clk
-		.reset              (rst_controller_reset_out_reset), // inclk_interface_reset.reset
-		.read               (),                               //             pll_slave.read
-		.write              (),                               //                      .write
-		.address            (),                               //                      .address
-		.readdata           (),                               //                      .readdata
-		.writedata          (),                               //                      .writedata
-		.c0                 (altpll_0_c0_clk),                //                    c0.clk
-		.areset             (),                               //        areset_conduit.export
-		.locked             (),                               //        locked_conduit.export
-		.scandone           (),                               //           (terminated)
-		.scandataout        (),                               //           (terminated)
-		.phasecounterselect (4'b0000),                        //           (terminated)
-		.phaseupdown        (1'b0),                           //           (terminated)
-		.phasestep          (1'b0),                           //           (terminated)
-		.scanclk            (1'b0),                           //           (terminated)
-		.scanclkena         (1'b0),                           //           (terminated)
-		.scandata           (1'b0),                           //           (terminated)
-		.configupdate       (1'b0),                           //           (terminated)
-		.phasedone          ()                                //           (terminated)
+	nios_system_audio_and_video_config_0 audio_and_video_config_0 (
+		.clk         (clk_clk),                        //                    clk.clk
+		.reset       (rst_controller_reset_out_reset), //                  reset.reset
+		.address     (),                               // avalon_av_config_slave.address
+		.byteenable  (),                               //                       .byteenable
+		.read        (),                               //                       .read
+		.write       (),                               //                       .write
+		.writedata   (),                               //                       .writedata
+		.readdata    (),                               //                       .readdata
+		.waitrequest (),                               //                       .waitrequest
+		.I2C_SDAT    (),                               //     external_interface.export
+		.I2C_SCLK    ()                                //                       .export
 	);
 
 	nios_system_jtag_uart_0 jtag_uart_0 (
@@ -230,19 +226,19 @@ module nios_system (
 		.writedata          (mm_interconnect_0_sdram_pll_pll_slave_writedata), //                      .writedata
 		.c0                 (),                                                //                    c0.clk
 		.c1                 (sdram_pll_c1_clk),                                //                    c1.clk
-		.c2                 (),                                                //                    c2.clk
+		.c2                 (sdram_pll_c2_clk),                                //                    c2.clk
 		.scandone           (),                                                //           (terminated)
 		.scandataout        (),                                                //           (terminated)
+		.areset             (1'b0),                                            //           (terminated)
+		.locked             (),                                                //           (terminated)
+		.phasedone          (),                                                //           (terminated)
 		.phasecounterselect (4'b0000),                                         //           (terminated)
 		.phaseupdown        (1'b0),                                            //           (terminated)
 		.phasestep          (1'b0),                                            //           (terminated)
 		.scanclk            (1'b0),                                            //           (terminated)
 		.scanclkena         (1'b0),                                            //           (terminated)
 		.scandata           (1'b0),                                            //           (terminated)
-		.configupdate       (1'b0),                                            //           (terminated)
-		.areset             (1'b0),                                            //           (terminated)
-		.locked             (),                                                //           (terminated)
-		.phasedone          ()                                                 //           (terminated)
+		.configupdate       (1'b0)                                             //           (terminated)
 	);
 
 	nios_system_switch switch (
@@ -261,7 +257,7 @@ module nios_system (
 	);
 
 	nios_system_video_bayer_resampler_0 video_bayer_resampler_0 (
-		.clk                      (altpll_0_c0_clk),                                           //                 clk.clk
+		.clk                      (sdram_pll_c2_clk),                                          //                 clk.clk
 		.reset                    (rst_controller_002_reset_out_reset),                        //               reset.reset
 		.stream_in_data           (video_decoder_0_avalon_decoder_source_data),                //   avalon_bayer_sink.data
 		.stream_in_startofpacket  (video_decoder_0_avalon_decoder_source_startofpacket),       //                    .startofpacket
@@ -276,7 +272,7 @@ module nios_system (
 	);
 
 	nios_system_video_decoder_0 video_decoder_0 (
-		.clk                      (altpll_0_c0_clk),                                     //                   clk.clk
+		.clk                      (sdram_pll_c2_clk),                                    //                   clk.clk
 		.reset                    (rst_controller_002_reset_out_reset),                  //                 reset.reset
 		.stream_out_ready         (video_decoder_0_avalon_decoder_source_ready),         // avalon_decoder_source.ready
 		.stream_out_startofpacket (video_decoder_0_avalon_decoder_source_startofpacket), //                      .startofpacket
@@ -290,23 +286,40 @@ module nios_system (
 		.PIXEL_DATA               (video_PIXEL_DATA)                                     //                      .export
 	);
 
+	nios_system_video_dual_clock_buffer_0 video_dual_clock_buffer_0 (
+		.clk_stream_in            (sdram_pll_c2_clk),                                                //         clock_stream_in.clk
+		.reset_stream_in          (rst_controller_002_reset_out_reset),                              //         reset_stream_in.reset
+		.clk_stream_out           (sdram_pll_c2_clk),                                                //        clock_stream_out.clk
+		.reset_stream_out         (rst_controller_002_reset_out_reset),                              //        reset_stream_out.reset
+		.stream_in_ready          (video_bayer_resampler_0_avalon_bayer_source_ready),               //   avalon_dc_buffer_sink.ready
+		.stream_in_startofpacket  (video_bayer_resampler_0_avalon_bayer_source_startofpacket),       //                        .startofpacket
+		.stream_in_endofpacket    (video_bayer_resampler_0_avalon_bayer_source_endofpacket),         //                        .endofpacket
+		.stream_in_valid          (video_bayer_resampler_0_avalon_bayer_source_valid),               //                        .valid
+		.stream_in_data           (video_bayer_resampler_0_avalon_bayer_source_data),                //                        .data
+		.stream_out_ready         (video_dual_clock_buffer_0_avalon_dc_buffer_source_ready),         // avalon_dc_buffer_source.ready
+		.stream_out_startofpacket (video_dual_clock_buffer_0_avalon_dc_buffer_source_startofpacket), //                        .startofpacket
+		.stream_out_endofpacket   (video_dual_clock_buffer_0_avalon_dc_buffer_source_endofpacket),   //                        .endofpacket
+		.stream_out_valid         (video_dual_clock_buffer_0_avalon_dc_buffer_source_valid),         //                        .valid
+		.stream_out_data          (video_dual_clock_buffer_0_avalon_dc_buffer_source_data)           //                        .data
+	);
+
 	nios_system_video_rgb_resampler_0 video_rgb_resampler_0 (
-		.clk                      (altpll_0_c0_clk),                                           //               clk.clk
-		.reset                    (rst_controller_002_reset_out_reset),                        //             reset.reset
-		.stream_in_startofpacket  (video_bayer_resampler_0_avalon_bayer_source_startofpacket), //   avalon_rgb_sink.startofpacket
-		.stream_in_endofpacket    (video_bayer_resampler_0_avalon_bayer_source_endofpacket),   //                  .endofpacket
-		.stream_in_valid          (video_bayer_resampler_0_avalon_bayer_source_valid),         //                  .valid
-		.stream_in_ready          (video_bayer_resampler_0_avalon_bayer_source_ready),         //                  .ready
-		.stream_in_data           (video_bayer_resampler_0_avalon_bayer_source_data),          //                  .data
-		.stream_out_ready         (video_rgb_resampler_0_avalon_rgb_source_ready),             // avalon_rgb_source.ready
-		.stream_out_startofpacket (video_rgb_resampler_0_avalon_rgb_source_startofpacket),     //                  .startofpacket
-		.stream_out_endofpacket   (video_rgb_resampler_0_avalon_rgb_source_endofpacket),       //                  .endofpacket
-		.stream_out_valid         (video_rgb_resampler_0_avalon_rgb_source_valid),             //                  .valid
-		.stream_out_data          (video_rgb_resampler_0_avalon_rgb_source_data)               //                  .data
+		.clk                      (sdram_pll_c2_clk),                                                //               clk.clk
+		.reset                    (rst_controller_002_reset_out_reset),                              //             reset.reset
+		.stream_in_startofpacket  (video_dual_clock_buffer_0_avalon_dc_buffer_source_startofpacket), //   avalon_rgb_sink.startofpacket
+		.stream_in_endofpacket    (video_dual_clock_buffer_0_avalon_dc_buffer_source_endofpacket),   //                  .endofpacket
+		.stream_in_valid          (video_dual_clock_buffer_0_avalon_dc_buffer_source_valid),         //                  .valid
+		.stream_in_ready          (video_dual_clock_buffer_0_avalon_dc_buffer_source_ready),         //                  .ready
+		.stream_in_data           (video_dual_clock_buffer_0_avalon_dc_buffer_source_data),          //                  .data
+		.stream_out_ready         (video_rgb_resampler_0_avalon_rgb_source_ready),                   // avalon_rgb_source.ready
+		.stream_out_startofpacket (video_rgb_resampler_0_avalon_rgb_source_startofpacket),           //                  .startofpacket
+		.stream_out_endofpacket   (video_rgb_resampler_0_avalon_rgb_source_endofpacket),             //                  .endofpacket
+		.stream_out_valid         (video_rgb_resampler_0_avalon_rgb_source_valid),                   //                  .valid
+		.stream_out_data          (video_rgb_resampler_0_avalon_rgb_source_data)                     //                  .data
 	);
 
 	nios_system_video_vga_controller_0 video_vga_controller_0 (
-		.clk           (altpll_0_c0_clk),                                       //                clk.clk
+		.clk           (sdram_pll_c2_clk),                                      //                clk.clk
 		.reset         (rst_controller_002_reset_out_reset),                    //              reset.reset
 		.data          (video_rgb_resampler_0_avalon_rgb_source_data),          //    avalon_vga_sink.data
 		.startofpacket (video_rgb_resampler_0_avalon_rgb_source_startofpacket), //                   .startofpacket
@@ -544,7 +557,7 @@ module nios_system (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_002 (
 		.reset_in0      (~reset_reset_n),                     // reset_in0.reset
-		.clk            (altpll_0_c0_clk),                    //       clk.clk
+		.clk            (sdram_pll_c2_clk),                   //       clk.clk
 		.reset_out      (rst_controller_002_reset_out_reset), // reset_out.reset
 		.reset_req      (),                                   // (terminated)
 		.reset_req_in0  (1'b0),                               // (terminated)
