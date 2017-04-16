@@ -1,19 +1,19 @@
-// (C) 2001-2016 Intel Corporation. All rights reserved.
-// Your use of Intel Corporation's design tools, logic functions and other 
+// (C) 2001-2015 Altera Corporation. All rights reserved.
+// Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
 // files), and any associated documentation or information are expressly subject 
-// to the terms and conditions of the Intel Program License Subscription 
-// Agreement, Intel MegaCore Function License Agreement, or other applicable 
+// to the terms and conditions of the Altera Program License Subscription 
+// Agreement, Altera MegaCore Function License Agreement, or other applicable 
 // license agreement, including, without limitation, that your use is for the 
-// sole purpose of programming logic devices manufactured by Intel and sold by 
-// Intel or its authorized distributors.  Please refer to the applicable 
+// sole purpose of programming logic devices manufactured by Altera and sold by 
+// Altera or its authorized distributors.  Please refer to the applicable 
 // agreement for further details.
 
 
-// $Id: //acds/rel/16.1/ip/merlin/altera_merlin_demultiplexer/altera_merlin_demultiplexer.sv.terp#1 $
+// $Id: //acds/rel/15.0/ip/merlin/altera_merlin_demultiplexer/altera_merlin_demultiplexer.sv.terp#1 $
 // $Revision: #1 $
-// $Date: 2016/08/07 $
+// $Date: 2015/02/08 $
 // $Author: swbranch $
 
 // -------------------------------------
@@ -28,9 +28,9 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         nios_system_mm_interconnect_0_rsp_demux_001
-//   ST_DATA_W:           105
-//   ST_CHANNEL_W:        8
-//   NUM_OUTPUTS:         2
+//   ST_DATA_W:           107
+//   ST_CHANNEL_W:        9
+//   NUM_OUTPUTS:         1
 //   VALID_WIDTH:         1
 // ------------------------------------------
 
@@ -46,8 +46,8 @@ module nios_system_mm_interconnect_0_rsp_demux_001
     // Sink
     // -------------------
     input  [1-1      : 0]   sink_valid,
-    input  [105-1    : 0]   sink_data, // ST_DATA_W=105
-    input  [8-1 : 0]   sink_channel, // ST_CHANNEL_W=8
+    input  [107-1    : 0]   sink_data, // ST_DATA_W=107
+    input  [9-1 : 0]   sink_channel, // ST_CHANNEL_W=9
     input                         sink_startofpacket,
     input                         sink_endofpacket,
     output                        sink_ready,
@@ -56,18 +56,11 @@ module nios_system_mm_interconnect_0_rsp_demux_001
     // Sources 
     // -------------------
     output reg                      src0_valid,
-    output reg [105-1    : 0] src0_data, // ST_DATA_W=105
-    output reg [8-1 : 0] src0_channel, // ST_CHANNEL_W=8
+    output reg [107-1    : 0] src0_data, // ST_DATA_W=107
+    output reg [9-1 : 0] src0_channel, // ST_CHANNEL_W=9
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
-
-    output reg                      src1_valid,
-    output reg [105-1    : 0] src1_data, // ST_DATA_W=105
-    output reg [8-1 : 0] src1_channel, // ST_CHANNEL_W=8
-    output reg                      src1_startofpacket,
-    output reg                      src1_endofpacket,
-    input                           src1_ready,
 
 
     // -------------------
@@ -80,7 +73,7 @@ module nios_system_mm_interconnect_0_rsp_demux_001
 
 );
 
-    localparam NUM_OUTPUTS = 2;
+    localparam NUM_OUTPUTS = 1;
     wire [NUM_OUTPUTS - 1 : 0] ready_vector;
 
     // -------------------
@@ -94,22 +87,15 @@ module nios_system_mm_interconnect_0_rsp_demux_001
 
         src0_valid         = sink_channel[0] && sink_valid;
 
-        src1_data          = sink_data;
-        src1_startofpacket = sink_startofpacket;
-        src1_endofpacket   = sink_endofpacket;
-        src1_channel       = sink_channel >> NUM_OUTPUTS;
-
-        src1_valid         = sink_channel[1] && sink_valid;
-
     end
 
     // -------------------
     // Backpressure
     // -------------------
     assign ready_vector[0] = src0_ready;
-    assign ready_vector[1] = src1_ready;
 
-    assign sink_ready = |(sink_channel & {{6{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
+    assign sink_ready = |(sink_channel & {{8{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
 
 endmodule
+
 

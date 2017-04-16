@@ -1,13 +1,13 @@
-// (C) 2001-2016 Intel Corporation. All rights reserved.
-// Your use of Intel Corporation's design tools, logic functions and other 
+// (C) 2001-2015 Altera Corporation. All rights reserved.
+// Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
 // files), and any associated documentation or information are expressly subject 
-// to the terms and conditions of the Intel Program License Subscription 
-// Agreement, Intel MegaCore Function License Agreement, or other applicable 
+// to the terms and conditions of the Altera Program License Subscription 
+// Agreement, Altera MegaCore Function License Agreement, or other applicable 
 // license agreement, including, without limitation, that your use is for the 
-// sole purpose of programming logic devices manufactured by Intel and sold by 
-// Intel or its authorized distributors.  Please refer to the applicable 
+// sole purpose of programming logic devices manufactured by Altera and sold by 
+// Altera or its authorized distributors.  Please refer to the applicable 
 // agreement for further details.
 
 
@@ -67,24 +67,24 @@ parameter B_UI								= 9;
 parameter B_LI								= 2;
 
 /* Number of pixels */
-parameter H_ACTIVE 						= 1280;
-parameter H_FRONT_PORCH					=   48;
-parameter H_SYNC							=  112;
-parameter H_BACK_PORCH 					=  248;
-parameter H_TOTAL 						= 1688;
+parameter H_ACTIVE 						= 640;
+parameter H_FRONT_PORCH					=  16;
+parameter H_SYNC							=  96;
+parameter H_BACK_PORCH 					=  48;
+parameter H_TOTAL 						= 800;
 
 /* Number of lines */
-parameter V_ACTIVE 						= 1024;
-parameter V_FRONT_PORCH					=    2;
-parameter V_SYNC							=    3;
-parameter V_BACK_PORCH 					=   37;
-parameter V_TOTAL							= 1066;
+parameter V_ACTIVE 						= 480;
+parameter V_FRONT_PORCH					=  10;
+parameter V_SYNC							=   2;
+parameter V_BACK_PORCH 					=  33;
+parameter V_TOTAL							= 525;
 
-parameter LW								= 11;
-parameter LINE_COUNTER_INCREMENT		= 11'h001;
+parameter LW								= 10;
+parameter LINE_COUNTER_INCREMENT		= 10'h001;
 
-parameter PW								= 11;
-parameter PIXEL_COUNTER_INCREMENT	= 11'h001;
+parameter PW								= 10;
+parameter PIXEL_COUNTER_INCREMENT	= 10'h001;
 
 /*****************************************************************************
  *                             Port Declarations                             *

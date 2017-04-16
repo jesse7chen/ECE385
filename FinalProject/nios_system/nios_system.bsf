@@ -4,26 +4,26 @@ editor if you plan to continue editing the block that represents it in
 the Block Editor! File corruption is VERY likely to occur.
 */
 /*
-Copyright (C) 2016  Intel Corporation. All rights reserved.
-Your use of Intel Corporation's design tools, logic functions 
+Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
-to the terms and conditions of the Intel Program License 
-Subscription Agreement, the Intel Quartus Prime License Agreement,
-the Intel MegaCore Function License Agreement, or other 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus II License Agreement,
+the Altera MegaCore Function License Agreement, or other 
 applicable license agreement, including, without limitation, 
 that your use is for the sole purpose of programming logic 
-devices manufactured by Intel and sold by Intel or its 
+devices manufactured by Altera and sold by Altera or its 
 authorized distributors.  Please refer to the applicable 
 agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 0 0 384 648)
-	(text "nios_system" (rect 155 -1 206 11)(font "Arial" (font_size 10)))
-	(text "inst" (rect 8 632 20 644)(font "Arial" ))
+	(rect 0 0 400 704)
+	(text "nios_system" (rect 163 -1 214 11)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 688 20 700)(font "Arial" ))
 	(port
 		(pt 0 72)
 		(input)
@@ -200,11 +200,39 @@ agreement for further details.
 		(line (pt 0 472)(pt 144 472)(line_width 1))
 	)
 	(port
+		(pt 0 672)
+		(output)
+		(text "video_config_SCLK" (rect 0 0 82 12)(font "Arial" (font_size 8)))
+		(text "video_config_SCLK" (rect 4 661 106 672)(font "Arial" (font_size 8)))
+		(line (pt 0 672)(pt 144 672)(line_width 1))
+	)
+	(port
+		(pt 400 72)
+		(output)
+		(text "sdram_clk_clk" (rect 0 0 59 12)(font "Arial" (font_size 8)))
+		(text "sdram_clk_clk" (rect 328 61 406 72)(font "Arial" (font_size 8)))
+		(line (pt 400 72)(pt 256 72)(line_width 1))
+	)
+	(port
+		(pt 400 112)
+		(output)
+		(text "clock_25_clk" (rect 0 0 51 12)(font "Arial" (font_size 8)))
+		(text "clock_25_clk" (rect 334 101 406 112)(font "Arial" (font_size 8)))
+		(line (pt 400 112)(pt 256 112)(line_width 1))
+	)
+	(port
 		(pt 0 424)
 		(bidir)
 		(text "sdram_wire_dq[31..0]" (rect 0 0 86 12)(font "Arial" (font_size 8)))
 		(text "sdram_wire_dq[31..0]" (rect 4 413 124 424)(font "Arial" (font_size 8)))
 		(line (pt 0 424)(pt 144 424)(line_width 3))
+	)
+	(port
+		(pt 0 656)
+		(bidir)
+		(text "video_config_SDAT" (rect 0 0 83 12)(font "Arial" (font_size 8)))
+		(text "video_config_SDAT" (rect 4 645 106 656)(font "Arial" (font_size 8)))
+		(line (pt 0 656)(pt 144 656)(line_width 1))
 	)
 	(drawing
 		(text "clk" (rect 129 43 276 99)(font "Arial" (color 128 0 0)(font_size 9)))
@@ -240,11 +268,18 @@ agreement for further details.
 		(text "FRAME_VALID" (rect 149 579 364 1168)(font "Arial" (color 0 0 0)))
 		(text "pixel_clk_reset" (rect 149 595 388 1200)(font "Arial" (color 0 0 0)))
 		(text "PIXEL_DATA" (rect 149 611 358 1232)(font "Arial" (color 0 0 0)))
-		(text " system " (rect 349 632 746 1274)(font "Arial" ))
-		(line (pt 144 32)(pt 240 32)(line_width 1))
-		(line (pt 240 32)(pt 240 632)(line_width 1))
-		(line (pt 144 632)(pt 240 632)(line_width 1))
-		(line (pt 144 32)(pt 144 632)(line_width 1))
+		(text "video_config" (rect 72 627 216 1267)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "SDAT" (rect 149 651 322 1312)(font "Arial" (color 0 0 0)))
+		(text "SCLK" (rect 149 667 322 1344)(font "Arial" (color 0 0 0)))
+		(text "sdram_clk" (rect 257 43 568 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 241 67 500 144)(font "Arial" (color 0 0 0)))
+		(text "clock_25" (rect 257 83 562 179)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 241 107 500 224)(font "Arial" (color 0 0 0)))
+		(text " system " (rect 365 688 778 1386)(font "Arial" ))
+		(line (pt 144 32)(pt 256 32)(line_width 1))
+		(line (pt 256 32)(pt 256 688)(line_width 1))
+		(line (pt 144 688)(pt 256 688)(line_width 1))
+		(line (pt 144 32)(pt 144 688)(line_width 1))
 		(line (pt 145 52)(pt 145 76)(line_width 1))
 		(line (pt 146 52)(pt 146 76)(line_width 1))
 		(line (pt 145 92)(pt 145 116)(line_width 1))
@@ -259,9 +294,15 @@ agreement for further details.
 		(line (pt 146 492)(pt 146 516)(line_width 1))
 		(line (pt 145 532)(pt 145 620)(line_width 1))
 		(line (pt 146 532)(pt 146 620)(line_width 1))
-		(line (pt 0 0)(pt 384 0)(line_width 1))
-		(line (pt 384 0)(pt 384 648)(line_width 1))
-		(line (pt 0 648)(pt 384 648)(line_width 1))
-		(line (pt 0 0)(pt 0 648)(line_width 1))
+		(line (pt 145 636)(pt 145 676)(line_width 1))
+		(line (pt 146 636)(pt 146 676)(line_width 1))
+		(line (pt 255 52)(pt 255 76)(line_width 1))
+		(line (pt 254 52)(pt 254 76)(line_width 1))
+		(line (pt 255 92)(pt 255 116)(line_width 1))
+		(line (pt 254 92)(pt 254 116)(line_width 1))
+		(line (pt 0 0)(pt 400 0)(line_width 1))
+		(line (pt 400 0)(pt 400 704)(line_width 1))
+		(line (pt 0 704)(pt 400 704)(line_width 1))
+		(line (pt 0 0)(pt 0 704)(line_width 1))
 	)
 )

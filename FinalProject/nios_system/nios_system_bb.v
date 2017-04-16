@@ -25,7 +25,11 @@ module nios_system (
 	video_LINE_VALID,
 	video_FRAME_VALID,
 	video_pixel_clk_reset,
-	video_PIXEL_DATA);	
+	video_PIXEL_DATA,
+	video_config_SDAT,
+	video_config_SCLK,
+	sdram_clk_clk,
+	clock_25_clk);	
 
 	input		clk_clk;
 	input	[3:0]	key_wire_export;
@@ -53,4 +57,8 @@ module nios_system (
 	input		video_FRAME_VALID;
 	input		video_pixel_clk_reset;
 	input	[9:0]	video_PIXEL_DATA;
+	inout		video_config_SDAT;
+	output		video_config_SCLK;
+	output		sdram_clk_clk;
+	output		clock_25_clk;
 endmodule

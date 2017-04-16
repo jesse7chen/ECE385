@@ -1,41 +1,50 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
+preplace inst nios_system.video_clipper_0 -pg 1 -lvl 5 -y 60
 preplace inst nios_system.nios2_qsys_0.reset_bridge -pg 1
-preplace inst nios_system.jtag_uart_0 -pg 1 -lvl 3 -y 110
-preplace inst nios_system.video_vga_controller_0 -pg 1 -lvl 7 -y 190
-preplace inst nios_system.video_rgb_resampler_0 -pg 1 -lvl 6 -y 270
+preplace inst nios_system.jtag_uart_0 -pg 1 -lvl 4 -y 210
+preplace inst nios_system.video_vga_controller_0 -pg 1 -lvl 8 -y 300
+preplace inst nios_system.video_rgb_resampler_0 -pg 1 -lvl 7 -y 410
 preplace inst nios_system.nios2_qsys_0.clock_bridge -pg 1
 preplace inst nios_system -pg 1 -lvl 1 -y 40 -regy -20
-preplace inst nios_system.switch -pg 1 -lvl 3 -y 1150
-preplace inst nios_system.onchip_memory2_0 -pg 1 -lvl 3 -y 30
-preplace inst nios_system.nios2_qsys_0 -pg 1 -lvl 2 -y 50
-preplace inst nios_system.sysid_qsys_0 -pg 1 -lvl 3 -y 610
-preplace inst nios_system.audio_and_video_config_0 -pg 1 -lvl 2 -y 200
-preplace inst nios_system.video_bayer_resampler_0 -pg 1 -lvl 4 -y 270
-preplace inst nios_system.altpll_0 -pg 1 -lvl 2 -y 300
-preplace inst nios_system.video_dual_clock_buffer_0 -pg 1 -lvl 5 -y 230
-preplace inst nios_system.video_decoder_0 -pg 1 -lvl 3 -y 250
-preplace inst nios_system.sdram_pll -pg 1 -lvl 3 -y 350
-preplace inst nios_system.sdram -pg 1 -lvl 3 -y 460
+preplace inst nios_system.video_dma_controller_0 -pg 1 -lvl 6 -y 280
+preplace inst nios_system.switch -pg 1 -lvl 4 -y 1160
+preplace inst nios_system.sram_0 -pg 1 -lvl 7 -y 220
+preplace inst nios_system.onchip_memory2_0 -pg 1 -lvl 4 -y 90
+preplace inst nios_system.nios2_qsys_0 -pg 1 -lvl 2 -y 130
+preplace inst nios_system.video_pixel_buffer_dma_0 -pg 1 -lvl 4 -y 350
+preplace inst nios_system.sysid_qsys_0 -pg 1 -lvl 4 -y 900
+preplace inst nios_system.audio_and_video_config_0 -pg 1 -lvl 2 -y 340
+preplace inst nios_system.video_bayer_resampler_0 -pg 1 -lvl 5 -y 490
+preplace inst nios_system.altpll_0 -pg 1 -lvl 3 -y 410
+preplace inst nios_system.video_dual_clock_buffer_0 -pg 1 -lvl 6 -y 120
+preplace inst nios_system.video_decoder_0 -pg 1 -lvl 4 -y 470
+preplace inst nios_system.sdram -pg 1 -lvl 4 -y 800
+preplace inst nios_system.video_scaler_0 -pg 1 -lvl 5 -y 190
 preplace inst nios_system.nios2_qsys_0.cpu -pg 1
-preplace inst nios_system.key -pg 1 -lvl 3 -y 1250
-preplace inst nios_system.clk_0 -pg 1 -lvl 1 -y 140
-preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(SLAVE)sdram.clk,(MASTER)sdram_pll.c1) 1 2 2 770 570 1120
-preplace netloc FAN_OUT<net_container>nios_system</net_container>(SLAVE)video_rgb_resampler_0.reset,(SLAVE)key.reset,(MASTER)clk_0.clk_reset,(SLAVE)jtag_uart_0.reset,(SLAVE)video_bayer_resampler_0.reset,(SLAVE)altpll_0.inclk_interface_reset,(SLAVE)nios2_qsys_0.reset,(SLAVE)onchip_memory2_0.reset1,(SLAVE)video_dual_clock_buffer_0.reset_stream_in,(SLAVE)sdram.reset,(SLAVE)sysid_qsys_0.reset,(SLAVE)audio_and_video_config_0.reset,(SLAVE)video_dual_clock_buffer_0.reset_stream_out,(SLAVE)switch.reset,(SLAVE)video_vga_controller_0.reset,(SLAVE)sdram_pll.inclk_interface_reset,(SLAVE)video_decoder_0.reset) 1 1 6 310 1300 750 220 1140 220 1370 360 1740 260 NJ
-preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(MASTER)nios2_qsys_0.irq,(SLAVE)jtag_uart_0.irq) 1 2 1 710
-preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.key_wire,(SLAVE)key.external_connection) 1 0 3 NJ 1280 NJ 1280 NJ
-preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)video_decoder_0.external_interface,(SLAVE)nios_system.video) 1 0 3 NJ 430 NJ 430 NJ
-preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(SLAVE)video_bayer_resampler_0.avalon_bayer_sink,(MASTER)video_decoder_0.avalon_decoder_source) 1 3 1 N
-preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.qsys_vga,(SLAVE)video_vga_controller_0.external_interface) 1 0 7 NJ 450 NJ 450 NJ 450 NJ 450 NJ 450 NJ 450 NJ
-preplace netloc FAN_OUT<net_container>nios_system</net_container>(SLAVE)video_vga_controller_0.clk,(SLAVE)video_bayer_resampler_0.clk,(SLAVE)video_dual_clock_buffer_0.clock_stream_out,(SLAVE)video_decoder_0.clk,(SLAVE)video_dual_clock_buffer_0.clock_stream_in,(SLAVE)video_rgb_resampler_0.clk,(MASTER)altpll_0.c0) 1 2 5 710 240 1120 240 1390 220 1720 220 NJ
-preplace netloc INTERCONNECT<net_container>nios_system</net_container>(MASTER)nios2_qsys_0.data_master,(MASTER)nios2_qsys_0.instruction_master,(SLAVE)sdram_pll.pll_slave,(SLAVE)key.s1,(SLAVE)nios2_qsys_0.debug_mem_slave,(SLAVE)sdram.s1,(SLAVE)switch.s1,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)sysid_qsys_0.control_slave,(SLAVE)onchip_memory2_0.s1) 1 1 2 330 1320 690
-preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(MASTER)video_dual_clock_buffer_0.avalon_dc_buffer_source,(SLAVE)video_rgb_resampler_0.avalon_rgb_sink) 1 5 1 N
-preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(MASTER)video_bayer_resampler_0.avalon_bayer_source,(SLAVE)video_dual_clock_buffer_0.avalon_dc_buffer_sink) 1 4 1 1410
-preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.switch_wire,(SLAVE)switch.external_connection) 1 0 3 NJ 1180 NJ 1180 NJ
-preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.sdram_wire,(SLAVE)sdram.wire) 1 0 3 NJ 530 NJ 530 NJ
-preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
-preplace netloc FAN_OUT<net_container>nios_system</net_container>(SLAVE)switch.clk,(SLAVE)audio_and_video_config_0.clk,(SLAVE)sdram_pll.inclk_interface,(MASTER)clk_0.clk,(SLAVE)sysid_qsys_0.clk,(SLAVE)key.clk,(SLAVE)altpll_0.inclk_interface,(SLAVE)nios2_qsys_0.clk,(SLAVE)onchip_memory2_0.clk1,(SLAVE)jtag_uart_0.clk) 1 1 2 290 190 730
-preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)clk_0.clk_in,(SLAVE)nios_system.clk) 1 0 1 NJ
-preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(SLAVE)video_vga_controller_0.avalon_vga_sink,(MASTER)video_rgb_resampler_0.avalon_rgb_source) 1 6 1 1940
-levelinfo -pg 1 0 80 2160
-levelinfo -hier nios_system 90 120 450 840 1190 1440 1770 1990 2150
+preplace inst nios_system.key -pg 1 -lvl 4 -y 1360
+preplace inst nios_system.clk_0 -pg 1 -lvl 1 -y 230
+preplace netloc FAN_OUT<net_container>nios_system</net_container>(SLAVE)video_decoder_0.reset,(SLAVE)switch.reset,(SLAVE)video_bayer_resampler_0.reset,(SLAVE)altpll_0.inclk_interface_reset,(SLAVE)sdram.reset,(SLAVE)video_dual_clock_buffer_0.reset_stream_in,(SLAVE)audio_and_video_config_0.reset,(SLAVE)video_rgb_resampler_0.reset,(SLAVE)sram_0.reset,(SLAVE)video_clipper_0.reset,(SLAVE)video_dual_clock_buffer_0.reset_stream_out,(SLAVE)nios2_qsys_0.reset,(MASTER)clk_0.clk_reset,(SLAVE)sysid_qsys_0.reset,(SLAVE)video_scaler_0.reset,(SLAVE)video_pixel_buffer_dma_0.reset,(SLAVE)video_vga_controller_0.reset,(SLAVE)jtag_uart_0.reset,(SLAVE)video_dma_controller_0.reset,(SLAVE)key.reset,(SLAVE)onchip_memory2_0.reset1) 1 1 7 310 470 770 320 1150 440 1590 420 1910 440 2320 380 NJ
+preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(SLAVE)jtag_uart_0.irq,(MASTER)nios2_qsys_0.irq) 1 2 2 710 260 NJ
+preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(SLAVE)sdram.clk,(MASTER)altpll_0.c0) 1 3 1 1110
+preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(MASTER)video_dual_clock_buffer_0.avalon_dc_buffer_source,(SLAVE)video_vga_controller_0.avalon_vga_sink) 1 6 2 2300 330 NJ
+preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)nios_system.reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
+preplace netloc INTERCONNECT<net_container>nios_system</net_container>(MASTER)nios2_qsys_0.data_master,(SLAVE)nios2_qsys_0.debug_mem_slave,(SLAVE)altpll_0.pll_slave,(MASTER)nios2_qsys_0.instruction_master,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)switch.s1,(SLAVE)onchip_memory2_0.s1,(SLAVE)key.s1,(SLAVE)sdram.s1,(SLAVE)sysid_qsys_0.control_slave) 1 1 3 330 270 730 220 1170
+preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.video,(SLAVE)video_decoder_0.external_interface) 1 0 4 NJ 560 NJ 560 NJ 560 NJ
+preplace netloc FAN_OUT<net_container>nios_system</net_container>(MASTER)altpll_0.c2,(SLAVE)video_vga_controller_0.clk,(SLAVE)video_dual_clock_buffer_0.clock_stream_out) 1 3 5 1070 200 NJ 180 1890 250 NJ 210 2580
+preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.key_wire,(SLAVE)key.external_connection) 1 0 4 NJ 1390 NJ 1390 NJ 1390 NJ
+preplace netloc FAN_OUT<net_container>nios_system</net_container>(SLAVE)video_dual_clock_buffer_0.clock_stream_in,(SLAVE)key.clk,(SLAVE)jtag_uart_0.clk,(SLAVE)video_rgb_resampler_0.clk,(SLAVE)video_decoder_0.clk,(SLAVE)sram_0.clk,(SLAVE)switch.clk,(SLAVE)onchip_memory2_0.clk1,(SLAVE)video_scaler_0.clk,(SLAVE)nios2_qsys_0.clk,(SLAVE)video_dma_controller_0.clk,(SLAVE)sysid_qsys_0.clk,(SLAVE)video_pixel_buffer_dma_0.clk,(SLAVE)audio_and_video_config_0.clk,(SLAVE)altpll_0.inclk_interface,(MASTER)clk_0.clk,(SLAVE)video_bayer_resampler_0.clk,(SLAVE)video_clipper_0.clk) 1 1 6 290 450 750 240 1130 460 1630 440 1930 420 2340
+preplace netloc FAN_IN<net_container>nios_system</net_container>(MASTER)video_pixel_buffer_dma_0.avalon_pixel_dma_master,(SLAVE)sram_0.avalon_sram_slave,(MASTER)video_dma_controller_0.avalon_dma_master) 1 4 3 1570 30 NJ 90 2260
+preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.sram_wire,(SLAVE)sram_0.external_interface) 1 0 7 NJ 90 NJ 90 NJ 180 NJ 180 NJ 50 NJ 110 NJ
+preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(MASTER)video_decoder_0.avalon_decoder_source,(SLAVE)video_bayer_resampler_0.avalon_bayer_sink) 1 4 1 N
+preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(MASTER)video_pixel_buffer_dma_0.avalon_pixel_source,(SLAVE)video_rgb_resampler_0.avalon_rgb_sink) 1 4 3 1550 580 NJ 580 NJ
+preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(MASTER)video_clipper_0.avalon_clipper_source,(SLAVE)video_dma_controller_0.avalon_dma_sink) 1 5 1 1870
+preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.qsys_vga,(SLAVE)video_vga_controller_0.external_interface) 1 0 8 NJ 320 NJ 310 NJ 340 NJ 340 NJ 340 NJ 270 NJ 360 NJ
+preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)sdram.wire,(SLAVE)nios_system.sdram_wire) 1 0 4 NJ 870 NJ 870 NJ 870 NJ
+preplace netloc EXPORT<net_container>nios_system</net_container>(SLAVE)nios_system.switch_wire,(SLAVE)switch.external_connection) 1 0 4 NJ 1190 NJ 1190 NJ 1190 NJ
+preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(MASTER)video_bayer_resampler_0.avalon_bayer_source,(SLAVE)video_clipper_0.avalon_clipper_sink) 1 4 2 1650 460 1910
+preplace netloc EXPORT<net_container>nios_system</net_container>(MASTER)altpll_0.c1,(MASTER)nios_system.sdram_clk) 1 3 6 NJ 620 NJ 620 NJ 620 NJ 620 NJ 620 NJ
+preplace netloc POINT_TO_POINT<net_container>nios_system</net_container>(MASTER)video_rgb_resampler_0.avalon_rgb_source,(SLAVE)video_dual_clock_buffer_0.avalon_dc_buffer_sink) 1 5 3 1950 400 NJ 400 2560
+levelinfo -pg 1 0 80 2860
+levelinfo -hier nios_system 90 120 470 880 1240 1680 1980 2390 2610 2770

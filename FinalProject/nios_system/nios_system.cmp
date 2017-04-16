@@ -25,7 +25,11 @@
 			video_LINE_VALID      : in    std_logic                     := 'X';             -- LINE_VALID
 			video_FRAME_VALID     : in    std_logic                     := 'X';             -- FRAME_VALID
 			video_pixel_clk_reset : in    std_logic                     := 'X';             -- pixel_clk_reset
-			video_PIXEL_DATA      : in    std_logic_vector(9 downto 0)  := (others => 'X')  -- PIXEL_DATA
+			video_PIXEL_DATA      : in    std_logic_vector(9 downto 0)  := (others => 'X'); -- PIXEL_DATA
+			video_config_SDAT     : inout std_logic                     := 'X';             -- SDAT
+			video_config_SCLK     : out   std_logic;                                        -- SCLK
+			sdram_clk_clk         : out   std_logic;                                        -- clk
+			clock_25_clk          : out   std_logic                                         -- clk
 		);
 	end component nios_system;
 

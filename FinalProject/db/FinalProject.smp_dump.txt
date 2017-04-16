@@ -1,4 +1,10 @@
 
+State Machine - |FinalProject|nios_system:nios_system|nios_system_video_clipper_0:video_clipper_0|altera_up_video_clipper_drop:Clipper_Drop|s_video_clipper_drop
+Name s_video_clipper_drop.STATE_0_WAIT_FOR_START s_video_clipper_drop.STATE_2_ADD_MISSING_PART s_video_clipper_drop.STATE_1_RUN_CLIPPER 
+s_video_clipper_drop.STATE_0_WAIT_FOR_START 0 0 0 
+s_video_clipper_drop.STATE_1_RUN_CLIPPER 1 0 1 
+s_video_clipper_drop.STATE_2_ADD_MISSING_PART 1 1 0 
+
 State Machine - |FinalProject|nios_system:nios_system|nios_system_sdram:sdram|m_next
 Name m_next.010000000 m_next.000010000 m_next.000001000 m_next.000000001 
 m_next.000000001 0 0 0 0 
