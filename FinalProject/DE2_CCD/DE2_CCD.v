@@ -112,8 +112,8 @@ module DE2_CCD
 		VGA_CLK,   						//	VGA Clock
 		VGA_HS,							//	VGA H_SYNC
 		VGA_VS,							//	VGA V_SYNC
-		VGA_BLANK,						//	VGA BLANK
-		VGA_SYNC,						//	VGA SYNC
+		VGA_BLANK_N,						//	VGA BLANK
+		VGA_SYNC_N,						//	VGA SYNC
 		VGA_R,   						//	VGA Red[9:0]
 		VGA_G,	 						//	VGA Green[9:0]
 		VGA_B,  						//	VGA Blue[9:0]
@@ -125,7 +125,7 @@ module DE2_CCD
 	);
 
 ////////////////////////	Clock Input	 	////////////////////////
-input			CLOCK_27;				//	27 MHz
+input			CLOCK_27;				//	 MHz
 input			CLOCK_50;				//	50 MHz
 input			EXT_CLOCK;				//	External Clock
 ////////////////////////	Push Button		////////////////////////
@@ -190,16 +190,16 @@ output 			TDO;					// FPGA -> CPLD (data out)
 output			VGA_CLK;   				//	VGA Clock
 output			VGA_HS;					//	VGA H_SYNC
 output			VGA_VS;					//	VGA V_SYNC
-output			VGA_BLANK;				//	VGA BLANK
-output			VGA_SYNC;				//	VGA SYNC
+output			VGA_BLANK_N;				//	VGA BLANK
+output			VGA_SYNC_N;				//	VGA SYNC
 output	[7:0]	VGA_R;   				//	VGA Red[9:0]
 output	[7:0]	VGA_G;	 				//	VGA Green[9:0]
 output	[7:0]	VGA_B;   				//	VGA Blue[9:0]
 
 
-//assign VGA_R =  VGA_Rr;
-//assign VGA_G =  VGA_Gg;
-//assign VGA_B =  VGA_Bb;
+//assign VGA_R =  [9:2] VGA_Rr;
+//assign VGA_G =  [9:2] VGA_Gg;
+//assign VGA_B =  [9:2] VGA_Bb;
 
 
 
@@ -320,8 +320,8 @@ VGA_Controller		u1	(	//	Host Side
 							.oVGA_B(VGA_B),
 							.oVGA_H_SYNC(VGA_HS),
 							.oVGA_V_SYNC(VGA_VS),
-							.oVGA_SYNC(VGA_SYNC),
-							.oVGA_BLANK(VGA_BLANK),
+							.oVGA_SYNC(VGA_SYNC_N),
+							.oVGA_BLANK(VGA_BLANK_N),
 							//	Control Signal
 							.iCLK(VGA_CTRL_CLK),
 							.iRST_N(DLY_RST_2)	);

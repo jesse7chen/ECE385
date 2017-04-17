@@ -396,7 +396,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "VGA_BLANK",
+					"name" : "VGA_BLANK_N",
 					"strict" : false
 				},
 				{
