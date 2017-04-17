@@ -1,5 +1,11 @@
 <sld_project_info>
-  <hub_info ir_width="2" node_count="1"/>
+  <project>
+    <hash md5_digest_80b="6f5179fe43dae2b0297c"/>
+  </project>
+  <file_info>
+    <file device="EP4CE115F29C7" path="Example_4_Video_In.sof" usercode="0xFFFFFFFF"/>
+  </file_info>
+  <hub_info hub_ir_width="4" ir_width="2" node_addr_width="1" node_count="1"/>
   <node_info>
     <node hpath="Video_System:Video_System|Video_System_CPU:cpu|Video_System_CPU_nios2_oci:the_Video_System_CPU_nios2_oci|Video_System_CPU_jtag_debug_module_wrapper:the_Video_System_CPU_jtag_debug_module_wrapper|sld_virtual_jtag_basic:Video_System_CPU_jtag_debug_module_phy|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst" instance_id="0" mfg_id="70" node_id="34" sld_node_info="0x19104600" version="3">
       <parameters>
@@ -76,4 +82,18 @@
       </outputs>
     </node>
   </node_info>
+  <sld_infos>
+    <sld_info hpath="Video_System:Video_System" name="Video_System">
+      <assignment_values>
+        <assignment_value text="QSYS_NAME Video_System HAS_SOPCINFO 1 GENERATION_ID 1492394993"/>
+      </assignment_values>
+      <parameters/>
+    </sld_info>
+    <sld_info hpath="sld_hub:auto_hub|alt_sld_fab:\instrumentation_fabric_with_node_gen:instrumentation_fabric" library="alt_sld_fab" name="instrumentation_fabric">
+      <assignment_values>
+        <assignment_value text="QSYS_NAME alt_sld_fab HAS_SOPCINFO 1"/>
+      </assignment_values>
+      <parameters/>
+    </sld_info>
+  </sld_infos>
 </sld_project_info>

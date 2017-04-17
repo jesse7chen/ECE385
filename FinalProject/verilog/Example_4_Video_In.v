@@ -138,10 +138,10 @@ assign		video_FRAME_VALID = GPIO[15];     //            .FRAME_VALID
 
 assign 		video_PIXEL_DATA[0] = GPIO[0];       //            .PIXEL_DATA	
 assign 		video_PIXEL_DATA[1] = GPIO[1];       //            .PIXEL_DATA	
-assign 		video_PIXEL_DATA[2] = GPIO[5];       //            .PIXEL_DATA	
+assign 		video_PIXEL_DATA[4] = GPIO[2];       //            .PIXEL_DATA	
 assign 		video_PIXEL_DATA[3] = GPIO[3];       //            .PIXEL_DATA	
-assign 		video_PIXEL_DATA[4] = GPIO[2];      //            .PIXEL_DATA	
-assign 		video_PIXEL_DATA[5] = GPIO[4];       //            .PIXEL_DATA	
+assign 		video_PIXEL_DATA[5] = GPIO[4];      //            .PIXEL_DATA	
+assign 		video_PIXEL_DATA[2] = GPIO[5];       //            .PIXEL_DATA	
 assign 		video_PIXEL_DATA[6] = GPIO[6];       //            .PIXEL_DATA	
 assign 		video_PIXEL_DATA[7] = GPIO[7];       //            .PIXEL_DATA	
 assign 		video_PIXEL_DATA[8] = GPIO[8];       //            .PIXEL_DATA	
@@ -178,8 +178,8 @@ Video_System Video_System (
 	.reset_n								(KEY[0]),
 
 	// the_AV_Config
-	.I2C_SDAT_to_and_from_the_AV_Config		(GPIO[16]),
-	.I2C_SCLK_from_the_AV_Config			(GPIO[17]),
+	.I2C_SDAT_to_and_from_the_AV_Config		(GPIO[17]),
+	.I2C_SCLK_from_the_AV_Config			(GPIO[16]),
 	
 	// the_Pixel_Buffer
 	.SRAM_DQ_to_and_from_the_Pixel_Buffer	(SRAM_DQ),

@@ -1,35 +1,22 @@
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
- -- Copyright (C) 1991-2011 Altera Corporation
-=======
- -- Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
- -- Your use of Altera Corporation's design tools, logic functions 
+ -- Copyright (C) 2016  Intel Corporation. All rights reserved.
+ -- Your use of Intel Corporation's design tools, logic functions 
  -- and other software and tools, and its AMPP partner logic 
  -- functions, and any output files from any of the foregoing 
  -- (including device programming or simulation files), and any 
  -- associated documentation or information are expressly subject 
- -- to the terms and conditions of the Altera Program License 
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
- -- Subscription Agreement, Altera MegaCore Function License 
- -- Agreement, or other applicable license agreement, including, 
- -- without limitation, that your use is for the sole purpose of 
- -- programming logic devices manufactured by Altera and sold by 
- -- Altera or its authorized distributors.  Please refer to the 
- -- applicable agreement for further details.
-=======
- -- Subscription Agreement, the Altera Quartus II License Agreement,
- -- the Altera MegaCore Function License Agreement, or other 
+ -- to the terms and conditions of the Intel Program License 
+ -- Subscription Agreement, the Intel Quartus Prime License Agreement,
+ -- the Intel MegaCore Function License Agreement, or other 
  -- applicable license agreement, including, without limitation, 
  -- that your use is for the sole purpose of programming logic 
- -- devices manufactured by Altera and sold by Altera or its 
+ -- devices manufactured by Intel and sold by Intel or its 
  -- authorized distributors.  Please refer to the applicable 
  -- agreement for further details.
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
  -- 
- -- This is a Quartus II output file. It is for reporting purposes only, and is
- -- not intended for use as a Quartus II input file. This file cannot be used
- -- to make Quartus II pin assignments - for instructions on how to make pin
- -- assignments, please see Quartus II help.
+ -- This is a Quartus Prime output file. It is for reporting purposes only, and is
+ -- not intended for use as a Quartus Prime input file. This file cannot be used
+ -- to make Quartus Prime pin assignments - for instructions on how to make pin
+ -- assignments, please see Quartus Prime help.
  ---------------------------------------------------------------------------------
 
 
@@ -40,30 +27,30 @@
  -- VCCINT        : Dedicated power pin, which MUST be connected to VCC  (1.2V).
  -- VCCIO         : Dedicated power pin, which MUST be connected to VCC
  --                 of its bank.
- --					Bank 1:		2.5V
- --					Bank 2:		3.3V
- --					Bank 3:		3.3V
- --					Bank 4:		3.3V
- --					Bank 5:		2.5V
- --					Bank 6:		2.5V
- --					Bank 7:		2.5V
- --					Bank 8:		3.3V
+ --                  Bank 1:       2.5V
+ --                  Bank 2:       3.3V
+ --                  Bank 3:       3.3V
+ --                  Bank 4:       3.3V
+ --                  Bank 5:       2.5V
+ --                  Bank 6:       2.5V
+ --                  Bank 7:       2.5V
+ --                  Bank 8:       3.3V
  -- GND           : Dedicated ground pin. Dedicated GND pins MUST be connected to GND.
- --					It can also be used to report unused dedicated pins. The connection
- --					on the board for unused dedicated pins depends on whether this will
- --					be used in a future design. One example is device migration. When
- --					using device migration, refer to the device pin-tables. If it is a
- --					GND pin in the pin table or if it will not be used in a future design
- --					for another purpose the it MUST be connected to GND. If it is an unused
- --					dedicated pin, then it can be connected to a valid signal on the board
- --					(low, high, or toggling) if that signal is required for a different
- --					revision of the design.
+ --                  It can also be used to report unused dedicated pins. The connection
+ --                  on the board for unused dedicated pins depends on whether this will
+ --                  be used in a future design. One example is device migration. When
+ --                  using device migration, refer to the device pin-tables. If it is a
+ --                  GND pin in the pin table or if it will not be used in a future design
+ --                  for another purpose the it MUST be connected to GND. If it is an unused
+ --                  dedicated pin, then it can be connected to a valid signal on the board
+ --                  (low, high, or toggling) if that signal is required for a different
+ --                  revision of the design.
  -- GND+          : Unused input pin. It can also be used to report unused dual-purpose pins.
- --					This pin should be connected to GND. It may also be connected  to a
- --					valid signal  on the board  (low, high, or toggling)  if that signal
- --					is required for a different revision of the design.
+ --                  This pin should be connected to GND. It may also be connected  to a
+ --                  valid signal  on the board  (low, high, or toggling)  if that signal
+ --                  is required for a different revision of the design.
  -- GND*          : Unused  I/O  pin. Connect each pin marked GND* directly to GND
- --           	    or leave it unconnected.
+ --                  or leave it unconnected.
  -- RESERVED      : Unused I/O pin, which MUST be left unconnected.
  -- RESERVED_INPUT    : Pin is tri-stated and should be connected to the board.
  -- RESERVED_INPUT_WITH_WEAK_PULLUP    : Pin is tri-stated with internal weak pull-up resistor.
@@ -77,13 +64,8 @@
  -- Pin directions (input, output or bidir) are based on device operating in user mode.
  ---------------------------------------------------------------------------------
 
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
-Quartus II Version 11.0 Build 208 07/03/2011 Service Pack 1 SJ Web Edition
+Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 CHIP  "Example_4_Video_In"  ASSIGNED TO AN: EP4CE115F29C7
-=======
-Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
-CHIP  "FinalProject"  ASSIGNED TO AN: EP4CE115F29C7
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 
 Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
 -------------------------------------------------------------------------------------------------------------
@@ -115,19 +97,11 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : A26       :        :                   :      
 VCCIO7                       : A27       : power  :                   : 2.5V    : 7         :                
 VCCIO2                       : AA1       : power  :                   : 3.3V    : 2         :                
 GND                          : AA2       : gnd    :                   :         :           :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AA3       :        :                   :         : 2         :                
 SRAM_ADDR[14]                : AA4       : output : 3.3-V LVTTL       :         : 2         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AA5       :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AA6       :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AA7       :        :                   :         : 2         :                
-=======
-DRAM_DQ[11]                  : AA3       : bidir  : 2.5 V             :         : 2         : Y              
-SRAM_ADDR[14]                : AA4       : output : 2.5 V             :         : 2         : Y              
-DRAM_ADDR[11]                : AA5       : output : 2.5 V             :         : 2         : Y              
-DRAM_CKE                     : AA6       : output : 2.5 V             :         : 2         : Y              
-DRAM_ADDR[7]                 : AA7       : output : 2.5 V             :         : 2         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AA8       :        :                   :         : 3         :                
 GNDA1                        : AA9       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AA10      :        :                   :         : 3         :                
@@ -145,11 +119,10 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AA21      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AA22      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AA23      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AA24      :        :                   :         : 5         :                
-GPIO[37]                     : AA25      : bidir  : 2.5 V             :         : 5         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AA25      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AA26      :        :                   :         : 5         :                
 GND                          : AA27      : gnd    :                   :         :           :                
 VCCIO5                       : AA28      : power  :                   : 2.5V    : 5         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB1       :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB2       :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB3       :        :                   :         : 2         :                
@@ -161,19 +134,6 @@ SRAM_ADDR[18]                : AB8       : output : 3.3-V LVTTL       :         
 SRAM_ADDR[17]                : AB9       : output : 3.3-V LVTTL       :         : 3         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB10      :        :                   :         : 3         :                
 SRAM_ADDR[15]                : AB11      : output : 3.3-V LVTTL       :         : 3         : Y              
-=======
-DRAM_DQ[10]                  : AB1       : bidir  : 2.5 V             :         : 2         : Y              
-DRAM_DQ[12]                  : AB2       : bidir  : 2.5 V             :         : 2         : Y              
-DRAM_DQ[14]                  : AB3       : bidir  : 2.5 V             :         : 2         : Y              
-SRAM_ADDR[12]                : AB4       : output : 2.5 V             :         : 2         : Y              
-SRAM_ADDR[6]                 : AB5       : output : 2.5 V             :         : 2         : Y              
-SRAM_ADDR[4]                 : AB6       : output : 2.5 V             :         : 2         : Y              
-SRAM_ADDR[0]                 : AB7       : output : 2.5 V             :         : 3         : Y              
-SRAM_ADDR[18]                : AB8       : output : 2.5 V             :         : 3         : Y              
-SRAM_ADDR[17]                : AB9       : output : 2.5 V             :         : 3         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AB10      :        :                   :         : 3         :                
-SRAM_ADDR[15]                : AB11      : output : 2.5 V             :         : 3         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB12      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB13      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB14      :        :                   :         : 3         :                
@@ -183,20 +143,14 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AB17      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB18      :        :                   :         : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB19      :        :                   :         : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB20      :        :                   :         : 4         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 GPIO[2]                      : AB21      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[0]                      : AB22      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
-=======
-GPIO[2]                      : AB21      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[0]                      : AB22      : bidir  : 2.5 V             :         : 4         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB23      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB24      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB25      :        :                   :         : 5         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AB26      :        :                   :         : 5         :                
+GPIO[39]                     : AB26      : bidir  : 2.5 V             :         : 5         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB27      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB28      :        :                   :         : 5         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC1       :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC2       :        :                   :         : 2         :                
 SRAM_ADDR[13]                : AC3       : output : 3.3-V LVTTL       :         : 2         : Y              
@@ -219,37 +173,12 @@ GPIO[10]                     : AC19      : bidir  : 3.3-V LVTTL       :         
 GND                          : AC20      : gnd    :                   :         :           :                
 GPIO[4]                      : AC21      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[17]                     : AC22      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
-=======
-DRAM_DQ[13]                  : AC1       : bidir  : 2.5 V             :         : 2         : Y              
-DRAM_DQ[15]                  : AC2       : bidir  : 2.5 V             :         : 2         : Y              
-SRAM_ADDR[13]                : AC3       : output : 2.5 V             :         : 2         : Y              
-SRAM_UB_N                    : AC4       : output : 2.5 V             :         : 2         : Y              
-SRAM_ADDR[7]                 : AC5       : output : 2.5 V             :         : 2         : Y              
-GND                          : AC6       : gnd    :                   :         :           :                
-SRAM_ADDR[3]                 : AC7       : output : 2.5 V             :         : 3         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC8       :        :                   :         : 3         :                
-GND                          : AC9       : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC10      :        :                   :         : 3         :                
-SRAM_ADDR[16]                : AC11      : output : 2.5 V             :         : 3         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC12      :        :                   :         : 3         :                
-GND                          : AC13      : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC14      :        :                   :         : 3         :                
-GPIO[1]                      : AC15      : bidir  : 2.5 V             :         : 4         : Y              
-GND                          : AC16      : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC17      :        :                   :         : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC18      :        :                   :         : 4         :                
-GPIO[10]                     : AC19      : bidir  : 2.5 V             :         : 4         : Y              
-GND                          : AC20      : gnd    :                   :         :           :                
-GPIO[4]                      : AC21      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[17]                     : AC22      : bidir  : 2.5 V             :         : 4         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 GND                          : AC23      : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC24      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC25      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC26      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC27      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC28      :        :                   :         : 5         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 SRAM_DQ[8]                   : AD1       : bidir  : 3.3-V LVTTL       :         : 2         : Y              
 SRAM_DQ[9]                   : AD2       : bidir  : 3.3-V LVTTL       :         : 2         : Y              
 SRAM_ADDR[11]                : AD3       : output : 3.3-V LVTTL       :         : 2         : Y              
@@ -257,15 +186,6 @@ SRAM_LB_N                    : AD4       : output : 3.3-V LVTTL       :         
 SRAM_OE_N                    : AD5       : output : 3.3-V LVTTL       :         : 3         : Y              
 VCCIO3                       : AD6       : power  :                   : 3.3V    : 3         :                
 SRAM_ADDR[1]                 : AD7       : output : 3.3-V LVTTL       :         : 3         : Y              
-=======
-SRAM_DQ[8]                   : AD1       : bidir  : 2.5 V             :         : 2         : Y              
-SRAM_DQ[9]                   : AD2       : bidir  : 2.5 V             :         : 2         : Y              
-SRAM_ADDR[11]                : AD3       : output : 2.5 V             :         : 2         : Y              
-SRAM_LB_N                    : AD4       : output : 2.5 V             :         : 3         : Y              
-SRAM_OE_N                    : AD5       : output : 2.5 V             :         : 3         : Y              
-VCCIO3                       : AD6       : power  :                   : 2.5V    : 3         :                
-SRAM_ADDR[1]                 : AD7       : output : 2.5 V             :         : 3         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD8       :        :                   :         : 3         :                
 VCCIO3                       : AD9       : power  :                   : 3.3V    : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD10      :        :                   :         : 3         :                
@@ -273,7 +193,6 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AD11      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD12      :        :                   :         : 3         :                
 VCCIO3                       : AD13      : power  :                   : 3.3V    : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD14      :        :                   :         : 3         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 GPIO[8]                      : AD15      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 VCCIO4                       : AD16      : power  :                   : 3.3V    : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD17      :        :                   :         : 4         :                
@@ -296,37 +215,12 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AE5       :        :                   :      
 SRAM_ADDR[5]                 : AE6       : output : 3.3-V LVTTL       :         : 3         : Y              
 SRAM_ADDR[2]                 : AE7       : output : 3.3-V LVTTL       :         : 3         : Y              
 SRAM_WE_N                    : AE8       : output : 3.3-V LVTTL       :         : 3         : Y              
-=======
-GPIO[8]                      : AD15      : bidir  : 2.5 V             :         : 4         : Y              
-VCCIO4                       : AD16      : power  :                   : 2.5V    : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD17      :        :                   :         : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD18      :        :                   :         : 4         :                
-GPIO[12]                     : AD19      : bidir  : 2.5 V             :         : 4         : Y              
-VCCIO4                       : AD20      : power  :                   : 2.5V    : 4         :                
-GPIO[6]                      : AD21      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[21]                     : AD22      : bidir  : 2.5 V             :         : 4         : Y              
-VCCIO4                       : AD23      : power  :                   : 2.5V    : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD24      :        :                   :         : 4         :                
-GPIO[23]                     : AD25      : bidir  : 2.5 V             :         : 4         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD26      :        :                   :         : 5         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD27      :        :                   :         : 5         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD28      :        :                   :         : 5         :                
-SRAM_DQ[11]                  : AE1       : bidir  : 2.5 V             :         : 2         : Y              
-SRAM_DQ[10]                  : AE2       : bidir  : 2.5 V             :         : 2         : Y              
-SRAM_DQ[12]                  : AE3       : bidir  : 2.5 V             :         : 2         : Y              
-SRAM_DQ[13]                  : AE4       : bidir  : 2.5 V             :         : 3         : Y              
-DRAM_CLK                     : AE5       : output : 2.5 V             :         : 3         : Y              
-SRAM_ADDR[5]                 : AE6       : output : 2.5 V             :         : 3         : Y              
-SRAM_ADDR[2]                 : AE7       : output : 2.5 V             :         : 3         : Y              
-SRAM_WE_N                    : AE8       : output : 2.5 V             :         : 3         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE9       :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE10      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE11      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE12      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE13      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE14      :        :                   :         : 3         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 GPIO[9]                      : AE15      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[7]                      : AE16      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE17      :        :                   :         : 4         :                
@@ -338,24 +232,10 @@ GPIO[18]                     : AE22      : bidir  : 3.3-V LVTTL       :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE23      :        :                   :         : 4         :                
 GPIO[27]                     : AE24      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[25]                     : AE25      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
-=======
-GPIO[9]                      : AE15      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[7]                      : AE16      : bidir  : 2.5 V             :         : 4         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AE17      :        :                   :         : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AE18      :        :                   :         : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AE19      :        :                   :         : 4         :                
-GPIO[30]                     : AE20      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[15]                     : AE21      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[18]                     : AE22      : bidir  : 2.5 V             :         : 4         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AE23      :        :                   :         : 4         :                
-GPIO[27]                     : AE24      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[25]                     : AE25      : bidir  : 2.5 V             :         : 4         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE26      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE27      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE28      :        :                   :         : 5         :                
 GND                          : AF1       : gnd    :                   :         :           :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 SRAM_ADDR[10]                : AF2       : output : 3.3-V LVTTL       :         : 2         : Y              
 SRAM_DQ[14]                  : AF3       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
 SRAM_DQ[1]                   : AF4       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
@@ -363,22 +243,12 @@ SRAM_ADDR[8]                 : AF5       : output : 3.3-V LVTTL       :         
 SRAM_DQ[4]                   : AF6       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
 SRAM_DQ[7]                   : AF7       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
 SRAM_CE_N                    : AF8       : output : 3.3-V LVTTL       :         : 3         : Y              
-=======
-SRAM_ADDR[10]                : AF2       : output : 2.5 V             :         : 2         : Y              
-SRAM_DQ[14]                  : AF3       : bidir  : 2.5 V             :         : 3         : Y              
-SRAM_DQ[1]                   : AF4       : bidir  : 2.5 V             :         : 3         : Y              
-SRAM_ADDR[8]                 : AF5       : output : 2.5 V             :         : 3         : Y              
-SRAM_DQ[4]                   : AF6       : bidir  : 2.5 V             :         : 3         : Y              
-SRAM_DQ[7]                   : AF7       : bidir  : 2.5 V             :         : 3         : Y              
-SRAM_CE_N                    : AF8       : output : 2.5 V             :         : 3         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF9       :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF10      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF11      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF12      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF13      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF14      :        :                   :         : 3         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 GPIO[13]                     : AF15      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[11]                     : AF16      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF17      :        :                   :         : 4         :                
@@ -391,35 +261,14 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AF23      :        :                   :      
 GPIO[14]                     : AF24      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[16]                     : AF25      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[29]                     : AF26      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
-=======
-GPIO[13]                     : AF15      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[11]                     : AF16      : bidir  : 2.5 V             :         : 4         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AF17      :        :                   :         : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AF18      :        :                   :         : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AF19      :        :                   :         : 4         :                
-GPIO[32]                     : AF20      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[19]                     : AF21      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[20]                     : AF22      : bidir  : 2.5 V             :         : 4         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AF23      :        :                   :         : 4         :                
-GPIO[14]                     : AF24      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[16]                     : AF25      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[29]                     : AF26      : bidir  : 2.5 V             :         : 4         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF27      :        :                   :         : 5         :                
 GND                          : AF28      : gnd    :                   :         :           :                
 VCCIO2                       : AG1       : power  :                   : 3.3V    : 2         :                
 GND                          : AG2       : gnd    :                   :         :           :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 SRAM_DQ[15]                  : AG3       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
 SRAM_DQ[2]                   : AG4       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
 GND                          : AG5       : gnd    :                   :         :           :                
 SRAM_DQ[5]                   : AG6       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
-=======
-SRAM_DQ[15]                  : AG3       : bidir  : 2.5 V             :         : 3         : Y              
-SRAM_DQ[2]                   : AG4       : bidir  : 2.5 V             :         : 3         : Y              
-GND                          : AG5       : gnd    :                   :         :           :                
-SRAM_DQ[5]                   : AG6       : bidir  : 2.5 V             :         : 3         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AG7       :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AG8       :        :                   :         : 3         :                
 GND                          : AG9       : gnd    :                   :         :           :                
@@ -435,7 +284,6 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AG18      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AG19      :        :                   :         : 4         :                
 GND                          : AG20      : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AG21      :        :                   :         : 4         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 GPIO[26]                     : AG22      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[31]                     : AG23      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GND                          : AG24      : gnd    :                   :         :           :                
@@ -449,21 +297,6 @@ SRAM_DQ[3]                   : AH4       : bidir  : 3.3-V LVTTL       :         
 VCCIO3                       : AH5       : power  :                   : 3.3V    : 3         :                
 SRAM_DQ[6]                   : AH6       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH7       :        :                   :         : 3         :                
-=======
-GPIO[26]                     : AG22      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[31]                     : AG23      : bidir  : 2.5 V             :         : 4         : Y              
-GND                          : AG24      : gnd    :                   :         :           :                
-GPIO[22]                     : AG25      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[35]                     : AG26      : bidir  : 2.5 V             :         : 4         : Y              
-GND                          : AG27      : gnd    :                   :         :           :                
-VCCIO5                       : AG28      : power  :                   : 2.5V    : 5         :                
-VCCIO3                       : AH2       : power  :                   : 2.5V    : 3         :                
-SRAM_DQ[0]                   : AH3       : bidir  : 2.5 V             :         : 3         : Y              
-SRAM_DQ[3]                   : AH4       : bidir  : 2.5 V             :         : 3         : Y              
-VCCIO3                       : AH5       : power  :                   : 2.5V    : 3         :                
-SRAM_DQ[6]                   : AH6       : bidir  : 2.5 V             :         : 3         : Y              
-GPIO[36]                     : AH7       : bidir  : 2.5 V             :         : 3         : N              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH8       :        :                   :         : 3         :                
 VCCIO3                       : AH9       : power  :                   : 3.3V    : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH10      :        :                   :         : 3         :                
@@ -478,21 +311,12 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AH18      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH19      :        :                   :         : 4         :                
 VCCIO4                       : AH20      : power  :                   : 3.3V    : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH21      :        :                   :         : 4         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 GPIO[28]                     : AH22      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[34]                     : AH23      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 VCCIO4                       : AH24      : power  :                   : 3.3V    : 4         :                
 GPIO[24]                     : AH25      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[33]                     : AH26      : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 VCCIO4                       : AH27      : power  :                   : 3.3V    : 4         :                
-=======
-GPIO[28]                     : AH22      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[34]                     : AH23      : bidir  : 2.5 V             :         : 4         : Y              
-VCCIO4                       : AH24      : power  :                   : 2.5V    : 4         :                
-GPIO[24]                     : AH25      : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[33]                     : AH26      : bidir  : 2.5 V             :         : 4         : Y              
-VCCIO4                       : AH27      : power  :                   : 2.5V    : 4         :                
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 VCCIO1                       : B1        : power  :                   : 2.5V    : 1         :                
 GND                          : B2        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : B3        :        :                   :         : 8         :                
@@ -538,7 +362,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : C14       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : C15       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C16       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C17       :        :                   :         : 7         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : C18       :        :                   :         : 7         :                
+GPIO[36]                     : C18       : bidir  : 2.5 V             :         : 7         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : C19       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C20       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C21       :        :                   :         : 7         :                
@@ -593,11 +417,7 @@ VCCIO8                       : E13       : power  :                   : 3.3V    
 RESERVED_INPUT_WITH_WEAK_PULLUP : E14       :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : E15       :        :                   :         : 7         :                
 VCCIO7                       : E16       : power  :                   : 2.5V    : 7         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : E17       :        :                   :         : 7         :                
-=======
-HEX0[2]                      : E17       : output : 2.5 V             :         : 7         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 LEDR[5]                      : E18       : output : 2.5 V             :         : 7         : Y              
 LEDR[2]                      : E19       : output : 2.5 V             :         : 7         : Y              
 VCCIO7                       : E20       : power  :                   : 2.5V    : 7         :                
@@ -605,7 +425,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : E21       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : E22       :        :                   :         : 7         :                
 VCCIO7                       : E23       : power  :                   : 2.5V    : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : E24       :        :                   :         : 7         :                
-GPIO[37]                     : E25       : bidir  : 2.5 V             :         : 7         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : E25       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : E26       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : E27       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : E28       :        :                   :         : 6         :                
@@ -630,18 +450,14 @@ LEDR[4]                      : F18       : output : 2.5 V             :         
 LEDR[1]                      : F19       : output : 2.5 V             :         : 7         : Y              
 GND                          : F20       : gnd    :                   :         :           :                
 LEDR[3]                      : F21       : output : 2.5 V             :         : 7         : Y              
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : F22       :        :                   :         : 7         :                
-=======
-HEX0[1]                      : F22       : output : 2.5 V             :         : 7         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 GND                          : F23       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : F24       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : F25       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : F26       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : F27       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : F28       :        :                   :         : 6         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : G1        :        :                   :         : 1         :                
+GPIO[37]                     : G1        : bidir  : 2.5 V             :         : 1         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : G2        :        :                   :         : 1         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : G3        :        :                   :         : 1         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : G4        :        :                   :         : 1         :                
@@ -658,11 +474,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : G14       :        :                   :      
 LEDR[15]                     : G15       : output : 2.5 V             :         : 7         : Y              
 LEDR[16]                     : G16       : output : 2.5 V             :         : 7         : Y              
 LEDR[9]                      : G17       : output : 2.5 V             :         : 7         : Y              
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 RESERVED_INPUT_WITH_WEAK_PULLUP : G18       :        :                   :         : 7         :                
-=======
-HEX0[0]                      : G18       : output : 2.5 V             :         : 7         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 LEDR[0]                      : G19       : output : 2.5 V             :         : 7         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : G20       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : G21       :        :                   :         : 7         :                
@@ -755,12 +567,12 @@ GND                          : K23       : gnd    :                   :         
 VCCIO6                       : K24       : power  :                   : 2.5V    : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : K25       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : K26       :        :                   :         : 6         :                
-GPIO[38]                     : K27       : bidir  : 2.5 V             :         : 6         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : K27       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : K28       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L1        :        :                   :         : 1         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L2        :        :                   :         : 1         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L3        :        :                   :         : 1         :                
-GPIO[39]                     : L4        : bidir  : 2.5 V             :         : 1         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : L4        :        :                   :         : 1         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L5        :        :                   :         : 1         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L6        :        :                   :         : 1         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L7        :        :                   :         : 1         :                
@@ -781,11 +593,11 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : L21       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : L22       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L23       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L24       :        :                   :         : 6         :                
-GPIO[38]                     : L25       : bidir  : 2.5 V             :         : 6         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : L25       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L26       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L27       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L28       :        :                   :         : 6         :                
-GPIO[36]                     : M1        : bidir  : 2.5 V             :         : 1         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : M1        :        :                   :         : 1         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : M2        :        :                   :         : 1         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : M3        :        :                   :         : 1         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : M4        :        :                   :         : 1         :                
@@ -903,13 +715,8 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : T3        :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : T4        :        :                   :         : 2         :                
 VCCIO2                       : T5        : power  :                   : 3.3V    : 2         :                
 GND                          : T6        : gnd    :                   :         :           :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 SRAM_ADDR[9]                 : T7        : output : 3.3-V LVTTL       :         : 2         : Y              
 SRAM_ADDR[19]                : T8        : output : 3.3-V LVTTL       :         : 2         : Y              
-=======
-SRAM_ADDR[9]                 : T7        : output : 2.5 V             :         : 2         : Y              
-SRAM_ADDR[19]                : T8        : output : 2.5 V             :         : 2         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 VCCINT                       : T9        : power  :                   : 1.2V    :           :                
 GND                          : T10       : gnd    :                   :         :           :                
 VCCINT                       : T11       : power  :                   : 1.2V    :           :                
@@ -956,8 +763,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : U23       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : U24       :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : U25       :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : U26       :        :                   :         : 5         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : U27       :        :                   :         : 5         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
+GPIO[38]                     : U27       : bidir  : 2.5 V             :         : 5         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : U28       :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : V1        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : V2        :        :                   :         : 2         :                
@@ -967,17 +773,6 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : V5        :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : V6        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : V7        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : V8        :        :                   :         : 2         :                
-=======
-GPIO[39]                     : U28       : bidir  : 2.5 V             :         : 5         : N              
-DRAM_DQ[6]                   : V1        : bidir  : 2.5 V             :         : 2         : Y              
-DRAM_DQ[5]                   : V2        : bidir  : 2.5 V             :         : 2         : Y              
-DRAM_DQ[4]                   : V3        : bidir  : 2.5 V             :         : 2         : Y              
-DRAM_DQ[2]                   : V4        : bidir  : 2.5 V             :         : 2         : Y              
-DRAM_ADDR[4]                 : V5        : output : 2.5 V             :         : 2         : Y              
-DRAM_WE_N                    : V6        : output : 2.5 V             :         : 2         : Y              
-DRAM_CAS_N                   : V7        : output : 2.5 V             :         : 2         : Y              
-DRAM_ADDR[1]                 : V8        : output : 2.5 V             :         : 2         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 VCCINT                       : V9        : power  :                   : 1.2V    :           :                
 GND                          : V10       : gnd    :                   :         :           :                
 VCCINT                       : V11       : power  :                   : 1.2V    :           :                
@@ -1027,21 +822,12 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : W26       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : W27       :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : W28       :        :                   :         : 5         :                
 GND+                         : Y1        :        :                   :         : 2         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 CLOCK_50                     : Y2        : input  : 3.3-V LVTTL       :         : 2         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y3        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y4        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y5        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y6        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y7        :        :                   :         : 2         :                
-=======
-CLOCK_50                     : Y2        : input  : 2.5 V             :         : 2         : Y              
-DRAM_DQ[8]                   : Y3        : bidir  : 2.5 V             :         : 2         : Y              
-DRAM_DQ[9]                   : Y4        : bidir  : 2.5 V             :         : 2         : Y              
-DRAM_ADDR[8]                 : Y5        : output : 2.5 V             :         : 2         : Y              
-DRAM_ADDR[9]                 : Y6        : output : 2.5 V             :         : 2         : Y              
-DRAM_ADDR[12]                : Y7        : output : 2.5 V             :         : 2         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 VCCA1                        : Y8        : power  :                   : 2.5V    :           :                
 VCCD_PLL1                    : Y9        : power  :                   : 1.2V    :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y10       :        :                   :         : 3         :                
@@ -1050,13 +836,8 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : Y12       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y13       :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y14       :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y15       :        :                   :         : 3         :                
-<<<<<<< HEAD:FinalProject/verilog/Example_4_Video_In.pin
 GPIO[5]                      : Y16       : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GPIO[3]                      : Y17       : bidir  : 3.3-V LVTTL       :         : 4         : Y              
-=======
-GPIO[5]                      : Y16       : bidir  : 2.5 V             :         : 4         : Y              
-GPIO[3]                      : Y17       : bidir  : 2.5 V             :         : 4         : Y              
->>>>>>> origin/master:FinalProject/output_files/FinalProject.pin
 GND                          : Y18       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y19       :        :                   :         : 4         :                
 VCCD_PLL4                    : Y20       : power  :                   : 1.2V    :           :                

@@ -41,15 +41,18 @@ module Video_System_CPU_register_bank_a_module (
   input   [  4: 0] wraddress;
   input            wren;
 
-  wire    [ 31: 0] q;
-  wire    [ 31: 0] ram_q;
+
+wire    [ 31: 0] q;
+wire    [ 31: 0] ram_data;
+wire    [ 31: 0] ram_q;
   assign q = ram_q;
+  assign ram_data = data;
   altsyncram the_altsyncram
     (
       .address_a (wraddress),
       .address_b (rdaddress),
       .clock0 (clock),
-      .data_a (data),
+      .data_a (ram_data),
       .q_b (ram_q),
       .wren_a (wren)
     );
@@ -104,15 +107,18 @@ module Video_System_CPU_register_bank_b_module (
   input   [  4: 0] wraddress;
   input            wren;
 
-  wire    [ 31: 0] q;
-  wire    [ 31: 0] ram_q;
+
+wire    [ 31: 0] q;
+wire    [ 31: 0] ram_data;
+wire    [ 31: 0] ram_q;
   assign q = ram_q;
+  assign ram_data = data;
   altsyncram the_altsyncram
     (
       .address_a (wraddress),
       .address_b (rdaddress),
       .clock0 (clock),
-      .data_a (data),
+      .data_a (ram_data),
       .q_b (ram_q),
       .wren_a (wren)
     );
@@ -192,20 +198,34 @@ module Video_System_CPU_nios2_oci_debug (
   input            take_action_ocireg;
   input            xbrk_break;
 
-  wire             debugack;
-  reg              jtag_break /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
-  reg              monitor_error /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=D101"  */;
-  reg              monitor_go /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=D101"  */;
-  reg              monitor_ready /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=D101"  */;
-  wire             oci_hbreak_req;
-  reg              probepresent /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
-  reg              resetlatch /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
-  reg              resetrequest /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+
+reg              break_on_reset /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+wire             debugack;
+reg              jtag_break /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+reg              monitor_error /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=D101"  */;
+reg              monitor_go /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=D101"  */;
+reg              monitor_ready /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=D101"  */;
+wire             oci_hbreak_req;
+wire             reset_sync;
+reg              resetlatch /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+reg              resetrequest /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+wire             unxcomplemented_resetxx0;
+  assign unxcomplemented_resetxx0 = jrst_n;
+  altera_std_synchronizer the_altera_std_synchronizer
+    (
+      .clk (clk),
+      .din (reset),
+      .dout (reset_sync),
+      .reset_n (unxcomplemented_resetxx0)
+    );
+
+  defparam the_altera_std_synchronizer.depth = 2;
+
   always @(posedge clk or negedge jrst_n)
     begin
       if (jrst_n == 0)
         begin
-          probepresent <= 1'b0;
+          break_on_reset <= 1'b0;
           resetrequest <= 1'b0;
           jtag_break <= 1'b0;
         end
@@ -216,18 +236,18 @@ module Video_System_CPU_nios2_oci_debug (
                     : jdo[20]  ? 0 
                     : jtag_break;
 
-          probepresent <= jdo[19]     ? 1
+          break_on_reset <= jdo[19]     ? 1
                     : jdo[18]  ? 0
-                    :  probepresent;
+                    :  break_on_reset;
 
           resetlatch <= jdo[24] ? 0 : resetlatch;
         end
-      else if (reset)
+      else if (reset_sync)
         begin
-          jtag_break <= probepresent;
+          jtag_break <= break_on_reset;
           resetlatch <= 1;
         end
-      else if (~debugack & debugreq & probepresent)
+      else if (debugreq & ~debugack & break_on_reset)
           jtag_break <= 1'b1;
     end
 
@@ -272,86 +292,57 @@ endmodule
 // altera message_level Level1 
 // altera message_off 10034 10035 10036 10037 10230 10240 10030 
 
-module Video_System_CPU_ociram_lpm_dram_bdp_component_module (
-                                                               // inputs:
-                                                                address_a,
-                                                                address_b,
-                                                                byteena_a,
-                                                                clock0,
-                                                                clock1,
-                                                                clocken0,
-                                                                clocken1,
-                                                                data_a,
-                                                                data_b,
-                                                                wren_a,
-                                                                wren_b,
+module Video_System_CPU_ociram_sp_ram_module (
+                                               // inputs:
+                                                address,
+                                                byteenable,
+                                                clock,
+                                                data,
+                                                reset_req,
+                                                wren,
 
-                                                               // outputs:
-                                                                q_a,
-                                                                q_b
-                                                             )
+                                               // outputs:
+                                                q
+                                             )
 ;
 
   parameter lpm_file = "UNUSED";
 
 
-  output  [ 31: 0] q_a;
-  output  [ 31: 0] q_b;
-  input   [  7: 0] address_a;
-  input   [  7: 0] address_b;
-  input   [  3: 0] byteena_a;
-  input            clock0;
-  input            clock1;
-  input            clocken0;
-  input            clocken1;
-  input   [ 31: 0] data_a;
-  input   [ 31: 0] data_b;
-  input            wren_a;
-  input            wren_b;
+  output  [ 31: 0] q;
+  input   [  7: 0] address;
+  input   [  3: 0] byteenable;
+  input            clock;
+  input   [ 31: 0] data;
+  input            reset_req;
+  input            wren;
 
-  wire    [ 31: 0] q_a;
-  wire    [ 31: 0] q_b;
+
+wire             clocken;
+wire    [ 31: 0] q;
+wire    [ 31: 0] ram_q;
+  assign q = ram_q;
+  assign clocken = ~reset_req;
   altsyncram the_altsyncram
     (
-      .address_a (address_a),
-      .address_b (address_b),
-      .byteena_a (byteena_a),
-      .clock0 (clock0),
-      .clock1 (clock1),
-      .clocken0 (clocken0),
-      .clocken1 (clocken1),
-      .data_a (data_a),
-      .data_b (data_b),
-      .q_a (q_a),
-      .q_b (q_b),
-      .wren_a (wren_a),
-      .wren_b (wren_b)
+      .address_a (address),
+      .byteena_a (byteenable),
+      .clock0 (clock),
+      .clocken0 (clocken),
+      .data_a (data),
+      .q_a (ram_q),
+      .wren_a (wren)
     );
 
-  defparam the_altsyncram.address_aclr_a = "NONE",
-           the_altsyncram.address_aclr_b = "NONE",
-           the_altsyncram.address_reg_b = "CLOCK1",
-           the_altsyncram.indata_aclr_a = "NONE",
-           the_altsyncram.indata_aclr_b = "NONE",
-           the_altsyncram.init_file = lpm_file,
-           the_altsyncram.intended_device_family = "CYCLONEIVE",
-           the_altsyncram.lpm_type = "altsyncram",
+  defparam the_altsyncram.init_file = lpm_file,
+           the_altsyncram.maximum_depth = 0,
            the_altsyncram.numwords_a = 256,
-           the_altsyncram.numwords_b = 256,
-           the_altsyncram.operation_mode = "BIDIR_DUAL_PORT",
-           the_altsyncram.outdata_aclr_a = "NONE",
-           the_altsyncram.outdata_aclr_b = "NONE",
+           the_altsyncram.operation_mode = "SINGLE_PORT",
            the_altsyncram.outdata_reg_a = "UNREGISTERED",
-           the_altsyncram.outdata_reg_b = "UNREGISTERED",
            the_altsyncram.ram_block_type = "AUTO",
-           the_altsyncram.read_during_write_mode_mixed_ports = "OLD_DATA",
            the_altsyncram.width_a = 32,
-           the_altsyncram.width_b = 32,
            the_altsyncram.width_byteena_a = 4,
-           the_altsyncram.widthad_a = 8,
-           the_altsyncram.widthad_b = 8,
-           the_altsyncram.wrcontrol_aclr_a = "NONE",
-           the_altsyncram.wrcontrol_aclr_b = "NONE";
+           the_altsyncram.widthad_a = 8;
 
 
 endmodule
@@ -368,14 +359,13 @@ endmodule
 module Video_System_CPU_nios2_ocimem (
                                        // inputs:
                                         address,
-                                        begintransfer,
                                         byteenable,
-                                        chipselect,
                                         clk,
                                         debugaccess,
                                         jdo,
                                         jrst_n,
-                                        resetrequest,
+                                        read,
+                                        reset_req,
                                         take_action_ocimem_a,
                                         take_action_ocimem_b,
                                         take_no_action_ocimem_a,
@@ -384,116 +374,155 @@ module Video_System_CPU_nios2_ocimem (
 
                                        // outputs:
                                         MonDReg,
-                                        oci_ram_readdata
+                                        ociram_readdata,
+                                        waitrequest
                                      )
 ;
 
   output  [ 31: 0] MonDReg;
-  output  [ 31: 0] oci_ram_readdata;
+  output  [ 31: 0] ociram_readdata;
+  output           waitrequest;
   input   [  8: 0] address;
-  input            begintransfer;
   input   [  3: 0] byteenable;
-  input            chipselect;
   input            clk;
   input            debugaccess;
   input   [ 37: 0] jdo;
   input            jrst_n;
-  input            resetrequest;
+  input            read;
+  input            reset_req;
   input            take_action_ocimem_a;
   input            take_action_ocimem_b;
   input            take_no_action_ocimem_a;
   input            write;
   input   [ 31: 0] writedata;
 
-  reg     [ 10: 0] MonAReg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
-  reg     [ 31: 0] MonDReg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
-  reg              MonRd /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
-  reg              MonRd1 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
-  reg              MonWr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
-  wire             avalon;
-  wire    [ 31: 0] cfgdout;
-  wire    [ 31: 0] oci_ram_readdata;
-  wire    [ 31: 0] sramdout;
-  assign avalon = begintransfer & ~resetrequest;
+
+reg     [ 10: 0] MonAReg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+wire    [  8: 0] MonARegAddrInc;
+wire             MonARegAddrIncAccessingRAM;
+reg     [ 31: 0] MonDReg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+reg              avalon_ociram_readdata_ready /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+wire             avalon_ram_wr;
+wire    [ 31: 0] cfgrom_readdata;
+reg              jtag_ram_access /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+reg              jtag_ram_rd /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+reg              jtag_ram_rd_d1 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+reg              jtag_ram_wr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+reg              jtag_rd /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+reg              jtag_rd_d1 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+wire    [  7: 0] ociram_addr;
+wire    [  3: 0] ociram_byteenable;
+wire    [ 31: 0] ociram_readdata;
+wire             ociram_reset_req;
+wire    [ 31: 0] ociram_wr_data;
+wire             ociram_wr_en;
+reg              waitrequest /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
   always @(posedge clk or negedge jrst_n)
     begin
       if (jrst_n == 0)
         begin
-          MonWr <= 1'b0;
-          MonRd <= 1'b0;
-          MonRd1 <= 1'b0;
+          jtag_rd <= 1'b0;
+          jtag_rd_d1 <= 1'b0;
+          jtag_ram_wr <= 1'b0;
+          jtag_ram_rd <= 1'b0;
+          jtag_ram_rd_d1 <= 1'b0;
+          jtag_ram_access <= 1'b0;
           MonAReg <= 0;
           MonDReg <= 0;
+          waitrequest <= 1'b1;
+          avalon_ociram_readdata_ready <= 1'b0;
         end
       else 
         begin
           if (take_no_action_ocimem_a)
             begin
-              MonAReg[10 : 2] <= MonAReg[10 : 2]+1;
-              MonRd <= 1'b1;
+              MonAReg[10 : 2] <= MonARegAddrInc;
+              jtag_rd <= 1'b1;
+              jtag_ram_rd <= MonARegAddrIncAccessingRAM;
+              jtag_ram_access <= MonARegAddrIncAccessingRAM;
             end
           else if (take_action_ocimem_a)
             begin
               MonAReg[10 : 2] <= { jdo[17],
                             jdo[33 : 26] };
 
-              MonRd <= 1'b1;
+              jtag_rd <= 1'b1;
+              jtag_ram_rd <= ~jdo[17];
+              jtag_ram_access <= ~jdo[17];
             end
           else if (take_action_ocimem_b)
             begin
-              MonAReg[10 : 2] <= MonAReg[10 : 2]+1;
+              MonAReg[10 : 2] <= MonARegAddrInc;
               MonDReg <= jdo[34 : 3];
-              MonWr <= 1'b1;
+              jtag_ram_wr <= MonARegAddrIncAccessingRAM;
+              jtag_ram_access <= MonARegAddrIncAccessingRAM;
             end
           else 
             begin
-              if (~avalon)
-                begin
-                  MonWr <= 0;
-                  MonRd <= 0;
-                end
-              if (MonRd1)
-                  MonDReg <= MonAReg[10] ? cfgdout : sramdout;
+              jtag_rd <= 0;
+              jtag_ram_wr <= 0;
+              jtag_ram_rd <= 0;
+              jtag_ram_access <= 0;
+              if (jtag_rd_d1)
+                  MonDReg <= jtag_ram_rd_d1 ? ociram_readdata : cfgrom_readdata;
             end
-          MonRd1 <= MonRd;
+          jtag_rd_d1 <= jtag_rd;
+          jtag_ram_rd_d1 <= jtag_ram_rd;
+          if (~waitrequest)
+            begin
+              waitrequest <= 1'b1;
+              avalon_ociram_readdata_ready <= 1'b0;
+            end
+          else if (write)
+              waitrequest <= ~address[8] & jtag_ram_access;
+          else if (read)
+            begin
+              avalon_ociram_readdata_ready <= ~(~address[8] & jtag_ram_access);
+              waitrequest <= ~avalon_ociram_readdata_ready;
+            end
+          else 
+            begin
+              waitrequest <= 1'b1;
+              avalon_ociram_readdata_ready <= 1'b0;
+            end
         end
     end
 
 
-//Video_System_CPU_ociram_lpm_dram_bdp_component, which is an nios_tdp_ram
-Video_System_CPU_ociram_lpm_dram_bdp_component_module Video_System_CPU_ociram_lpm_dram_bdp_component
+  assign MonARegAddrInc = MonAReg[10 : 2]+1;
+  assign MonARegAddrIncAccessingRAM = ~MonARegAddrInc[8];
+  assign avalon_ram_wr = write & ~address[8] & debugaccess;
+  assign ociram_addr = jtag_ram_access ? MonAReg[9 : 2] : address[7 : 0];
+  assign ociram_wr_data = jtag_ram_access ? MonDReg[31 : 0] : writedata;
+  assign ociram_byteenable = jtag_ram_access ? 4'b1111 : byteenable;
+  assign ociram_wr_en = jtag_ram_access ? jtag_ram_wr : avalon_ram_wr;
+  assign ociram_reset_req = reset_req & ~jtag_ram_access;
+//Video_System_CPU_ociram_sp_ram, which is an nios_sp_ram
+Video_System_CPU_ociram_sp_ram_module Video_System_CPU_ociram_sp_ram
   (
-    .address_a (address[7 : 0]),
-    .address_b (MonAReg[9 : 2]),
-    .byteena_a (byteenable),
-    .clock0    (clk),
-    .clock1    (clk),
-    .clocken0  (1'b1),
-    .clocken1  (1'b1),
-    .data_a    (writedata),
-    .data_b    (MonDReg[31 : 0]),
-    .q_a       (oci_ram_readdata),
-    .q_b       (sramdout),
-    .wren_a    (chipselect & write & debugaccess & 
-                         ~address[8] 
-                         ),
-    .wren_b    (MonWr)
+    .address    (ociram_addr),
+    .byteenable (ociram_byteenable),
+    .clock      (clk),
+    .data       (ociram_wr_data),
+    .q          (ociram_readdata),
+    .reset_req  (ociram_reset_req),
+    .wren       (ociram_wr_en)
   );
 
 //synthesis translate_off
 `ifdef NO_PLI
-defparam Video_System_CPU_ociram_lpm_dram_bdp_component.lpm_file = "Video_System_CPU_ociram_default_contents.dat";
+defparam Video_System_CPU_ociram_sp_ram.lpm_file = "Video_System_CPU_ociram_default_contents.dat";
 `else
-defparam Video_System_CPU_ociram_lpm_dram_bdp_component.lpm_file = "Video_System_CPU_ociram_default_contents.hex";
+defparam Video_System_CPU_ociram_sp_ram.lpm_file = "Video_System_CPU_ociram_default_contents.hex";
 `endif
 //synthesis translate_on
 //synthesis read_comments_as_HDL on
-//defparam Video_System_CPU_ociram_lpm_dram_bdp_component.lpm_file = "Video_System_CPU_ociram_default_contents.mif";
+//defparam Video_System_CPU_ociram_sp_ram.lpm_file = "Video_System_CPU_ociram_default_contents.mif";
 //synthesis read_comments_as_HDL off
-  assign cfgdout = (MonAReg[4 : 2] == 3'd0)? 32'h00204020 :
+  assign cfgrom_readdata = (MonAReg[4 : 2] == 3'd0)? 32'h00204020 :
     (MonAReg[4 : 2] == 3'd1)? 32'h00001616 :
     (MonAReg[4 : 2] == 3'd2)? 32'h00040000 :
-    (MonAReg[4 : 2] == 3'd3)? 32'h00000000 :
+    (MonAReg[4 : 2] == 3'd3)? 32'h00000100 :
     (MonAReg[4 : 2] == 3'd4)? 32'h20000000 :
     (MonAReg[4 : 2] == 3'd5)? 32'h00204000 :
     (MonAReg[4 : 2] == 3'd6)? 32'h00000000 :
@@ -514,7 +543,6 @@ endmodule
 module Video_System_CPU_nios2_avalon_reg (
                                            // inputs:
                                             address,
-                                            chipselect,
                                             clk,
                                             debugaccess,
                                             monitor_error,
@@ -541,7 +569,6 @@ module Video_System_CPU_nios2_avalon_reg (
   output           ocireg_mrs;
   output           take_action_ocireg;
   input   [  8: 0] address;
-  input            chipselect;
   input            clk;
   input            debugaccess;
   input            monitor_error;
@@ -551,20 +578,21 @@ module Video_System_CPU_nios2_avalon_reg (
   input            write;
   input   [ 31: 0] writedata;
 
-  reg     [ 31: 0] oci_ienable;
-  wire             oci_reg_00_addressed;
-  wire             oci_reg_01_addressed;
-  wire    [ 31: 0] oci_reg_readdata;
-  reg              oci_single_step_mode;
-  wire             ocireg_ers;
-  wire             ocireg_mrs;
-  wire             ocireg_sstep;
-  wire             take_action_oci_intr_mask_reg;
-  wire             take_action_ocireg;
-  wire             write_strobe;
+
+reg     [ 31: 0] oci_ienable;
+wire             oci_reg_00_addressed;
+wire             oci_reg_01_addressed;
+wire    [ 31: 0] oci_reg_readdata;
+reg              oci_single_step_mode;
+wire             ocireg_ers;
+wire             ocireg_mrs;
+wire             ocireg_sstep;
+wire             take_action_oci_intr_mask_reg;
+wire             take_action_ocireg;
+wire             write_strobe;
   assign oci_reg_00_addressed = address == 9'h100;
   assign oci_reg_01_addressed = address == 9'h101;
-  assign write_strobe = chipselect & write & debugaccess;
+  assign write_strobe = write & debugaccess;
   assign take_action_ocireg = write_strobe & oci_reg_00_addressed;
   assign take_action_oci_intr_mask_reg = write_strobe & oci_reg_01_addressed;
   assign ocireg_ers = writedata[1];
@@ -667,37 +695,38 @@ module Video_System_CPU_nios2_oci_break (
   input            xbrk_goto0;
   input            xbrk_goto1;
 
-  wire    [  3: 0] break_a_wpr;
-  wire    [  1: 0] break_a_wpr_high_bits;
-  wire    [  1: 0] break_a_wpr_low_bits;
-  wire    [  1: 0] break_b_rr;
-  wire    [  1: 0] break_c_rr;
-  reg     [ 31: 0] break_readreg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
-  wire             dbrk0_high_value;
-  wire             dbrk0_low_value;
-  wire             dbrk1_high_value;
-  wire             dbrk1_low_value;
-  wire             dbrk2_high_value;
-  wire             dbrk2_low_value;
-  wire             dbrk3_high_value;
-  wire             dbrk3_low_value;
-  wire             dbrk_hit0_latch;
-  wire             dbrk_hit1_latch;
-  wire             dbrk_hit2_latch;
-  wire             dbrk_hit3_latch;
-  wire             take_action_any_break;
-  reg              trigbrktype /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
-  reg              trigger_state;
-  wire             trigger_state_0;
-  wire             trigger_state_1;
-  wire    [ 31: 0] xbrk0_value;
-  wire    [ 31: 0] xbrk1_value;
-  wire    [ 31: 0] xbrk2_value;
-  wire    [ 31: 0] xbrk3_value;
-  reg     [  7: 0] xbrk_ctrl0 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
-  reg     [  7: 0] xbrk_ctrl1 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
-  reg     [  7: 0] xbrk_ctrl2 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
-  reg     [  7: 0] xbrk_ctrl3 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+
+wire    [  3: 0] break_a_wpr;
+wire    [  1: 0] break_a_wpr_high_bits;
+wire    [  1: 0] break_a_wpr_low_bits;
+wire    [  1: 0] break_b_rr;
+wire    [  1: 0] break_c_rr;
+reg     [ 31: 0] break_readreg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+wire             dbrk0_high_value;
+wire             dbrk0_low_value;
+wire             dbrk1_high_value;
+wire             dbrk1_low_value;
+wire             dbrk2_high_value;
+wire             dbrk2_low_value;
+wire             dbrk3_high_value;
+wire             dbrk3_low_value;
+wire             dbrk_hit0_latch;
+wire             dbrk_hit1_latch;
+wire             dbrk_hit2_latch;
+wire             dbrk_hit3_latch;
+wire             take_action_any_break;
+reg              trigbrktype /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+reg              trigger_state;
+wire             trigger_state_0;
+wire             trigger_state_1;
+wire    [ 31: 0] xbrk0_value;
+wire    [ 31: 0] xbrk1_value;
+wire    [ 31: 0] xbrk2_value;
+wire    [ 31: 0] xbrk3_value;
+reg     [  7: 0] xbrk_ctrl0 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+reg     [  7: 0] xbrk_ctrl1 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+reg     [  7: 0] xbrk_ctrl2 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
+reg     [  7: 0] xbrk_ctrl3 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,R101\""  */;
   assign break_a_wpr = jdo[35 : 32];
   assign break_a_wpr_high_bits = break_a_wpr[3 : 2];
   assign break_a_wpr_low_bits = break_a_wpr[1 : 0];
@@ -941,54 +970,55 @@ module Video_System_CPU_nios2_oci_xbrk (
   input   [  7: 0] xbrk_ctrl2;
   input   [  7: 0] xbrk_ctrl3;
 
-  wire             D_cpu_addr_en;
-  wire             E_cpu_addr_en;
-  reg              E_xbrk_goto0;
-  reg              E_xbrk_goto1;
-  reg              E_xbrk_traceoff;
-  reg              E_xbrk_traceon;
-  reg              E_xbrk_trigout;
-  wire    [ 21: 0] cpu_i_address;
-  wire             xbrk0_armed;
-  wire             xbrk0_break_hit;
-  wire             xbrk0_goto0_hit;
-  wire             xbrk0_goto1_hit;
-  wire             xbrk0_toff_hit;
-  wire             xbrk0_ton_hit;
-  wire             xbrk0_tout_hit;
-  wire             xbrk1_armed;
-  wire             xbrk1_break_hit;
-  wire             xbrk1_goto0_hit;
-  wire             xbrk1_goto1_hit;
-  wire             xbrk1_toff_hit;
-  wire             xbrk1_ton_hit;
-  wire             xbrk1_tout_hit;
-  wire             xbrk2_armed;
-  wire             xbrk2_break_hit;
-  wire             xbrk2_goto0_hit;
-  wire             xbrk2_goto1_hit;
-  wire             xbrk2_toff_hit;
-  wire             xbrk2_ton_hit;
-  wire             xbrk2_tout_hit;
-  wire             xbrk3_armed;
-  wire             xbrk3_break_hit;
-  wire             xbrk3_goto0_hit;
-  wire             xbrk3_goto1_hit;
-  wire             xbrk3_toff_hit;
-  wire             xbrk3_ton_hit;
-  wire             xbrk3_tout_hit;
-  reg              xbrk_break;
-  wire             xbrk_break_hit;
-  wire             xbrk_goto0;
-  wire             xbrk_goto0_hit;
-  wire             xbrk_goto1;
-  wire             xbrk_goto1_hit;
-  wire             xbrk_toff_hit;
-  wire             xbrk_ton_hit;
-  wire             xbrk_tout_hit;
-  wire             xbrk_traceoff;
-  wire             xbrk_traceon;
-  wire             xbrk_trigout;
+
+wire             D_cpu_addr_en;
+wire             E_cpu_addr_en;
+reg              E_xbrk_goto0;
+reg              E_xbrk_goto1;
+reg              E_xbrk_traceoff;
+reg              E_xbrk_traceon;
+reg              E_xbrk_trigout;
+wire    [ 21: 0] cpu_i_address;
+wire             xbrk0_armed;
+wire             xbrk0_break_hit;
+wire             xbrk0_goto0_hit;
+wire             xbrk0_goto1_hit;
+wire             xbrk0_toff_hit;
+wire             xbrk0_ton_hit;
+wire             xbrk0_tout_hit;
+wire             xbrk1_armed;
+wire             xbrk1_break_hit;
+wire             xbrk1_goto0_hit;
+wire             xbrk1_goto1_hit;
+wire             xbrk1_toff_hit;
+wire             xbrk1_ton_hit;
+wire             xbrk1_tout_hit;
+wire             xbrk2_armed;
+wire             xbrk2_break_hit;
+wire             xbrk2_goto0_hit;
+wire             xbrk2_goto1_hit;
+wire             xbrk2_toff_hit;
+wire             xbrk2_ton_hit;
+wire             xbrk2_tout_hit;
+wire             xbrk3_armed;
+wire             xbrk3_break_hit;
+wire             xbrk3_goto0_hit;
+wire             xbrk3_goto1_hit;
+wire             xbrk3_toff_hit;
+wire             xbrk3_ton_hit;
+wire             xbrk3_tout_hit;
+reg              xbrk_break;
+wire             xbrk_break_hit;
+wire             xbrk_goto0;
+wire             xbrk_goto0_hit;
+wire             xbrk_goto1;
+wire             xbrk_goto1_hit;
+wire             xbrk_toff_hit;
+wire             xbrk_ton_hit;
+wire             xbrk_tout_hit;
+wire             xbrk_traceoff;
+wire             xbrk_traceon;
+wire             xbrk_trigout;
   assign cpu_i_address = {F_pc, 2'b00};
   assign D_cpu_addr_en = D_valid;
   assign E_cpu_addr_en = E_valid;
@@ -1157,53 +1187,54 @@ module Video_System_CPU_nios2_oci_dbrk (
   input            debugack;
   input            reset_n;
 
-  wire    [ 21: 0] cpu_d_address;
-  wire             cpu_d_read;
-  wire    [ 31: 0] cpu_d_readdata;
-  wire             cpu_d_wait;
-  wire             cpu_d_write;
-  wire    [ 31: 0] cpu_d_writedata;
-  wire             dbrk0_armed;
-  wire             dbrk0_break_pulse;
-  wire             dbrk0_goto0;
-  wire             dbrk0_goto1;
-  wire             dbrk0_traceme;
-  wire             dbrk0_traceoff;
-  wire             dbrk0_traceon;
-  wire             dbrk0_trigout;
-  wire             dbrk1_armed;
-  wire             dbrk1_break_pulse;
-  wire             dbrk1_goto0;
-  wire             dbrk1_goto1;
-  wire             dbrk1_traceme;
-  wire             dbrk1_traceoff;
-  wire             dbrk1_traceon;
-  wire             dbrk1_trigout;
-  wire             dbrk2_armed;
-  wire             dbrk2_break_pulse;
-  wire             dbrk2_goto0;
-  wire             dbrk2_goto1;
-  wire             dbrk2_traceme;
-  wire             dbrk2_traceoff;
-  wire             dbrk2_traceon;
-  wire             dbrk2_trigout;
-  wire             dbrk3_armed;
-  wire             dbrk3_break_pulse;
-  wire             dbrk3_goto0;
-  wire             dbrk3_goto1;
-  wire             dbrk3_traceme;
-  wire             dbrk3_traceoff;
-  wire             dbrk3_traceon;
-  wire             dbrk3_trigout;
-  reg              dbrk_break;
-  reg              dbrk_break_pulse;
-  wire    [ 31: 0] dbrk_data;
-  reg              dbrk_goto0;
-  reg              dbrk_goto1;
-  reg              dbrk_traceme;
-  reg              dbrk_traceoff;
-  reg              dbrk_traceon;
-  reg              dbrk_trigout;
+
+wire    [ 21: 0] cpu_d_address;
+wire             cpu_d_read;
+wire    [ 31: 0] cpu_d_readdata;
+wire             cpu_d_wait;
+wire             cpu_d_write;
+wire    [ 31: 0] cpu_d_writedata;
+wire             dbrk0_armed;
+wire             dbrk0_break_pulse;
+wire             dbrk0_goto0;
+wire             dbrk0_goto1;
+wire             dbrk0_traceme;
+wire             dbrk0_traceoff;
+wire             dbrk0_traceon;
+wire             dbrk0_trigout;
+wire             dbrk1_armed;
+wire             dbrk1_break_pulse;
+wire             dbrk1_goto0;
+wire             dbrk1_goto1;
+wire             dbrk1_traceme;
+wire             dbrk1_traceoff;
+wire             dbrk1_traceon;
+wire             dbrk1_trigout;
+wire             dbrk2_armed;
+wire             dbrk2_break_pulse;
+wire             dbrk2_goto0;
+wire             dbrk2_goto1;
+wire             dbrk2_traceme;
+wire             dbrk2_traceoff;
+wire             dbrk2_traceon;
+wire             dbrk2_trigout;
+wire             dbrk3_armed;
+wire             dbrk3_break_pulse;
+wire             dbrk3_goto0;
+wire             dbrk3_goto1;
+wire             dbrk3_traceme;
+wire             dbrk3_traceoff;
+wire             dbrk3_traceon;
+wire             dbrk3_trigout;
+reg              dbrk_break;
+reg              dbrk_break_pulse;
+wire    [ 31: 0] dbrk_data;
+reg              dbrk_goto0;
+reg              dbrk_goto1;
+reg              dbrk_traceme;
+reg              dbrk_traceoff;
+reg              dbrk_traceon;
+reg              dbrk_trigout;
   assign cpu_d_address = d_address;
   assign cpu_d_readdata = av_ld_data_aligned_filtered;
   assign cpu_d_read = d_read;
@@ -1329,36 +1360,48 @@ module Video_System_CPU_nios2_oci_itrace (
   input            xbrk_traceon;
   input            xbrk_wrap_traceoff;
 
-  wire             advanced_exception;
-  reg     [ 29: 0] dct_buffer /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire    [  1: 0] dct_code;
-  reg     [  3: 0] dct_count /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire             dct_is_taken;
-  wire    [ 31: 0] excaddr;
-  wire             instr_retired;
-  wire             is_cond_dct;
-  wire             is_dct;
-  wire             is_exception;
-  wire             is_fast_tlb_miss_exception;
-  wire             is_idct;
-  reg     [ 35: 0] itm /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire             not_in_debug_mode;
-  reg     [ 31: 0] pending_excaddr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  reg              pending_exctype /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  reg     [  3: 0] pending_frametype /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire             record_dct_outcome_in_sync;
-  wire             record_itrace;
-  wire    [ 31: 0] retired_pcb;
-  wire    [  1: 0] sync_code;
-  wire    [  6: 0] sync_interval;
-  wire             sync_pending;
-  reg     [  6: 0] sync_timer /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire    [  6: 0] sync_timer_next;
-  wire             synced;
-  reg              trc_clear /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=D101"  */;
-  wire    [ 15: 0] trc_ctrl;
-  reg     [ 10: 0] trc_ctrl_reg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
-  wire             trc_on;
+
+wire             advanced_exc_occured;
+wire             curr_pid;
+reg     [ 29: 0] dct_buffer /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire    [  1: 0] dct_code;
+reg     [  3: 0] dct_count /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire             dct_is_taken;
+wire    [ 31: 0] eic_addr;
+wire    [ 31: 0] exc_addr;
+wire             instr_retired;
+wire             is_cond_dct;
+wire             is_dct;
+wire             is_exception_no_break;
+wire             is_external_interrupt;
+wire             is_fast_tlb_miss_exception;
+wire             is_idct;
+reg     [ 35: 0] itm /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire             not_in_debug_mode;
+reg              pending_curr_pid /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg              pending_exc /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg     [ 31: 0] pending_exc_addr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg     [ 31: 0] pending_exc_handler /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg              pending_exc_record_handler /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg     [  3: 0] pending_frametype /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg              pending_prev_pid /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg              prev_pid /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg              prev_pid_valid /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire             record_dct_outcome_in_sync;
+wire             record_itrace;
+wire    [ 31: 0] retired_pcb;
+reg              snapped_curr_pid /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg              snapped_pid /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg              snapped_prev_pid /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire    [  1: 0] sync_code;
+wire    [  6: 0] sync_interval;
+reg     [  6: 0] sync_timer /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire    [  6: 0] sync_timer_next;
+wire             sync_timer_reached_zero;
+reg              trc_clear /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=D101"  */;
+wire    [ 15: 0] trc_ctrl;
+reg     [ 10: 0] trc_ctrl_reg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+wire             trc_on;
   assign is_cond_dct = 1'b0;
   assign is_dct = 1'b0;
   assign dct_is_taken = 1'b0;
@@ -1366,17 +1409,19 @@ module Video_System_CPU_nios2_oci_itrace (
   assign retired_pcb = 32'b0;
   assign not_in_debug_mode = 1'b0;
   assign instr_retired = 1'b0;
-  assign advanced_exception = 1'b0;
-  assign is_exception = 1'b0;
+  assign advanced_exc_occured = 1'b0;
+  assign is_exception_no_break = 1'b0;
+  assign is_external_interrupt = 1'b0;
   assign is_fast_tlb_miss_exception = 1'b0;
-  assign excaddr = 32'b0;
+  assign curr_pid = 1'b0;
+  assign exc_addr = 32'b0;
+  assign eic_addr = 32'b0;
   assign sync_code = trc_ctrl[3 : 2];
   assign sync_interval = { sync_code[1] & sync_code[0], 1'b0, sync_code[1] & ~sync_code[0], 1'b0, ~sync_code[1] & sync_code[0], 2'b00 };
-  assign sync_pending = sync_timer == 0;
-  assign record_dct_outcome_in_sync = dct_is_taken & sync_pending;
-  assign sync_timer_next = sync_pending ? sync_timer : (sync_timer - 1);
+  assign sync_timer_reached_zero = sync_timer == 0;
+  assign record_dct_outcome_in_sync = dct_is_taken & sync_timer_reached_zero;
+  assign sync_timer_next = sync_timer_reached_zero ? sync_timer : (sync_timer - 1);
   assign record_itrace = trc_on & trc_ctrl[4];
-  assign synced = pending_frametype != 4'b1010;
   assign dct_code = {is_cond_dct, dct_is_taken};
   always @(posedge clk or negedge jrst_n)
     begin
@@ -1398,8 +1443,17 @@ module Video_System_CPU_nios2_oci_itrace (
           dct_count <= 0;
           sync_timer <= 0;
           pending_frametype <= 4'b0000;
-          pending_exctype <= 1'b0;
-          pending_excaddr <= 0;
+          pending_exc <= 0;
+          pending_exc_addr <= 0;
+          pending_exc_handler <= 0;
+          pending_exc_record_handler <= 0;
+          prev_pid <= 0;
+          prev_pid_valid <= 0;
+          snapped_pid <= 0;
+          snapped_curr_pid <= 0;
+          snapped_prev_pid <= 0;
+          pending_curr_pid <= 0;
+          pending_prev_pid <= 0;
         end
       else if (trc_clear || (!0 && !0))
         begin
@@ -1408,72 +1462,134 @@ module Video_System_CPU_nios2_oci_itrace (
           dct_count <= 0;
           sync_timer <= 0;
           pending_frametype <= 4'b0000;
-          pending_exctype <= 1'b0;
-          pending_excaddr <= 0;
-        end
-      else if (instr_retired | advanced_exception)
-        begin
-          if (~record_itrace)
-              pending_frametype <= 4'b1010;
-          else if (is_exception)
-            begin
-              pending_frametype <= 4'b0010;
-              pending_excaddr <= excaddr;
-              if (is_fast_tlb_miss_exception)
-                  pending_exctype <= 1'b1;
-              else 
-                pending_exctype <= 1'b0;
-            end
-          else if (is_idct)
-              pending_frametype <= 4'b1001;
-          else if (record_dct_outcome_in_sync)
-              pending_frametype <= 4'b1000;
-          else 
-            pending_frametype <= 4'b0000;
-          if ((dct_count != 0) & (
-                     ~record_itrace | 
-                     is_idct | 
-                     is_exception | 
-                     record_dct_outcome_in_sync
-                   ))
-            begin
-              itm <= {4'b0001, dct_buffer, 2'b00};
-              dct_buffer <= 0;
-              dct_count <= 0;
-              sync_timer <= sync_timer_next;
-            end
-          else 
-            begin
-              if (record_itrace & (is_dct & (dct_count != 4'd15)) & ~record_dct_outcome_in_sync & ~advanced_exception)
-                begin
-                  dct_buffer <= {dct_code, dct_buffer[29 : 2]};
-                  dct_count <= dct_count + 1;
-                end
-              if (record_itrace & synced & (pending_frametype == 4'b0010))
-                  itm <= {4'b0010, pending_excaddr[31 : 1], pending_exctype};
-              else if (record_itrace & (pending_frametype != 4'b0000))
-                begin
-                  itm <= {pending_frametype, retired_pcb};
-                  sync_timer <= sync_interval;
-                end
-              else if (record_itrace & synced & is_dct)
-                begin
-                  if (dct_count == 4'd15)
-                    begin
-                      itm <= {4'b0001, dct_code, dct_buffer};
-                      dct_buffer <= 0;
-                      dct_count <= 0;
-                      sync_timer <= sync_timer_next;
-                    end
-                  else 
-                    itm <= 4'b0000;
-                end
-              else 
-                itm <= 4'b0000;
-            end
+          pending_exc <= 0;
+          pending_exc_addr <= 0;
+          pending_exc_handler <= 0;
+          pending_exc_record_handler <= 0;
+          prev_pid <= 0;
+          prev_pid_valid <= 0;
+          snapped_pid <= 0;
+          snapped_curr_pid <= 0;
+          snapped_prev_pid <= 0;
+          pending_curr_pid <= 0;
+          pending_prev_pid <= 0;
         end
       else 
-        itm <= 4'b0000;
+        begin
+          if (!prev_pid_valid)
+            begin
+              prev_pid <= curr_pid;
+              prev_pid_valid <= 1;
+            end
+          if ((curr_pid != prev_pid) & prev_pid_valid & !snapped_pid)
+            begin
+              snapped_pid <= 1;
+              snapped_curr_pid <= curr_pid;
+              snapped_prev_pid <= prev_pid;
+              prev_pid <= curr_pid;
+              prev_pid_valid <= 1;
+            end
+          if (instr_retired | advanced_exc_occured)
+            begin
+              if (~record_itrace)
+                  pending_frametype <= 4'b1010;
+              else if (is_exception_no_break)
+                begin
+                  pending_exc <= 1;
+                  pending_exc_addr <= exc_addr;
+                  pending_exc_record_handler <= 0;
+                  if (is_external_interrupt)
+                      pending_exc_handler <= eic_addr;
+                  else if (is_fast_tlb_miss_exception)
+                      pending_exc_handler <= 32'h0;
+                  else 
+                    pending_exc_handler <= 32'h204020;
+                  pending_frametype <= 4'b0000;
+                end
+              else if (is_idct)
+                  pending_frametype <= 4'b1001;
+              else if (record_dct_outcome_in_sync)
+                  pending_frametype <= 4'b1000;
+              else if (!is_dct & snapped_pid)
+                begin
+                  pending_frametype <= 4'b0011;
+                  pending_curr_pid <= snapped_curr_pid;
+                  pending_prev_pid <= snapped_prev_pid;
+                  snapped_pid <= 0;
+                end
+              else 
+                pending_frametype <= 4'b0000;
+              if ((dct_count != 0) & 
+             (~record_itrace | 
+              is_exception_no_break |
+              is_idct |
+              record_dct_outcome_in_sync |
+              (!is_dct & snapped_pid)))
+                begin
+                  itm <= {4'b0001, dct_buffer, 2'b00};
+                  dct_buffer <= 0;
+                  dct_count <= 0;
+                  sync_timer <= sync_timer_next;
+                end
+              else 
+                begin
+                  if (record_itrace & (is_dct & (dct_count != 4'd15)) & ~record_dct_outcome_in_sync & ~advanced_exc_occured)
+                    begin
+                      dct_buffer <= {dct_code, dct_buffer[29 : 2]};
+                      dct_count <= dct_count + 1;
+                    end
+                  if (record_itrace & (
+                  (pending_frametype == 4'b1000) |
+                  (pending_frametype == 4'b1010) |
+                  (pending_frametype == 4'b1001)))
+                    begin
+                      itm <= {pending_frametype, retired_pcb};
+                      sync_timer <= sync_interval;
+                      if (0 &
+                      ((pending_frametype == 4'b1000) | (pending_frametype == 4'b1010)) &
+                      !snapped_pid & prev_pid_valid)
+                        begin
+                          snapped_pid <= 1;
+                          snapped_curr_pid <= curr_pid;
+                          snapped_prev_pid <= prev_pid;
+                        end
+                    end
+                  else if (record_itrace & 
+                  0 & (pending_frametype == 4'b0011))
+                      itm <= {4'b0011, 2'b00, pending_prev_pid, 2'b00, pending_curr_pid};
+                  else if (record_itrace & is_dct)
+                    begin
+                      if (dct_count == 4'd15)
+                        begin
+                          itm <= {4'b0001, dct_code, dct_buffer};
+                          dct_buffer <= 0;
+                          dct_count <= 0;
+                          sync_timer <= sync_timer_next;
+                        end
+                      else 
+                        itm <= 4'b0000;
+                    end
+                  else 
+                    itm <= {4'b0000, 32'b0};
+                end
+            end
+          else if (record_itrace & pending_exc)
+            begin
+              if (pending_exc_record_handler)
+                begin
+                  itm <= {4'b0010, pending_exc_handler[31 : 1], 1'b1};
+                  pending_exc <= 1'b0;
+                  pending_exc_record_handler <= 1'b0;
+                end
+              else 
+                begin
+                  itm <= {4'b0010, pending_exc_addr[31 : 1], 1'b0};
+                  pending_exc_record_handler <= 1'b1;
+                end
+            end
+          else 
+            itm <= {4'b0000, 32'b0};
+        end
     end
 
 
@@ -1542,8 +1658,9 @@ module Video_System_CPU_nios2_oci_td_mode (
   output  [  3: 0] td_mode;
   input   [  8: 0] ctrl;
 
-  wire    [  2: 0] ctrl_bits_for_mux;
-  reg     [  3: 0] td_mode;
+
+wire    [  2: 0] ctrl_bits_for_mux;
+reg     [  3: 0] td_mode;
   assign ctrl_bits_for_mux = ctrl[7 : 5];
   always @(ctrl_bits_for_mux)
     begin
@@ -1627,16 +1744,17 @@ module Video_System_CPU_nios2_oci_dtrace (
   input            jrst_n;
   input   [ 15: 0] trc_ctrl;
 
-  reg     [ 35: 0] atm /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire    [ 31: 0] cpu_d_address_0_padded;
-  wire    [ 31: 0] cpu_d_readdata_0_padded;
-  wire    [ 31: 0] cpu_d_writedata_0_padded;
-  reg     [ 35: 0] dtm /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire             record_load_addr;
-  wire             record_load_data;
-  wire             record_store_addr;
-  wire             record_store_data;
-  wire    [  3: 0] td_mode_trc_ctrl;
+
+reg     [ 35: 0] atm /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire    [ 31: 0] cpu_d_address_0_padded;
+wire    [ 31: 0] cpu_d_readdata_0_padded;
+wire    [ 31: 0] cpu_d_writedata_0_padded;
+reg     [ 35: 0] dtm /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire             record_load_addr;
+wire             record_load_data;
+wire             record_store_addr;
+wire             record_store_data;
+wire    [  3: 0] td_mode_trc_ctrl;
   assign cpu_d_writedata_0_padded = cpu_d_writedata | 32'b0;
   assign cpu_d_readdata_0_padded = cpu_d_readdata | 32'b0;
   assign cpu_d_address_0_padded = cpu_d_address | 32'b0;
@@ -1691,59 +1809,60 @@ endmodule
 // altera message_level Level1 
 // altera message_off 10034 10035 10036 10037 10230 10240 10030 
 
-module Video_System_CPU_nios2_oci_compute_tm_count (
-                                                     // inputs:
-                                                      atm_valid,
-                                                      dtm_valid,
-                                                      itm_valid,
+module Video_System_CPU_nios2_oci_compute_input_tm_cnt (
+                                                         // inputs:
+                                                          atm_valid,
+                                                          dtm_valid,
+                                                          itm_valid,
 
-                                                     // outputs:
-                                                      compute_tm_count
-                                                   )
+                                                         // outputs:
+                                                          compute_input_tm_cnt
+                                                       )
 ;
 
-  output  [  1: 0] compute_tm_count;
+  output  [  1: 0] compute_input_tm_cnt;
   input            atm_valid;
   input            dtm_valid;
   input            itm_valid;
 
-  reg     [  1: 0] compute_tm_count;
-  wire    [  2: 0] switch_for_mux;
+
+reg     [  1: 0] compute_input_tm_cnt;
+wire    [  2: 0] switch_for_mux;
   assign switch_for_mux = {itm_valid, atm_valid, dtm_valid};
   always @(switch_for_mux)
     begin
       case (switch_for_mux)
       
           3'b000: begin
-              compute_tm_count = 0;
+              compute_input_tm_cnt = 0;
           end // 3'b000 
       
           3'b001: begin
-              compute_tm_count = 1;
+              compute_input_tm_cnt = 1;
           end // 3'b001 
       
           3'b010: begin
-              compute_tm_count = 1;
+              compute_input_tm_cnt = 1;
           end // 3'b010 
       
           3'b011: begin
-              compute_tm_count = 2;
+              compute_input_tm_cnt = 2;
           end // 3'b011 
       
           3'b100: begin
-              compute_tm_count = 1;
+              compute_input_tm_cnt = 1;
           end // 3'b100 
       
           3'b101: begin
-              compute_tm_count = 2;
+              compute_input_tm_cnt = 2;
           end // 3'b101 
       
           3'b110: begin
-              compute_tm_count = 2;
+              compute_input_tm_cnt = 2;
           end // 3'b110 
       
           3'b111: begin
-              compute_tm_count = 3;
+              compute_input_tm_cnt = 3;
           end // 3'b111 
       
       endcase // switch_for_mux
@@ -1762,33 +1881,34 @@ endmodule
 // altera message_level Level1 
 // altera message_off 10034 10035 10036 10037 10230 10240 10030 
 
-module Video_System_CPU_nios2_oci_fifowp_inc (
-                                               // inputs:
-                                                free2,
-                                                free3,
-                                                tm_count,
+module Video_System_CPU_nios2_oci_fifo_wrptr_inc (
+                                                   // inputs:
+                                                    ge2_free,
+                                                    ge3_free,
+                                                    input_tm_cnt,
 
-                                               // outputs:
-                                                fifowp_inc
-                                             )
+                                                   // outputs:
+                                                    fifo_wrptr_inc
+                                                 )
 ;
 
-  output  [  3: 0] fifowp_inc;
-  input            free2;
-  input            free3;
-  input   [  1: 0] tm_count;
+  output  [  3: 0] fifo_wrptr_inc;
+  input            ge2_free;
+  input            ge3_free;
+  input   [  1: 0] input_tm_cnt;
 
-  reg     [  3: 0] fifowp_inc;
-  always @(free2 or free3 or tm_count)
+
+reg     [  3: 0] fifo_wrptr_inc;
+  always @(ge2_free or ge3_free or input_tm_cnt)
     begin
-      if (free3 & (tm_count == 3))
-          fifowp_inc = 3;
-      else if (free2 & (tm_count >= 2))
-          fifowp_inc = 2;
-      else if (tm_count >= 1)
-          fifowp_inc = 1;
+      if (ge3_free & (input_tm_cnt == 3))
+          fifo_wrptr_inc = 3;
+      else if (ge2_free & (input_tm_cnt >= 2))
+          fifo_wrptr_inc = 2;
+      else if (input_tm_cnt >= 1)
+          fifo_wrptr_inc = 1;
       else 
-        fifowp_inc = 0;
+        fifo_wrptr_inc = 0;
     end
 
 
@@ -1804,37 +1924,38 @@ endmodule
 // altera message_level Level1 
 // altera message_off 10034 10035 10036 10037 10230 10240 10030 
 
-module Video_System_CPU_nios2_oci_fifocount_inc (
-                                                  // inputs:
-                                                   empty,
-                                                   free2,
-                                                   free3,
-                                                   tm_count,
+module Video_System_CPU_nios2_oci_fifo_cnt_inc (
+                                                 // inputs:
+                                                  empty,
+                                                  ge2_free,
+                                                  ge3_free,
+                                                  input_tm_cnt,
 
-                                                  // outputs:
-                                                   fifocount_inc
-                                                )
+                                                 // outputs:
+                                                  fifo_cnt_inc
+                                               )
 ;
 
-  output  [  4: 0] fifocount_inc;
+  output  [  4: 0] fifo_cnt_inc;
   input            empty;
-  input            free2;
-  input            free3;
-  input   [  1: 0] tm_count;
+  input            ge2_free;
+  input            ge3_free;
+  input   [  1: 0] input_tm_cnt;
 
-  reg     [  4: 0] fifocount_inc;
-  always @(empty or free2 or free3 or tm_count)
+
+reg     [  4: 0] fifo_cnt_inc;
+  always @(empty or ge2_free or ge3_free or input_tm_cnt)
     begin
       if (empty)
-          fifocount_inc = tm_count[1 : 0];
-      else if (free3 & (tm_count == 3))
-          fifocount_inc = 2;
-      else if (free2 & (tm_count >= 2))
-          fifocount_inc = 1;
-      else if (tm_count >= 1)
-          fifocount_inc = 0;
+          fifo_cnt_inc = input_tm_cnt[1 : 0];
+      else if (ge3_free & (input_tm_cnt == 3))
+          fifo_cnt_inc = 2;
+      else if (ge2_free & (input_tm_cnt >= 2))
+          fifo_cnt_inc = 1;
+      else if (input_tm_cnt >= 1)
+          fifo_cnt_inc = 0;
       else 
-        fifocount_inc = {5{1'b1}};
+        fifo_cnt_inc = {5{1'b1}};
     end
 
 
@@ -1888,118 +2009,115 @@ module Video_System_CPU_nios2_oci_fifo (
   input            test_has_ended;
   input            trc_on;
 
-  wire             atm_valid;
-  wire    [  1: 0] compute_tm_count_tm_count;
-  wire             dtm_valid;
-  wire             empty;
-  reg     [ 35: 0] fifo_0;
-  wire             fifo_0_enable;
-  wire    [ 35: 0] fifo_0_mux;
-  reg     [ 35: 0] fifo_1;
-  reg     [ 35: 0] fifo_10;
-  wire             fifo_10_enable;
-  wire    [ 35: 0] fifo_10_mux;
-  reg     [ 35: 0] fifo_11;
-  wire             fifo_11_enable;
-  wire    [ 35: 0] fifo_11_mux;
-  reg     [ 35: 0] fifo_12;
-  wire             fifo_12_enable;
-  wire    [ 35: 0] fifo_12_mux;
-  reg     [ 35: 0] fifo_13;
-  wire             fifo_13_enable;
-  wire    [ 35: 0] fifo_13_mux;
-  reg     [ 35: 0] fifo_14;
-  wire             fifo_14_enable;
-  wire    [ 35: 0] fifo_14_mux;
-  reg     [ 35: 0] fifo_15;
-  wire             fifo_15_enable;
-  wire    [ 35: 0] fifo_15_mux;
-  wire             fifo_1_enable;
-  wire    [ 35: 0] fifo_1_mux;
-  reg     [ 35: 0] fifo_2;
-  wire             fifo_2_enable;
-  wire    [ 35: 0] fifo_2_mux;
-  reg     [ 35: 0] fifo_3;
-  wire             fifo_3_enable;
-  wire    [ 35: 0] fifo_3_mux;
-  reg     [ 35: 0] fifo_4;
-  wire             fifo_4_enable;
-  wire    [ 35: 0] fifo_4_mux;
-  reg     [ 35: 0] fifo_5;
-  wire             fifo_5_enable;
-  wire    [ 35: 0] fifo_5_mux;
-  reg     [ 35: 0] fifo_6;
-  wire             fifo_6_enable;
-  wire    [ 35: 0] fifo_6_mux;
-  reg     [ 35: 0] fifo_7;
-  wire             fifo_7_enable;
-  wire    [ 35: 0] fifo_7_mux;
-  reg     [ 35: 0] fifo_8;
-  wire             fifo_8_enable;
-  wire    [ 35: 0] fifo_8_mux;
-  reg     [ 35: 0] fifo_9;
-  wire             fifo_9_enable;
-  wire    [ 35: 0] fifo_9_mux;
-  wire    [ 35: 0] fifo_read_mux;
-  reg     [  4: 0] fifocount /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire    [  4: 0] fifocount_inc_fifocount;
-  wire    [ 35: 0] fifohead;
-  reg     [  3: 0] fiforp /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  reg     [  3: 0] fifowp /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire    [  3: 0] fifowp1;
-  wire    [  3: 0] fifowp2;
-  wire    [  3: 0] fifowp_inc_fifowp;
-  wire             free2;
-  wire             free3;
-  wire             itm_valid;
-  reg              ovf_pending /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire    [ 35: 0] ovr_pending_atm;
-  wire    [ 35: 0] ovr_pending_dtm;
-  wire    [  1: 0] tm_count;
-  wire             tm_count_ge1;
-  wire             tm_count_ge2;
-  wire             tm_count_ge3;
-  wire             trc_this;
-  wire    [ 35: 0] tw;
+
+wire             atm_valid;
+wire    [  1: 0] compute_input_tm_cnt;
+wire             dtm_valid;
+wire             empty;
+reg     [ 35: 0] fifo_0;
+wire             fifo_0_enable;
+wire    [ 35: 0] fifo_0_mux;
+reg     [ 35: 0] fifo_1;
+reg     [ 35: 0] fifo_10;
+wire             fifo_10_enable;
+wire    [ 35: 0] fifo_10_mux;
+reg     [ 35: 0] fifo_11;
+wire             fifo_11_enable;
+wire    [ 35: 0] fifo_11_mux;
+reg     [ 35: 0] fifo_12;
+wire             fifo_12_enable;
+wire    [ 35: 0] fifo_12_mux;
+reg     [ 35: 0] fifo_13;
+wire             fifo_13_enable;
+wire    [ 35: 0] fifo_13_mux;
+reg     [ 35: 0] fifo_14;
+wire             fifo_14_enable;
+wire    [ 35: 0] fifo_14_mux;
+reg     [ 35: 0] fifo_15;
+wire             fifo_15_enable;
+wire    [ 35: 0] fifo_15_mux;
+wire             fifo_1_enable;
+wire    [ 35: 0] fifo_1_mux;
+reg     [ 35: 0] fifo_2;
+wire             fifo_2_enable;
+wire    [ 35: 0] fifo_2_mux;
+reg     [ 35: 0] fifo_3;
+wire             fifo_3_enable;
+wire    [ 35: 0] fifo_3_mux;
+reg     [ 35: 0] fifo_4;
+wire             fifo_4_enable;
+wire    [ 35: 0] fifo_4_mux;
+reg     [ 35: 0] fifo_5;
+wire             fifo_5_enable;
+wire    [ 35: 0] fifo_5_mux;
+reg     [ 35: 0] fifo_6;
+wire             fifo_6_enable;
+wire    [ 35: 0] fifo_6_mux;
+reg     [ 35: 0] fifo_7;
+wire             fifo_7_enable;
+wire    [ 35: 0] fifo_7_mux;
+reg     [ 35: 0] fifo_8;
+wire             fifo_8_enable;
+wire    [ 35: 0] fifo_8_mux;
+reg     [ 35: 0] fifo_9;
+wire             fifo_9_enable;
+wire    [ 35: 0] fifo_9_mux;
+reg     [  4: 0] fifo_cnt /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire    [  4: 0] fifo_cnt_inc;
+wire    [ 35: 0] fifo_head;
+reg     [  3: 0] fifo_rdptr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire    [ 35: 0] fifo_read_mux;
+reg     [  3: 0] fifo_wrptr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire    [  3: 0] fifo_wrptr_inc;
+wire    [  3: 0] fifo_wrptr_plus1;
+wire    [  3: 0] fifo_wrptr_plus2;
+wire             ge2_free;
+wire             ge3_free;
+wire             input_ge1;
+wire             input_ge2;
+wire             input_ge3;
+wire    [  1: 0] input_tm_cnt;
+wire             itm_valid;
+reg              overflow_pending /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire    [ 35: 0] overflow_pending_atm;
+wire    [ 35: 0] overflow_pending_dtm;
+wire             trc_this;
+wire    [ 35: 0] tw;
   assign trc_this = trc_on | (dbrk_traceon & ~dbrk_traceoff) | dbrk_traceme;
   assign itm_valid = |itm[35 : 32];
   assign atm_valid = |atm[35 : 32] & trc_this;
   assign dtm_valid = |dtm[35 : 32] & trc_this;
-  assign free2 = ~fifocount[4];
-  assign free3 = ~fifocount[4] & ~&fifocount[3 : 0];
-  assign empty = ~|fifocount;
-  assign fifowp1 = fifowp + 1;
-  assign fifowp2 = fifowp + 2;
-  //Video_System_CPU_nios2_oci_compute_tm_count_tm_count, which is an e_instance
-  Video_System_CPU_nios2_oci_compute_tm_count Video_System_CPU_nios2_oci_compute_tm_count_tm_count
+  assign ge2_free = ~fifo_cnt[4];
+  assign ge3_free = ge2_free & ~&fifo_cnt[3 : 0];
+  assign empty = ~|fifo_cnt;
+  assign fifo_wrptr_plus1 = fifo_wrptr + 1;
+  assign fifo_wrptr_plus2 = fifo_wrptr + 2;
+  Video_System_CPU_nios2_oci_compute_input_tm_cnt the_Video_System_CPU_nios2_oci_compute_input_tm_cnt
     (
-      .atm_valid        (atm_valid),
-      .compute_tm_count (compute_tm_count_tm_count),
-      .dtm_valid        (dtm_valid),
-      .itm_valid        (itm_valid)
+      .atm_valid            (atm_valid),
+      .compute_input_tm_cnt (compute_input_tm_cnt),
+      .dtm_valid            (dtm_valid),
+      .itm_valid            (itm_valid)
     );
 
-  assign tm_count = compute_tm_count_tm_count;
-  //Video_System_CPU_nios2_oci_fifowp_inc_fifowp, which is an e_instance
-  Video_System_CPU_nios2_oci_fifowp_inc Video_System_CPU_nios2_oci_fifowp_inc_fifowp
+  assign input_tm_cnt = compute_input_tm_cnt;
+  Video_System_CPU_nios2_oci_fifo_wrptr_inc the_Video_System_CPU_nios2_oci_fifo_wrptr_inc
     (
-      .fifowp_inc (fifowp_inc_fifowp),
-      .free2      (free2),
-      .free3      (free3),
-      .tm_count   (tm_count)
+      .fifo_wrptr_inc (fifo_wrptr_inc),
+      .ge2_free       (ge2_free),
+      .ge3_free       (ge3_free),
+      .input_tm_cnt   (input_tm_cnt)
     );
 
-  //Video_System_CPU_nios2_oci_fifocount_inc_fifocount, which is an e_instance
-  Video_System_CPU_nios2_oci_fifocount_inc Video_System_CPU_nios2_oci_fifocount_inc_fifocount
+  Video_System_CPU_nios2_oci_fifo_cnt_inc the_Video_System_CPU_nios2_oci_fifo_cnt_inc
     (
-      .empty         (empty),
-      .fifocount_inc (fifocount_inc_fifocount),
-      .free2         (free2),
-      .free3         (free3),
-      .tm_count      (tm_count)
+      .empty        (empty),
+      .fifo_cnt_inc (fifo_cnt_inc),
+      .ge2_free     (ge2_free),
+      .ge3_free     (ge3_free),
+      .input_tm_cnt (input_tm_cnt)
     );
 
-  //the_Video_System_CPU_oci_test_bench, which is an e_instance
   Video_System_CPU_oci_test_bench the_Video_System_CPU_oci_test_bench
     (
       .dct_buffer     (dct_buffer),
@@ -2012,28 +2130,28 @@ module Video_System_CPU_nios2_oci_fifo (
     begin
       if (jrst_n == 0)
         begin
-          fiforp <= 0;
-          fifowp <= 0;
-          fifocount <= 0;
-          ovf_pending <= 1;
+          fifo_rdptr <= 0;
+          fifo_wrptr <= 0;
+          fifo_cnt <= 0;
+          overflow_pending <= 1;
         end
       else 
         begin
-          fifowp <= fifowp + fifowp_inc_fifowp;
-          fifocount <= fifocount + fifocount_inc_fifocount;
+          fifo_wrptr <= fifo_wrptr + fifo_wrptr_inc;
+          fifo_cnt <= fifo_cnt + fifo_cnt_inc;
           if (~empty)
-              fiforp <= fiforp + 1;
-          if (~trc_this || (~free2 & tm_count[1])   || (~free3 & (&tm_count)))
-              ovf_pending <= 1;
+              fifo_rdptr <= fifo_rdptr + 1;
+          if (~trc_this || (~ge2_free & input_ge2) || (~ge3_free & input_ge3))
+              overflow_pending <= 1;
           else if (atm_valid | dtm_valid)
-              ovf_pending <= 0;
+              overflow_pending <= 0;
         end
     end
 
 
-  assign fifohead = fifo_read_mux;
-  assign tw = 0 ?  { (empty ?       4'h0       : fifohead[35 : 32]),   fifohead[31 : 0]}  : itm;
-  assign fifo_0_enable = ((fifowp == 4'd0) && tm_count_ge1)  || (free2 && (fifowp1== 4'd0) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd0) && tm_count_ge3);
+  assign fifo_head = fifo_read_mux;
+  assign tw = 0 ?  { (empty ? 4'h0 : fifo_head[35 : 32]),   fifo_head[31 : 0]}  : itm;
+  assign fifo_0_enable = ((fifo_wrptr == 4'd0) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd0) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd0) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2043,15 +2161,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_0_mux = (((fifowp == 4'd0) && itm_valid))? itm :
-    (((fifowp == 4'd0) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd0) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd0) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd0) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd0) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_0_mux = (((fifo_wrptr == 4'd0) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd0) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd0) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd0) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd0) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd0) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_1_enable = ((fifowp == 4'd1) && tm_count_ge1)  || (free2 && (fifowp1== 4'd1) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd1) && tm_count_ge3);
+  assign fifo_1_enable = ((fifo_wrptr == 4'd1) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd1) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd1) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2061,15 +2179,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_1_mux = (((fifowp == 4'd1) && itm_valid))? itm :
-    (((fifowp == 4'd1) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd1) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd1) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd1) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd1) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_1_mux = (((fifo_wrptr == 4'd1) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd1) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd1) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd1) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd1) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd1) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_2_enable = ((fifowp == 4'd2) && tm_count_ge1)  || (free2 && (fifowp1== 4'd2) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd2) && tm_count_ge3);
+  assign fifo_2_enable = ((fifo_wrptr == 4'd2) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd2) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd2) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2079,15 +2197,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_2_mux = (((fifowp == 4'd2) && itm_valid))? itm :
-    (((fifowp == 4'd2) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd2) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd2) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd2) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd2) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_2_mux = (((fifo_wrptr == 4'd2) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd2) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd2) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd2) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd2) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd2) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_3_enable = ((fifowp == 4'd3) && tm_count_ge1)  || (free2 && (fifowp1== 4'd3) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd3) && tm_count_ge3);
+  assign fifo_3_enable = ((fifo_wrptr == 4'd3) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd3) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd3) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2097,15 +2215,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_3_mux = (((fifowp == 4'd3) && itm_valid))? itm :
-    (((fifowp == 4'd3) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd3) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd3) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd3) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd3) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_3_mux = (((fifo_wrptr == 4'd3) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd3) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd3) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd3) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd3) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd3) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_4_enable = ((fifowp == 4'd4) && tm_count_ge1)  || (free2 && (fifowp1== 4'd4) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd4) && tm_count_ge3);
+  assign fifo_4_enable = ((fifo_wrptr == 4'd4) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd4) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd4) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2115,15 +2233,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_4_mux = (((fifowp == 4'd4) && itm_valid))? itm :
-    (((fifowp == 4'd4) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd4) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd4) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd4) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd4) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_4_mux = (((fifo_wrptr == 4'd4) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd4) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd4) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd4) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd4) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd4) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_5_enable = ((fifowp == 4'd5) && tm_count_ge1)  || (free2 && (fifowp1== 4'd5) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd5) && tm_count_ge3);
+  assign fifo_5_enable = ((fifo_wrptr == 4'd5) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd5) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd5) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2133,15 +2251,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_5_mux = (((fifowp == 4'd5) && itm_valid))? itm :
-    (((fifowp == 4'd5) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd5) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd5) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd5) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd5) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_5_mux = (((fifo_wrptr == 4'd5) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd5) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd5) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd5) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd5) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd5) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_6_enable = ((fifowp == 4'd6) && tm_count_ge1)  || (free2 && (fifowp1== 4'd6) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd6) && tm_count_ge3);
+  assign fifo_6_enable = ((fifo_wrptr == 4'd6) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd6) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd6) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2151,15 +2269,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_6_mux = (((fifowp == 4'd6) && itm_valid))? itm :
-    (((fifowp == 4'd6) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd6) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd6) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd6) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd6) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_6_mux = (((fifo_wrptr == 4'd6) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd6) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd6) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd6) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd6) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd6) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_7_enable = ((fifowp == 4'd7) && tm_count_ge1)  || (free2 && (fifowp1== 4'd7) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd7) && tm_count_ge3);
+  assign fifo_7_enable = ((fifo_wrptr == 4'd7) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd7) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd7) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2169,15 +2287,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_7_mux = (((fifowp == 4'd7) && itm_valid))? itm :
-    (((fifowp == 4'd7) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd7) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd7) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd7) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd7) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_7_mux = (((fifo_wrptr == 4'd7) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd7) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd7) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd7) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd7) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd7) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_8_enable = ((fifowp == 4'd8) && tm_count_ge1)  || (free2 && (fifowp1== 4'd8) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd8) && tm_count_ge3);
+  assign fifo_8_enable = ((fifo_wrptr == 4'd8) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd8) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd8) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2187,15 +2305,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_8_mux = (((fifowp == 4'd8) && itm_valid))? itm :
-    (((fifowp == 4'd8) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd8) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd8) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd8) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd8) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_8_mux = (((fifo_wrptr == 4'd8) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd8) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd8) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd8) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd8) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd8) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_9_enable = ((fifowp == 4'd9) && tm_count_ge1)  || (free2 && (fifowp1== 4'd9) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd9) && tm_count_ge3);
+  assign fifo_9_enable = ((fifo_wrptr == 4'd9) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd9) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd9) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2205,15 +2323,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_9_mux = (((fifowp == 4'd9) && itm_valid))? itm :
-    (((fifowp == 4'd9) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd9) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd9) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd9) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd9) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_9_mux = (((fifo_wrptr == 4'd9) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd9) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd9) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd9) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd9) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd9) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_10_enable = ((fifowp == 4'd10) && tm_count_ge1)  || (free2 && (fifowp1== 4'd10) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd10) && tm_count_ge3);
+  assign fifo_10_enable = ((fifo_wrptr == 4'd10) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd10) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd10) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2223,15 +2341,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_10_mux = (((fifowp == 4'd10) && itm_valid))? itm :
-    (((fifowp == 4'd10) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd10) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd10) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd10) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd10) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_10_mux = (((fifo_wrptr == 4'd10) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd10) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd10) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd10) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd10) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd10) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_11_enable = ((fifowp == 4'd11) && tm_count_ge1)  || (free2 && (fifowp1== 4'd11) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd11) && tm_count_ge3);
+  assign fifo_11_enable = ((fifo_wrptr == 4'd11) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd11) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd11) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2241,15 +2359,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_11_mux = (((fifowp == 4'd11) && itm_valid))? itm :
-    (((fifowp == 4'd11) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd11) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd11) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd11) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd11) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_11_mux = (((fifo_wrptr == 4'd11) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd11) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd11) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd11) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd11) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd11) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_12_enable = ((fifowp == 4'd12) && tm_count_ge1)  || (free2 && (fifowp1== 4'd12) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd12) && tm_count_ge3);
+  assign fifo_12_enable = ((fifo_wrptr == 4'd12) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd12) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd12) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2259,15 +2377,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_12_mux = (((fifowp == 4'd12) && itm_valid))? itm :
-    (((fifowp == 4'd12) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd12) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd12) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd12) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd12) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_12_mux = (((fifo_wrptr == 4'd12) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd12) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd12) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd12) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd12) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd12) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_13_enable = ((fifowp == 4'd13) && tm_count_ge1)  || (free2 && (fifowp1== 4'd13) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd13) && tm_count_ge3);
+  assign fifo_13_enable = ((fifo_wrptr == 4'd13) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd13) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd13) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2277,15 +2395,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_13_mux = (((fifowp == 4'd13) && itm_valid))? itm :
-    (((fifowp == 4'd13) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd13) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd13) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd13) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd13) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_13_mux = (((fifo_wrptr == 4'd13) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd13) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd13) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd13) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd13) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd13) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_14_enable = ((fifowp == 4'd14) && tm_count_ge1)  || (free2 && (fifowp1== 4'd14) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd14) && tm_count_ge3);
+  assign fifo_14_enable = ((fifo_wrptr == 4'd14) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd14) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd14) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2295,15 +2413,15 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_14_mux = (((fifowp == 4'd14) && itm_valid))? itm :
-    (((fifowp == 4'd14) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd14) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd14) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd14) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd14) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_14_mux = (((fifo_wrptr == 4'd14) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd14) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd14) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd14) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd14) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd14) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign fifo_15_enable = ((fifowp == 4'd15) && tm_count_ge1)  || (free2 && (fifowp1== 4'd15) && tm_count_ge2)  ||(free3 && (fifowp2== 4'd15) && tm_count_ge3);
+  assign fifo_15_enable = ((fifo_wrptr == 4'd15) && input_ge1)  || (ge2_free && (fifo_wrptr_plus1== 4'd15) && input_ge2)  ||(ge3_free && (fifo_wrptr_plus2== 4'd15) && input_ge3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -2313,34 +2431,34 @@ module Video_System_CPU_nios2_oci_fifo (
     end
 
 
-  assign fifo_15_mux = (((fifowp == 4'd15) && itm_valid))? itm :
-    (((fifowp == 4'd15) && atm_valid))? ovr_pending_atm :
-    (((fifowp == 4'd15) && dtm_valid))? ovr_pending_dtm :
-    (((fifowp1 == 4'd15) && (free2 & itm_valid & atm_valid)))? ovr_pending_atm :
-    (((fifowp1 == 4'd15) && (free2 & itm_valid & dtm_valid)))? ovr_pending_dtm :
-    (((fifowp1 == 4'd15) && (free2 & atm_valid & dtm_valid)))? ovr_pending_dtm :
-    ovr_pending_dtm;
+  assign fifo_15_mux = (((fifo_wrptr == 4'd15) && itm_valid))? itm :
+    (((fifo_wrptr == 4'd15) && atm_valid))? overflow_pending_atm :
+    (((fifo_wrptr == 4'd15) && dtm_valid))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd15) && (ge2_free & itm_valid & atm_valid)))? overflow_pending_atm :
+    (((fifo_wrptr_plus1 == 4'd15) && (ge2_free & itm_valid & dtm_valid)))? overflow_pending_dtm :
+    (((fifo_wrptr_plus1 == 4'd15) && (ge2_free & atm_valid & dtm_valid)))? overflow_pending_dtm :
+    overflow_pending_dtm;
 
-  assign tm_count_ge1 = |tm_count;
-  assign tm_count_ge2 = tm_count[1];
-  assign tm_count_ge3 = &tm_count;
-  assign ovr_pending_atm = {ovf_pending, atm[34 : 0]};
-  assign ovr_pending_dtm = {ovf_pending, dtm[34 : 0]};
-  assign fifo_read_mux = (fiforp == 4'd0)? fifo_0 :
-    (fiforp == 4'd1)? fifo_1 :
-    (fiforp == 4'd2)? fifo_2 :
-    (fiforp == 4'd3)? fifo_3 :
-    (fiforp == 4'd4)? fifo_4 :
-    (fiforp == 4'd5)? fifo_5 :
-    (fiforp == 4'd6)? fifo_6 :
-    (fiforp == 4'd7)? fifo_7 :
-    (fiforp == 4'd8)? fifo_8 :
-    (fiforp == 4'd9)? fifo_9 :
-    (fiforp == 4'd10)? fifo_10 :
-    (fiforp == 4'd11)? fifo_11 :
-    (fiforp == 4'd12)? fifo_12 :
-    (fiforp == 4'd13)? fifo_13 :
-    (fiforp == 4'd14)? fifo_14 :
+  assign input_ge1 = |input_tm_cnt;
+  assign input_ge2 = input_tm_cnt[1];
+  assign input_ge3 = &input_tm_cnt;
+  assign overflow_pending_atm = {overflow_pending, atm[34 : 0]};
+  assign overflow_pending_dtm = {overflow_pending, dtm[34 : 0]};
+  assign fifo_read_mux = (fifo_rdptr == 4'd0)? fifo_0 :
+    (fifo_rdptr == 4'd1)? fifo_1 :
+    (fifo_rdptr == 4'd2)? fifo_2 :
+    (fifo_rdptr == 4'd3)? fifo_3 :
+    (fifo_rdptr == 4'd4)? fifo_4 :
+    (fifo_rdptr == 4'd5)? fifo_5 :
+    (fifo_rdptr == 4'd6)? fifo_6 :
+    (fifo_rdptr == 4'd7)? fifo_7 :
+    (fifo_rdptr == 4'd8)? fifo_8 :
+    (fifo_rdptr == 4'd9)? fifo_9 :
+    (fifo_rdptr == 4'd10)? fifo_10 :
+    (fifo_rdptr == 4'd11)? fifo_11 :
+    (fifo_rdptr == 4'd12)? fifo_12 :
+    (fifo_rdptr == 4'd13)? fifo_13 :
+    (fifo_rdptr == 4'd14)? fifo_14 :
     fifo_15;
 
 
@@ -2375,13 +2493,14 @@ module Video_System_CPU_nios2_oci_pib (
   input            jrst_n;
   input   [ 35: 0] tw;
 
-  wire             phase;
-  wire             tr_clk;
-  reg              tr_clk_reg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  wire    [ 17: 0] tr_data;
-  reg     [ 17: 0] tr_data_reg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  reg              x1 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
-  reg              x2 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+
+wire             phase;
+wire             tr_clk;
+reg              tr_clk_reg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+wire    [ 17: 0] tr_data;
+reg     [ 17: 0] tr_data_reg /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg              x1 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
+reg              x2 /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101"  */;
   assign phase = x1^x2;
   always @(posedge clk or negedge jrst_n)
     begin
@@ -2411,95 +2530,6 @@ module Video_System_CPU_nios2_oci_pib (
 
   assign tr_clk = 0 ? tr_clk_reg : 0;
   assign tr_data = 0 ? tr_data_reg : 0;
-
-endmodule
-
-
-// synthesis translate_off
-`timescale 1ns / 1ps
-// synthesis translate_on
-
-// turn off superfluous verilog processor warnings 
-// altera message_level Level1 
-// altera message_off 10034 10035 10036 10037 10230 10240 10030 
-
-module Video_System_CPU_traceram_lpm_dram_bdp_component_module (
-                                                                 // inputs:
-                                                                  address_a,
-                                                                  address_b,
-                                                                  clock0,
-                                                                  clock1,
-                                                                  clocken0,
-                                                                  clocken1,
-                                                                  data_a,
-                                                                  data_b,
-                                                                  wren_a,
-                                                                  wren_b,
-
-                                                                 // outputs:
-                                                                  q_a,
-                                                                  q_b
-                                                               )
-;
-
-  parameter lpm_file = "UNUSED";
-
-
-  output  [ 35: 0] q_a;
-  output  [ 35: 0] q_b;
-  input   [  6: 0] address_a;
-  input   [  6: 0] address_b;
-  input            clock0;
-  input            clock1;
-  input            clocken0;
-  input            clocken1;
-  input   [ 35: 0] data_a;
-  input   [ 35: 0] data_b;
-  input            wren_a;
-  input            wren_b;
-
-  wire    [ 35: 0] q_a;
-  wire    [ 35: 0] q_b;
-  altsyncram the_altsyncram
-    (
-      .address_a (address_a),
-      .address_b (address_b),
-      .clock0 (clock0),
-      .clock1 (clock1),
-      .clocken0 (clocken0),
-      .clocken1 (clocken1),
-      .data_a (data_a),
-      .data_b (data_b),
-      .q_a (q_a),
-      .q_b (q_b),
-      .wren_a (wren_a),
-      .wren_b (wren_b)
-    );
-
-  defparam the_altsyncram.address_aclr_a = "NONE",
-           the_altsyncram.address_aclr_b = "NONE",
-           the_altsyncram.address_reg_b = "CLOCK1",
-           the_altsyncram.indata_aclr_a = "NONE",
-           the_altsyncram.indata_aclr_b = "NONE",
-           the_altsyncram.init_file = lpm_file,
-           the_altsyncram.intended_device_family = "CYCLONEIVE",
-           the_altsyncram.lpm_type = "altsyncram",
-           the_altsyncram.numwords_a = 128,
-           the_altsyncram.numwords_b = 128,
-           the_altsyncram.operation_mode = "BIDIR_DUAL_PORT",
-           the_altsyncram.outdata_aclr_a = "NONE",
-           the_altsyncram.outdata_aclr_b = "NONE",
-           the_altsyncram.outdata_reg_a = "UNREGISTERED",
-           the_altsyncram.outdata_reg_b = "UNREGISTERED",
-           the_altsyncram.ram_block_type = "AUTO",
-           the_altsyncram.read_during_write_mode_mixed_ports = "OLD_DATA",
-           the_altsyncram.width_a = 36,
-           the_altsyncram.width_b = 36,
-           the_altsyncram.widthad_a = 7,
-           the_altsyncram.widthad_b = 7,
-           the_altsyncram.wrcontrol_aclr_a = "NONE",
-           the_altsyncram.wrcontrol_aclr_b = "NONE";
-
 
 endmodule
 
@@ -2554,19 +2584,18 @@ module Video_System_CPU_nios2_oci_im (
   input   [ 15: 0] trc_ctrl;
   input   [ 35: 0] tw;
 
-  wire             tracemem_on;
-  wire    [ 35: 0] tracemem_trcdata;
-  wire             tracemem_tw;
-  wire             trc_enb;
-  reg     [  6: 0] trc_im_addr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
-  wire    [ 35: 0] trc_im_data;
-  reg     [ 16: 0] trc_jtag_addr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=D101"  */;
-  wire    [ 35: 0] trc_jtag_data;
-  wire             trc_on_chip;
-  reg              trc_wrap /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
-  wire             tw_valid;
-  wire    [ 35: 0] unused_bdpram_port_q_a;
-  wire             xbrk_wrap_traceoff;
+
+wire             tracemem_on;
+wire    [ 35: 0] tracemem_trcdata;
+wire             tracemem_tw;
+wire             trc_enb;
+reg     [  6: 0] trc_im_addr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+wire    [ 35: 0] trc_im_data;
+reg     [ 16: 0] trc_jtag_addr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=D101"  */;
+wire             trc_on_chip;
+reg              trc_wrap /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+wire             tw_valid;
+wire             xbrk_wrap_traceoff;
   assign trc_im_data = tw;
   always @(posedge clk or negedge jrst_n)
     begin
@@ -2615,28 +2644,9 @@ module Video_System_CPU_nios2_oci_im (
   assign trc_on_chip = ~trc_ctrl[8];
   assign tw_valid = |trc_im_data[35 : 32];
   assign xbrk_wrap_traceoff = trc_ctrl[10] & trc_wrap;
-  assign tracemem_trcdata = (0) ? 
-    trc_jtag_data : 0;
-
   assign tracemem_tw = trc_wrap;
   assign tracemem_on = trc_enb;
-//Video_System_CPU_traceram_lpm_dram_bdp_component, which is an nios_tdp_ram
-Video_System_CPU_traceram_lpm_dram_bdp_component_module Video_System_CPU_traceram_lpm_dram_bdp_component
-  (
-    .address_a (trc_im_addr),
-    .address_b (trc_jtag_addr),
-    .clock0    (clk),
-    .clock1    (clk),
-    .clocken0  (1'b1),
-    .clocken1  (1'b1),
-    .data_a    (trc_im_data),
-    .data_b    (jdo[36 : 1]),
-    .q_a       (unused_bdpram_port_q_a),
-    .q_b       (trc_jtag_data),
-    .wren_a    (tw_valid & trc_enb),
-    .wren_b    (take_action_tracemem_b)
-  );
-
+  assign tracemem_trcdata = 0;
 
 endmodule
 
@@ -2651,6 +2661,7 @@ endmodule
 
 module Video_System_CPU_nios2_performance_monitors 
 ;
+
 
 
 
@@ -2671,24 +2682,24 @@ module Video_System_CPU_nios2_oci (
                                      E_st_data,
                                      E_valid,
                                      F_pc,
-                                     address,
+                                     address_nxt,
                                      av_ld_data_aligned_filtered,
-                                     begintransfer,
-                                     byteenable,
-                                     chipselect,
+                                     byteenable_nxt,
                                      clk,
                                      d_address,
                                      d_read,
                                      d_waitrequest,
                                      d_write,
-                                     debugaccess,
+                                     debugaccess_nxt,
                                      hbreak_enabled,
+                                     read_nxt,
                                      reset,
                                      reset_n,
+                                     reset_req,
                                      test_ending,
                                      test_has_ended,
-                                     write,
-                                     writedata,
+                                     write_nxt,
+                                     writedata_nxt,
 
                                     // outputs:
                                      jtag_debug_module_debugaccess_to_roms,
@@ -2696,7 +2707,8 @@ module Video_System_CPU_nios2_oci (
                                      oci_ienable,
                                      oci_single_step_mode,
                                      readdata,
-                                     resetrequest
+                                     resetrequest,
+                                     waitrequest
                                   )
 ;
 
@@ -2706,114 +2718,123 @@ module Video_System_CPU_nios2_oci (
   output           oci_single_step_mode;
   output  [ 31: 0] readdata;
   output           resetrequest;
+  output           waitrequest;
   input            D_valid;
   input   [ 31: 0] E_st_data;
   input            E_valid;
   input   [ 19: 0] F_pc;
-  input   [  8: 0] address;
+  input   [  8: 0] address_nxt;
   input   [ 31: 0] av_ld_data_aligned_filtered;
-  input            begintransfer;
-  input   [  3: 0] byteenable;
-  input            chipselect;
+  input   [  3: 0] byteenable_nxt;
   input            clk;
   input   [ 21: 0] d_address;
   input            d_read;
   input            d_waitrequest;
   input            d_write;
-  input            debugaccess;
+  input            debugaccess_nxt;
   input            hbreak_enabled;
+  input            read_nxt;
   input            reset;
   input            reset_n;
+  input            reset_req;
   input            test_ending;
   input            test_has_ended;
-  input            write;
-  input   [ 31: 0] writedata;
+  input            write_nxt;
+  input   [ 31: 0] writedata_nxt;
 
-  wire    [ 31: 0] MonDReg;
-  wire    [ 35: 0] atm;
-  wire    [ 31: 0] break_readreg;
-  wire             clkx2;
-  wire    [ 21: 0] cpu_d_address;
-  wire             cpu_d_read;
-  wire    [ 31: 0] cpu_d_readdata;
-  wire             cpu_d_wait;
-  wire             cpu_d_write;
-  wire    [ 31: 0] cpu_d_writedata;
-  wire             dbrk_break;
-  wire             dbrk_goto0;
-  wire             dbrk_goto1;
-  wire             dbrk_hit0_latch;
-  wire             dbrk_hit1_latch;
-  wire             dbrk_hit2_latch;
-  wire             dbrk_hit3_latch;
-  wire             dbrk_traceme;
-  wire             dbrk_traceoff;
-  wire             dbrk_traceon;
-  wire             dbrk_trigout;
-  wire    [ 29: 0] dct_buffer;
-  wire    [  3: 0] dct_count;
-  wire             debugack;
-  wire             debugreq;
-  wire    [ 35: 0] dtm;
-  wire             dummy_sink;
-  wire    [ 35: 0] itm;
-  wire    [ 37: 0] jdo;
-  wire             jrst_n;
-  wire             jtag_debug_module_debugaccess_to_roms;
-  wire             monitor_error;
-  wire             monitor_go;
-  wire             monitor_ready;
-  wire             oci_hbreak_req;
-  wire    [ 31: 0] oci_ienable;
-  wire    [ 31: 0] oci_ram_readdata;
-  wire    [ 31: 0] oci_reg_readdata;
-  wire             oci_single_step_mode;
-  wire             ocireg_ers;
-  wire             ocireg_mrs;
-  wire    [ 31: 0] readdata;
-  wire             resetlatch;
-  wire             resetrequest;
-  wire             st_ready_test_idle;
-  wire             take_action_break_a;
-  wire             take_action_break_b;
-  wire             take_action_break_c;
-  wire             take_action_ocimem_a;
-  wire             take_action_ocimem_b;
-  wire             take_action_ocireg;
-  wire             take_action_tracectrl;
-  wire             take_action_tracemem_a;
-  wire             take_action_tracemem_b;
-  wire             take_no_action_break_a;
-  wire             take_no_action_break_b;
-  wire             take_no_action_break_c;
-  wire             take_no_action_ocimem_a;
-  wire             take_no_action_tracemem_a;
-  wire             tr_clk;
-  wire    [ 17: 0] tr_data;
-  wire             tracemem_on;
-  wire    [ 35: 0] tracemem_trcdata;
-  wire             tracemem_tw;
-  wire    [ 15: 0] trc_ctrl;
-  wire             trc_enb;
-  wire    [  6: 0] trc_im_addr;
-  wire             trc_on;
-  wire             trc_wrap;
-  wire             trigbrktype;
-  wire             trigger_state_0;
-  wire             trigger_state_1;
-  wire             trigout;
-  wire    [ 35: 0] tw;
-  wire             xbrk_break;
-  wire    [  7: 0] xbrk_ctrl0;
-  wire    [  7: 0] xbrk_ctrl1;
-  wire    [  7: 0] xbrk_ctrl2;
-  wire    [  7: 0] xbrk_ctrl3;
-  wire             xbrk_goto0;
-  wire             xbrk_goto1;
-  wire             xbrk_traceoff;
-  wire             xbrk_traceon;
-  wire             xbrk_trigout;
-  wire             xbrk_wrap_traceoff;
+
+wire    [ 31: 0] MonDReg;
+reg     [  8: 0] address;
+wire    [ 35: 0] atm;
+wire    [ 31: 0] break_readreg;
+reg     [  3: 0] byteenable;
+wire             clkx2;
+wire    [ 21: 0] cpu_d_address;
+wire             cpu_d_read;
+wire    [ 31: 0] cpu_d_readdata;
+wire             cpu_d_wait;
+wire             cpu_d_write;
+wire    [ 31: 0] cpu_d_writedata;
+wire             dbrk_break;
+wire             dbrk_goto0;
+wire             dbrk_goto1;
+wire             dbrk_hit0_latch;
+wire             dbrk_hit1_latch;
+wire             dbrk_hit2_latch;
+wire             dbrk_hit3_latch;
+wire             dbrk_traceme;
+wire             dbrk_traceoff;
+wire             dbrk_traceon;
+wire             dbrk_trigout;
+wire    [ 29: 0] dct_buffer;
+wire    [  3: 0] dct_count;
+reg              debugaccess;
+wire             debugack;
+wire             debugreq;
+wire    [ 35: 0] dtm;
+wire             dummy_sink;
+wire    [ 35: 0] itm;
+wire    [ 37: 0] jdo;
+wire             jrst_n;
+wire             jtag_debug_module_debugaccess_to_roms;
+wire             monitor_error;
+wire             monitor_go;
+wire             monitor_ready;
+wire             oci_hbreak_req;
+wire    [ 31: 0] oci_ienable;
+wire    [ 31: 0] oci_reg_readdata;
+wire             oci_single_step_mode;
+wire    [ 31: 0] ociram_readdata;
+wire             ocireg_ers;
+wire             ocireg_mrs;
+reg              read;
+reg     [ 31: 0] readdata;
+wire             resetlatch;
+wire             resetrequest;
+wire             st_ready_test_idle;
+wire             take_action_break_a;
+wire             take_action_break_b;
+wire             take_action_break_c;
+wire             take_action_ocimem_a;
+wire             take_action_ocimem_b;
+wire             take_action_ocireg;
+wire             take_action_tracectrl;
+wire             take_action_tracemem_a;
+wire             take_action_tracemem_b;
+wire             take_no_action_break_a;
+wire             take_no_action_break_b;
+wire             take_no_action_break_c;
+wire             take_no_action_ocimem_a;
+wire             take_no_action_tracemem_a;
+wire             tr_clk;
+wire    [ 17: 0] tr_data;
+wire             tracemem_on;
+wire    [ 35: 0] tracemem_trcdata;
+wire             tracemem_tw;
+wire    [ 15: 0] trc_ctrl;
+wire             trc_enb;
+wire    [  6: 0] trc_im_addr;
+wire             trc_on;
+wire             trc_wrap;
+wire             trigbrktype;
+wire             trigger_state_0;
+wire             trigger_state_1;
+wire             trigout;
+wire    [ 35: 0] tw;
+wire             waitrequest;
+reg              write;
+reg     [ 31: 0] writedata;
+wire             xbrk_break;
+wire    [  7: 0] xbrk_ctrl0;
+wire    [  7: 0] xbrk_ctrl1;
+wire    [  7: 0] xbrk_ctrl2;
+wire    [  7: 0] xbrk_ctrl3;
+wire             xbrk_goto0;
+wire             xbrk_goto1;
+wire             xbrk_traceoff;
+wire             xbrk_traceon;
+wire             xbrk_trigout;
+wire             xbrk_wrap_traceoff;
   Video_System_CPU_nios2_oci_debug the_Video_System_CPU_nios2_oci_debug
     (
       .clk                  (clk),
@@ -2842,18 +2863,18 @@ module Video_System_CPU_nios2_oci (
     (
       .MonDReg                 (MonDReg),
       .address                 (address),
-      .begintransfer           (begintransfer),
       .byteenable              (byteenable),
-      .chipselect              (chipselect),
       .clk                     (clk),
       .debugaccess             (debugaccess),
       .jdo                     (jdo),
       .jrst_n                  (jrst_n),
-      .oci_ram_readdata        (oci_ram_readdata),
-      .resetrequest            (resetrequest),
+      .ociram_readdata         (ociram_readdata),
+      .read                    (read),
+      .reset_req               (reset_req),
       .take_action_ocimem_a    (take_action_ocimem_a),
       .take_action_ocimem_b    (take_action_ocimem_b),
       .take_no_action_ocimem_a (take_no_action_ocimem_a),
+      .waitrequest             (waitrequest),
       .write                   (write),
       .writedata               (writedata)
     );
@@ -2861,7 +2882,6 @@ module Video_System_CPU_nios2_oci (
   Video_System_CPU_nios2_avalon_reg the_Video_System_CPU_nios2_avalon_reg
     (
       .address              (address),
-      .chipselect           (chipselect),
       .clk                  (clk),
       .debugaccess          (debugaccess),
       .monitor_error        (monitor_error),
@@ -3041,8 +3061,70 @@ module Video_System_CPU_nios2_oci (
     );
 
   assign trigout = dbrk_trigout | xbrk_trigout;
-  assign readdata = address[8] ? oci_reg_readdata : oci_ram_readdata;
   assign jtag_debug_module_debugaccess_to_roms = debugack;
+  always @(posedge clk or negedge jrst_n)
+    begin
+      if (jrst_n == 0)
+          address <= 0;
+      else 
+        address <= address_nxt;
+    end
+
+
+  always @(posedge clk or negedge jrst_n)
+    begin
+      if (jrst_n == 0)
+          byteenable <= 0;
+      else 
+        byteenable <= byteenable_nxt;
+    end
+
+
+  always @(posedge clk or negedge jrst_n)
+    begin
+      if (jrst_n == 0)
+          writedata <= 0;
+      else 
+        writedata <= writedata_nxt;
+    end
+
+
+  always @(posedge clk or negedge jrst_n)
+    begin
+      if (jrst_n == 0)
+          debugaccess <= 0;
+      else 
+        debugaccess <= debugaccess_nxt;
+    end
+
+
+  always @(posedge clk or negedge jrst_n)
+    begin
+      if (jrst_n == 0)
+          read <= 0;
+      else 
+        read <= read ? waitrequest : read_nxt;
+    end
+
+
+  always @(posedge clk or negedge jrst_n)
+    begin
+      if (jrst_n == 0)
+          write <= 0;
+      else 
+        write <= write ? waitrequest : write_nxt;
+    end
+
+
+  always @(posedge clk or negedge jrst_n)
+    begin
+      if (jrst_n == 0)
+          readdata <= 0;
+      else 
+        readdata <= address[8] ? oci_reg_readdata : ociram_readdata;
+    end
+
+
   Video_System_CPU_jtag_debug_module_wrapper the_Video_System_CPU_jtag_debug_module_wrapper
     (
       .MonDReg                   (MonDReg),
@@ -3112,13 +3194,13 @@ module Video_System_CPU (
                            i_readdata,
                            i_waitrequest,
                            jtag_debug_module_address,
-                           jtag_debug_module_begintransfer,
                            jtag_debug_module_byteenable,
                            jtag_debug_module_debugaccess,
-                           jtag_debug_module_select,
+                           jtag_debug_module_read,
                            jtag_debug_module_write,
                            jtag_debug_module_writedata,
                            reset_n,
+                           reset_req,
 
                           // outputs:
                            d_address,
@@ -3131,6 +3213,7 @@ module Video_System_CPU (
                            jtag_debug_module_debugaccess_to_roms,
                            jtag_debug_module_readdata,
                            jtag_debug_module_resetrequest,
+                           jtag_debug_module_waitrequest,
                            no_ci_readra
                         )
 ;
@@ -3145,6 +3228,7 @@ module Video_System_CPU (
   output           jtag_debug_module_debugaccess_to_roms;
   output  [ 31: 0] jtag_debug_module_readdata;
   output           jtag_debug_module_resetrequest;
+  output           jtag_debug_module_waitrequest;
   output           no_ci_readra;
   input            clk;
   input   [ 31: 0] d_irq;
@@ -3153,589 +3237,592 @@ module Video_System_CPU (
   input   [ 31: 0] i_readdata;
   input            i_waitrequest;
   input   [  8: 0] jtag_debug_module_address;
-  input            jtag_debug_module_begintransfer;
   input   [  3: 0] jtag_debug_module_byteenable;
   input            jtag_debug_module_debugaccess;
-  input            jtag_debug_module_select;
+  input            jtag_debug_module_read;
   input            jtag_debug_module_write;
   input   [ 31: 0] jtag_debug_module_writedata;
   input            reset_n;
+  input            reset_req;
 
-  wire    [  1: 0] D_compare_op;
-  wire             D_ctrl_alu_force_xor;
-  wire             D_ctrl_alu_signed_comparison;
-  wire             D_ctrl_alu_subtract;
-  wire             D_ctrl_b_is_dst;
-  wire             D_ctrl_br;
-  wire             D_ctrl_br_cmp;
-  wire             D_ctrl_br_uncond;
-  wire             D_ctrl_break;
-  wire             D_ctrl_crst;
-  wire             D_ctrl_custom;
-  wire             D_ctrl_custom_multi;
-  wire             D_ctrl_exception;
-  wire             D_ctrl_force_src2_zero;
-  wire             D_ctrl_hi_imm16;
-  wire             D_ctrl_ignore_dst;
-  wire             D_ctrl_implicit_dst_eretaddr;
-  wire             D_ctrl_implicit_dst_retaddr;
-  wire             D_ctrl_jmp_direct;
-  wire             D_ctrl_jmp_indirect;
-  wire             D_ctrl_ld;
-  wire             D_ctrl_ld_io;
-  wire             D_ctrl_ld_non_io;
-  wire             D_ctrl_ld_signed;
-  wire             D_ctrl_logic;
-  wire             D_ctrl_rdctl_inst;
-  wire             D_ctrl_retaddr;
-  wire             D_ctrl_rot_right;
-  wire             D_ctrl_shift_logical;
-  wire             D_ctrl_shift_right_arith;
-  wire             D_ctrl_shift_rot;
-  wire             D_ctrl_shift_rot_right;
-  wire             D_ctrl_src2_choose_imm;
-  wire             D_ctrl_st;
-  wire             D_ctrl_uncond_cti_non_br;
-  wire             D_ctrl_unsigned_lo_imm16;
-  wire             D_ctrl_wrctl_inst;
-  wire    [  4: 0] D_dst_regnum;
-  wire    [ 55: 0] D_inst;
-  reg     [ 31: 0] D_iw /* synthesis ALTERA_IP_DEBUG_VISIBLE = 1 */;
-  wire    [  4: 0] D_iw_a;
-  wire    [  4: 0] D_iw_b;
-  wire    [  4: 0] D_iw_c;
-  wire    [  2: 0] D_iw_control_regnum;
-  wire    [  7: 0] D_iw_custom_n;
-  wire             D_iw_custom_readra;
-  wire             D_iw_custom_readrb;
-  wire             D_iw_custom_writerc;
-  wire    [ 15: 0] D_iw_imm16;
-  wire    [ 25: 0] D_iw_imm26;
-  wire    [  4: 0] D_iw_imm5;
-  wire    [  1: 0] D_iw_memsz;
-  wire    [  5: 0] D_iw_op;
-  wire    [  5: 0] D_iw_opx;
-  wire    [  4: 0] D_iw_shift_imm5;
-  wire    [  4: 0] D_iw_trap_break_imm5;
-  wire    [ 19: 0] D_jmp_direct_target_waddr;
-  wire    [  1: 0] D_logic_op;
-  wire    [  1: 0] D_logic_op_raw;
-  wire             D_mem16;
-  wire             D_mem32;
-  wire             D_mem8;
-  wire             D_op_add;
-  wire             D_op_addi;
-  wire             D_op_and;
-  wire             D_op_andhi;
-  wire             D_op_andi;
-  wire             D_op_beq;
-  wire             D_op_bge;
-  wire             D_op_bgeu;
-  wire             D_op_blt;
-  wire             D_op_bltu;
-  wire             D_op_bne;
-  wire             D_op_br;
-  wire             D_op_break;
-  wire             D_op_bret;
-  wire             D_op_call;
-  wire             D_op_callr;
-  wire             D_op_cmpeq;
-  wire             D_op_cmpeqi;
-  wire             D_op_cmpge;
-  wire             D_op_cmpgei;
-  wire             D_op_cmpgeu;
-  wire             D_op_cmpgeui;
-  wire             D_op_cmplt;
-  wire             D_op_cmplti;
-  wire             D_op_cmpltu;
-  wire             D_op_cmpltui;
-  wire             D_op_cmpne;
-  wire             D_op_cmpnei;
-  wire             D_op_crst;
-  wire             D_op_custom;
-  wire             D_op_div;
-  wire             D_op_divu;
-  wire             D_op_eret;
-  wire             D_op_flushd;
-  wire             D_op_flushda;
-  wire             D_op_flushi;
-  wire             D_op_flushp;
-  wire             D_op_hbreak;
-  wire             D_op_initd;
-  wire             D_op_initda;
-  wire             D_op_initi;
-  wire             D_op_intr;
-  wire             D_op_jmp;
-  wire             D_op_jmpi;
-  wire             D_op_ldb;
-  wire             D_op_ldbio;
-  wire             D_op_ldbu;
-  wire             D_op_ldbuio;
-  wire             D_op_ldh;
-  wire             D_op_ldhio;
-  wire             D_op_ldhu;
-  wire             D_op_ldhuio;
-  wire             D_op_ldl;
-  wire             D_op_ldw;
-  wire             D_op_ldwio;
-  wire             D_op_mul;
-  wire             D_op_muli;
-  wire             D_op_mulxss;
-  wire             D_op_mulxsu;
-  wire             D_op_mulxuu;
-  wire             D_op_nextpc;
-  wire             D_op_nor;
-  wire             D_op_opx;
-  wire             D_op_or;
-  wire             D_op_orhi;
-  wire             D_op_ori;
-  wire             D_op_rdctl;
-  wire             D_op_rdprs;
-  wire             D_op_ret;
-  wire             D_op_rol;
-  wire             D_op_roli;
-  wire             D_op_ror;
-  wire             D_op_rsv02;
-  wire             D_op_rsv09;
-  wire             D_op_rsv10;
-  wire             D_op_rsv17;
-  wire             D_op_rsv18;
-  wire             D_op_rsv25;
-  wire             D_op_rsv26;
-  wire             D_op_rsv33;
-  wire             D_op_rsv34;
-  wire             D_op_rsv41;
-  wire             D_op_rsv42;
-  wire             D_op_rsv49;
-  wire             D_op_rsv57;
-  wire             D_op_rsv61;
-  wire             D_op_rsv62;
-  wire             D_op_rsv63;
-  wire             D_op_rsvx00;
-  wire             D_op_rsvx10;
-  wire             D_op_rsvx15;
-  wire             D_op_rsvx17;
-  wire             D_op_rsvx21;
-  wire             D_op_rsvx25;
-  wire             D_op_rsvx33;
-  wire             D_op_rsvx34;
-  wire             D_op_rsvx35;
-  wire             D_op_rsvx42;
-  wire             D_op_rsvx43;
-  wire             D_op_rsvx44;
-  wire             D_op_rsvx47;
-  wire             D_op_rsvx50;
-  wire             D_op_rsvx51;
-  wire             D_op_rsvx55;
-  wire             D_op_rsvx56;
-  wire             D_op_rsvx60;
-  wire             D_op_rsvx63;
-  wire             D_op_sll;
-  wire             D_op_slli;
-  wire             D_op_sra;
-  wire             D_op_srai;
-  wire             D_op_srl;
-  wire             D_op_srli;
-  wire             D_op_stb;
-  wire             D_op_stbio;
-  wire             D_op_stc;
-  wire             D_op_sth;
-  wire             D_op_sthio;
-  wire             D_op_stw;
-  wire             D_op_stwio;
-  wire             D_op_sub;
-  wire             D_op_sync;
-  wire             D_op_trap;
-  wire             D_op_wrctl;
-  wire             D_op_wrprs;
-  wire             D_op_xor;
-  wire             D_op_xorhi;
-  wire             D_op_xori;
-  reg              D_valid;
-  wire    [ 55: 0] D_vinst;
-  wire             D_wr_dst_reg;
-  wire    [ 31: 0] E_alu_result;
-  reg              E_alu_sub;
-  wire    [ 32: 0] E_arith_result;
-  wire    [ 31: 0] E_arith_src1;
-  wire    [ 31: 0] E_arith_src2;
-  wire             E_ci_multi_stall;
-  wire    [ 31: 0] E_ci_result;
-  wire             E_cmp_result;
-  wire    [ 31: 0] E_control_rd_data;
-  wire             E_eq;
-  reg              E_invert_arith_src_msb;
-  wire             E_ld_stall;
-  wire    [ 31: 0] E_logic_result;
-  wire             E_logic_result_is_0;
-  wire             E_lt;
-  wire    [ 21: 0] E_mem_baddr;
-  wire    [  3: 0] E_mem_byte_en;
-  reg              E_new_inst;
-  reg     [  4: 0] E_shift_rot_cnt;
-  wire    [  4: 0] E_shift_rot_cnt_nxt;
-  wire             E_shift_rot_done;
-  wire             E_shift_rot_fill_bit;
-  reg     [ 31: 0] E_shift_rot_result;
-  wire    [ 31: 0] E_shift_rot_result_nxt;
-  wire             E_shift_rot_stall;
-  reg     [ 31: 0] E_src1;
-  reg     [ 31: 0] E_src2;
-  wire    [ 31: 0] E_st_data;
-  wire             E_st_stall;
-  wire             E_stall;
-  reg              E_valid;
-  wire    [ 55: 0] E_vinst;
-  wire             E_wrctl_bstatus;
-  wire             E_wrctl_estatus;
-  wire             E_wrctl_ienable;
-  wire             E_wrctl_status;
-  wire    [ 31: 0] F_av_iw;
-  wire    [  4: 0] F_av_iw_a;
-  wire    [  4: 0] F_av_iw_b;
-  wire    [  4: 0] F_av_iw_c;
-  wire    [  2: 0] F_av_iw_control_regnum;
-  wire    [  7: 0] F_av_iw_custom_n;
-  wire             F_av_iw_custom_readra;
-  wire             F_av_iw_custom_readrb;
-  wire             F_av_iw_custom_writerc;
-  wire    [ 15: 0] F_av_iw_imm16;
-  wire    [ 25: 0] F_av_iw_imm26;
-  wire    [  4: 0] F_av_iw_imm5;
-  wire    [  1: 0] F_av_iw_memsz;
-  wire    [  5: 0] F_av_iw_op;
-  wire    [  5: 0] F_av_iw_opx;
-  wire    [  4: 0] F_av_iw_shift_imm5;
-  wire    [  4: 0] F_av_iw_trap_break_imm5;
-  wire             F_av_mem16;
-  wire             F_av_mem32;
-  wire             F_av_mem8;
-  wire    [ 55: 0] F_inst;
-  wire    [ 31: 0] F_iw;
-  wire    [  4: 0] F_iw_a;
-  wire    [  4: 0] F_iw_b;
-  wire    [  4: 0] F_iw_c;
-  wire    [  2: 0] F_iw_control_regnum;
-  wire    [  7: 0] F_iw_custom_n;
-  wire             F_iw_custom_readra;
-  wire             F_iw_custom_readrb;
-  wire             F_iw_custom_writerc;
-  wire    [ 15: 0] F_iw_imm16;
-  wire    [ 25: 0] F_iw_imm26;
-  wire    [  4: 0] F_iw_imm5;
-  wire    [  1: 0] F_iw_memsz;
-  wire    [  5: 0] F_iw_op;
-  wire    [  5: 0] F_iw_opx;
-  wire    [  4: 0] F_iw_shift_imm5;
-  wire    [  4: 0] F_iw_trap_break_imm5;
-  wire             F_mem16;
-  wire             F_mem32;
-  wire             F_mem8;
-  wire             F_op_add;
-  wire             F_op_addi;
-  wire             F_op_and;
-  wire             F_op_andhi;
-  wire             F_op_andi;
-  wire             F_op_beq;
-  wire             F_op_bge;
-  wire             F_op_bgeu;
-  wire             F_op_blt;
-  wire             F_op_bltu;
-  wire             F_op_bne;
-  wire             F_op_br;
-  wire             F_op_break;
-  wire             F_op_bret;
-  wire             F_op_call;
-  wire             F_op_callr;
-  wire             F_op_cmpeq;
-  wire             F_op_cmpeqi;
-  wire             F_op_cmpge;
-  wire             F_op_cmpgei;
-  wire             F_op_cmpgeu;
-  wire             F_op_cmpgeui;
-  wire             F_op_cmplt;
-  wire             F_op_cmplti;
-  wire             F_op_cmpltu;
-  wire             F_op_cmpltui;
-  wire             F_op_cmpne;
-  wire             F_op_cmpnei;
-  wire             F_op_crst;
-  wire             F_op_custom;
-  wire             F_op_div;
-  wire             F_op_divu;
-  wire             F_op_eret;
-  wire             F_op_flushd;
-  wire             F_op_flushda;
-  wire             F_op_flushi;
-  wire             F_op_flushp;
-  wire             F_op_hbreak;
-  wire             F_op_initd;
-  wire             F_op_initda;
-  wire             F_op_initi;
-  wire             F_op_intr;
-  wire             F_op_jmp;
-  wire             F_op_jmpi;
-  wire             F_op_ldb;
-  wire             F_op_ldbio;
-  wire             F_op_ldbu;
-  wire             F_op_ldbuio;
-  wire             F_op_ldh;
-  wire             F_op_ldhio;
-  wire             F_op_ldhu;
-  wire             F_op_ldhuio;
-  wire             F_op_ldl;
-  wire             F_op_ldw;
-  wire             F_op_ldwio;
-  wire             F_op_mul;
-  wire             F_op_muli;
-  wire             F_op_mulxss;
-  wire             F_op_mulxsu;
-  wire             F_op_mulxuu;
-  wire             F_op_nextpc;
-  wire             F_op_nor;
-  wire             F_op_opx;
-  wire             F_op_or;
-  wire             F_op_orhi;
-  wire             F_op_ori;
-  wire             F_op_rdctl;
-  wire             F_op_rdprs;
-  wire             F_op_ret;
-  wire             F_op_rol;
-  wire             F_op_roli;
-  wire             F_op_ror;
-  wire             F_op_rsv02;
-  wire             F_op_rsv09;
-  wire             F_op_rsv10;
-  wire             F_op_rsv17;
-  wire             F_op_rsv18;
-  wire             F_op_rsv25;
-  wire             F_op_rsv26;
-  wire             F_op_rsv33;
-  wire             F_op_rsv34;
-  wire             F_op_rsv41;
-  wire             F_op_rsv42;
-  wire             F_op_rsv49;
-  wire             F_op_rsv57;
-  wire             F_op_rsv61;
-  wire             F_op_rsv62;
-  wire             F_op_rsv63;
-  wire             F_op_rsvx00;
-  wire             F_op_rsvx10;
-  wire             F_op_rsvx15;
-  wire             F_op_rsvx17;
-  wire             F_op_rsvx21;
-  wire             F_op_rsvx25;
-  wire             F_op_rsvx33;
-  wire             F_op_rsvx34;
-  wire             F_op_rsvx35;
-  wire             F_op_rsvx42;
-  wire             F_op_rsvx43;
-  wire             F_op_rsvx44;
-  wire             F_op_rsvx47;
-  wire             F_op_rsvx50;
-  wire             F_op_rsvx51;
-  wire             F_op_rsvx55;
-  wire             F_op_rsvx56;
-  wire             F_op_rsvx60;
-  wire             F_op_rsvx63;
-  wire             F_op_sll;
-  wire             F_op_slli;
-  wire             F_op_sra;
-  wire             F_op_srai;
-  wire             F_op_srl;
-  wire             F_op_srli;
-  wire             F_op_stb;
-  wire             F_op_stbio;
-  wire             F_op_stc;
-  wire             F_op_sth;
-  wire             F_op_sthio;
-  wire             F_op_stw;
-  wire             F_op_stwio;
-  wire             F_op_sub;
-  wire             F_op_sync;
-  wire             F_op_trap;
-  wire             F_op_wrctl;
-  wire             F_op_wrprs;
-  wire             F_op_xor;
-  wire             F_op_xorhi;
-  wire             F_op_xori;
-  reg     [ 19: 0] F_pc /* synthesis ALTERA_IP_DEBUG_VISIBLE = 1 */;
-  wire             F_pc_en;
-  wire    [ 19: 0] F_pc_no_crst_nxt;
-  wire    [ 19: 0] F_pc_nxt;
-  wire    [ 19: 0] F_pc_plus_one;
-  wire    [  1: 0] F_pc_sel_nxt;
-  wire    [ 21: 0] F_pcb;
-  wire    [ 21: 0] F_pcb_nxt;
-  wire    [ 21: 0] F_pcb_plus_four;
-  wire             F_valid;
-  wire    [ 55: 0] F_vinst;
-  reg     [  1: 0] R_compare_op;
-  reg              R_ctrl_alu_force_xor;
-  wire             R_ctrl_alu_force_xor_nxt;
-  reg              R_ctrl_alu_signed_comparison;
-  wire             R_ctrl_alu_signed_comparison_nxt;
-  reg              R_ctrl_alu_subtract;
-  wire             R_ctrl_alu_subtract_nxt;
-  reg              R_ctrl_b_is_dst;
-  wire             R_ctrl_b_is_dst_nxt;
-  reg              R_ctrl_br;
-  reg              R_ctrl_br_cmp;
-  wire             R_ctrl_br_cmp_nxt;
-  wire             R_ctrl_br_nxt;
-  reg              R_ctrl_br_uncond;
-  wire             R_ctrl_br_uncond_nxt;
-  reg              R_ctrl_break;
-  wire             R_ctrl_break_nxt;
-  reg              R_ctrl_crst;
-  wire             R_ctrl_crst_nxt;
-  reg              R_ctrl_custom;
-  reg              R_ctrl_custom_multi;
-  wire             R_ctrl_custom_multi_nxt;
-  wire             R_ctrl_custom_nxt;
-  reg              R_ctrl_exception;
-  wire             R_ctrl_exception_nxt;
-  reg              R_ctrl_force_src2_zero;
-  wire             R_ctrl_force_src2_zero_nxt;
-  reg              R_ctrl_hi_imm16;
-  wire             R_ctrl_hi_imm16_nxt;
-  reg              R_ctrl_ignore_dst;
-  wire             R_ctrl_ignore_dst_nxt;
-  reg              R_ctrl_implicit_dst_eretaddr;
-  wire             R_ctrl_implicit_dst_eretaddr_nxt;
-  reg              R_ctrl_implicit_dst_retaddr;
-  wire             R_ctrl_implicit_dst_retaddr_nxt;
-  reg              R_ctrl_jmp_direct;
-  wire             R_ctrl_jmp_direct_nxt;
-  reg              R_ctrl_jmp_indirect;
-  wire             R_ctrl_jmp_indirect_nxt;
-  reg              R_ctrl_ld;
-  reg              R_ctrl_ld_io;
-  wire             R_ctrl_ld_io_nxt;
-  reg              R_ctrl_ld_non_io;
-  wire             R_ctrl_ld_non_io_nxt;
-  wire             R_ctrl_ld_nxt;
-  reg              R_ctrl_ld_signed;
-  wire             R_ctrl_ld_signed_nxt;
-  reg              R_ctrl_logic;
-  wire             R_ctrl_logic_nxt;
-  reg              R_ctrl_rdctl_inst;
-  wire             R_ctrl_rdctl_inst_nxt;
-  reg              R_ctrl_retaddr;
-  wire             R_ctrl_retaddr_nxt;
-  reg              R_ctrl_rot_right;
-  wire             R_ctrl_rot_right_nxt;
-  reg              R_ctrl_shift_logical;
-  wire             R_ctrl_shift_logical_nxt;
-  reg              R_ctrl_shift_right_arith;
-  wire             R_ctrl_shift_right_arith_nxt;
-  reg              R_ctrl_shift_rot;
-  wire             R_ctrl_shift_rot_nxt;
-  reg              R_ctrl_shift_rot_right;
-  wire             R_ctrl_shift_rot_right_nxt;
-  reg              R_ctrl_src2_choose_imm;
-  wire             R_ctrl_src2_choose_imm_nxt;
-  reg              R_ctrl_st;
-  wire             R_ctrl_st_nxt;
-  reg              R_ctrl_uncond_cti_non_br;
-  wire             R_ctrl_uncond_cti_non_br_nxt;
-  reg              R_ctrl_unsigned_lo_imm16;
-  wire             R_ctrl_unsigned_lo_imm16_nxt;
-  reg              R_ctrl_wrctl_inst;
-  wire             R_ctrl_wrctl_inst_nxt;
-  reg     [  4: 0] R_dst_regnum /* synthesis ALTERA_IP_DEBUG_VISIBLE = 1 */;
-  wire             R_en;
-  reg     [  1: 0] R_logic_op;
-  wire    [ 31: 0] R_rf_a;
-  wire    [ 31: 0] R_rf_b;
-  wire    [ 31: 0] R_src1;
-  wire    [ 31: 0] R_src2;
-  wire    [ 15: 0] R_src2_hi;
-  wire    [ 15: 0] R_src2_lo;
-  reg              R_src2_use_imm;
-  wire    [  7: 0] R_stb_data;
-  wire    [ 15: 0] R_sth_data;
-  reg              R_valid;
-  wire    [ 55: 0] R_vinst;
-  reg              R_wr_dst_reg;
-  reg     [ 31: 0] W_alu_result;
-  wire             W_br_taken;
-  reg              W_bstatus_reg;
-  wire             W_bstatus_reg_inst_nxt;
-  wire             W_bstatus_reg_nxt;
-  reg              W_cmp_result;
-  reg     [ 31: 0] W_control_rd_data;
-  reg              W_estatus_reg;
-  wire             W_estatus_reg_inst_nxt;
-  wire             W_estatus_reg_nxt;
-  reg     [ 31: 0] W_ienable_reg;
-  wire    [ 31: 0] W_ienable_reg_nxt;
-  reg     [ 31: 0] W_ipending_reg;
-  wire    [ 31: 0] W_ipending_reg_nxt;
-  wire    [ 21: 0] W_mem_baddr;
-  wire    [ 31: 0] W_rf_wr_data;
-  wire             W_rf_wren;
-  wire             W_status_reg;
-  reg              W_status_reg_pie;
-  wire             W_status_reg_pie_inst_nxt;
-  wire             W_status_reg_pie_nxt;
-  reg              W_valid /* synthesis ALTERA_IP_DEBUG_VISIBLE = 1 */;
-  wire    [ 55: 0] W_vinst;
-  wire    [ 31: 0] W_wr_data;
-  wire    [ 31: 0] W_wr_data_non_zero;
-  wire             av_fill_bit;
-  reg     [  1: 0] av_ld_align_cycle;
-  wire    [  1: 0] av_ld_align_cycle_nxt;
-  wire             av_ld_align_one_more_cycle;
-  reg              av_ld_aligning_data;
-  wire             av_ld_aligning_data_nxt;
-  reg     [  7: 0] av_ld_byte0_data;
-  wire    [  7: 0] av_ld_byte0_data_nxt;
-  reg     [  7: 0] av_ld_byte1_data;
-  wire             av_ld_byte1_data_en;
-  wire    [  7: 0] av_ld_byte1_data_nxt;
-  reg     [  7: 0] av_ld_byte2_data;
-  wire    [  7: 0] av_ld_byte2_data_nxt;
-  reg     [  7: 0] av_ld_byte3_data;
-  wire    [  7: 0] av_ld_byte3_data_nxt;
-  wire    [ 31: 0] av_ld_data_aligned_filtered;
-  wire    [ 31: 0] av_ld_data_aligned_unfiltered;
-  wire             av_ld_done;
-  wire             av_ld_extend;
-  wire             av_ld_getting_data;
-  wire             av_ld_rshift8;
-  reg              av_ld_waiting_for_data;
-  wire             av_ld_waiting_for_data_nxt;
-  wire             av_sign_bit;
-  wire    [ 21: 0] d_address;
-  reg     [  3: 0] d_byteenable;
-  reg              d_read;
-  wire             d_read_nxt;
-  wire             d_write;
-  wire             d_write_nxt;
-  reg     [ 31: 0] d_writedata;
-  reg              hbreak_enabled;
-  reg              hbreak_pending;
-  wire             hbreak_pending_nxt;
-  wire             hbreak_req;
-  wire    [ 21: 0] i_address;
-  reg              i_read;
-  wire             i_read_nxt;
-  wire    [ 31: 0] iactive;
-  wire             intr_req;
-  wire             jtag_debug_module_clk;
-  wire             jtag_debug_module_debugaccess_to_roms;
-  wire    [ 31: 0] jtag_debug_module_readdata;
-  wire             jtag_debug_module_reset;
-  wire             jtag_debug_module_resetrequest;
-  wire             no_ci_readra;
-  wire             oci_hbreak_req;
-  wire    [ 31: 0] oci_ienable;
-  wire             oci_single_step_mode;
-  wire             oci_tb_hbreak_req;
-  wire             test_ending;
-  wire             test_has_ended;
-  reg              wait_for_one_post_bret_inst;
+
+wire    [  1: 0] D_compare_op;
+wire             D_ctrl_alu_force_xor;
+wire             D_ctrl_alu_signed_comparison;
+wire             D_ctrl_alu_subtract;
+wire             D_ctrl_b_is_dst;
+wire             D_ctrl_br;
+wire             D_ctrl_br_cmp;
+wire             D_ctrl_br_uncond;
+wire             D_ctrl_break;
+wire             D_ctrl_crst;
+wire             D_ctrl_custom;
+wire             D_ctrl_custom_multi;
+wire             D_ctrl_exception;
+wire             D_ctrl_force_src2_zero;
+wire             D_ctrl_hi_imm16;
+wire             D_ctrl_ignore_dst;
+wire             D_ctrl_implicit_dst_eretaddr;
+wire             D_ctrl_implicit_dst_retaddr;
+wire             D_ctrl_jmp_direct;
+wire             D_ctrl_jmp_indirect;
+wire             D_ctrl_ld;
+wire             D_ctrl_ld_io;
+wire             D_ctrl_ld_non_io;
+wire             D_ctrl_ld_signed;
+wire             D_ctrl_logic;
+wire             D_ctrl_rdctl_inst;
+wire             D_ctrl_retaddr;
+wire             D_ctrl_rot_right;
+wire             D_ctrl_shift_logical;
+wire             D_ctrl_shift_right_arith;
+wire             D_ctrl_shift_rot;
+wire             D_ctrl_shift_rot_right;
+wire             D_ctrl_src2_choose_imm;
+wire             D_ctrl_st;
+wire             D_ctrl_uncond_cti_non_br;
+wire             D_ctrl_unsigned_lo_imm16;
+wire             D_ctrl_wrctl_inst;
+wire    [  4: 0] D_dst_regnum;
+wire    [ 55: 0] D_inst;
+reg     [ 31: 0] D_iw /* synthesis ALTERA_IP_DEBUG_VISIBLE = 1 */;
+wire    [  4: 0] D_iw_a;
+wire    [  4: 0] D_iw_b;
+wire    [  4: 0] D_iw_c;
+wire    [  2: 0] D_iw_control_regnum;
+wire    [  7: 0] D_iw_custom_n;
+wire             D_iw_custom_readra;
+wire             D_iw_custom_readrb;
+wire             D_iw_custom_writerc;
+wire    [ 15: 0] D_iw_imm16;
+wire    [ 25: 0] D_iw_imm26;
+wire    [  4: 0] D_iw_imm5;
+wire    [  1: 0] D_iw_memsz;
+wire    [  5: 0] D_iw_op;
+wire    [  5: 0] D_iw_opx;
+wire    [  4: 0] D_iw_shift_imm5;
+wire    [  4: 0] D_iw_trap_break_imm5;
+wire    [ 19: 0] D_jmp_direct_target_waddr;
+wire    [  1: 0] D_logic_op;
+wire    [  1: 0] D_logic_op_raw;
+wire             D_mem16;
+wire             D_mem32;
+wire             D_mem8;
+wire             D_op_add;
+wire             D_op_addi;
+wire             D_op_and;
+wire             D_op_andhi;
+wire             D_op_andi;
+wire             D_op_beq;
+wire             D_op_bge;
+wire             D_op_bgeu;
+wire             D_op_blt;
+wire             D_op_bltu;
+wire             D_op_bne;
+wire             D_op_br;
+wire             D_op_break;
+wire             D_op_bret;
+wire             D_op_call;
+wire             D_op_callr;
+wire             D_op_cmpeq;
+wire             D_op_cmpeqi;
+wire             D_op_cmpge;
+wire             D_op_cmpgei;
+wire             D_op_cmpgeu;
+wire             D_op_cmpgeui;
+wire             D_op_cmplt;
+wire             D_op_cmplti;
+wire             D_op_cmpltu;
+wire             D_op_cmpltui;
+wire             D_op_cmpne;
+wire             D_op_cmpnei;
+wire             D_op_crst;
+wire             D_op_custom;
+wire             D_op_div;
+wire             D_op_divu;
+wire             D_op_eret;
+wire             D_op_flushd;
+wire             D_op_flushda;
+wire             D_op_flushi;
+wire             D_op_flushp;
+wire             D_op_hbreak;
+wire             D_op_initd;
+wire             D_op_initda;
+wire             D_op_initi;
+wire             D_op_intr;
+wire             D_op_jmp;
+wire             D_op_jmpi;
+wire             D_op_ldb;
+wire             D_op_ldbio;
+wire             D_op_ldbu;
+wire             D_op_ldbuio;
+wire             D_op_ldh;
+wire             D_op_ldhio;
+wire             D_op_ldhu;
+wire             D_op_ldhuio;
+wire             D_op_ldl;
+wire             D_op_ldw;
+wire             D_op_ldwio;
+wire             D_op_mul;
+wire             D_op_muli;
+wire             D_op_mulxss;
+wire             D_op_mulxsu;
+wire             D_op_mulxuu;
+wire             D_op_nextpc;
+wire             D_op_nor;
+wire             D_op_opx;
+wire             D_op_or;
+wire             D_op_orhi;
+wire             D_op_ori;
+wire             D_op_rdctl;
+wire             D_op_rdprs;
+wire             D_op_ret;
+wire             D_op_rol;
+wire             D_op_roli;
+wire             D_op_ror;
+wire             D_op_rsv02;
+wire             D_op_rsv09;
+wire             D_op_rsv10;
+wire             D_op_rsv17;
+wire             D_op_rsv18;
+wire             D_op_rsv25;
+wire             D_op_rsv26;
+wire             D_op_rsv33;
+wire             D_op_rsv34;
+wire             D_op_rsv41;
+wire             D_op_rsv42;
+wire             D_op_rsv49;
+wire             D_op_rsv57;
+wire             D_op_rsv61;
+wire             D_op_rsv62;
+wire             D_op_rsv63;
+wire             D_op_rsvx00;
+wire             D_op_rsvx10;
+wire             D_op_rsvx15;
+wire             D_op_rsvx17;
+wire             D_op_rsvx21;
+wire             D_op_rsvx25;
+wire             D_op_rsvx33;
+wire             D_op_rsvx34;
+wire             D_op_rsvx35;
+wire             D_op_rsvx42;
+wire             D_op_rsvx43;
+wire             D_op_rsvx44;
+wire             D_op_rsvx47;
+wire             D_op_rsvx50;
+wire             D_op_rsvx51;
+wire             D_op_rsvx55;
+wire             D_op_rsvx56;
+wire             D_op_rsvx60;
+wire             D_op_rsvx63;
+wire             D_op_sll;
+wire             D_op_slli;
+wire             D_op_sra;
+wire             D_op_srai;
+wire             D_op_srl;
+wire             D_op_srli;
+wire             D_op_stb;
+wire             D_op_stbio;
+wire             D_op_stc;
+wire             D_op_sth;
+wire             D_op_sthio;
+wire             D_op_stw;
+wire             D_op_stwio;
+wire             D_op_sub;
+wire             D_op_sync;
+wire             D_op_trap;
+wire             D_op_wrctl;
+wire             D_op_wrprs;
+wire             D_op_xor;
+wire             D_op_xorhi;
+wire             D_op_xori;
+reg              D_valid;
+wire    [ 55: 0] D_vinst;
+wire             D_wr_dst_reg;
+wire    [ 31: 0] E_alu_result;
+reg              E_alu_sub;
+wire    [ 32: 0] E_arith_result;
+wire    [ 31: 0] E_arith_src1;
+wire    [ 31: 0] E_arith_src2;
+wire             E_ci_multi_stall;
+wire    [ 31: 0] E_ci_result;
+wire             E_cmp_result;
+wire    [ 31: 0] E_control_rd_data;
+wire             E_eq;
+reg              E_invert_arith_src_msb;
+wire             E_ld_stall;
+wire    [ 31: 0] E_logic_result;
+wire             E_logic_result_is_0;
+wire             E_lt;
+wire    [ 21: 0] E_mem_baddr;
+wire    [  3: 0] E_mem_byte_en;
+reg              E_new_inst;
+reg     [  4: 0] E_shift_rot_cnt;
+wire    [  4: 0] E_shift_rot_cnt_nxt;
+wire             E_shift_rot_done;
+wire             E_shift_rot_fill_bit;
+reg     [ 31: 0] E_shift_rot_result;
+wire    [ 31: 0] E_shift_rot_result_nxt;
+wire             E_shift_rot_stall;
+reg     [ 31: 0] E_src1;
+reg     [ 31: 0] E_src2;
+wire    [ 31: 0] E_st_data;
+wire             E_st_stall;
+wire             E_stall;
+reg              E_valid;
+wire    [ 55: 0] E_vinst;
+wire             E_wrctl_bstatus;
+wire             E_wrctl_estatus;
+wire             E_wrctl_ienable;
+wire             E_wrctl_status;
+wire    [ 31: 0] F_av_iw;
+wire    [  4: 0] F_av_iw_a;
+wire    [  4: 0] F_av_iw_b;
+wire    [  4: 0] F_av_iw_c;
+wire    [  2: 0] F_av_iw_control_regnum;
+wire    [  7: 0] F_av_iw_custom_n;
+wire             F_av_iw_custom_readra;
+wire             F_av_iw_custom_readrb;
+wire             F_av_iw_custom_writerc;
+wire    [ 15: 0] F_av_iw_imm16;
+wire    [ 25: 0] F_av_iw_imm26;
+wire    [  4: 0] F_av_iw_imm5;
+wire    [  1: 0] F_av_iw_memsz;
+wire    [  5: 0] F_av_iw_op;
+wire    [  5: 0] F_av_iw_opx;
+wire    [  4: 0] F_av_iw_shift_imm5;
+wire    [  4: 0] F_av_iw_trap_break_imm5;
+wire             F_av_mem16;
+wire             F_av_mem32;
+wire             F_av_mem8;
+wire    [ 55: 0] F_inst;
+wire    [ 31: 0] F_iw;
+wire    [  4: 0] F_iw_a;
+wire    [  4: 0] F_iw_b;
+wire    [  4: 0] F_iw_c;
+wire    [  2: 0] F_iw_control_regnum;
+wire    [  7: 0] F_iw_custom_n;
+wire             F_iw_custom_readra;
+wire             F_iw_custom_readrb;
+wire             F_iw_custom_writerc;
+wire    [ 15: 0] F_iw_imm16;
+wire    [ 25: 0] F_iw_imm26;
+wire    [  4: 0] F_iw_imm5;
+wire    [  1: 0] F_iw_memsz;
+wire    [  5: 0] F_iw_op;
+wire    [  5: 0] F_iw_opx;
+wire    [  4: 0] F_iw_shift_imm5;
+wire    [  4: 0] F_iw_trap_break_imm5;
+wire             F_mem16;
+wire             F_mem32;
+wire             F_mem8;
+wire             F_op_add;
+wire             F_op_addi;
+wire             F_op_and;
+wire             F_op_andhi;
+wire             F_op_andi;
+wire             F_op_beq;
+wire             F_op_bge;
+wire             F_op_bgeu;
+wire             F_op_blt;
+wire             F_op_bltu;
+wire             F_op_bne;
+wire             F_op_br;
+wire             F_op_break;
+wire             F_op_bret;
+wire             F_op_call;
+wire             F_op_callr;
+wire             F_op_cmpeq;
+wire             F_op_cmpeqi;
+wire             F_op_cmpge;
+wire             F_op_cmpgei;
+wire             F_op_cmpgeu;
+wire             F_op_cmpgeui;
+wire             F_op_cmplt;
+wire             F_op_cmplti;
+wire             F_op_cmpltu;
+wire             F_op_cmpltui;
+wire             F_op_cmpne;
+wire             F_op_cmpnei;
+wire             F_op_crst;
+wire             F_op_custom;
+wire             F_op_div;
+wire             F_op_divu;
+wire             F_op_eret;
+wire             F_op_flushd;
+wire             F_op_flushda;
+wire             F_op_flushi;
+wire             F_op_flushp;
+wire             F_op_hbreak;
+wire             F_op_initd;
+wire             F_op_initda;
+wire             F_op_initi;
+wire             F_op_intr;
+wire             F_op_jmp;
+wire             F_op_jmpi;
+wire             F_op_ldb;
+wire             F_op_ldbio;
+wire             F_op_ldbu;
+wire             F_op_ldbuio;
+wire             F_op_ldh;
+wire             F_op_ldhio;
+wire             F_op_ldhu;
+wire             F_op_ldhuio;
+wire             F_op_ldl;
+wire             F_op_ldw;
+wire             F_op_ldwio;
+wire             F_op_mul;
+wire             F_op_muli;
+wire             F_op_mulxss;
+wire             F_op_mulxsu;
+wire             F_op_mulxuu;
+wire             F_op_nextpc;
+wire             F_op_nor;
+wire             F_op_opx;
+wire             F_op_or;
+wire             F_op_orhi;
+wire             F_op_ori;
+wire             F_op_rdctl;
+wire             F_op_rdprs;
+wire             F_op_ret;
+wire             F_op_rol;
+wire             F_op_roli;
+wire             F_op_ror;
+wire             F_op_rsv02;
+wire             F_op_rsv09;
+wire             F_op_rsv10;
+wire             F_op_rsv17;
+wire             F_op_rsv18;
+wire             F_op_rsv25;
+wire             F_op_rsv26;
+wire             F_op_rsv33;
+wire             F_op_rsv34;
+wire             F_op_rsv41;
+wire             F_op_rsv42;
+wire             F_op_rsv49;
+wire             F_op_rsv57;
+wire             F_op_rsv61;
+wire             F_op_rsv62;
+wire             F_op_rsv63;
+wire             F_op_rsvx00;
+wire             F_op_rsvx10;
+wire             F_op_rsvx15;
+wire             F_op_rsvx17;
+wire             F_op_rsvx21;
+wire             F_op_rsvx25;
+wire             F_op_rsvx33;
+wire             F_op_rsvx34;
+wire             F_op_rsvx35;
+wire             F_op_rsvx42;
+wire             F_op_rsvx43;
+wire             F_op_rsvx44;
+wire             F_op_rsvx47;
+wire             F_op_rsvx50;
+wire             F_op_rsvx51;
+wire             F_op_rsvx55;
+wire             F_op_rsvx56;
+wire             F_op_rsvx60;
+wire             F_op_rsvx63;
+wire             F_op_sll;
+wire             F_op_slli;
+wire             F_op_sra;
+wire             F_op_srai;
+wire             F_op_srl;
+wire             F_op_srli;
+wire             F_op_stb;
+wire             F_op_stbio;
+wire             F_op_stc;
+wire             F_op_sth;
+wire             F_op_sthio;
+wire             F_op_stw;
+wire             F_op_stwio;
+wire             F_op_sub;
+wire             F_op_sync;
+wire             F_op_trap;
+wire             F_op_wrctl;
+wire             F_op_wrprs;
+wire             F_op_xor;
+wire             F_op_xorhi;
+wire             F_op_xori;
+reg     [ 19: 0] F_pc /* synthesis ALTERA_IP_DEBUG_VISIBLE = 1 */;
+wire             F_pc_en;
+wire    [ 19: 0] F_pc_no_crst_nxt;
+wire    [ 19: 0] F_pc_nxt;
+wire    [ 19: 0] F_pc_plus_one;
+wire    [  1: 0] F_pc_sel_nxt;
+wire    [ 21: 0] F_pcb;
+wire    [ 21: 0] F_pcb_nxt;
+wire    [ 21: 0] F_pcb_plus_four;
+wire             F_valid;
+wire    [ 55: 0] F_vinst;
+reg     [  1: 0] R_compare_op;
+reg              R_ctrl_alu_force_xor;
+wire             R_ctrl_alu_force_xor_nxt;
+reg              R_ctrl_alu_signed_comparison;
+wire             R_ctrl_alu_signed_comparison_nxt;
+reg              R_ctrl_alu_subtract;
+wire             R_ctrl_alu_subtract_nxt;
+reg              R_ctrl_b_is_dst;
+wire             R_ctrl_b_is_dst_nxt;
+reg              R_ctrl_br;
+reg              R_ctrl_br_cmp;
+wire             R_ctrl_br_cmp_nxt;
+wire             R_ctrl_br_nxt;
+reg              R_ctrl_br_uncond;
+wire             R_ctrl_br_uncond_nxt;
+reg              R_ctrl_break;
+wire             R_ctrl_break_nxt;
+reg              R_ctrl_crst;
+wire             R_ctrl_crst_nxt;
+reg              R_ctrl_custom;
+reg              R_ctrl_custom_multi;
+wire             R_ctrl_custom_multi_nxt;
+wire             R_ctrl_custom_nxt;
+reg              R_ctrl_exception;
+wire             R_ctrl_exception_nxt;
+reg              R_ctrl_force_src2_zero;
+wire             R_ctrl_force_src2_zero_nxt;
+reg              R_ctrl_hi_imm16;
+wire             R_ctrl_hi_imm16_nxt;
+reg              R_ctrl_ignore_dst;
+wire             R_ctrl_ignore_dst_nxt;
+reg              R_ctrl_implicit_dst_eretaddr;
+wire             R_ctrl_implicit_dst_eretaddr_nxt;
+reg              R_ctrl_implicit_dst_retaddr;
+wire             R_ctrl_implicit_dst_retaddr_nxt;
+reg              R_ctrl_jmp_direct;
+wire             R_ctrl_jmp_direct_nxt;
+reg              R_ctrl_jmp_indirect;
+wire             R_ctrl_jmp_indirect_nxt;
+reg              R_ctrl_ld;
+reg              R_ctrl_ld_io;
+wire             R_ctrl_ld_io_nxt;
+reg              R_ctrl_ld_non_io;
+wire             R_ctrl_ld_non_io_nxt;
+wire             R_ctrl_ld_nxt;
+reg              R_ctrl_ld_signed;
+wire             R_ctrl_ld_signed_nxt;
+reg              R_ctrl_logic;
+wire             R_ctrl_logic_nxt;
+reg              R_ctrl_rdctl_inst;
+wire             R_ctrl_rdctl_inst_nxt;
+reg              R_ctrl_retaddr;
+wire             R_ctrl_retaddr_nxt;
+reg              R_ctrl_rot_right;
+wire             R_ctrl_rot_right_nxt;
+reg              R_ctrl_shift_logical;
+wire             R_ctrl_shift_logical_nxt;
+reg              R_ctrl_shift_right_arith;
+wire             R_ctrl_shift_right_arith_nxt;
+reg              R_ctrl_shift_rot;
+wire             R_ctrl_shift_rot_nxt;
+reg              R_ctrl_shift_rot_right;
+wire             R_ctrl_shift_rot_right_nxt;
+reg              R_ctrl_src2_choose_imm;
+wire             R_ctrl_src2_choose_imm_nxt;
+reg              R_ctrl_st;
+wire             R_ctrl_st_nxt;
+reg              R_ctrl_uncond_cti_non_br;
+wire             R_ctrl_uncond_cti_non_br_nxt;
+reg              R_ctrl_unsigned_lo_imm16;
+wire             R_ctrl_unsigned_lo_imm16_nxt;
+reg              R_ctrl_wrctl_inst;
+wire             R_ctrl_wrctl_inst_nxt;
+reg     [  4: 0] R_dst_regnum /* synthesis ALTERA_IP_DEBUG_VISIBLE = 1 */;
+wire             R_en;
+reg     [  1: 0] R_logic_op;
+wire    [ 31: 0] R_rf_a;
+wire    [ 31: 0] R_rf_b;
+wire    [ 31: 0] R_src1;
+wire    [ 31: 0] R_src2;
+wire    [ 15: 0] R_src2_hi;
+wire    [ 15: 0] R_src2_lo;
+reg              R_src2_use_imm;
+wire    [  7: 0] R_stb_data;
+wire    [ 15: 0] R_sth_data;
+reg              R_valid;
+wire    [ 55: 0] R_vinst;
+reg              R_wr_dst_reg;
+reg     [ 31: 0] W_alu_result;
+wire             W_br_taken;
+reg              W_bstatus_reg;
+wire             W_bstatus_reg_inst_nxt;
+wire             W_bstatus_reg_nxt;
+reg              W_cmp_result;
+reg     [ 31: 0] W_control_rd_data;
+wire    [ 31: 0] W_cpuid_reg;
+reg              W_estatus_reg;
+wire             W_estatus_reg_inst_nxt;
+wire             W_estatus_reg_nxt;
+reg     [ 31: 0] W_ienable_reg;
+wire    [ 31: 0] W_ienable_reg_nxt;
+reg     [ 31: 0] W_ipending_reg;
+wire    [ 31: 0] W_ipending_reg_nxt;
+wire    [ 21: 0] W_mem_baddr;
+wire    [ 31: 0] W_rf_wr_data;
+wire             W_rf_wren;
+wire             W_status_reg;
+reg              W_status_reg_pie;
+wire             W_status_reg_pie_inst_nxt;
+wire             W_status_reg_pie_nxt;
+reg              W_valid /* synthesis ALTERA_IP_DEBUG_VISIBLE = 1 */;
+wire    [ 55: 0] W_vinst;
+wire    [ 31: 0] W_wr_data;
+wire    [ 31: 0] W_wr_data_non_zero;
+wire             av_fill_bit;
+reg     [  1: 0] av_ld_align_cycle;
+wire    [  1: 0] av_ld_align_cycle_nxt;
+wire             av_ld_align_one_more_cycle;
+reg              av_ld_aligning_data;
+wire             av_ld_aligning_data_nxt;
+reg     [  7: 0] av_ld_byte0_data;
+wire    [  7: 0] av_ld_byte0_data_nxt;
+reg     [  7: 0] av_ld_byte1_data;
+wire             av_ld_byte1_data_en;
+wire    [  7: 0] av_ld_byte1_data_nxt;
+reg     [  7: 0] av_ld_byte2_data;
+wire    [  7: 0] av_ld_byte2_data_nxt;
+reg     [  7: 0] av_ld_byte3_data;
+wire    [  7: 0] av_ld_byte3_data_nxt;
+wire    [ 31: 0] av_ld_data_aligned_filtered;
+wire    [ 31: 0] av_ld_data_aligned_unfiltered;
+wire             av_ld_done;
+wire             av_ld_extend;
+wire             av_ld_getting_data;
+wire             av_ld_rshift8;
+reg              av_ld_waiting_for_data;
+wire             av_ld_waiting_for_data_nxt;
+wire             av_sign_bit;
+wire    [ 21: 0] d_address;
+reg     [  3: 0] d_byteenable;
+reg              d_read;
+wire             d_read_nxt;
+reg              d_write;
+wire             d_write_nxt;
+reg     [ 31: 0] d_writedata;
+reg              hbreak_enabled;
+reg              hbreak_pending;
+wire             hbreak_pending_nxt;
+wire             hbreak_req;
+wire    [ 21: 0] i_address;
+reg              i_read;
+wire             i_read_nxt;
+wire    [ 31: 0] iactive;
+wire             intr_req;
+wire             jtag_debug_module_clk;
+wire             jtag_debug_module_debugaccess_to_roms;
+wire    [ 31: 0] jtag_debug_module_readdata;
+wire             jtag_debug_module_reset;
+wire             jtag_debug_module_resetrequest;
+wire             jtag_debug_module_waitrequest;
+wire             no_ci_readra;
+wire             oci_hbreak_req;
+wire    [ 31: 0] oci_ienable;
+wire             oci_single_step_mode;
+wire             oci_tb_hbreak_req;
+wire             test_ending;
+wire             test_has_ended;
+reg              wait_for_one_post_bret_inst;
   //the_Video_System_CPU_test_bench, which is an e_instance
   Video_System_CPU_test_bench the_Video_System_CPU_test_bench
     (
@@ -3743,25 +3830,13 @@ module Video_System_CPU (
       .D_iw_op                       (D_iw_op),
       .D_iw_opx                      (D_iw_opx),
       .D_valid                       (D_valid),
-      .E_alu_result                  (E_alu_result),
-      .E_mem_byte_en                 (E_mem_byte_en),
-      .E_st_data                     (E_st_data),
       .E_valid                       (E_valid),
       .F_pcb                         (F_pcb),
       .F_valid                       (F_valid),
-      .R_ctrl_exception              (R_ctrl_exception),
       .R_ctrl_ld                     (R_ctrl_ld),
       .R_ctrl_ld_non_io              (R_ctrl_ld_non_io),
       .R_dst_regnum                  (R_dst_regnum),
       .R_wr_dst_reg                  (R_wr_dst_reg),
-      .W_bstatus_reg                 (W_bstatus_reg),
-      .W_cmp_result                  (W_cmp_result),
-      .W_estatus_reg                 (W_estatus_reg),
-      .W_ienable_reg                 (W_ienable_reg),
-      .W_ipending_reg                (W_ipending_reg),
-      .W_mem_baddr                   (W_mem_baddr),
-      .W_rf_wr_data                  (W_rf_wr_data),
-      .W_status_reg                  (W_status_reg),
       .W_valid                       (W_valid),
       .W_vinst                       (W_vinst),
       .W_wr_data                     (W_wr_data),
@@ -3772,7 +3847,6 @@ module Video_System_CPU (
       .d_byteenable                  (d_byteenable),
       .d_read                        (d_read),
       .d_write                       (d_write),
-      .d_write_nxt                   (d_write_nxt),
       .i_address                     (i_address),
       .i_read                        (i_read),
       .i_readdata                    (i_readdata),
@@ -4424,7 +4498,7 @@ defparam Video_System_CPU_register_bank_b.lpm_file = "Video_System_CPU_rf_ram_b.
     (D_iw_control_regnum == 3'd2)? W_bstatus_reg :
     (D_iw_control_regnum == 3'd3)? W_ienable_reg :
     (D_iw_control_regnum == 3'd4)? W_ipending_reg :
-    0;
+    W_cpuid_reg;
 
   assign E_alu_result = ((R_ctrl_br_cmp | R_ctrl_rdctl_inst))? 0 :
     (R_ctrl_shift_rot)? E_shift_rot_result :
@@ -4662,6 +4736,7 @@ defparam Video_System_CPU_register_bank_b.lpm_file = "Video_System_CPU_rf_ram_b.
     end
 
 
+  assign W_cpuid_reg = 0;
   assign W_wr_data_non_zero = R_ctrl_br_cmp ? W_cmp_result :
     R_ctrl_rdctl_inst       ? W_control_rd_data :
     W_alu_result[31 : 0];
@@ -4713,36 +4788,46 @@ defparam Video_System_CPU_register_bank_b.lpm_file = "Video_System_CPU_rf_ram_b.
     end
 
 
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          d_write <= 0;
+      else 
+        d_write <= d_write_nxt;
+    end
+
+
   Video_System_CPU_nios2_oci the_Video_System_CPU_nios2_oci
     (
       .D_valid                               (D_valid),
       .E_st_data                             (E_st_data),
       .E_valid                               (E_valid),
       .F_pc                                  (F_pc),
-      .address                               (jtag_debug_module_address),
+      .address_nxt                           (jtag_debug_module_address),
       .av_ld_data_aligned_filtered           (av_ld_data_aligned_filtered),
-      .begintransfer                         (jtag_debug_module_begintransfer),
-      .byteenable                            (jtag_debug_module_byteenable),
-      .chipselect                            (jtag_debug_module_select),
+      .byteenable_nxt                        (jtag_debug_module_byteenable),
       .clk                                   (jtag_debug_module_clk),
       .d_address                             (d_address),
       .d_read                                (d_read),
       .d_waitrequest                         (d_waitrequest),
       .d_write                               (d_write),
-      .debugaccess                           (jtag_debug_module_debugaccess),
+      .debugaccess_nxt                       (jtag_debug_module_debugaccess),
       .hbreak_enabled                        (hbreak_enabled),
       .jtag_debug_module_debugaccess_to_roms (jtag_debug_module_debugaccess_to_roms),
       .oci_hbreak_req                        (oci_hbreak_req),
       .oci_ienable                           (oci_ienable),
       .oci_single_step_mode                  (oci_single_step_mode),
+      .read_nxt                              (jtag_debug_module_read),
       .readdata                              (jtag_debug_module_readdata),
       .reset                                 (jtag_debug_module_reset),
       .reset_n                               (reset_n),
+      .reset_req                             (reset_req),
       .resetrequest                          (jtag_debug_module_resetrequest),
       .test_ending                           (test_ending),
       .test_has_ended                        (test_has_ended),
-      .write                                 (jtag_debug_module_write),
-      .writedata                             (jtag_debug_module_writedata)
+      .waitrequest                           (jtag_debug_module_waitrequest),
+      .write_nxt                             (jtag_debug_module_write),
+      .writedata_nxt                         (jtag_debug_module_writedata)
     );
 
   //jtag_debug_module, which is an e_avalon_slave

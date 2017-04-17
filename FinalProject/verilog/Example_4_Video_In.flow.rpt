@@ -1,6 +1,6 @@
 Flow report for Example_4_Video_In
-Sun Apr 16 16:16:43 2017
-Quartus II Version 11.0 Build 208 07/03/2011 Service Pack 1 SJ Web Edition
+Sun Apr 16 21:21:03 2017
+Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
 ---------------------
@@ -13,48 +13,51 @@ Quartus II Version 11.0 Build 208 07/03/2011 Service Pack 1 SJ Web Edition
   5. Flow Elapsed Time
   6. Flow OS Summary
   7. Flow Log
+  8. Flow Messages
+  9. Flow Suppressed Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 1991-2011 Altera Corporation
-Your use of Altera Corporation's design tools, logic functions 
+Copyright (C) 2016  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
-to the terms and conditions of the Altera Program License 
-Subscription Agreement, Altera MegaCore Function License 
-Agreement, or other applicable license agreement, including, 
-without limitation, that your use is for the sole purpose of 
-programming logic devices manufactured by Altera and sold by 
-Altera or its authorized distributors.  Please refer to the 
-applicable agreement for further details.
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Intel and sold by Intel or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
 
 
 
-+------------------------------------------------------------------------------------+
-; Flow Summary                                                                       ;
-+------------------------------------+-----------------------------------------------+
-; Flow Status                        ; Successful - Sun Apr 16 16:16:43 2017         ;
-; Quartus II Version                 ; 11.0 Build 208 07/03/2011 SP 1 SJ Web Edition ;
-; Revision Name                      ; Example_4_Video_In                            ;
-; Top-level Entity Name              ; Example_4_Video_In                            ;
-; Family                             ; Cyclone IV E                                  ;
-; Device                             ; EP4CE115F29C7                                 ;
-; Timing Models                      ; Final                                         ;
-; Total logic elements               ; 3,114 / 114,480 ( 3 % )                       ;
-;     Total combinational functions  ; 2,943 / 114,480 ( 3 % )                       ;
-;     Dedicated logic registers      ; 1,716 / 114,480 ( 1 % )                       ;
-; Total registers                    ; 1810                                          ;
-; Total pins                         ; 147 / 529 ( 28 % )                            ;
-; Total virtual pins                 ; 0                                             ;
-; Total memory bits                  ; 160,768 / 3,981,312 ( 4 % )                   ;
-; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                               ;
-; Total PLLs                         ; 1 / 4 ( 25 % )                                ;
-+------------------------------------+-----------------------------------------------+
++----------------------------------------------------------------------------------+
+; Flow Summary                                                                     ;
++------------------------------------+---------------------------------------------+
+; Flow Status                        ; Successful - Sun Apr 16 21:20:54 2017       ;
+; Quartus Prime Version              ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
+; Revision Name                      ; Example_4_Video_In                          ;
+; Top-level Entity Name              ; Example_4_Video_In                          ;
+; Family                             ; Cyclone IV E                                ;
+; Device                             ; EP4CE115F29C7                               ;
+; Timing Models                      ; Final                                       ;
+; Total logic elements               ; 3,411 / 114,480 ( 3 % )                     ;
+;     Total combinational functions  ; 3,164 / 114,480 ( 3 % )                     ;
+;     Dedicated logic registers      ; 1,964 / 114,480 ( 2 % )                     ;
+; Total registers                    ; 2058                                        ;
+; Total pins                         ; 147 / 529 ( 28 % )                          ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 170,992 / 3,981,312 ( 4 % )                 ;
+; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                             ;
+; Total PLLs                         ; 1 / 4 ( 25 % )                              ;
++------------------------------------+---------------------------------------------+
 
 
 +-----------------------------------------+
@@ -62,28 +65,34 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/16/2017 16:15:44 ;
+; Start date & time ; 04/16/2017 21:19:23 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Example_4_Video_In  ;
 +-------------------+---------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                                                                                                                                ;
-+-------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+-------------+----------------+
-; Assignment Name                     ; Value                                                                                                                                                      ; Default Value ; Entity Name ; Section Id     ;
-+-------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 48751579384293.149237734409832                                                                                                                             ; --            ; --          ; --             ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                                                                                                                                         ; --            ; --          ; --             ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                                                                                                                                          ; --            ; --          ; --             ;
-; MISC_FILE                           ; C:/Users/William/Desktop/Altera/University_Program/Examples/IP_Core_Demos/Video_Demos_using_Qsys/DE2-115/Example_4_Video_In/verilog/Example_4_Video_In.dpf ; --            ; --          ; --             ;
-; PARTITION_COLOR                     ; 16764057                                                                                                                                                   ; --            ; --          ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                                                                                                                                      ; --            ; --          ; Top            ;
-; PARTITION_NETLIST_TYPE              ; SOURCE                                                                                                                                                     ; --            ; --          ; Top            ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                                                                                                                        ; --            ; --          ; --             ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                                                                                                                      ; --            ; --          ; --             ;
-; USE_GENERATED_PHYSICAL_CONSTRAINTS  ; Off                                                                                                                                                        ; --            ; --          ; eda_blast_fpga ;
-+-------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+-------------+----------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                                                                                                                                 ;
++-------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+--------------+----------------+
+; Assignment Name                     ; Value                                                                                                                                                      ; Default Value ; Entity Name  ; Section Id     ;
++-------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+--------------+----------------+
+; COMPILER_SIGNATURE_ID               ; 233360581925958.149239556314832                                                                                                                            ; --            ; --           ; --             ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                                                                                                                                         ; --            ; --           ; --             ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                                                                                                                                          ; --            ; --           ; --             ;
+; MISC_FILE                           ; C:/Users/William/Desktop/Altera/University_Program/Examples/IP_Core_Demos/Video_Demos_using_Qsys/DE2-115/Example_4_Video_In/verilog/Example_4_Video_In.dpf ; --            ; --           ; --             ;
+; MISC_FILE                           ; Video_System/synthesis/../Video_System.cmp                                                                                                                 ; --            ; --           ; --             ;
+; MISC_FILE                           ; Video_System/synthesis/../../Video_System.qsys                                                                                                             ; --            ; --           ; --             ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family)                                                                                                                     ; --            ; --           ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                                                                                                                     ; --            ; --           ; Top            ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                                                                                                                     ; --            ; --           ; Top            ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                                                                                                                        ; --            ; --           ; --             ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                                                                                                                      ; --            ; --           ; --             ;
+; SLD_FILE                            ; Video_System/synthesis/Video_System.debuginfo                                                                                                              ; --            ; --           ; --             ;
+; SLD_INFO                            ; QSYS_NAME Video_System HAS_SOPCINFO 1 GENERATION_ID 1492394993                                                                                             ; --            ; Video_System ; --             ;
+; SOPCINFO_FILE                       ; Video_System/synthesis/../../Video_System.sopcinfo                                                                                                         ; --            ; --           ; --             ;
+; SYNTHESIS_ONLY_QIP                  ; On                                                                                                                                                         ; --            ; --           ; --             ;
+; USE_GENERATED_PHYSICAL_CONSTRAINTS  ; Off                                                                                                                                                        ; --            ; --           ; eda_blast_fpga ;
++-------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+--------------+----------------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------+
@@ -91,24 +100,24 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:23     ; 1.0                     ; 386 MB              ; 00:00:20                           ;
-; Fitter                    ; 00:00:23     ; 1.0                     ; 536 MB              ; 00:00:20                           ;
-; TimeQuest Timing Analyzer ; 00:00:07     ; 1.0                     ; 381 MB              ; 00:00:06                           ;
-; Assembler                 ; 00:00:07     ; 1.0                     ; 514 MB              ; 00:00:06                           ;
-; Total                     ; 00:01:00     ; --                      ; --                  ; 00:00:52                           ;
+; Analysis & Synthesis      ; 00:00:49     ; 1.0                     ; 819 MB              ; 00:01:09                           ;
+; Fitter                    ; 00:00:21     ; 1.0                     ; 1638 MB             ; 00:00:27                           ;
+; Assembler                 ; 00:00:05     ; 1.0                     ; 590 MB              ; 00:00:05                           ;
+; TimeQuest Timing Analyzer ; 00:00:05     ; 1.2                     ; 773 MB              ; 00:00:04                           ;
+; Total                     ; 00:01:20     ; --                      ; --                  ; 00:01:45                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+----------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                        ;
-+---------------------------+------------------+-----------+------------+----------------+
-; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
-+---------------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis      ; Desktop          ; Windows 7 ; 6.2        ; x86_64         ;
-; Fitter                    ; Desktop          ; Windows 7 ; 6.2        ; x86_64         ;
-; TimeQuest Timing Analyzer ; Desktop          ; Windows 7 ; 6.2        ; x86_64         ;
-; Assembler                 ; Desktop          ; Windows 7 ; 6.2        ; x86_64         ;
-+---------------------------+------------------+-----------+------------+----------------+
++-----------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                         ;
++---------------------------+------------------+------------+------------+----------------+
+; Module Name               ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
++---------------------------+------------------+------------+------------+----------------+
+; Analysis & Synthesis      ; CollegeDesktop   ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter                    ; CollegeDesktop   ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler                 ; CollegeDesktop   ; Windows 10 ; 10.0       ; x86_64         ;
+; TimeQuest Timing Analyzer ; CollegeDesktop   ; Windows 10 ; 10.0       ; x86_64         ;
++---------------------------+------------------+------------+------------+----------------+
 
 
 ------------
@@ -116,8 +125,8 @@ applicable agreement for further details.
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off Example_4_Video_In -c Example_4_Video_In
 quartus_fit --read_settings_files=off --write_settings_files=off Example_4_Video_In -c Example_4_Video_In
-quartus_sta Example_4_Video_In -c Example_4_Video_In
 quartus_asm --read_settings_files=off --write_settings_files=off Example_4_Video_In -c Example_4_Video_In
+quartus_sta Example_4_Video_In -c Example_4_Video_In
 
 
 

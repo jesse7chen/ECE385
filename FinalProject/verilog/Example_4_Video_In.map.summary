@@ -1,14 +1,14 @@
-Analysis & Synthesis Status : Successful - Sun Apr 16 16:16:09 2017
-Quartus II Version : 11.0 Build 208 07/03/2011 SP 1 SJ Web Edition
+Analysis & Synthesis Status : Successful - Sun Apr 16 21:20:15 2017
+Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 Revision Name : Example_4_Video_In
 Top-level Entity Name : Example_4_Video_In
 Family : Cyclone IV E
-Total logic elements : 3,242
-    Total combinational functions : 2,939
-    Dedicated logic registers : 1,810
-Total registers : 1810
+Total logic elements : 3,566
+    Total combinational functions : 3,159
+    Dedicated logic registers : 2,058
+Total registers : 2058
 Total pins : 147
 Total virtual pins : 0
-Total memory bits : 160,768
+Total memory bits : 170,992
 Embedded Multiplier 9-bit elements : 0
 Total PLLs : 1

@@ -88,21 +88,17 @@ module Video_System_CPU_jtag_debug_module_tck (
   input            vs_sdr;
   input            vs_uir;
 
-  reg     [  2: 0] DRsize /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
-  wire             debugack_sync;
-  reg     [  1: 0] ir_out;
-  wire             jrst_n;
-  wire             monitor_ready_sync;
-  reg     [ 37: 0] sr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
-  wire             st_ready_test_idle;
-  wire             tdo;
-<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_CPU_jtag_debug_module_tck.v
-  wire             unxcomplemented_resetxx0;
-  wire             unxcomplemented_resetxx1;
-=======
-  wire             unxcomplemented_resetxx1;
-  wire             unxcomplemented_resetxx2;
->>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_nios2_qsys_0_cpu_debug_slave_tck.v
+
+reg     [  2: 0] DRsize /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+wire             debugack_sync;
+reg     [  1: 0] ir_out;
+wire             jrst_n;
+wire             monitor_ready_sync;
+reg     [ 37: 0] sr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
+wire             st_ready_test_idle;
+wire             tdo;
+wire             unxcomplemented_resetxx1;
+wire             unxcomplemented_resetxx2;
   always @(posedge tck)
     begin
       if (vs_cdr)
@@ -133,8 +129,7 @@ module Video_System_CPU_jtag_debug_module_tck (
               end // 2'b10 
           
               2'b11: begin
-                  sr[15 : 12] <= 1'b0;
-                  sr[11 : 2] <= trc_im_addr;
+                  sr[15 : 2] <= trc_im_addr;
                   sr[1] <= trc_wrap;
                   sr[0] <= trc_on;
               end // 2'b11 
@@ -197,27 +192,27 @@ module Video_System_CPU_jtag_debug_module_tck (
 
   assign tdo = sr[0];
   assign st_ready_test_idle = jtag_state_rti;
-  assign unxcomplemented_resetxx0 = jrst_n;
-  altera_std_synchronizer the_altera_std_synchronizer
-    (
-      .clk (tck),
-      .din (debugack),
-      .dout (debugack_sync),
-      .reset_n (unxcomplemented_resetxx0)
-    );
-
-  defparam the_altera_std_synchronizer.depth = 2;
-
   assign unxcomplemented_resetxx1 = jrst_n;
   altera_std_synchronizer the_altera_std_synchronizer1
     (
       .clk (tck),
-      .din (monitor_ready),
-      .dout (monitor_ready_sync),
+      .din (debugack),
+      .dout (debugack_sync),
       .reset_n (unxcomplemented_resetxx1)
     );
 
   defparam the_altera_std_synchronizer1.depth = 2;
+
+  assign unxcomplemented_resetxx2 = jrst_n;
+  altera_std_synchronizer the_altera_std_synchronizer2
+    (
+      .clk (tck),
+      .din (monitor_ready),
+      .dout (monitor_ready_sync),
+      .reset_n (unxcomplemented_resetxx2)
+    );
+
+  defparam the_altera_std_synchronizer2.depth = 2;
 
   always @(posedge tck or negedge jrst_n)
     begin

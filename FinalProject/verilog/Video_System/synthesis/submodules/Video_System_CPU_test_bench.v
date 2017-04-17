@@ -24,25 +24,13 @@ module Video_System_CPU_test_bench (
                                       D_iw_op,
                                       D_iw_opx,
                                       D_valid,
-                                      E_alu_result,
-                                      E_mem_byte_en,
-                                      E_st_data,
                                       E_valid,
                                       F_pcb,
                                       F_valid,
-                                      R_ctrl_exception,
                                       R_ctrl_ld,
                                       R_ctrl_ld_non_io,
                                       R_dst_regnum,
                                       R_wr_dst_reg,
-                                      W_bstatus_reg,
-                                      W_cmp_result,
-                                      W_estatus_reg,
-                                      W_ienable_reg,
-                                      W_ipending_reg,
-                                      W_mem_baddr,
-                                      W_rf_wr_data,
-                                      W_status_reg,
                                       W_valid,
                                       W_vinst,
                                       W_wr_data,
@@ -51,7 +39,7 @@ module Video_System_CPU_test_bench (
                                       d_address,
                                       d_byteenable,
                                       d_read,
-                                      d_write_nxt,
+                                      d_write,
                                       i_address,
                                       i_read,
                                       i_readdata,
@@ -60,37 +48,23 @@ module Video_System_CPU_test_bench (
 
                                      // outputs:
                                       av_ld_data_aligned_filtered,
-                                      d_write,
                                       test_has_ended
                                    )
 ;
 
   output  [ 31: 0] av_ld_data_aligned_filtered;
-  output           d_write;
   output           test_has_ended;
   input   [ 31: 0] D_iw;
   input   [  5: 0] D_iw_op;
   input   [  5: 0] D_iw_opx;
   input            D_valid;
-  input   [ 31: 0] E_alu_result;
-  input   [  3: 0] E_mem_byte_en;
-  input   [ 31: 0] E_st_data;
   input            E_valid;
   input   [ 21: 0] F_pcb;
   input            F_valid;
-  input            R_ctrl_exception;
   input            R_ctrl_ld;
   input            R_ctrl_ld_non_io;
   input   [  4: 0] R_dst_regnum;
   input            R_wr_dst_reg;
-  input            W_bstatus_reg;
-  input            W_cmp_result;
-  input            W_estatus_reg;
-  input   [ 31: 0] W_ienable_reg;
-  input   [ 31: 0] W_ipending_reg;
-  input   [ 21: 0] W_mem_baddr;
-  input   [ 31: 0] W_rf_wr_data;
-  input            W_status_reg;
   input            W_valid;
   input   [ 55: 0] W_vinst;
   input   [ 31: 0] W_wr_data;
@@ -99,176 +73,176 @@ module Video_System_CPU_test_bench (
   input   [ 21: 0] d_address;
   input   [  3: 0] d_byteenable;
   input            d_read;
-  input            d_write_nxt;
+  input            d_write;
   input   [ 21: 0] i_address;
   input            i_read;
   input   [ 31: 0] i_readdata;
   input            i_waitrequest;
   input            reset_n;
 
-  wire             D_op_add;
-  wire             D_op_addi;
-  wire             D_op_and;
-  wire             D_op_andhi;
-  wire             D_op_andi;
-  wire             D_op_beq;
-  wire             D_op_bge;
-  wire             D_op_bgeu;
-  wire             D_op_blt;
-  wire             D_op_bltu;
-  wire             D_op_bne;
-  wire             D_op_br;
-  wire             D_op_break;
-  wire             D_op_bret;
-  wire             D_op_call;
-  wire             D_op_callr;
-  wire             D_op_cmpeq;
-  wire             D_op_cmpeqi;
-  wire             D_op_cmpge;
-  wire             D_op_cmpgei;
-  wire             D_op_cmpgeu;
-  wire             D_op_cmpgeui;
-  wire             D_op_cmplt;
-  wire             D_op_cmplti;
-  wire             D_op_cmpltu;
-  wire             D_op_cmpltui;
-  wire             D_op_cmpne;
-  wire             D_op_cmpnei;
-  wire             D_op_crst;
-  wire             D_op_custom;
-  wire             D_op_div;
-  wire             D_op_divu;
-  wire             D_op_eret;
-  wire             D_op_flushd;
-  wire             D_op_flushda;
-  wire             D_op_flushi;
-  wire             D_op_flushp;
-  wire             D_op_hbreak;
-  wire             D_op_initd;
-  wire             D_op_initda;
-  wire             D_op_initi;
-  wire             D_op_intr;
-  wire             D_op_jmp;
-  wire             D_op_jmpi;
-  wire             D_op_ldb;
-  wire             D_op_ldbio;
-  wire             D_op_ldbu;
-  wire             D_op_ldbuio;
-  wire             D_op_ldh;
-  wire             D_op_ldhio;
-  wire             D_op_ldhu;
-  wire             D_op_ldhuio;
-  wire             D_op_ldl;
-  wire             D_op_ldw;
-  wire             D_op_ldwio;
-  wire             D_op_mul;
-  wire             D_op_muli;
-  wire             D_op_mulxss;
-  wire             D_op_mulxsu;
-  wire             D_op_mulxuu;
-  wire             D_op_nextpc;
-  wire             D_op_nor;
-  wire             D_op_opx;
-  wire             D_op_or;
-  wire             D_op_orhi;
-  wire             D_op_ori;
-  wire             D_op_rdctl;
-  wire             D_op_rdprs;
-  wire             D_op_ret;
-  wire             D_op_rol;
-  wire             D_op_roli;
-  wire             D_op_ror;
-  wire             D_op_rsv02;
-  wire             D_op_rsv09;
-  wire             D_op_rsv10;
-  wire             D_op_rsv17;
-  wire             D_op_rsv18;
-  wire             D_op_rsv25;
-  wire             D_op_rsv26;
-  wire             D_op_rsv33;
-  wire             D_op_rsv34;
-  wire             D_op_rsv41;
-  wire             D_op_rsv42;
-  wire             D_op_rsv49;
-  wire             D_op_rsv57;
-  wire             D_op_rsv61;
-  wire             D_op_rsv62;
-  wire             D_op_rsv63;
-  wire             D_op_rsvx00;
-  wire             D_op_rsvx10;
-  wire             D_op_rsvx15;
-  wire             D_op_rsvx17;
-  wire             D_op_rsvx21;
-  wire             D_op_rsvx25;
-  wire             D_op_rsvx33;
-  wire             D_op_rsvx34;
-  wire             D_op_rsvx35;
-  wire             D_op_rsvx42;
-  wire             D_op_rsvx43;
-  wire             D_op_rsvx44;
-  wire             D_op_rsvx47;
-  wire             D_op_rsvx50;
-  wire             D_op_rsvx51;
-  wire             D_op_rsvx55;
-  wire             D_op_rsvx56;
-  wire             D_op_rsvx60;
-  wire             D_op_rsvx63;
-  wire             D_op_sll;
-  wire             D_op_slli;
-  wire             D_op_sra;
-  wire             D_op_srai;
-  wire             D_op_srl;
-  wire             D_op_srli;
-  wire             D_op_stb;
-  wire             D_op_stbio;
-  wire             D_op_stc;
-  wire             D_op_sth;
-  wire             D_op_sthio;
-  wire             D_op_stw;
-  wire             D_op_stwio;
-  wire             D_op_sub;
-  wire             D_op_sync;
-  wire             D_op_trap;
-  wire             D_op_wrctl;
-  wire             D_op_wrprs;
-  wire             D_op_xor;
-  wire             D_op_xorhi;
-  wire             D_op_xori;
-  wire    [ 31: 0] av_ld_data_aligned_filtered;
-  wire             av_ld_data_aligned_unfiltered_0_is_x;
-  wire             av_ld_data_aligned_unfiltered_10_is_x;
-  wire             av_ld_data_aligned_unfiltered_11_is_x;
-  wire             av_ld_data_aligned_unfiltered_12_is_x;
-  wire             av_ld_data_aligned_unfiltered_13_is_x;
-  wire             av_ld_data_aligned_unfiltered_14_is_x;
-  wire             av_ld_data_aligned_unfiltered_15_is_x;
-  wire             av_ld_data_aligned_unfiltered_16_is_x;
-  wire             av_ld_data_aligned_unfiltered_17_is_x;
-  wire             av_ld_data_aligned_unfiltered_18_is_x;
-  wire             av_ld_data_aligned_unfiltered_19_is_x;
-  wire             av_ld_data_aligned_unfiltered_1_is_x;
-  wire             av_ld_data_aligned_unfiltered_20_is_x;
-  wire             av_ld_data_aligned_unfiltered_21_is_x;
-  wire             av_ld_data_aligned_unfiltered_22_is_x;
-  wire             av_ld_data_aligned_unfiltered_23_is_x;
-  wire             av_ld_data_aligned_unfiltered_24_is_x;
-  wire             av_ld_data_aligned_unfiltered_25_is_x;
-  wire             av_ld_data_aligned_unfiltered_26_is_x;
-  wire             av_ld_data_aligned_unfiltered_27_is_x;
-  wire             av_ld_data_aligned_unfiltered_28_is_x;
-  wire             av_ld_data_aligned_unfiltered_29_is_x;
-  wire             av_ld_data_aligned_unfiltered_2_is_x;
-  wire             av_ld_data_aligned_unfiltered_30_is_x;
-  wire             av_ld_data_aligned_unfiltered_31_is_x;
-  wire             av_ld_data_aligned_unfiltered_3_is_x;
-  wire             av_ld_data_aligned_unfiltered_4_is_x;
-  wire             av_ld_data_aligned_unfiltered_5_is_x;
-  wire             av_ld_data_aligned_unfiltered_6_is_x;
-  wire             av_ld_data_aligned_unfiltered_7_is_x;
-  wire             av_ld_data_aligned_unfiltered_8_is_x;
-  wire             av_ld_data_aligned_unfiltered_9_is_x;
-  reg              d_write;
-  wire             test_has_ended;
+
+wire             D_op_add;
+wire             D_op_addi;
+wire             D_op_and;
+wire             D_op_andhi;
+wire             D_op_andi;
+wire             D_op_beq;
+wire             D_op_bge;
+wire             D_op_bgeu;
+wire             D_op_blt;
+wire             D_op_bltu;
+wire             D_op_bne;
+wire             D_op_br;
+wire             D_op_break;
+wire             D_op_bret;
+wire             D_op_call;
+wire             D_op_callr;
+wire             D_op_cmpeq;
+wire             D_op_cmpeqi;
+wire             D_op_cmpge;
+wire             D_op_cmpgei;
+wire             D_op_cmpgeu;
+wire             D_op_cmpgeui;
+wire             D_op_cmplt;
+wire             D_op_cmplti;
+wire             D_op_cmpltu;
+wire             D_op_cmpltui;
+wire             D_op_cmpne;
+wire             D_op_cmpnei;
+wire             D_op_crst;
+wire             D_op_custom;
+wire             D_op_div;
+wire             D_op_divu;
+wire             D_op_eret;
+wire             D_op_flushd;
+wire             D_op_flushda;
+wire             D_op_flushi;
+wire             D_op_flushp;
+wire             D_op_hbreak;
+wire             D_op_initd;
+wire             D_op_initda;
+wire             D_op_initi;
+wire             D_op_intr;
+wire             D_op_jmp;
+wire             D_op_jmpi;
+wire             D_op_ldb;
+wire             D_op_ldbio;
+wire             D_op_ldbu;
+wire             D_op_ldbuio;
+wire             D_op_ldh;
+wire             D_op_ldhio;
+wire             D_op_ldhu;
+wire             D_op_ldhuio;
+wire             D_op_ldl;
+wire             D_op_ldw;
+wire             D_op_ldwio;
+wire             D_op_mul;
+wire             D_op_muli;
+wire             D_op_mulxss;
+wire             D_op_mulxsu;
+wire             D_op_mulxuu;
+wire             D_op_nextpc;
+wire             D_op_nor;
+wire             D_op_opx;
+wire             D_op_or;
+wire             D_op_orhi;
+wire             D_op_ori;
+wire             D_op_rdctl;
+wire             D_op_rdprs;
+wire             D_op_ret;
+wire             D_op_rol;
+wire             D_op_roli;
+wire             D_op_ror;
+wire             D_op_rsv02;
+wire             D_op_rsv09;
+wire             D_op_rsv10;
+wire             D_op_rsv17;
+wire             D_op_rsv18;
+wire             D_op_rsv25;
+wire             D_op_rsv26;
+wire             D_op_rsv33;
+wire             D_op_rsv34;
+wire             D_op_rsv41;
+wire             D_op_rsv42;
+wire             D_op_rsv49;
+wire             D_op_rsv57;
+wire             D_op_rsv61;
+wire             D_op_rsv62;
+wire             D_op_rsv63;
+wire             D_op_rsvx00;
+wire             D_op_rsvx10;
+wire             D_op_rsvx15;
+wire             D_op_rsvx17;
+wire             D_op_rsvx21;
+wire             D_op_rsvx25;
+wire             D_op_rsvx33;
+wire             D_op_rsvx34;
+wire             D_op_rsvx35;
+wire             D_op_rsvx42;
+wire             D_op_rsvx43;
+wire             D_op_rsvx44;
+wire             D_op_rsvx47;
+wire             D_op_rsvx50;
+wire             D_op_rsvx51;
+wire             D_op_rsvx55;
+wire             D_op_rsvx56;
+wire             D_op_rsvx60;
+wire             D_op_rsvx63;
+wire             D_op_sll;
+wire             D_op_slli;
+wire             D_op_sra;
+wire             D_op_srai;
+wire             D_op_srl;
+wire             D_op_srli;
+wire             D_op_stb;
+wire             D_op_stbio;
+wire             D_op_stc;
+wire             D_op_sth;
+wire             D_op_sthio;
+wire             D_op_stw;
+wire             D_op_stwio;
+wire             D_op_sub;
+wire             D_op_sync;
+wire             D_op_trap;
+wire             D_op_wrctl;
+wire             D_op_wrprs;
+wire             D_op_xor;
+wire             D_op_xorhi;
+wire             D_op_xori;
+wire    [ 31: 0] av_ld_data_aligned_filtered;
+wire             av_ld_data_aligned_unfiltered_0_is_x;
+wire             av_ld_data_aligned_unfiltered_10_is_x;
+wire             av_ld_data_aligned_unfiltered_11_is_x;
+wire             av_ld_data_aligned_unfiltered_12_is_x;
+wire             av_ld_data_aligned_unfiltered_13_is_x;
+wire             av_ld_data_aligned_unfiltered_14_is_x;
+wire             av_ld_data_aligned_unfiltered_15_is_x;
+wire             av_ld_data_aligned_unfiltered_16_is_x;
+wire             av_ld_data_aligned_unfiltered_17_is_x;
+wire             av_ld_data_aligned_unfiltered_18_is_x;
+wire             av_ld_data_aligned_unfiltered_19_is_x;
+wire             av_ld_data_aligned_unfiltered_1_is_x;
+wire             av_ld_data_aligned_unfiltered_20_is_x;
+wire             av_ld_data_aligned_unfiltered_21_is_x;
+wire             av_ld_data_aligned_unfiltered_22_is_x;
+wire             av_ld_data_aligned_unfiltered_23_is_x;
+wire             av_ld_data_aligned_unfiltered_24_is_x;
+wire             av_ld_data_aligned_unfiltered_25_is_x;
+wire             av_ld_data_aligned_unfiltered_26_is_x;
+wire             av_ld_data_aligned_unfiltered_27_is_x;
+wire             av_ld_data_aligned_unfiltered_28_is_x;
+wire             av_ld_data_aligned_unfiltered_29_is_x;
+wire             av_ld_data_aligned_unfiltered_2_is_x;
+wire             av_ld_data_aligned_unfiltered_30_is_x;
+wire             av_ld_data_aligned_unfiltered_31_is_x;
+wire             av_ld_data_aligned_unfiltered_3_is_x;
+wire             av_ld_data_aligned_unfiltered_4_is_x;
+wire             av_ld_data_aligned_unfiltered_5_is_x;
+wire             av_ld_data_aligned_unfiltered_6_is_x;
+wire             av_ld_data_aligned_unfiltered_7_is_x;
+wire             av_ld_data_aligned_unfiltered_8_is_x;
+wire             av_ld_data_aligned_unfiltered_9_is_x;
+wire             test_has_ended;
   assign D_op_call = D_iw_op == 0;
   assign D_op_jmpi = D_iw_op == 1;
   assign D_op_ldbu = D_iw_op == 3;
@@ -397,15 +371,6 @@ module Video_System_CPU_test_bench (
   assign D_op_rsvx63 = D_op_opx & (D_iw_opx == 63);
   assign D_op_opx = D_iw_op == 58;
   assign D_op_custom = D_iw_op == 50;
-  always @(posedge clk or negedge reset_n)
-    begin
-      if (reset_n == 0)
-          d_write <= 0;
-      else 
-        d_write <= d_write_nxt;
-    end
-
-
   assign test_has_ended = 1'b0;
 
 //synthesis translate_off
@@ -674,20 +639,6 @@ module Video_System_CPU_test_bench (
             begin
               $write("%0d ns: WARNING: Video_System_CPU_test_bench/W_wr_data is 'x'\n", $time);
             end
-    end
-
-
-  
-  reg [31:0] trace_handle; // for $fopen
-  initial  
-  begin
-    trace_handle = $fopen("Video_System_CPU.tr");
-    $fwrite(trace_handle, "version 3\nnumThreads 1\n");
-  end
-  always @(posedge clk)
-    begin
-      if ((~reset_n || (W_valid)) && ~test_has_ended)
-          $fwrite(trace_handle, "%0d ns: %0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h,%0h\n", $time, ~reset_n, F_pcb, 0, D_op_intr, D_op_hbreak, D_iw, ~(D_op_intr | D_op_hbreak), R_wr_dst_reg, R_dst_regnum, 0, W_rf_wr_data, W_mem_baddr, E_st_data, E_mem_byte_en, W_cmp_result, E_alu_result, W_status_reg, W_estatus_reg, W_bstatus_reg, W_ienable_reg, W_ipending_reg, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, R_ctrl_exception, 0, 0, 0, 0);
     end
 
 

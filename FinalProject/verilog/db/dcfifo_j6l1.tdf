@@ -1,37 +1,21 @@
 --dcfifo_mixed_widths CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48 DEVICE_FAMILY="Cyclone IV E" IGNORE_CARRY_BUFFERS="OFF" LPM_NUMWORDS=128 LPM_SHOWAHEAD="ON" LPM_WIDTH=10 LPM_WIDTH_R=10 LPM_WIDTHU=7 LPM_WIDTHU_R=7 MAXIMIZE_SPEED=5 OVERFLOW_CHECKING="ON" RDSYNC_DELAYPIPE=4 UNDERFLOW_CHECKING="ON" USE_EAB="ON" WRSYNC_DELAYPIPE=4 data q rdclk rdempty rdreq rdusedw wrclk wrfull wrreq wrusedw CYCLONEII_M4K_COMPATIBILITY="ON" INTENDED_DEVICE_FAMILY="Cyclone II" LOW_POWER_MODE="AUTO" lpm_hint="MAXIMIZE_SPEED=5," ALTERA_INTERNAL_OPTIONS=AUTO_SHIFT_REGISTER_RECOGNITION=OFF
-<<<<<<< HEAD:FinalProject/verilog/db/dcfifo_j6l1.tdf
---VERSION_BEGIN 11.0SP1 cbx_a_gray2bin 2011:07:03:21:07:09:SJ cbx_a_graycounter 2011:07:03:21:07:09:SJ cbx_altdpram 2011:07:03:21:07:09:SJ cbx_altsyncram 2011:07:03:21:07:09:SJ cbx_cycloneii 2011:07:03:21:07:09:SJ cbx_dcfifo 2011:07:03:21:07:09:SJ cbx_fifo_common 2011:07:03:21:07:09:SJ cbx_lpm_add_sub 2011:07:03:21:07:09:SJ cbx_lpm_compare 2011:07:03:21:07:09:SJ cbx_lpm_counter 2011:07:03:21:07:09:SJ cbx_lpm_decode 2011:07:03:21:07:09:SJ cbx_lpm_mux 2011:07:03:21:07:09:SJ cbx_mgl 2011:07:03:21:10:12:SJ cbx_scfifo 2011:07:03:21:07:09:SJ cbx_stratix 2011:07:03:21:07:09:SJ cbx_stratixii 2011:07:03:21:07:09:SJ cbx_stratixiii 2011:07:03:21:07:09:SJ cbx_stratixv 2011:07:03:21:07:09:SJ cbx_util_mgl 2011:07:03:21:07:09:SJ  VERSION_END
+--VERSION_BEGIN 16.1 cbx_a_gray2bin 2016:10:24:15:04:16:SJ cbx_a_graycounter 2016:10:24:15:04:16:SJ cbx_altdpram 2016:10:24:15:04:16:SJ cbx_altera_counter 2016:10:24:15:04:16:SJ cbx_altera_gray_counter 2016:10:24:15:04:16:SJ cbx_altera_syncram 2016:10:24:15:04:16:SJ cbx_altera_syncram_nd_impl 2016:10:24:15:04:16:SJ cbx_altsyncram 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_dcfifo 2016:10:24:15:04:16:SJ cbx_fifo_common 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_counter 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_lpm_mux 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_scfifo 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ cbx_stratixiii 2016:10:24:15:04:16:SJ cbx_stratixv 2016:10:24:15:04:16:SJ cbx_util_mgl 2016:10:24:15:04:16:SJ  VERSION_END
 
 
--- Copyright (C) 1991-2011 Altera Corporation
-=======
---VERSION_BEGIN 15.0 cbx_a_gray2bin 2015:04:22:18:04:07:SJ cbx_a_graycounter 2015:04:22:18:04:07:SJ cbx_altdpram 2015:04:22:18:04:07:SJ cbx_altsyncram 2015:04:22:18:04:07:SJ cbx_cycloneii 2015:04:22:18:04:07:SJ cbx_dcfifo 2015:04:22:18:04:07:SJ cbx_fifo_common 2015:04:22:18:04:07:SJ cbx_lpm_add_sub 2015:04:22:18:04:07:SJ cbx_lpm_compare 2015:04:22:18:04:07:SJ cbx_lpm_counter 2015:04:22:18:04:07:SJ cbx_lpm_decode 2015:04:22:18:04:08:SJ cbx_lpm_mux 2015:04:22:18:04:08:SJ cbx_mgl 2015:04:22:18:06:50:SJ cbx_scfifo 2015:04:22:18:04:08:SJ cbx_stratix 2015:04:22:18:04:08:SJ cbx_stratixii 2015:04:22:18:04:08:SJ cbx_stratixiii 2015:04:22:18:04:08:SJ cbx_stratixv 2015:04:22:18:04:08:SJ cbx_util_mgl 2015:04:22:18:04:08:SJ  VERSION_END
-
-
--- Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
->>>>>>> origin/master:FinalProject/db/dcfifo_j6l1.tdf
---  Your use of Altera Corporation's design tools, logic functions 
+-- Copyright (C) 2016  Intel Corporation. All rights reserved.
+--  Your use of Intel Corporation's design tools, logic functions 
 --  and other software and tools, and its AMPP partner logic 
 --  functions, and any output files from any of the foregoing 
 --  (including device programming or simulation files), and any 
 --  associated documentation or information are expressly subject 
---  to the terms and conditions of the Altera Program License 
-<<<<<<< HEAD:FinalProject/verilog/db/dcfifo_j6l1.tdf
---  Subscription Agreement, Altera MegaCore Function License 
---  Agreement, or other applicable license agreement, including, 
---  without limitation, that your use is for the sole purpose of 
---  programming logic devices manufactured by Altera and sold by 
---  Altera or its authorized distributors.  Please refer to the 
---  applicable agreement for further details.
-=======
---  Subscription Agreement, the Altera Quartus II License Agreement,
---  the Altera MegaCore Function License Agreement, or other 
+--  to the terms and conditions of the Intel Program License 
+--  Subscription Agreement, the Intel Quartus Prime License Agreement,
+--  the Intel MegaCore Function License Agreement, or other 
 --  applicable license agreement, including, without limitation, 
 --  that your use is for the sole purpose of programming logic 
---  devices manufactured by Altera and sold by Altera or its 
+--  devices manufactured by Intel and sold by Intel or its 
 --  authorized distributors.  Please refer to the applicable 
 --  agreement for further details.
->>>>>>> origin/master:FinalProject/db/dcfifo_j6l1.tdf
 
 
 FUNCTION a_gray2bin_tgb (gray[7..0])
@@ -40,25 +24,19 @@ FUNCTION a_graycounter_qn6 (clock, cnt_en)
 RETURNS ( q[7..0]);
 FUNCTION a_graycounter_m5c (clock, cnt_en)
 RETURNS ( q[7..0]);
-FUNCTION altsyncram_hou (address_a[6..0], address_b[6..0], addressstall_b, clock0, clock1, data_a[9..0], wren_a)
+FUNCTION altsyncram_b421 (address_a[6..0], address_b[6..0], addressstall_b, clock0, clock1, data_a[9..0], wren_a)
 RETURNS ( q_b[9..0]);
 FUNCTION dffpipe_0v8 (clock, d[7..0])
 RETURNS ( q[7..0]);
-<<<<<<< HEAD:FinalProject/verilog/db/dcfifo_j6l1.tdf
-FUNCTION alt_synch_pipe_46d (clock, d[7..0])
+FUNCTION alt_synch_pipe_i9l (clock, d[7..0])
 RETURNS ( q[7..0]);
-FUNCTION alt_synch_pipe_56d (clock, d[7..0])
-=======
-FUNCTION alt_synch_pipe_26d (clock, d[7..0])
-RETURNS ( q[7..0]);
-FUNCTION alt_synch_pipe_36d (clock, d[7..0])
->>>>>>> origin/master:FinalProject/db/dcfifo_j6l1.tdf
+FUNCTION alt_synch_pipe_j9l (clock, d[7..0])
 RETURNS ( q[7..0]);
 FUNCTION cmpr_e66 (dataa[7..0], datab[7..0])
 RETURNS ( aeb);
 
 --synthesis_resources = lut 18 M9K 1 reg 56 
-OPTIONS ALTERA_INTERNAL_OPTION = "AUTO_SHIFT_REGISTER_RECOGNITION=OFF;REMOVE_DUPLICATE_REGISTERS=OFF;SYNCHRONIZER_IDENTIFICATION=OFF;SYNCHRONIZATION_REGISTER_CHAIN_LENGTH = 2;suppress_da_rule_internal=d101;suppress_da_rule_internal=d102;{-to wrptr_g} suppress_da_rule_internal=S102;{-to wrptr_g} POWER_UP_LEVEL=LOW;-name CUT ON -from rdptr_g -to ws_dgrp|dffpipe9|dffe10a;-name SDC_STATEMENT ""set_false_path -from *rdptr_g* -to *ws_dgrp|dffpipe_4v8:dffpipe9|dffe10a* "";-name CUT ON -from delayed_wrptr_g -to rs_dgwp|dffpipe6|dffe7a;-name SDC_STATEMENT ""set_false_path -from *delayed_wrptr_g* -to *rs_dgwp|dffpipe_3v8:dffpipe6|dffe7a* """;
+OPTIONS ALTERA_INTERNAL_OPTION = "AUTO_SHIFT_REGISTER_RECOGNITION=OFF;REMOVE_DUPLICATE_REGISTERS=OFF;SYNCHRONIZER_IDENTIFICATION=OFF;SYNCHRONIZATION_REGISTER_CHAIN_LENGTH = 2;suppress_da_rule_internal=d101;suppress_da_rule_internal=d102;suppress_da_rule_internal=d103;{-to wrptr_g} suppress_da_rule_internal=S102;{-to wrptr_g} POWER_UP_LEVEL=LOW;-name CUT ON -from rdptr_g -to ws_dgrp|dffpipe_4v8:dffpipe9|dffe10a;-name SDC_STATEMENT ""set_false_path -from *rdptr_g* -to *ws_dgrp|dffpipe_4v8:dffpipe9|dffe10a* "";-name CUT ON -from delayed_wrptr_g -to rs_dgwp|dffpipe_3v8:dffpipe6|dffe7a;-name SDC_STATEMENT ""set_false_path -from *delayed_wrptr_g* -to *rs_dgwp|dffpipe_3v8:dffpipe6|dffe7a* """;
 
 SUBDESIGN dcfifo_j6l1
 ( 
@@ -80,7 +58,7 @@ VARIABLE
 	ws_dgrp_gray2bin : a_gray2bin_tgb;
 	rdptr_g1p : a_graycounter_qn6;
 	wrptr_g1p : a_graycounter_m5c;
-	fifo_ram : altsyncram_hou;
+	fifo_ram : altsyncram_b421;
 	delayed_wrptr_g[7..0] : dffe;
 	rdptr_g[7..0] : dffe;
 	wrptr_g[7..0] : dffe
@@ -89,17 +67,10 @@ VARIABLE
 		);
 	rs_brp : dffpipe_0v8;
 	rs_bwp : dffpipe_0v8;
-<<<<<<< HEAD:FinalProject/verilog/db/dcfifo_j6l1.tdf
-	rs_dgwp : alt_synch_pipe_46d;
+	rs_dgwp : alt_synch_pipe_i9l;
 	ws_brp : dffpipe_0v8;
 	ws_bwp : dffpipe_0v8;
-	ws_dgrp : alt_synch_pipe_56d;
-=======
-	rs_dgwp : alt_synch_pipe_26d;
-	ws_brp : dffpipe_0v8;
-	ws_bwp : dffpipe_0v8;
-	ws_dgrp : alt_synch_pipe_36d;
->>>>>>> origin/master:FinalProject/db/dcfifo_j6l1.tdf
+	ws_dgrp : alt_synch_pipe_j9l;
 	rdusedw_sub_dataa[7..0]	:	WIRE;
 	rdusedw_sub_datab[7..0]	:	WIRE;
 	rdusedw_sub_result[7..0]	:	WIRE;

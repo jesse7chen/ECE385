@@ -1,7 +1,4 @@
-<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_mux.sv
 // (C) 2001-2011 Altera Corporation. All rights reserved.
-=======
-// (C) 2001-2015 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -14,31 +11,10 @@
 // agreement for further details.
 
 
-// (C) 2001-2014 Altera Corporation. All rights reserved.
->>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_cmd_mux_001.sv
-// Your use of Altera Corporation's design tools, logic functions and other 
-// software and tools, and its AMPP partner logic functions, and any output 
-// files any of the foregoing (including device programming or simulation 
-// files), and any associated documentation or information are expressly subject 
-// to the terms and conditions of the Altera Program License Subscription 
-// Agreement, Altera MegaCore Function License Agreement, or other applicable 
-// license agreement, including, without limitation, that your use is for the 
-// sole purpose of programming logic devices manufactured by Altera and sold by 
-// Altera or its authorized distributors.  Please refer to the applicable 
-// agreement for further details.
-
-
-<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_mux.sv
 // $Id: //acds/rel/11.0sp1/ip/merlin/altera_merlin_multiplexer/altera_merlin_multiplexer.sv.terp#2 $
 // $Revision: #2 $
 // $Date: 2011/05/13 $
 // $Author: aferrucc $
-=======
-// $Id: //acds/rel/15.0/ip/merlin/altera_merlin_multiplexer/altera_merlin_multiplexer.sv.terp#1 $
-// $Revision: #1 $
-// $Date: 2015/02/08 $
-// $Author: swbranch $
->>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_cmd_mux_001.sv
 
 // ------------------------------------------
 // Merlin Multiplexer
@@ -49,7 +25,6 @@
 
 // ------------------------------------------
 // Generation parameters:
-<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_mux.sv
 //   output_name:         Video_System_rsp_xbar_mux
 //   NUM_INPUTS:          2
 //   ARBITRATION_SHARES:  1 1
@@ -58,16 +33,6 @@
 //   PKT_TRANS_LOCK:      72 (arbitration locking enabled)
 //   ST_DATA_W:           87
 //   ST_CHANNEL_W:        6
-=======
-//   output_name:         nios_system_mm_interconnect_0_cmd_mux_001
-//   NUM_INPUTS:          1
-//   ARBITRATION_SHARES:  1
-//   ARBITRATION_SCHEME   "round-robin"
-//   PIPELINE_ARB:        1
-//   PKT_TRANS_LOCK:      69 (arbitration locking enabled)
-//   ST_DATA_W:           107
-//   ST_CHANNEL_W:        9
->>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_cmd_mux_001.sv
 // ------------------------------------------
 
 module Video_System_rsp_xbar_mux
@@ -76,18 +41,12 @@ module Video_System_rsp_xbar_mux
     // Sinks
     // ----------------------
     input                       sink0_valid,
-<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_mux.sv
     input [87-1   : 0]  sink0_data,
     input [6-1: 0]  sink0_channel,
-=======
-    input [107-1   : 0]  sink0_data,
-    input [9-1: 0]  sink0_channel,
->>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_cmd_mux_001.sv
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
-<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_mux.sv
     input                       sink1_valid,
     input [87-1   : 0]  sink1_data,
     input [6-1: 0]  sink1_channel,
@@ -95,20 +54,13 @@ module Video_System_rsp_xbar_mux
     input                       sink1_endofpacket,
     output                      sink1_ready,
 
-=======
->>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_cmd_mux_001.sv
 
     // ----------------------
     // Source
     // ----------------------
     output                      src_valid,
-<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_mux.sv
     output [87-1    : 0] src_data,
     output [6-1 : 0] src_channel,
-=======
-    output [107-1    : 0] src_data,
-    output [9-1 : 0] src_channel,
->>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_cmd_mux_001.sv
     output                      src_startofpacket,
     output                      src_endofpacket,
     input                       src_ready,
@@ -119,7 +71,6 @@ module Video_System_rsp_xbar_mux
     input clk,
     input reset
 );
-<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_mux.sv
     localparam PAYLOAD_W        = 87 + 6 + 2;
     localparam NUM_INPUTS       = 2;
     localparam SHARE_COUNTER_W  = 1;
@@ -371,22 +322,6 @@ module Video_System_rsp_xbar_mux
 
     assign {src_channel,src_data,src_startofpacket,src_endofpacket} = src_payload;
 
-=======
-    localparam PAYLOAD_W        = 107 + 9 + 2;
-    localparam NUM_INPUTS       = 1;
-    localparam SHARE_COUNTER_W  = 1;
-    localparam PIPELINE_ARB     = 1;
-    localparam ST_DATA_W        = 107;
-    localparam ST_CHANNEL_W     = 9;
-    localparam PKT_TRANS_LOCK   = 69;
-
-    assign	src_valid			=  sink0_valid;
-    assign	src_data			=  sink0_data;
-    assign	src_channel			=  sink0_channel;
-    assign	src_startofpacket  	        =  sink0_startofpacket;
-    assign	src_endofpacket		        =  sink0_endofpacket;
-    assign	sink0_ready			=  src_ready;
->>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_cmd_mux_001.sv
 endmodule
 
 
