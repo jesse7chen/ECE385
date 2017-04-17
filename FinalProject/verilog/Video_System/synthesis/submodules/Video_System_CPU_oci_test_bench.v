@@ -27,10 +27,34 @@ module Video_System_CPU_oci_test_bench (
                                        )
 ;
 
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_CPU_oci_test_bench.v
   input   [ 29: 0] dct_buffer;
   input   [  3: 0] dct_count;
   input            test_ending;
   input            test_has_ended;
+=======
+  output  [ 31: 0] readdata;
+  input   [  1: 0] address;
+  input            clk;
+  input   [  3: 0] in_port;
+  input            reset_n;
+
+  wire             clk_en;
+  wire    [  3: 0] data_in;
+  wire    [  3: 0] read_mux_out;
+  reg     [ 31: 0] readdata;
+  assign clk_en = 1;
+  //s1, which is an e_avalon_slave
+  assign read_mux_out = {4 {(address == 0)}} & data_in;
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          readdata <= 0;
+      else if (clk_en)
+          readdata <= {32'b0 | read_mux_out};
+    end
+
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_key.v
 
 
 endmodule

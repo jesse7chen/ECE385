@@ -18,6 +18,7 @@
 // altera message_level Level1 
 // altera message_off 10034 10035 10036 10037 10230 10240 10030 
 
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_Onchip_Memory.v
 module Video_System_Onchip_Memory (
                                     // inputs:
                                      address,
@@ -28,6 +29,19 @@ module Video_System_Onchip_Memory (
                                      reset,
                                      write,
                                      writedata,
+=======
+module nios_system_onchip_memory2_0 (
+                                      // inputs:
+                                       address,
+                                       byteenable,
+                                       chipselect,
+                                       clk,
+                                       clken,
+                                       reset,
+                                       reset_req,
+                                       write,
+                                       writedata,
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_onchip_memory2_0.v
 
                                     // outputs:
                                      readdata
@@ -47,6 +61,10 @@ module Video_System_Onchip_Memory (
   input            write;
   input   [ 31: 0] writedata;
 
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_Onchip_Memory.v
+=======
+  wire             clocken0;
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_onchip_memory2_0.v
   wire    [ 31: 0] readdata;
   wire             wren;
   assign wren = chipselect & write;

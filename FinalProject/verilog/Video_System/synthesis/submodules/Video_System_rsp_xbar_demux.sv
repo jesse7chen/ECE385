@@ -1,4 +1,8 @@
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_demux.sv
 // (C) 2001-2011 Altera Corporation. All rights reserved.
+=======
+// (C) 2001-2015 Altera Corporation. All rights reserved.
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_rsp_demux_001.sv
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -11,10 +15,17 @@
 // agreement for further details.
 
 
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_demux.sv
 // $Id: //acds/rel/11.0sp1/ip/merlin/altera_merlin_demultiplexer/altera_merlin_demultiplexer.sv.terp#1 $
 // $Revision: #1 $
 // $Date: 2011/04/07 $
 // $Author: max $
+=======
+// $Id: //acds/rel/15.0/ip/merlin/altera_merlin_demultiplexer/altera_merlin_demultiplexer.sv.terp#1 $
+// $Revision: #1 $
+// $Date: 2015/02/08 $
+// $Author: swbranch $
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_rsp_demux_001.sv
 
 // -------------------------------------
 // Merlin Demultiplexer
@@ -27,10 +38,17 @@
 
 // ------------------------------------------
 // Generation parameters:
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_demux.sv
 //   output_name:         Video_System_rsp_xbar_demux
 //   ST_DATA_W:           87
 //   ST_CHANNEL_W:        6
 //   NUM_OUTPUTS:         2
+=======
+//   output_name:         nios_system_mm_interconnect_0_rsp_demux_001
+//   ST_DATA_W:           107
+//   ST_CHANNEL_W:        9
+//   NUM_OUTPUTS:         1
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_rsp_demux_001.sv
 //   VALID_WIDTH:         1
 // ------------------------------------------
 
@@ -46,8 +64,13 @@ module Video_System_rsp_xbar_demux
     // Sink
     // -------------------
     input  [1-1      : 0]   sink_valid,
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_demux.sv
     input  [87-1    : 0]   sink_data, // ST_DATA_W=87
     input  [6-1 : 0]   sink_channel, // ST_CHANNEL_W=6
+=======
+    input  [107-1    : 0]   sink_data, // ST_DATA_W=107
+    input  [9-1 : 0]   sink_channel, // ST_CHANNEL_W=9
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_rsp_demux_001.sv
     input                         sink_startofpacket,
     input                         sink_endofpacket,
     output                        sink_ready,
@@ -56,12 +79,18 @@ module Video_System_rsp_xbar_demux
     // Sources 
     // -------------------
     output reg                      src0_valid,
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_demux.sv
     output reg [87-1    : 0] src0_data, // ST_DATA_W=87
     output reg [6-1 : 0] src0_channel, // ST_CHANNEL_W=6
+=======
+    output reg [107-1    : 0] src0_data, // ST_DATA_W=107
+    output reg [9-1 : 0] src0_channel, // ST_CHANNEL_W=9
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_rsp_demux_001.sv
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
 
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_demux.sv
     output reg                      src1_valid,
     output reg [87-1    : 0] src1_data, // ST_DATA_W=87
     output reg [6-1 : 0] src1_channel, // ST_CHANNEL_W=6
@@ -69,6 +98,8 @@ module Video_System_rsp_xbar_demux
     output reg                      src1_endofpacket,
     input                           src1_ready,
 
+=======
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_rsp_demux_001.sv
 
     // -------------------
     // Clock & Reset
@@ -80,7 +111,7 @@ module Video_System_rsp_xbar_demux
 
 );
 
-    localparam NUM_OUTPUTS = 2;
+    localparam NUM_OUTPUTS = 1;
     wire [NUM_OUTPUTS - 1 : 0] ready_vector;
 
     // -------------------
@@ -94,21 +125,19 @@ module Video_System_rsp_xbar_demux
 
         src0_valid         = sink_channel[0] && sink_valid;
 
-        src1_data          = sink_data;
-        src1_startofpacket = sink_startofpacket;
-        src1_endofpacket   = sink_endofpacket;
-        src1_channel       = sink_channel >> NUM_OUTPUTS;
-
-        src1_valid         = sink_channel[1] && sink_valid;
-
     end
 
     // -------------------
     // Backpressure
     // -------------------
     assign ready_vector[0] = src0_ready;
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_rsp_xbar_demux.sv
     assign ready_vector[1] = src1_ready;
     assign sink_ready = |(sink_channel & ready_vector);
+=======
+
+    assign sink_ready = |(sink_channel & {{8{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_mm_interconnect_0_rsp_demux_001.sv
 
 endmodule
 

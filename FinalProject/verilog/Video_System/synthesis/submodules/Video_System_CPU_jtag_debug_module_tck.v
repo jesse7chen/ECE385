@@ -96,8 +96,13 @@ module Video_System_CPU_jtag_debug_module_tck (
   reg     [ 37: 0] sr /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=\"D101,D103,R101\""  */;
   wire             st_ready_test_idle;
   wire             tdo;
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_CPU_jtag_debug_module_tck.v
   wire             unxcomplemented_resetxx0;
   wire             unxcomplemented_resetxx1;
+=======
+  wire             unxcomplemented_resetxx1;
+  wire             unxcomplemented_resetxx2;
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_nios2_qsys_0_cpu_debug_slave_tck.v
   always @(posedge tck)
     begin
       if (vs_cdr)

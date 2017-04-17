@@ -1,4 +1,8 @@
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_irq_mapper.sv
 // (C) 2001-2011 Altera Corporation. All rights reserved.
+=======
+// (C) 2001-2015 Altera Corporation. All rights reserved.
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_irq_mapper.sv
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -11,10 +15,17 @@
 // agreement for further details.
 
 
+<<<<<<< HEAD:FinalProject/verilog/Video_System/synthesis/submodules/Video_System_irq_mapper.sv
 // $Id: //acds/rel/11.0sp1/ip/merlin/altera_irq_mapper/altera_irq_mapper.sv.terp#1 $
 // $Revision: #1 $
 // $Date: 2011/04/07 $
 // $Author: max $
+=======
+// $Id: //acds/rel/15.0/ip/merlin/altera_irq_mapper/altera_irq_mapper.sv.terp#1 $
+// $Revision: #1 $
+// $Date: 2015/02/08 $
+// $Author: swbranch $
+>>>>>>> origin/master:FinalProject/nios_system/synthesis/submodules/nios_system_irq_mapper.sv
 
 // -------------------------------------------------------
 // Altera IRQ Mapper
