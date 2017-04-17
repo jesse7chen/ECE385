@@ -1,0 +1,980 @@
+(header "symbol"
+  (version "1.1")
+)
+(symbol
+  (rect 0 0 296 664)
+  (text "Video_System"
+    (rect 8 -4 116 16)  
+    (font "Arial"
+      (color 0 64 0)    
+      (font_size 20)    
+    )  
+  )
+  (text "inst"
+    (rect 0 652 18 662)  
+    (font "Arial"
+      (color 255 255 255)    
+      (font_size 10)    
+    )  
+  )
+  (port
+    (pt 0 72)  
+    (output)  
+    (text "VGA_CLK_from_the_VGA_Controller "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 72)    
+      (pt 0 72)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 88)  
+    (output)  
+    (text "VGA_HS_from_the_VGA_Controller "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 88)    
+      (pt 0 88)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 104)  
+    (output)  
+    (text "VGA_VS_from_the_VGA_Controller "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 104)    
+      (pt 0 104)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 120)  
+    (output)  
+    (text "VGA_BLANK_from_the_VGA_Controller "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 120)    
+      (pt 0 120)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 136)  
+    (output)  
+    (text "VGA_SYNC_from_the_VGA_Controller "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 136)    
+      (pt 0 136)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 152)  
+    (output)  
+    (text "VGA_R_from_the_VGA_Controller[7..0]"
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 152)    
+      (pt 0 152)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 168)  
+    (output)  
+    (text "VGA_G_from_the_VGA_Controller[7..0]"
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 168)    
+      (pt 0 168)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 184)  
+    (output)  
+    (text "VGA_B_from_the_VGA_Controller[7..0]"
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 184)    
+      (pt 0 184)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 240)  
+    (input)  
+    (text "reset_n "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 240)    
+      (pt 0 240)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 296)  
+    (bidir)  
+    (text "I2C_SDAT_to_and_from_the_AV_Config "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 296)    
+      (pt 0 296)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 312)  
+    (output)  
+    (text "I2C_SCLK_from_the_AV_Config "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 312)    
+      (pt 0 312)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 368)  
+    (input)  
+    (text "clk "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 368)    
+      (pt 0 368)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 424)  
+    (bidir)  
+    (text "SRAM_DQ_to_and_from_the_Pixel_Buffer[15..0]"
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 424)    
+      (pt 0 424)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 440)  
+    (output)  
+    (text "SRAM_ADDR_from_the_Pixel_Buffer[19..0]"
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 440)    
+      (pt 0 440)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 456)  
+    (output)  
+    (text "SRAM_LB_N_from_the_Pixel_Buffer "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 456)    
+      (pt 0 456)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 472)  
+    (output)  
+    (text "SRAM_UB_N_from_the_Pixel_Buffer "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 472)    
+      (pt 0 472)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 488)  
+    (output)  
+    (text "SRAM_CE_N_from_the_Pixel_Buffer "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 488)    
+      (pt 0 488)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 504)  
+    (output)  
+    (text "SRAM_OE_N_from_the_Pixel_Buffer "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 504)    
+      (pt 0 504)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 520)  
+    (output)  
+    (text "SRAM_WE_N_from_the_Pixel_Buffer "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 520)    
+      (pt 0 520)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 576)  
+    (input)  
+    (text "Video_In_Decoder_external_interface_PIXEL_CLK "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 576)    
+      (pt 0 576)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 592)  
+    (input)  
+    (text "Video_In_Decoder_external_interface_LINE_VALID "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 592)    
+      (pt 0 592)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 608)  
+    (input)  
+    (text "Video_In_Decoder_external_interface_FRAME_VALID "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 608)    
+      (pt 0 608)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 624)  
+    (input)  
+    (text "Video_In_Decoder_external_interface_pixel_clk_reset "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 624)    
+      (pt 0 624)    
+      (line_width 0)    
+    )  
+  )
+  (port
+    (pt 0 640)  
+    (input)  
+    (text "Video_In_Decoder_external_interface_PIXEL_DATA[9..0]"
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (text " "
+      (rect 0 0 1 1)    
+      (font "Arial")    
+    )  
+    (line
+      (pt 0 640)    
+      (pt 0 640)    
+      (line_width 0)    
+    )  
+  )
+  (drawing
+    (text "Video_System"
+      (rect 209 0 273 12)    
+      (font "Arial"
+        (color 128 128 128)      
+        (font_size 12)      
+      )    
+    )  
+    (text "VGA_Controller_external_interface"
+      (rect 8 40 215 54)    
+      (font "Arial"
+        (color 64 0 0)      
+        (font_size 14)      
+      )    
+    )  
+    (text "VGA_CLK_from_the_VGA_Controller"
+      (rect 16 64 155 74)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "VGA_HS_from_the_VGA_Controller"
+      (rect 16 80 151 90)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "VGA_VS_from_the_VGA_Controller"
+      (rect 16 96 151 106)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "VGA_BLANK_from_the_VGA_Controller"
+      (rect 16 112 164 122)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "VGA_SYNC_from_the_VGA_Controller"
+      (rect 16 128 160 138)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "VGA_R_from_the_VGA_Controller[8]"
+      (rect 16 144 160 154)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "VGA_G_from_the_VGA_Controller[8]"
+      (rect 16 160 160 170)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "VGA_B_from_the_VGA_Controller[8]"
+      (rect 16 176 160 186)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "clk_clk_in_reset"
+      (rect 8 208 108 222)    
+      (font "Arial"
+        (color 64 0 0)      
+        (font_size 14)      
+      )    
+    )  
+    (text "reset_n"
+      (rect 16 232 47 242)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "AV_Config_external_interface"
+      (rect 8 264 184 278)    
+      (font "Arial"
+        (color 64 0 0)      
+        (font_size 14)      
+      )    
+    )  
+    (text "I2C_SDAT_to_and_from_the_AV_Config"
+      (rect 16 288 169 298)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "I2C_SCLK_from_the_AV_Config"
+      (rect 16 304 137 314)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "clk_clk_in"
+      (rect 8 336 71 350)    
+      (font "Arial"
+        (color 64 0 0)      
+        (font_size 14)      
+      )    
+    )  
+    (text "clk"
+      (rect 16 360 29 370)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "Pixel_Buffer_external_interface"
+      (rect 8 392 203 406)    
+      (font "Arial"
+        (color 64 0 0)      
+        (font_size 14)      
+      )    
+    )  
+    (text "SRAM_DQ_to_and_from_the_Pixel_Buffer[16]"
+      (rect 16 416 196 426)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "SRAM_ADDR_from_the_Pixel_Buffer[20]"
+      (rect 16 432 173 442)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "SRAM_LB_N_from_the_Pixel_Buffer"
+      (rect 16 448 155 458)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "SRAM_UB_N_from_the_Pixel_Buffer"
+      (rect 16 464 155 474)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "SRAM_CE_N_from_the_Pixel_Buffer"
+      (rect 16 480 155 490)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "SRAM_OE_N_from_the_Pixel_Buffer"
+      (rect 16 496 155 506)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "SRAM_WE_N_from_the_Pixel_Buffer"
+      (rect 16 512 155 522)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "Video_In_Decoder_external_interface"
+      (rect 8 544 228 558)    
+      (font "Arial"
+        (color 64 0 0)      
+        (font_size 14)      
+      )    
+    )  
+    (text "Video_In_Decoder_external_interface_PIXEL_CLK"
+      (rect 16 568 218 578)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "Video_In_Decoder_external_interface_LINE_VALID"
+      (rect 16 584 223 594)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "Video_In_Decoder_external_interface_FRAME_VALID"
+      (rect 16 600 227 610)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "Video_In_Decoder_external_interface_pixel_clk_reset"
+      (rect 16 616 245 626)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (text "Video_In_Decoder_external_interface_PIXEL_DATA[10]"
+      (rect 16 632 241 642)    
+      (font "Arial"
+        (color 48 0 64)      
+        (font_size 10)      
+      )    
+    )  
+    (line
+      (pt 4 28)    
+      (pt 292 28)    
+      (color 240 240 240)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 4 36)    
+      (pt 232 36)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 232 36)    
+      (pt 240 44)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 240 44)    
+      (pt 240 188)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 240 188)    
+      (pt 232 196)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 232 196)    
+      (pt 4 196)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 0 72)    
+      (pt 12 72)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 88)    
+      (pt 12 88)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 104)    
+      (pt 12 104)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 120)    
+      (pt 12 120)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 136)    
+      (pt 12 136)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 152)    
+      (pt 12 152)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 168)    
+      (pt 12 168)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 184)    
+      (pt 12 184)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 4 204)    
+      (pt 107 204)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 107 204)    
+      (pt 115 212)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 115 212)    
+      (pt 115 244)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 115 244)    
+      (pt 107 252)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 107 252)    
+      (pt 4 252)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 0 240)    
+      (pt 12 240)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 4 260)    
+      (pt 203 260)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 203 260)    
+      (pt 211 268)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 211 268)    
+      (pt 211 316)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 211 316)    
+      (pt 203 324)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 203 324)    
+      (pt 4 324)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 0 296)    
+      (pt 12 296)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 312)    
+      (pt 12 312)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 4 332)    
+      (pt 65 332)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 65 332)    
+      (pt 73 340)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 73 340)    
+      (pt 73 372)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 73 372)    
+      (pt 65 380)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 65 380)    
+      (pt 4 380)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 0 368)    
+      (pt 12 368)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 4 388)    
+      (pt 228 388)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 228 388)    
+      (pt 236 396)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 236 396)    
+      (pt 236 524)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 236 524)    
+      (pt 228 532)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 228 532)    
+      (pt 4 532)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 0 424)    
+      (pt 12 424)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 440)    
+      (pt 12 440)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 456)    
+      (pt 12 456)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 472)    
+      (pt 12 472)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 488)    
+      (pt 12 488)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 504)    
+      (pt 12 504)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 520)    
+      (pt 12 520)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 4 540)    
+      (pt 275 540)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 275 540)    
+      (pt 283 548)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 283 548)    
+      (pt 283 644)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 283 644)    
+      (pt 275 652)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 275 652)    
+      (pt 4 652)    
+      (color 240 240 240)    
+      (line_width 2)    
+    )  
+    (line
+      (pt 0 576)    
+      (pt 12 576)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 592)    
+      (pt 12 592)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 608)    
+      (pt 12 608)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 624)    
+      (pt 12 624)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+    (line
+      (pt 0 640)    
+      (pt 12 640)    
+      (color 96 0 128)    
+      (line_width 1)    
+    )  
+  )
+  (fill
+    (color 224 224 224)  
+  )
+)
