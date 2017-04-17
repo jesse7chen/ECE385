@@ -1,0 +1,257 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'CCD_MCLK~_Duplicate_2'
+Slack : -5.034
+TNS   : -184.395
+
+Type  : Slow 1200mV 85C Model Setup 'GPIO[10]'
+Slack : -4.305
+TNS   : -618.835
+
+Type  : Slow 1200mV 85C Model Setup 'I2C_CCD_Config:u7|mI2C_CTRL_CLK'
+Slack : -3.628
+TNS   : -113.898
+
+Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
+Slack : -0.492
+TNS   : -0.492
+
+Type  : Slow 1200mV 85C Model Setup 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 0.093
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
+Slack : -2.795
+TNS   : -5.912
+
+Type  : Slow 1200mV 85C Model Hold 'GPIO[10]'
+Slack : -0.665
+TNS   : -4.342
+
+Type  : Slow 1200mV 85C Model Hold 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 0.402
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'CCD_MCLK~_Duplicate_2'
+Slack : 0.403
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'I2C_CCD_Config:u7|mI2C_CTRL_CLK'
+Slack : 0.405
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'GPIO[10]'
+Slack : -2.544
+TNS   : -416.724
+
+Type  : Slow 1200mV 85C Model Recovery 'CCD_MCLK~_Duplicate_2'
+Slack : -0.846
+TNS   : -44.109
+
+Type  : Slow 1200mV 85C Model Recovery 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 3.080
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'CCD_MCLK~_Duplicate_2'
+Slack : -0.320
+TNS   : -4.624
+
+Type  : Slow 1200mV 85C Model Removal 'GPIO[10]'
+Slack : 1.170
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 5.541
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'GPIO[10]'
+Slack : -3.210
+TNS   : -581.881
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CCD_MCLK~_Duplicate_2'
+Slack : -1.285
+TNS   : -145.205
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'I2C_CCD_Config:u7|mI2C_CTRL_CLK'
+Slack : -1.285
+TNS   : -65.535
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 4.706
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.658
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'CCD_MCLK~_Duplicate_2'
+Slack : -4.593
+TNS   : -161.221
+
+Type  : Slow 1200mV 0C Model Setup 'GPIO[10]'
+Slack : -3.858
+TNS   : -543.514
+
+Type  : Slow 1200mV 0C Model Setup 'I2C_CCD_Config:u7|mI2C_CTRL_CLK'
+Slack : -3.229
+TNS   : -99.776
+
+Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -0.368
+TNS   : -0.368
+
+Type  : Slow 1200mV 0C Model Setup 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 1.053
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
+Slack : -2.538
+TNS   : -5.296
+
+Type  : Slow 1200mV 0C Model Hold 'GPIO[10]'
+Slack : -0.624
+TNS   : -4.528
+
+Type  : Slow 1200mV 0C Model Hold 'I2C_CCD_Config:u7|mI2C_CTRL_CLK'
+Slack : 0.354
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 0.354
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'CCD_MCLK~_Duplicate_2'
+Slack : 0.355
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'GPIO[10]'
+Slack : -2.064
+TNS   : -310.764
+
+Type  : Slow 1200mV 0C Model Recovery 'CCD_MCLK~_Duplicate_2'
+Slack : -0.612
+TNS   : -21.969
+
+Type  : Slow 1200mV 0C Model Recovery 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 3.872
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'CCD_MCLK~_Duplicate_2'
+Slack : -0.345
+TNS   : -5.575
+
+Type  : Slow 1200mV 0C Model Removal 'GPIO[10]'
+Slack : 0.866
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 4.884
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'GPIO[10]'
+Slack : -3.210
+TNS   : -578.053
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CCD_MCLK~_Duplicate_2'
+Slack : -1.285
+TNS   : -145.205
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'I2C_CCD_Config:u7|mI2C_CTRL_CLK'
+Slack : -1.285
+TNS   : -65.535
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 4.709
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.665
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'CCD_MCLK~_Duplicate_2'
+Slack : -2.105
+TNS   : -57.561
+
+Type  : Fast 1200mV 0C Model Setup 'GPIO[10]'
+Slack : -1.783
+TNS   : -157.255
+
+Type  : Fast 1200mV 0C Model Setup 'I2C_CCD_Config:u7|mI2C_CTRL_CLK'
+Slack : -1.227
+TNS   : -30.203
+
+Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -0.147
+TNS   : -0.147
+
+Type  : Fast 1200mV 0C Model Setup 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 4.715
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
+Slack : -1.442
+TNS   : -3.123
+
+Type  : Fast 1200mV 0C Model Hold 'GPIO[10]'
+Slack : -0.347
+TNS   : -2.739
+
+Type  : Fast 1200mV 0C Model Hold 'CCD_MCLK~_Duplicate_2'
+Slack : 0.181
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'I2C_CCD_Config:u7|mI2C_CTRL_CLK'
+Slack : 0.182
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 0.182
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'GPIO[10]'
+Slack : -1.058
+TNS   : -154.485
+
+Type  : Fast 1200mV 0C Model Recovery 'CCD_MCLK~_Duplicate_2'
+Slack : -0.017
+TNS   : -0.017
+
+Type  : Fast 1200mV 0C Model Recovery 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 6.250
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'CCD_MCLK~_Duplicate_2'
+Slack : -0.228
+TNS   : -4.014
+
+Type  : Fast 1200mV 0C Model Removal 'GPIO[10]'
+Slack : 0.806
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 2.936
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'GPIO[10]'
+Slack : -3.000
+TNS   : -564.759
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CCD_MCLK~_Duplicate_2'
+Slack : -1.000
+TNS   : -113.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'I2C_CCD_Config:u7|mI2C_CTRL_CLK'
+Slack : -1.000
+TNS   : -51.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'u6|sdram_pll1|altpll_component|pll|clk[0]'
+Slack : 4.754
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.265
+TNS   : 0.000
+
+------------------------------------------------------------
