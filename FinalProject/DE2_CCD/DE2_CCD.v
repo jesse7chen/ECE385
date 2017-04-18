@@ -72,6 +72,7 @@ module DE2_CCD
 		IRDA_TXD,						//	IRDA Transmitter
 		IRDA_RXD,						//	IRDA Receiver
 		/////////////////////	SDRAM Interface		////////////////
+		/*
 		DRAM_DQ,						//	SDRAM Data bus 16 Bits
 		DRAM_ADDR,						//	SDRAM Address bus 12 Bits
 		DRAM_LDQM,						//	SDRAM Low-byte Data Mask 
@@ -84,6 +85,18 @@ module DE2_CCD
 		DRAM_BA_1,						//	SDRAM Bank Address 0
 		DRAM_CLK,						//	SDRAM Clock
 		DRAM_CKE,						//	SDRAM Clock Enable
+		*/
+		
+		DRAM_ADDR, // DE2-115 SDRAM
+		DRAM_BA,
+		DRAM_CAS_N,
+		DRAM_CKE,
+		DRAM_CLK,
+		DRAM_CS_N,
+		DRAM_DQ,
+		DRAM_DQM,
+		DRAM_RAS_N,
+		DRAM_WE_N,
 		////////////////////	Flash Interface		////////////////
 		FL_DQ,							//	FLASH Data bus 8 Bits
 		FL_ADDR,						//	FLASH Address bus 22 Bits
@@ -151,7 +164,7 @@ input			UART_RXD;				//	UART Receiver
 output			IRDA_TXD;				//	IRDA Transmitter
 input			IRDA_RXD;				//	IRDA Receiver
 ///////////////////////		SDRAM Interface	////////////////////////
-inout	[15:0]	DRAM_DQ;				//	SDRAM Data bus 16 Bits
+/*inout	[15:0]	DRAM_DQ;				//	SDRAM Data bus 16 Bits
 output	[11:0]	DRAM_ADDR;				//	SDRAM Address bus 12 Bits
 output			DRAM_LDQM;				//	SDRAM Low-byte Data Mask 
 output			DRAM_UDQM;				//	SDRAM High-byte Data Mask
@@ -163,6 +176,19 @@ output			DRAM_BA_0;				//	SDRAM Bank Address 0
 output			DRAM_BA_1;				//	SDRAM Bank Address 0
 output			DRAM_CLK;				//	SDRAM Clock
 output			DRAM_CKE;				//	SDRAM Clock Enable
+*/
+
+output		    [12:0]		DRAM_ADDR; // DE2-115 SDRAM
+output		     [1:0]		DRAM_BA;
+output		          		DRAM_CAS_N;
+output		          		DRAM_CKE;
+output		          		DRAM_CLK;
+output		          		DRAM_CS_N;
+inout		    [31:0]		DRAM_DQ;
+output		     [3:0]		DRAM_DQM;
+output		          		DRAM_RAS_N;
+output		          		DRAM_WE_N;
+
 ////////////////////////	Flash Interface	////////////////////////
 inout	[7:0]	FL_DQ;					//	FLASH Data bus 8 Bits
 output	[21:0]	FL_ADDR;				//	FLASH Address bus 22 Bits
@@ -231,6 +257,7 @@ reg				CCD_MCLK;	//	CCD Master Clock
 
 wire	[15:0]	Read_DATA1;
 wire	[15:0]	Read_DATA2;
+wire  [31:0]	Read_DATA_NEW;
 wire			VGA_CTRL_CLK;
 wire			AUD_CTRL_CLK;
 wire	[9:0]	mCCD_DATA;
@@ -307,13 +334,13 @@ end
 
 VGA_Controller		u1	(	//	Host Side
 							.oRequest(Read),
-							//.iRed(Read_DATA2[9:0]),
-							//.iGreen({Read_DATA1[14:10],Read_DATA2[14:10]}),
-							//.iBlue(Read_DATA1[9:0]),
+							.iRed(Read_DATA2[9:0]),
+							.iGreen({Read_DATA1[14:10],Read_DATA2[14:10]}),
+							.iBlue(Read_DATA1[9:0]),
 							
-							.iRed(sCCD_R),
-							.iGreen(sCCD_G),
-							.iBlue(sCCD_B),
+							//.iRed(sCCD_R),
+							//.iGreen(sCCD_G),
+							//.iBlue(sCCD_B),
 							//	VGA Side
 							.oVGA_R(VGA_R),
 							.oVGA_G(VGA_G),
@@ -325,6 +352,31 @@ VGA_Controller		u1	(	//	Host Side
 							//	Control Signal
 							.iCLK(VGA_CTRL_CLK),
 							.iRST_N(DLY_RST_2)	);
+
+/*					
+VGA_Ctrl			u1	(	//	Host Side  // DE2-115 CONTROLLER
+							//.iRed(sCCD_R),
+							//.iGreen(sCCD_G),
+							//.iBlue(sCCD_B),
+							.iRed(Read_DATA2[9:0]),
+							.iGreen({Read_DATA1[14:10],Read_DATA2[14:10]}),
+							.iBlue(Read_DATA1[9:0]),
+							//.oCurrent_X(VGA_X),
+							//.oCurrent_Y(VGA_Y),
+							.oRequest(Read),
+							//	VGA Side
+							.oVGA_R(VGA_R),
+							.oVGA_G(VGA_G),
+							.oVGA_B(VGA_B),
+							.oVGA_HS(VGA_HS),
+							.oVGA_VS(VGA_VS),
+							.oVGA_SYNC(VGA_SYNC_N),
+							.oVGA_BLANK(VGA_BLANK_N),
+							//.oVGA_CLOCK(VGA_CLK),
+							//	Control Signal
+							.iCLK(VGA_CTRL_CLK),
+							.iRST_N(DLY_RST_2)	);
+							*/
 
 Reset_Delay			u2	(	.iCLK(CLOCK_50),
 							.iRST(KEY[0]),
@@ -401,15 +453,59 @@ Sdram_Control_4Port	u6	(	//	HOST Side
 							.RD2_CLK(VGA_CTRL_CLK),
 							//	SDRAM Side
 						    .SA(DRAM_ADDR),
-						    .BA({DRAM_BA_1,DRAM_BA_0}),
+						    .BA(DRAM_BA),
 						    .CS_N(DRAM_CS_N),
 						    .CKE(DRAM_CKE),
 						    .RAS_N(DRAM_RAS_N),
 				            .CAS_N(DRAM_CAS_N),
 				            .WE_N(DRAM_WE_N),
 						    .DQ(DRAM_DQ),
-				            .DQM({DRAM_UDQM,DRAM_LDQM}),
+				            .DQM({DRAM_DQM[1],DRAM_DQM[0]}),
 							.SDR_CLK(DRAM_CLK)	);
+						
+					/*	
+Sdram_Control_4Port	u6	(	//	HOST Side   // DE2-115 Sdram_control_4port
+						    .REF_CLK(CLOCK_50),
+							//.CLK_18(AUD_CTRL_CLK),
+						    .RESET_N(1'b1),
+							//	FIFO Write Side 1
+						    .WR1_DATA({sCCD_G, sCCD_B, sCCD_R}),
+							.WR1(sCCD_DVAL),
+							.WR1_FULL(WR1_FULL),
+							.WR1_ADDR(0),
+							.WR1_MAX_ADDR(640*512),		//	525-18
+							.WR1_LENGTH(9'h100),
+							.WR1_LOAD(!DLY_RST_0),
+							.WR1_CLK(CCD_PIXCLK),
+							//	FIFO Read Side 1
+						    .RD1_DATA(READ_DATA_NEW),
+				        	.RD1(m1VGA_Read),
+				        	.RD1_ADDR(NTSC ? 640*13 : 640*42),			//	Read odd field and bypess blanking
+							.RD1_MAX_ADDR(NTSC ? 640*253 : 640*282),
+							.RD1_LENGTH(9'h80),
+				        	.RD1_LOAD(!DLY0),
+							.RD1_CLK(TD_CLK27),
+							//	FIFO Read Side 2
+						    .RD2_DATA(m2YCbCr),
+				        	.RD2(m2VGA_Read),
+				        	.RD2_ADDR(NTSC ? 640*267 : 640*330),			//	Read even field and bypess blanking
+							.RD2_MAX_ADDR(NTSC ? 640*507 : 640*570),
+							.RD2_LENGTH(9'h80),
+				        	.RD2_LOAD(!DLY0),
+							.RD2_CLK(TD_CLK27),
+							//	SDRAM Side
+						    .SA(DRAM_ADDR),
+						    .BA(DRAM_BA),
+						    .CS_N(DRAM_CS_N),
+						    .CKE(DRAM_CKE),
+						    .RAS_N(DRAM_RAS_N),
+				            .CAS_N(DRAM_CAS_N),
+				            .WE_N(DRAM_WE_N),
+						    .DQ(DRAM_DQ),
+				            .DQM({DRAM_DQM[1],DRAM_DQM[0]}),
+							.SDR_CLK(DRAM_CLK)	);	
+							*/
+
 
 I2C_CCD_Config 		u7	(	//	Host Side
 							.iCLK(CLOCK_50),
