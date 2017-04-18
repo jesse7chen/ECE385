@@ -14,9 +14,18 @@ module	VGA_Controller(	//	Host Side
 						oVGA_CLOCK,
 						//	Control Signal
 						iCLK,
-						iRST_N	);
+						iRST_N,
+						
+						VGA_X,
+						VGA_Y,
+						//VGA_G2
+								);
 
 `include "VGA_Param.h"
+output [9:0] VGA_X;
+output [9:0] VGA_Y;
+//output [9:0] VGA_G2;
+
 
 //	Host Side
 input		[9:0]	iRed;
@@ -47,6 +56,9 @@ wire				mRed_EN;
 wire				mGreen_EN;
 wire				mBlue_EN;
 
+assign VGA_X = H_Cont;
+assign VGA_Y = V_Cont;
+
 assign	oVGA_BLANK	=	oVGA_H_SYNC & oVGA_V_SYNC;
 assign	oVGA_SYNC	=	1'b0;
 assign	oVGA_CLOCK	=	iCLK;
@@ -60,6 +72,10 @@ assign	oVGA_G	=	(	H_Cont>=X_START 	&& H_Cont<X_START+H_SYNC_ACT &&
 assign	oVGA_B	=	(	H_Cont>=X_START 	&& H_Cont<X_START+H_SYNC_ACT &&
 						V_Cont>=Y_START 	&& V_Cont<Y_START+V_SYNC_ACT )
 						?	iBlue	:	0;
+						
+//assign VGA_G2 = (	H_Cont>=X_START 	&& H_Cont<X_START+H_SYNC_ACT &&
+//						V_Cont>=Y_START 	&& V_Cont<Y_START+V_SYNC_ACT )
+//						?	iGreen	:	0;
 
 //	Pixel LUT Address Generator
 always@(posedge iCLK or negedge iRST_N)

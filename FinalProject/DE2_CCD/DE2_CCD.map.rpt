@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DE2_CCD
-Mon Apr 17 20:24:08 2017
+Tue Apr 18 09:21:40 2017
 Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
 
 
@@ -98,19 +98,21 @@ Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
  90. Port Connectivity Checks: "Mirror_Col:u8|Stack_RAM:comb_130"
  91. Port Connectivity Checks: "Mirror_Col:u8|Stack_RAM:comb_96"
  92. Port Connectivity Checks: "Mirror_Col:u8|Stack_RAM:comb_62"
- 93. Port Connectivity Checks: "I2C_CCD_Config:u7|I2C_Controller:u0"
- 94. Port Connectivity Checks: "Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2"
- 95. Port Connectivity Checks: "Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1"
- 96. Port Connectivity Checks: "Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2"
- 97. Port Connectivity Checks: "Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1"
- 98. Port Connectivity Checks: "Sdram_Control_4Port:u6|sdr_data_path:data_path1"
- 99. Port Connectivity Checks: "Sdram_Control_4Port:u6|control_interface:control1"
-100. Port Connectivity Checks: "Sdram_Control_4Port:u6"
-101. Port Connectivity Checks: "RAW2RGB:u4|Line_Buffer:u0"
-102. Port Connectivity Checks: "VGA_Controller:u1"
-103. Post-Synthesis Netlist Statistics for Top Partition
-104. Elapsed Time Per Partition
-105. Analysis & Synthesis Messages
+ 93. Port Connectivity Checks: "Mirror_Col:u8"
+ 94. Port Connectivity Checks: "I2C_CCD_Config:u7|I2C_Controller:u0"
+ 95. Port Connectivity Checks: "Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2"
+ 96. Port Connectivity Checks: "Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1"
+ 97. Port Connectivity Checks: "Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2"
+ 98. Port Connectivity Checks: "Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1"
+ 99. Port Connectivity Checks: "Sdram_Control_4Port:u6|sdr_data_path:data_path1"
+100. Port Connectivity Checks: "Sdram_Control_4Port:u6|control_interface:control1"
+101. Port Connectivity Checks: "Sdram_Control_4Port:u6"
+102. Port Connectivity Checks: "RAW2RGB:u4|Line_Buffer:u0"
+103. Port Connectivity Checks: "VGA_Controller:u1"
+104. Post-Synthesis Netlist Statistics for Top Partition
+105. Elapsed Time Per Partition
+106. Analysis & Synthesis Messages
+107. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -137,18 +139,18 @@ agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                    ;
 +------------------------------------+--------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Apr 17 20:24:08 2017      ;
+; Analysis & Synthesis Status        ; Successful - Tue Apr 18 09:21:40 2017      ;
 ; Quartus II 64-Bit Version          ; 15.0.0 Build 145 04/22/2015 SJ Web Edition ;
 ; Revision Name                      ; DE2_CCD                                    ;
 ; Top-level Entity Name              ; DE2_CCD                                    ;
 ; Family                             ; Cyclone IV E                               ;
-; Total logic elements               ; 1,487                                      ;
-;     Total combinational functions  ; 1,120                                      ;
-;     Dedicated logic registers      ; 969                                        ;
-; Total registers                    ; 969                                        ;
+; Total logic elements               ; 1,473                                      ;
+;     Total combinational functions  ; 1,107                                      ;
+;     Dedicated logic registers      ; 958                                        ;
+; Total registers                    ; 958                                        ;
 ; Total pins                         ; 313                                        ;
 ; Total virtual pins                 ; 0                                          ;
-; Total memory bits                  ; 73,432                                     ;
+; Total memory bits                  ; 54,232                                     ;
 ; Embedded Multiplier 9-bit elements ; 0                                          ;
 ; Total PLLs                         ; 1                                          ;
 +------------------------------------+--------------------------------------------+
@@ -263,6 +265,7 @@ agreement for further details.
 +-------------------------------------------+-----------------+-----------------------------------+-------------------------------------------------------------------------------------------------------+---------+
 ; File Name with User-Entered Path          ; Used in Netlist ; File Type                         ; File Name with Absolute Path                                                                          ; Library ;
 +-------------------------------------------+-----------------+-----------------------------------+-------------------------------------------------------------------------------------------------------+---------+
+; Color_Mapper.sv                           ; yes             ; User SystemVerilog HDL File       ; C:/Users/Jesse/Documents/GitHub/ECE385/FinalProject/DE2_CCD/Color_Mapper.sv                           ;         ;
 ; VGA_Param.h                               ; yes             ; User Unspecified File             ; C:/Users/Jesse/Documents/GitHub/ECE385/FinalProject/DE2_CCD/VGA_Param.h                               ;         ;
 ; VGA_Controller.v                          ; yes             ; User Verilog HDL File             ; C:/Users/Jesse/Documents/GitHub/ECE385/FinalProject/DE2_CCD/VGA_Controller.v                          ;         ;
 ; DE2_CCD.v                                 ; yes             ; User Verilog HDL File             ; C:/Users/Jesse/Documents/GitHub/ECE385/FinalProject/DE2_CCD/DE2_CCD.v                                 ;         ;
@@ -332,24 +335,24 @@ agreement for further details.
 +---------------------------------------------+---------------------------------------------------------------------------+
 ; Resource                                    ; Usage                                                                     ;
 +---------------------------------------------+---------------------------------------------------------------------------+
-; Estimated Total logic elements              ; 1,487                                                                     ;
+; Estimated Total logic elements              ; 1,473                                                                     ;
 ;                                             ;                                                                           ;
-; Total combinational functions               ; 1120                                                                      ;
+; Total combinational functions               ; 1107                                                                      ;
 ; Logic element usage by number of LUT inputs ;                                                                           ;
-;     -- 4 input functions                    ; 540                                                                       ;
-;     -- 3 input functions                    ; 209                                                                       ;
-;     -- <=2 input functions                  ; 371                                                                       ;
+;     -- 4 input functions                    ; 537                                                                       ;
+;     -- 3 input functions                    ; 214                                                                       ;
+;     -- <=2 input functions                  ; 356                                                                       ;
 ;                                             ;                                                                           ;
 ; Logic elements by mode                      ;                                                                           ;
-;     -- normal mode                          ; 854                                                                       ;
-;     -- arithmetic mode                      ; 266                                                                       ;
+;     -- normal mode                          ; 850                                                                       ;
+;     -- arithmetic mode                      ; 257                                                                       ;
 ;                                             ;                                                                           ;
-; Total registers                             ; 969                                                                       ;
-;     -- Dedicated logic registers            ; 969                                                                       ;
+; Total registers                             ; 958                                                                       ;
+;     -- Dedicated logic registers            ; 958                                                                       ;
 ;     -- I/O registers                        ; 0                                                                         ;
 ;                                             ;                                                                           ;
 ; I/O pins                                    ; 313                                                                       ;
-; Total memory bits                           ; 73432                                                                     ;
+; Total memory bits                           ; 54232                                                                     ;
 ;                                             ;                                                                           ;
 ; Embedded Multiplier 9-bit elements          ; 0                                                                         ;
 ;                                             ;                                                                           ;
@@ -358,8 +361,8 @@ agreement for further details.
 ;                                             ;                                                                           ;
 ; Maximum fan-out node                        ; Sdram_Control_4Port:u6|Sdram_PLL:sdram_pll1|altpll:altpll_component|_clk0 ;
 ; Maximum fan-out                             ; 564                                                                       ;
-; Total fan-out                               ; 9552                                                                      ;
-; Average fan-out                             ; 3.28                                                                      ;
+; Total fan-out                               ; 8830                                                                      ;
+; Average fan-out                             ; 3.09                                                                      ;
 +---------------------------------------------+---------------------------------------------------------------------------+
 
 
@@ -368,20 +371,11 @@ agreement for further details.
 +--------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                       ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                        ; Library Name ;
 +--------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |DE2_CCD                                         ; 1120 (2)          ; 969 (13)     ; 73432       ; 0            ; 0       ; 0         ; 313  ; 0            ; |DE2_CCD                                                                                                                                                   ; work         ;
+; |DE2_CCD                                         ; 1107 (2)          ; 958 (13)     ; 54232       ; 0            ; 0       ; 0         ; 313  ; 0            ; |DE2_CCD                                                                                                                                                   ; work         ;
 ;    |CCD_Capture:u3|                              ; 63 (63)           ; 66 (66)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|CCD_Capture:u3                                                                                                                                    ; work         ;
+;    |Color_Mapper:c1|                             ; 33 (33)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Color_Mapper:c1                                                                                                                                   ; work         ;
 ;    |I2C_CCD_Config:u7|                           ; 118 (72)          ; 67 (41)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|I2C_CCD_Config:u7                                                                                                                                 ; work         ;
 ;       |I2C_Controller:u0|                        ; 46 (46)           ; 26 (26)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|I2C_CCD_Config:u7|I2C_Controller:u0                                                                                                               ; work         ;
-;    |Mirror_Col:u8|                               ; 20 (20)           ; 11 (11)      ; 19200       ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Mirror_Col:u8                                                                                                                                     ; work         ;
-;       |Stack_RAM:comb_130|                       ; 0 (0)             ; 0 (0)        ; 6400        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Mirror_Col:u8|Stack_RAM:comb_130                                                                                                                  ; work         ;
-;          |altsyncram:altsyncram_component|       ; 0 (0)             ; 0 (0)        ; 6400        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component                                                                                  ; work         ;
-;             |altsyncram_rgn1:auto_generated|     ; 0 (0)             ; 0 (0)        ; 6400        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated                                                   ; work         ;
-;       |Stack_RAM:comb_62|                        ; 0 (0)             ; 0 (0)        ; 6400        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Mirror_Col:u8|Stack_RAM:comb_62                                                                                                                   ; work         ;
-;          |altsyncram:altsyncram_component|       ; 0 (0)             ; 0 (0)        ; 6400        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component                                                                                   ; work         ;
-;             |altsyncram_rgn1:auto_generated|     ; 0 (0)             ; 0 (0)        ; 6400        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated                                                    ; work         ;
-;       |Stack_RAM:comb_96|                        ; 0 (0)             ; 0 (0)        ; 6400        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Mirror_Col:u8|Stack_RAM:comb_96                                                                                                                   ; work         ;
-;          |altsyncram:altsyncram_component|       ; 0 (0)             ; 0 (0)        ; 6400        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component                                                                                   ; work         ;
-;             |altsyncram_rgn1:auto_generated|     ; 0 (0)             ; 0 (0)        ; 6400        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated                                                    ; work         ;
 ;    |RAW2RGB:u4|                                  ; 88 (72)           ; 62 (51)      ; 25560       ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|RAW2RGB:u4                                                                                                                                        ; work         ;
 ;       |Line_Buffer:u0|                           ; 16 (0)            ; 11 (0)       ; 25560       ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|RAW2RGB:u4|Line_Buffer:u0                                                                                                                         ; work         ;
 ;          |altshift_taps:altshift_taps_component| ; 16 (0)            ; 11 (0)       ; 25560       ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|RAW2RGB:u4|Line_Buffer:u0|altshift_taps:altshift_taps_component                                                                                   ; work         ;
@@ -468,7 +462,7 @@ agreement for further details.
 ;          |altpll:altpll_component|               ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Sdram_Control_4Port:u6|Sdram_PLL:sdram_pll1|altpll:altpll_component                                                                               ; work         ;
 ;       |command:command1|                         ; 60 (60)           ; 48 (48)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Sdram_Control_4Port:u6|command:command1                                                                                                           ; work         ;
 ;       |control_interface:control1|               ; 64 (64)           ; 55 (55)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|Sdram_Control_4Port:u6|control_interface:control1                                                                                                 ; work         ;
-;    |VGA_Controller:u1|                           ; 66 (66)           ; 23 (23)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|VGA_Controller:u1                                                                                                                                 ; work         ;
+;    |VGA_Controller:u1|                           ; 40 (40)           ; 23 (23)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE2_CCD|VGA_Controller:u1                                                                                                                                 ; work         ;
 +--------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -478,9 +472,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
 ; Name                                                                                                                                 ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF  ;
 +--------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
-; Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|ALTSYNCRAM                           ; AUTO ; Simple Dual Port ; 640          ; 10           ; 640          ; 10           ; 6400  ; None ;
-; Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|ALTSYNCRAM                            ; AUTO ; Simple Dual Port ; 640          ; 10           ; 640          ; 10           ; 6400  ; None ;
-; Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|ALTSYNCRAM                            ; AUTO ; Simple Dual Port ; 640          ; 10           ; 640          ; 10           ; 6400  ; None ;
 ; RAW2RGB:u4|Line_Buffer:u0|altshift_taps:altshift_taps_component|shift_taps_2pn:auto_generated|altsyncram_mq81:altsyncram2|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 1278         ; 20           ; 1278         ; 20           ; 25560 ; None ;
 ; Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_mf51:fifo_ram|ALTSYNCRAM  ; AUTO ; Simple Dual Port ; 512          ; 16           ; 512          ; 16           ; 8192  ; None ;
 ; Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_mf51:fifo_ram|ALTSYNCRAM  ; AUTO ; Simple Dual Port ; 512          ; 16           ; 512          ; 16           ; 8192  ; None ;
@@ -517,6 +508,7 @@ Encoding Type:  One-Hot
 ; Sdram_Control_4Port:u6|mDATAOUT[8,9,15]                                                                                        ; Lost fanout                                                            ;
 ; Sdram_Control_4Port:u6|command:command1|CKE                                                                                    ; Stuck at VCC due to stuck port data_in                                 ;
 ; Sdram_Control_4Port:u6|CKE                                                                                                     ; Stuck at VCC due to stuck port data_in                                 ;
+; Mirror_Col:u8|Z_Cont[0..9]                                                                                                     ; Lost fanout                                                            ;
 ; I2C_CCD_Config:u7|mI2C_DATA[23]                                                                                                ; Stuck at VCC due to stuck port data_in                                 ;
 ; I2C_CCD_Config:u7|mI2C_DATA[22]                                                                                                ; Stuck at GND due to stuck port data_in                                 ;
 ; I2C_CCD_Config:u7|mI2C_DATA[19..21]                                                                                            ; Stuck at VCC due to stuck port data_in                                 ;
@@ -557,7 +549,7 @@ Encoding Type:  One-Hot
 ; I2C_CCD_Config:u7|mSetup_ST~9                                                                                                  ; Lost fanout                                                            ;
 ; I2C_CCD_Config:u7|mSetup_ST~10                                                                                                 ; Lost fanout                                                            ;
 ; CCD_Capture:u3|Y_Cont[9,10]                                                                                                    ; Lost fanout                                                            ;
-; Total Number of Removed Registers = 130                                                                                        ;                                                                        ;
+; Total Number of Removed Registers = 140                                                                                        ;                                                                        ;
 +--------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
 
 
@@ -595,10 +587,10 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 969   ;
-; Number of registers using Synchronous Clear  ; 92    ;
+; Total registers                              ; 958   ;
+; Number of registers using Synchronous Clear  ; 82    ;
 ; Number of registers using Synchronous Load   ; 81    ;
-; Number of registers using Asynchronous Clear ; 679   ;
+; Number of registers using Asynchronous Clear ; 668   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 358   ;
 ; Number of registers using Preset             ; 0     ;
@@ -616,7 +608,7 @@ Encoding Type:  One-Hot
 ; I2C_CCD_Config:u7|I2C_Controller:u0|SD_COUNTER[1]                                                                                       ; 15      ;
 ; I2C_CCD_Config:u7|I2C_Controller:u0|SD_COUNTER[4]                                                                                       ; 12      ;
 ; I2C_CCD_Config:u7|I2C_Controller:u0|SD_COUNTER[5]                                                                                       ; 11      ;
-; Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_577:rdptr_g1p|counter5a0  ; 8       ;
+; Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_577:rdptr_g1p|counter5a0  ; 7       ;
 ; Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_577:rdptr_g1p|counter5a0  ; 7       ;
 ; Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_1lc:wrptr_g1p|counter8a0  ; 6       ;
 ; Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_577:rdptr_g1p|parity6     ; 4       ;
@@ -628,7 +620,7 @@ Encoding Type:  One-Hot
 ; Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_1lc:wrptr_g1p|parity9     ; 4       ;
 ; Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_577:rdptr_g1p|counter5a0 ; 7       ;
 ; Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_577:rdptr_g1p|counter5a0 ; 7       ;
-; Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_1lc:wrptr_g1p|counter8a0 ; 7       ;
+; Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_1lc:wrptr_g1p|counter8a0 ; 6       ;
 ; Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_577:rdptr_g1p|parity6    ; 4       ;
 ; Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_1lc:wrptr_g1p|counter8a0 ; 6       ;
 ; Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|a_graycounter_577:rdptr_g1p|parity6    ; 4       ;
@@ -639,29 +631,30 @@ Encoding Type:  One-Hot
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                    ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                          ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------+
-; 3:1                ; 11 bits   ; 22 LEs        ; 22 LEs               ; 0 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|command:command1|SA[11]             ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|control_interface:control1|timer[0] ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|command:command1|command_delay[3]   ;
-; 4:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |DE2_CCD|CCD_Capture:u3|X_Cont[8]                                   ;
-; 4:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |DE2_CCD|CCD_Capture:u3|Y_Cont[5]                                   ;
-; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|rRD2_ADDR[8]                        ;
-; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|rRD1_ADDR[14]                       ;
-; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|rWR2_ADDR[11]                       ;
-; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|rWR1_ADDR[8]                        ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|command:command1|rp_shift[0]        ;
-; 5:1                ; 15 bits   ; 45 LEs        ; 30 LEs               ; 15 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|mADDR[10]                           ;
-; 64:1               ; 8 bits    ; 336 LEs       ; 80 LEs               ; 256 LEs                ; Yes        ; |DE2_CCD|I2C_CCD_Config:u7|mI2C_DATA[2]                             ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|CMD[1]                              ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 9 LEs                ; 3 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|RD_MASK[1]                          ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|WR_MASK[0]                          ;
-; 7:1                ; 10 bits   ; 40 LEs        ; 20 LEs               ; 20 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|ST[5]                               ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |DE2_CCD|I2C_CCD_Config:u7|I2C_Controller:u0|SD_COUNTER[3]          ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------+
+; 3:1                ; 11 bits   ; 22 LEs        ; 22 LEs               ; 0 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|command:command1|SA[3]               ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|control_interface:control1|timer[14] ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|command:command1|command_delay[6]    ;
+; 4:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |DE2_CCD|CCD_Capture:u3|X_Cont[10]                                   ;
+; 4:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |DE2_CCD|CCD_Capture:u3|Y_Cont[9]                                    ;
+; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|rRD2_ADDR[21]                        ;
+; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|rRD1_ADDR[13]                        ;
+; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|rWR2_ADDR[9]                         ;
+; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|rWR1_ADDR[11]                        ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|command:command1|rp_shift[2]         ;
+; 5:1                ; 15 bits   ; 45 LEs        ; 30 LEs               ; 15 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|mADDR[8]                             ;
+; 64:1               ; 8 bits    ; 336 LEs       ; 80 LEs               ; 256 LEs                ; Yes        ; |DE2_CCD|I2C_CCD_Config:u7|mI2C_DATA[7]                              ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|CMD[0]                               ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 9 LEs                ; 3 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|RD_MASK[1]                           ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|mWR                                  ;
+; 7:1                ; 10 bits   ; 40 LEs        ; 20 LEs               ; 20 LEs                 ; Yes        ; |DE2_CCD|Sdram_Control_4Port:u6|ST[3]                                ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |DE2_CCD|I2C_CCD_Config:u7|I2C_Controller:u0|SD_COUNTER[1]           ;
+; 3:1                ; 24 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |DE2_CCD|Color_Mapper:c1|VGA_R[2]                                    ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -2145,6 +2138,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
++---------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Mirror_Col:u8"                                                                           ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                             ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; oCCD_R    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; oCCD_G    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; oCCD_B    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; oCCD_DVAL ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "I2C_CCD_Config:u7|I2C_Controller:u0"                                                                                                               ;
 +------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -2305,16 +2310,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------+--------+----------+----------------------------------------------------------------------------------------------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "VGA_Controller:u1"                                                                                                               ;
-+------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------+
-; Port       ; Type   ; Severity ; Details                                                                                                                    ;
-+------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------+
-; oVGA_R     ; Output ; Warning  ; Output or bidir port (10 bits) is wider than the port expression (8 bits) it drives; bit(s) "oVGA_R[9..8]" have no fanouts ;
-; oVGA_G     ; Output ; Warning  ; Output or bidir port (10 bits) is wider than the port expression (8 bits) it drives; bit(s) "oVGA_G[9..8]" have no fanouts ;
-; oVGA_B     ; Output ; Warning  ; Output or bidir port (10 bits) is wider than the port expression (8 bits) it drives; bit(s) "oVGA_B[9..8]" have no fanouts ;
-; oVGA_CLOCK ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                   ;
-+------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "VGA_Controller:u1"                                                                                             ;
++------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port       ; Type   ; Severity ; Details                                                                                                  ;
++------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; oVGA_CLOCK ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++------------+--------+----------+----------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -2323,9 +2325,9 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 313                         ;
-; cycloneiii_ff         ; 969                         ;
-;     CLR               ; 426                         ;
-;     CLR SCLR          ; 36                          ;
+; cycloneiii_ff         ; 958                         ;
+;     CLR               ; 425                         ;
+;     CLR SCLR          ; 26                          ;
 ;     ENA               ; 66                          ;
 ;     ENA CLR           ; 181                         ;
 ;     ENA CLR SCLR      ; 30                          ;
@@ -2337,22 +2339,22 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     SLD               ; 16                          ;
 ;     plain             ; 126                         ;
 ; cycloneiii_io_obuf    ; 93                          ;
-; cycloneiii_lcell_comb ; 1130                        ;
-;     arith             ; 266                         ;
+; cycloneiii_lcell_comb ; 1117                        ;
+;     arith             ; 257                         ;
 ;         1 data inputs ; 1                           ;
-;         2 data inputs ; 218                         ;
-;         3 data inputs ; 47                          ;
-;     normal            ; 864                         ;
+;         2 data inputs ; 210                         ;
+;         3 data inputs ; 46                          ;
+;     normal            ; 860                         ;
 ;         0 data inputs ; 4                           ;
-;         1 data inputs ; 47                          ;
-;         2 data inputs ; 111                         ;
-;         3 data inputs ; 162                         ;
-;         4 data inputs ; 540                         ;
+;         1 data inputs ; 39                          ;
+;         2 data inputs ; 112                         ;
+;         3 data inputs ; 168                         ;
+;         4 data inputs ; 537                         ;
 ; cycloneiii_pll        ; 1                           ;
-; cycloneiii_ram_block  ; 106                         ;
+; cycloneiii_ram_block  ; 76                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 6.00                        ;
-; Average LUT depth     ; 2.54                        ;
+; Average LUT depth     ; 2.62                        ;
 +-----------------------+-----------------------------+
 
 
@@ -2371,11 +2373,16 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
-    Info: Processing started: Mon Apr 17 20:23:38 2017
+    Info: Processing started: Tue Apr 18 09:21:07 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE2_CCD -c DE2_CCD
 Info (11104): Parallel Compilation has detected 4 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 2 of the 2 physical processors detected instead.
+Info (12021): Found 1 design units, including 1 entities, in source file hexdriver.sv
+    Info (12023): Found entity 1: HexDriver
+Info (12021): Found 1 design units, including 1 entities, in source file color_mapper.sv
+    Info (12023): Found entity 1: Color_Mapper
 Info (12021): Found 1 design units, including 1 entities, in source file vga_ctrl.v
     Info (12023): Found entity 1: VGA_Ctrl
+Warning (10238): Verilog Module Declaration warning at VGA_Controller.v(22): ignored anonymous port(s) indicated by duplicate or dangling comma(s) in the port list for module "VGA_Controller"
 Info (12021): Found 1 design units, including 1 entities, in source file vga_controller.v
     Info (12023): Found entity 1: VGA_Controller
 Info (12021): Found 1 design units, including 1 entities, in source file de2_ccd.v
@@ -2412,6 +2419,11 @@ Info (12021): Found 1 design units, including 1 entities, in source file ccd_cap
 Warning (12019): Can't analyze file -- file VGA_DATA_REQ.v is missing
 Info (12021): Found 1 design units, including 1 entities, in source file mirror_col.v
     Info (12023): Found entity 1: Mirror_Col
+Warning (10229): Verilog HDL Expression warning at RGBResampler.sv(11): truncated literal to match 10 bits
+Warning (10229): Verilog HDL Expression warning at RGBResampler.sv(17): truncated literal to match 10 bits
+Warning (10229): Verilog HDL Expression warning at RGBResampler.sv(23): truncated literal to match 10 bits
+Info (12021): Found 1 design units, including 1 entities, in source file rgbresampler.sv
+    Info (12023): Found entity 1: RGBResampler
 Warning (10236): Verilog HDL Implicit Net warning at DE2_CCD.v(235): created implicit net for "LCD_ON"
 Warning (10236): Verilog HDL Implicit Net warning at DE2_CCD.v(236): created implicit net for "LCD_BLON"
 Warning (10236): Verilog HDL Implicit Net warning at DE2_CCD.v(237): created implicit net for "TD_RESET"
@@ -2430,7 +2442,7 @@ Warning (10036): Verilog HDL or VHDL warning at DE2_CCD.v(243): object "LCD_DATA
 Warning (10036): Verilog HDL or VHDL warning at DE2_CCD.v(244): object "SD_DAT" assigned a value but never read
 Warning (10230): Verilog HDL assignment warning at DE2_CCD.v(242): truncated value with size 16 to match size of target (1)
 Warning (10230): Verilog HDL assignment warning at DE2_CCD.v(243): truncated value with size 8 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at DE2_CCD.v(322): truncated value with size 11 to match size of target (9)
+Warning (10230): Verilog HDL assignment warning at DE2_CCD.v(334): truncated value with size 11 to match size of target (9)
 Warning (10034): Output port "DRAM_DQM[3..2]" at DE2_CCD.v(188) has no driver
 Warning (10034): Output port "FL_ADDR" at DE2_CCD.v(194) has no driver
 Warning (10034): Output port "SRAM_ADDR" at DE2_CCD.v(201) has no driver
@@ -2447,12 +2459,13 @@ Warning (10034): Output port "SRAM_CE_N" at DE2_CCD.v(205) has no driver
 Warning (10034): Output port "SRAM_OE_N" at DE2_CCD.v(206) has no driver
 Warning (10034): Output port "TDO" at DE2_CCD.v(214) has no driver
 Warning (10034): Output port "I2C_SCLK" at DE2_CCD.v(209) has no driver
+Info (12128): Elaborating entity "Color_Mapper" for hierarchy "Color_Mapper:c1"
 Info (12128): Elaborating entity "VGA_Controller" for hierarchy "VGA_Controller:u1"
-Warning (10230): Verilog HDL assignment warning at VGA_Controller.v(54): truncated value with size 32 to match size of target (10)
-Warning (10230): Verilog HDL assignment warning at VGA_Controller.v(57): truncated value with size 32 to match size of target (10)
-Warning (10230): Verilog HDL assignment warning at VGA_Controller.v(60): truncated value with size 32 to match size of target (10)
-Warning (10230): Verilog HDL assignment warning at VGA_Controller.v(91): truncated value with size 32 to match size of target (10)
-Warning (10230): Verilog HDL assignment warning at VGA_Controller.v(117): truncated value with size 32 to match size of target (10)
+Warning (10230): Verilog HDL assignment warning at VGA_Controller.v(66): truncated value with size 32 to match size of target (10)
+Warning (10230): Verilog HDL assignment warning at VGA_Controller.v(69): truncated value with size 32 to match size of target (10)
+Warning (10230): Verilog HDL assignment warning at VGA_Controller.v(72): truncated value with size 32 to match size of target (10)
+Warning (10230): Verilog HDL assignment warning at VGA_Controller.v(107): truncated value with size 32 to match size of target (10)
+Warning (10230): Verilog HDL assignment warning at VGA_Controller.v(133): truncated value with size 32 to match size of target (10)
 Info (12128): Elaborating entity "Reset_Delay" for hierarchy "Reset_Delay:u2"
 Warning (10230): Verilog HDL assignment warning at Reset_Delay.v(22): truncated value with size 32 to match size of target (22)
 Info (12128): Elaborating entity "CCD_Capture" for hierarchy "CCD_Capture:u3"
@@ -2702,6 +2715,36 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/alts
 Info (12128): Elaborating entity "altsyncram_rgn1" for hierarchy "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated"
 Warning (14284): Synthesized away the following node(s):
     Warning (14285): Synthesized away the following RAM node(s):
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[0]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[1]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[2]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[3]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[4]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[5]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[6]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[7]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[8]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_130|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[9]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[0]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[1]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[2]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[3]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[4]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[5]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[6]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[7]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[8]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_96|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[9]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[0]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[1]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[2]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[3]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[4]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[5]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[6]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[7]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[8]"
+        Warning (14320): Synthesized away node "Mirror_Col:u8|Stack_RAM:comb_62|altsyncram:altsyncram_component|altsyncram_rgn1:auto_generated|q_b[9]"
         Warning (14320): Synthesized away node "Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_mf51:fifo_ram|q_b[8]"
         Warning (14320): Synthesized away node "Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_mf51:fifo_ram|q_b[9]"
         Warning (14320): Synthesized away node "Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_mf51:fifo_ram|q_b[15]"
@@ -2846,7 +2889,8 @@ Warning (14632): Output pin "LEDR[6]" driven by bidirectional pin "GPIO[6]" cann
 Warning (14632): Output pin "LEDR[7]" driven by bidirectional pin "GPIO[7]" cannot be tri-stated
 Warning (14632): Output pin "LEDR[8]" driven by bidirectional pin "GPIO[8]" cannot be tri-stated
 Warning (14632): Output pin "LEDR[9]" driven by bidirectional pin "GPIO[9]" cannot be tri-stated
-Info (17049): 15 registers lost all their fanouts during netlist optimizations.
+Info (17049): 25 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file C:/Users/Jesse/Documents/GitHub/ECE385/FinalProject/DE2_CCD/DE2_CCD.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 9 input pin(s) that do not drive logic
@@ -2859,17 +2903,23 @@ Warning (21074): Design contains 9 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "TDI"
     Warning (15610): No output dependent on input pin "TCK"
     Warning (15610): No output dependent on input pin "TCS"
-Info (21057): Implemented 1933 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 1889 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 30 input pins
     Info (21059): Implemented 190 output pins
     Info (21060): Implemented 93 bidirectional pins
-    Info (21061): Implemented 1513 logic cells
-    Info (21064): Implemented 106 RAM segments
+    Info (21061): Implemented 1499 logic cells
+    Info (21064): Implemented 76 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 224 warnings
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 258 warnings
     Info: Peak virtual memory: 730 megabytes
-    Info: Processing ended: Mon Apr 17 20:24:08 2017
-    Info: Elapsed time: 00:00:30
-    Info: Total CPU time (on all processors): 00:00:47
+    Info: Processing ended: Tue Apr 18 09:21:40 2017
+    Info: Elapsed time: 00:00:33
+    Info: Total CPU time (on all processors): 00:00:54
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in C:/Users/Jesse/Documents/GitHub/ECE385/FinalProject/DE2_CCD/DE2_CCD.map.smsg.
 
 

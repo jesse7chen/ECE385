@@ -1,5 +1,5 @@
 Flow report for DE2_CCD
-Mon Apr 17 20:25:10 2017
+Tue Apr 18 09:22:50 2017
 Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
 
 
@@ -41,20 +41,20 @@ agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Flow Summary                                                                    ;
 +------------------------------------+--------------------------------------------+
-; Flow Status                        ; Successful - Mon Apr 17 20:25:00 2017      ;
+; Flow Status                        ; Successful - Tue Apr 18 09:22:38 2017      ;
 ; Quartus II 64-Bit Version          ; 15.0.0 Build 145 04/22/2015 SJ Web Edition ;
 ; Revision Name                      ; DE2_CCD                                    ;
 ; Top-level Entity Name              ; DE2_CCD                                    ;
 ; Family                             ; Cyclone IV E                               ;
 ; Device                             ; EP4CE115F29C7                              ;
 ; Timing Models                      ; Final                                      ;
-; Total logic elements               ; 1,378 / 114,480 ( 1 % )                    ;
-;     Total combinational functions  ; 1,120 / 114,480 ( < 1 % )                  ;
-;     Dedicated logic registers      ; 924 / 114,480 ( < 1 % )                    ;
-; Total registers                    ; 983                                        ;
+; Total logic elements               ; 1,367 / 114,480 ( 1 % )                    ;
+;     Total combinational functions  ; 1,107 / 114,480 ( < 1 % )                  ;
+;     Dedicated logic registers      ; 913 / 114,480 ( < 1 % )                    ;
+; Total registers                    ; 972                                        ;
 ; Total pins                         ; 313 / 529 ( 59 % )                         ;
 ; Total virtual pins                 ; 0                                          ;
-; Total memory bits                  ; 73,432 / 3,981,312 ( 2 % )                 ;
+; Total memory bits                  ; 54,232 / 3,981,312 ( 1 % )                 ;
 ; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                            ;
 ; Total PLLs                         ; 1 / 4 ( 25 % )                             ;
 +------------------------------------+--------------------------------------------+
@@ -65,7 +65,7 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/17/2017 20:23:38 ;
+; Start date & time ; 04/18/2017 09:21:08 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE2_CCD             ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ agreement for further details.
 +-------------------------------------+---------------------------------------+---------------+-------------+----------------+
 ; Assignment Name                     ; Value                                 ; Default Value ; Entity Name ; Section Id     ;
 +-------------------------------------+---------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 88075904569532.149247861809624        ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID               ; 88075904569532.149252526815352        ; --            ; --          ; --             ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --            ; --          ; --             ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                     ; --            ; --          ; --             ;
 ; PARTITION_COLOR                     ; 16764057                              ; --            ; --          ; Top            ;
@@ -93,11 +93,11 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:29     ; 1.0                     ; 723 MB              ; 00:00:46                           ;
-; Fitter                    ; 00:00:39     ; 1.3                     ; 1443 MB             ; 00:00:48                           ;
-; Assembler                 ; 00:00:07     ; 1.0                     ; 656 MB              ; 00:00:06                           ;
-; TimeQuest Timing Analyzer ; 00:00:08     ; 1.1                     ; 834 MB              ; 00:00:07                           ;
-; Total                     ; 00:01:23     ; --                      ; --                  ; 00:01:47                           ;
+; Analysis & Synthesis      ; 00:00:31     ; 1.0                     ; 723 MB              ; 00:00:53                           ;
+; Fitter                    ; 00:00:42     ; 1.2                     ; 1430 MB             ; 00:00:50                           ;
+; Assembler                 ; 00:00:08     ; 1.0                     ; 654 MB              ; 00:00:08                           ;
+; TimeQuest Timing Analyzer ; 00:00:09     ; 1.1                     ; 836 MB              ; 00:00:08                           ;
+; Total                     ; 00:01:30     ; --                      ; --                  ; 00:01:59                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

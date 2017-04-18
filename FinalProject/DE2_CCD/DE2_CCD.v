@@ -282,6 +282,18 @@ wire	[9:0]	sCCD_G;
 wire	[9:0]	sCCD_B;
 wire			sCCD_DVAL;
 
+// Debugging logic
+reg  [7:0] VGA_Green_Center;
+wire [9:0] VGA_X;
+wire [9:0] VGA_Y;
+wire [7:0] VGA_Green_Wire;
+wire [9:0] VGA_G_wire1;
+wire [9:0] VGA_R_wire1;
+wire [9:0] VGA_B_wire1;
+wire [7:0] VGA_G_wire2;
+wire [7:0] VGA_R_wire2;
+wire [7:0] VGA_B_wire2;
+
 //	For Sensor 1
 assign	CCD_DATA[0]	=	GPIO[0];
 assign	CCD_DATA[1]	=	GPIO[1];
@@ -323,7 +335,7 @@ assign	LEDG		=	Y_Cont;
 assign	VGA_CTRL_CLK=	CCD_MCLK;
 assign	VGA_CLK		=	~CCD_MCLK;
 
-always@(posedge CLOCK_50)	CCD_MCLK	<=	~CCD_MCLK;
+always@(posedge CLOCK_50)	CCD_MCLK	<=	~CCD_MCLK; // This makes a 25 MHz clock
 
 always@(posedge CCD_PIXCLK)
 begin
@@ -331,6 +343,26 @@ begin
 	rCCD_LVAL	<=	CCD_LVAL;
 	rCCD_FVAL	<=	CCD_FVAL;
 end
+
+// Debugging code
+/*
+always@(posedge VGA_CTRL_CLK)
+begin
+	if(VGA_X === 10'd464 && VGA_Y === 10'd274)
+		begin
+			VGA_Green_Center <= VGA_Green_Wire;
+		end
+end
+*/
+//HexDriver hex6(.Out0(HEX6), .In0(VGA_Green_Center[3:0]));
+//HexDriver hex7(.Out0(HEX7), .In0(VGA_Green_Center[7:4]));
+
+//RGBResampler r1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
+//					 .VGA_R_Out(VGA_R_wire2), .VGA_G_Out(VGA_G_wire2), .VGA_B_Out(VGA_B_wire2));
+
+Color_Mapper c1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
+					 .VGA_X(VGA_X), .VGA_Y(VGA_Y),
+					 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B));
 
 VGA_Controller		u1	(	//	Host Side
 							.oRequest(Read),
@@ -342,16 +374,20 @@ VGA_Controller		u1	(	//	Host Side
 							//.iGreen(sCCD_G),
 							//.iBlue(sCCD_B),
 							//	VGA Side
-							.oVGA_R(VGA_R),
-							.oVGA_G(VGA_G),
-							.oVGA_B(VGA_B),
+							.oVGA_R(VGA_R_wire1),
+							.oVGA_G(VGA_G_wire1),
+							.oVGA_B(VGA_B_wire1),
 							.oVGA_H_SYNC(VGA_HS),
 							.oVGA_V_SYNC(VGA_VS),
 							.oVGA_SYNC(VGA_SYNC_N),
 							.oVGA_BLANK(VGA_BLANK_N),
 							//	Control Signal
 							.iCLK(VGA_CTRL_CLK),
-							.iRST_N(DLY_RST_2)	);
+							.iRST_N(DLY_RST_2),
+							.VGA_X(VGA_X),
+							.VGA_Y(VGA_Y)
+							//.VGA_G2(VGA_Green_Wire)
+										);
 
 /*					
 VGA_Ctrl			u1	(	//	Host Side  // DE2-115 CONTROLLER
@@ -412,24 +448,25 @@ SEG7_LUT_8 			u5	(	.oSEG0(HEX0),.oSEG1(HEX1),
 							.oSEG2(HEX2),.oSEG3(HEX3),
 							.oSEG4(HEX4),.oSEG5(HEX5),
 							.oSEG6(HEX6),.oSEG7(HEX7),
-							.iDIG(Frame_Cont) );
+							.iDIG(Frame_Cont)
+							);
 
 Sdram_Control_4Port	u6	(	//	HOST Side
 						    .REF_CLK(CLOCK_50),
 						    .RESET_N(1'b1),
 							//	FIFO Write Side 1
-						    .WR1_DATA(	{sCCD_G[9:5],
-										 sCCD_B[9:0]}),
-							.WR1(sCCD_DVAL),
+						    .WR1_DATA(	{mCCD_G[9:5],
+										 mCCD_B[9:0]}),
+							.WR1(mCCD_DVAL_d),
 							.WR1_ADDR(0),
 							.WR1_MAX_ADDR(640*512),
 							.WR1_LENGTH(9'h100),
 							.WR1_LOAD(!DLY_RST_0),
 							.WR1_CLK(CCD_PIXCLK),
 							//	FIFO Write Side 2
-						    .WR2_DATA(	{sCCD_G[4:0],
-										 sCCD_R[9:0]}),
-							.WR2(sCCD_DVAL),
+						    .WR2_DATA(	{mCCD_G[4:0],
+										 mCCD_R[9:0]}),
+							.WR2(mCCD_DVAL_d),
 							.WR2_ADDR(22'h100000),
 							.WR2_MAX_ADDR(22'h100000+640*512),
 							.WR2_LENGTH(9'h100),
@@ -486,13 +523,13 @@ Sdram_Control_4Port	u6	(	//	HOST Side   // DE2-115 Sdram_control_4port
 				        	.RD1_LOAD(!DLY0),
 							.RD1_CLK(TD_CLK27),
 							//	FIFO Read Side 2
-						    .RD2_DATA(m2YCbCr),
-				        	.RD2(m2VGA_Read),
-				        	.RD2_ADDR(NTSC ? 640*267 : 640*330),			//	Read even field and bypess blanking
-							.RD2_MAX_ADDR(NTSC ? 640*507 : 640*570),
-							.RD2_LENGTH(9'h80),
-				        	.RD2_LOAD(!DLY0),
-							.RD2_CLK(TD_CLK27),
+						   //.RD2_DATA(m2YCbCr),
+				        	//.RD2(m2VGA_Read),
+				        	//.RD2_ADDR(NTSC ? 640*267 : 640*330),			//	Read even field and bypess blanking
+							//.RD2_MAX_ADDR(NTSC ? 640*507 : 640*570),
+							//.RD2_LENGTH(9'h80),
+				        	//.RD2_LOAD(!DLY0),
+							//.RD2_CLK(TD_CLK27),
 							//	SDRAM Side
 						    .SA(DRAM_ADDR),
 						    .BA(DRAM_BA),

@@ -1,0 +1,4 @@
+module RGBResampler(
+	input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In,
+	output		 [9:0] VGA_R_Out, VGA_G_Out, VGA_B_Out,
+);

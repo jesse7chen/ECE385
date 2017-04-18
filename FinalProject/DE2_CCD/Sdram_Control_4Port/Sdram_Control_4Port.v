@@ -254,6 +254,7 @@ Sdram_FIFO 	write_fifo1(
 				.rdreq(IN_REQ&WR_MASK[0]),
 				.rdclk(CLK),
 				.q(mDATAIN1),
+				
 				.wrfull(WR1_FULL),
 				.wrusedw(WR1_USE),
 				.rdusedw(write_side_fifo_rusedw1)
