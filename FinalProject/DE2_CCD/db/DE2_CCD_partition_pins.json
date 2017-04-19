@@ -352,15 +352,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "DRAM_LDQM",
+					"name" : "DRAM_BA[0]",
 					"strict" : false
 				},
 				{
-					"name" : "DRAM_UDQM",
-					"strict" : false
-				},
-				{
-					"name" : "DRAM_WE_N",
+					"name" : "DRAM_BA[1]",
 					"strict" : false
 				},
 				{
@@ -368,19 +364,23 @@
 					"strict" : false
 				},
 				{
-					"name" : "DRAM_RAS_N",
-					"strict" : false
-				},
-				{
 					"name" : "DRAM_CS_N",
 					"strict" : false
 				},
 				{
-					"name" : "DRAM_BA_0",
+					"name" : "DRAM_DQM[0]",
 					"strict" : false
 				},
 				{
-					"name" : "DRAM_BA_1",
+					"name" : "DRAM_DQM[1]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_RAS_N",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_WE_N",
 					"strict" : false
 				},
 				{

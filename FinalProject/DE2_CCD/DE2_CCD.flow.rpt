@@ -1,6 +1,6 @@
 Flow report for DE2_CCD
-Tue Apr 18 09:22:50 2017
-Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
+Tue Apr 18 20:06:04 2017
+Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
 ---------------------
@@ -21,43 +21,43 @@ Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
-Your use of Altera Corporation's design tools, logic functions 
+Copyright (C) 2016  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
-to the terms and conditions of the Altera Program License 
-Subscription Agreement, the Altera Quartus II License Agreement,
-the Altera MegaCore Function License Agreement, or other 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel MegaCore Function License Agreement, or other 
 applicable license agreement, including, without limitation, 
 that your use is for the sole purpose of programming logic 
-devices manufactured by Altera and sold by Altera or its 
+devices manufactured by Intel and sold by Intel or its 
 authorized distributors.  Please refer to the applicable 
 agreement for further details.
 
 
 
-+---------------------------------------------------------------------------------+
-; Flow Summary                                                                    ;
-+------------------------------------+--------------------------------------------+
-; Flow Status                        ; Successful - Tue Apr 18 09:22:38 2017      ;
-; Quartus II 64-Bit Version          ; 15.0.0 Build 145 04/22/2015 SJ Web Edition ;
-; Revision Name                      ; DE2_CCD                                    ;
-; Top-level Entity Name              ; DE2_CCD                                    ;
-; Family                             ; Cyclone IV E                               ;
-; Device                             ; EP4CE115F29C7                              ;
-; Timing Models                      ; Final                                      ;
-; Total logic elements               ; 1,367 / 114,480 ( 1 % )                    ;
-;     Total combinational functions  ; 1,107 / 114,480 ( < 1 % )                  ;
-;     Dedicated logic registers      ; 913 / 114,480 ( < 1 % )                    ;
-; Total registers                    ; 972                                        ;
-; Total pins                         ; 313 / 529 ( 59 % )                         ;
-; Total virtual pins                 ; 0                                          ;
-; Total memory bits                  ; 54,232 / 3,981,312 ( 1 % )                 ;
-; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                            ;
-; Total PLLs                         ; 1 / 4 ( 25 % )                             ;
-+------------------------------------+--------------------------------------------+
++----------------------------------------------------------------------------------+
+; Flow Summary                                                                     ;
++------------------------------------+---------------------------------------------+
+; Flow Status                        ; Successful - Tue Apr 18 20:05:54 2017       ;
+; Quartus Prime Version              ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
+; Revision Name                      ; DE2_CCD                                     ;
+; Top-level Entity Name              ; DE2_CCD                                     ;
+; Family                             ; Cyclone IV E                                ;
+; Device                             ; EP4CE115F29C7                               ;
+; Timing Models                      ; Final                                       ;
+; Total logic elements               ; 1,360 / 114,480 ( 1 % )                     ;
+;     Total combinational functions  ; 1,106 / 114,480 ( < 1 % )                   ;
+;     Dedicated logic registers      ; 913 / 114,480 ( < 1 % )                     ;
+; Total registers                    ; 972                                         ;
+; Total pins                         ; 313 / 529 ( 59 % )                          ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 54,232 / 3,981,312 ( 1 % )                  ;
+; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                             ;
+; Total PLLs                         ; 1 / 4 ( 25 % )                              ;
++------------------------------------+---------------------------------------------+
 
 
 +-----------------------------------------+
@@ -65,27 +65,27 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/18/2017 09:21:08 ;
+; Start date & time ; 04/18/2017 20:04:55 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE2_CCD             ;
 +-------------------+---------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                           ;
-+-------------------------------------+---------------------------------------+---------------+-------------+----------------+
-; Assignment Name                     ; Value                                 ; Default Value ; Entity Name ; Section Id     ;
-+-------------------------------------+---------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 88075904569532.149252526815352        ; --            ; --          ; --             ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --            ; --          ; --             ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                     ; --            ; --          ; --             ;
-; PARTITION_COLOR                     ; 16764057                              ; --            ; --          ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                 ; --            ; --          ; Top            ;
-; PARTITION_NETLIST_TYPE              ; SOURCE                                ; --            ; --          ; Top            ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                   ; --            ; --          ; --             ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW ; --            ; --          ; --             ;
-; USE_GENERATED_PHYSICAL_CONSTRAINTS  ; Off                                   ; --            ; --          ; eda_blast_fpga ;
-+-------------------------------------+---------------------------------------+---------------+-------------+----------------+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                            ;
++-------------------------------------+----------------------------------------+---------------+-------------+----------------+
+; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id     ;
++-------------------------------------+----------------------------------------+---------------+-------------+----------------+
+; COMPILER_SIGNATURE_ID               ; 233360581925958.149256389401104        ; --            ; --          ; --             ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --             ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --             ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; --          ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --            ; --          ; Top            ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --            ; --          ; Top            ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                    ; --            ; --          ; --             ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --          ; --             ;
+; USE_GENERATED_PHYSICAL_CONSTRAINTS  ; Off                                    ; --            ; --          ; eda_blast_fpga ;
++-------------------------------------+----------------------------------------+---------------+-------------+----------------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------+
@@ -93,24 +93,24 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:31     ; 1.0                     ; 723 MB              ; 00:00:53                           ;
-; Fitter                    ; 00:00:42     ; 1.2                     ; 1430 MB             ; 00:00:50                           ;
-; Assembler                 ; 00:00:08     ; 1.0                     ; 654 MB              ; 00:00:08                           ;
-; TimeQuest Timing Analyzer ; 00:00:09     ; 1.1                     ; 836 MB              ; 00:00:08                           ;
-; Total                     ; 00:01:30     ; --                      ; --                  ; 00:01:59                           ;
+; Analysis & Synthesis      ; 00:00:19     ; 1.0                     ; 644 MB              ; 00:00:28                           ;
+; Fitter                    ; 00:00:23     ; 1.0                     ; 1607 MB             ; 00:00:31                           ;
+; Assembler                 ; 00:00:05     ; 1.0                     ; 573 MB              ; 00:00:05                           ;
+; TimeQuest Timing Analyzer ; 00:00:06     ; 1.2                     ; 753 MB              ; 00:00:05                           ;
+; Total                     ; 00:00:53     ; --                      ; --                  ; 00:01:09                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+----------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                        ;
-+---------------------------+------------------+-----------+------------+----------------+
-; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
-+---------------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis      ; Ted              ; Windows 7 ; 6.2        ; x86_64         ;
-; Fitter                    ; Ted              ; Windows 7 ; 6.2        ; x86_64         ;
-; Assembler                 ; Ted              ; Windows 7 ; 6.2        ; x86_64         ;
-; TimeQuest Timing Analyzer ; Ted              ; Windows 7 ; 6.2        ; x86_64         ;
-+---------------------------+------------------+-----------+------------+----------------+
++-----------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                         ;
++---------------------------+------------------+------------+------------+----------------+
+; Module Name               ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
++---------------------------+------------------+------------+------------+----------------+
+; Analysis & Synthesis      ; CollegeDesktop   ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter                    ; CollegeDesktop   ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler                 ; CollegeDesktop   ; Windows 10 ; 10.0       ; x86_64         ;
+; TimeQuest Timing Analyzer ; CollegeDesktop   ; Windows 10 ; 10.0       ; x86_64         ;
++---------------------------+------------------+------------+------------+----------------+
 
 
 ------------
