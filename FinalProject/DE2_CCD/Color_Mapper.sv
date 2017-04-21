@@ -64,9 +64,9 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
         else 
         begin
             // Background
-            Red = VGA_R_In[7:0]; 
-            Green = VGA_G_In[7:0];
-            Blue = VGA_B_In[7:0];
+            Red = VGA_R_In[9:2]; 
+            Green = VGA_G_In[9:2];
+            Blue = VGA_B_In[9:2];
         end
     end 
     

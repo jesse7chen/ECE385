@@ -282,6 +282,8 @@ wire	[9:0]	sCCD_G;
 wire	[9:0]	sCCD_B;
 wire			sCCD_DVAL;
 
+
+
 // Debugging logic
 reg  [7:0] VGA_Green_Center;
 wire [9:0] VGA_X;
@@ -293,6 +295,10 @@ wire [9:0] VGA_B_wire1;
 wire [7:0] VGA_G_wire2;
 wire [7:0] VGA_R_wire2;
 wire [7:0] VGA_B_wire2;
+
+wire [9:0] mCCD_R2;
+wire [9:0] mCCD_G2;
+wire [9:0] mCCD_B2;
 
 //	For Sensor 1
 assign	CCD_DATA[0]	=	GPIO[0];
@@ -311,27 +317,9 @@ assign	GPIO[11]	=	CCD_MCLK;
 assign	CCD_FVAL	=	GPIO[13];
 assign	CCD_LVAL	=	GPIO[12];
 assign	CCD_PIXCLK	=	GPIO[10];
-//	For Sensor 2
-/*
-assign	CCD_DATA[0]	=	GPIO[0+20];
-assign	CCD_DATA[1]	=	GPIO[1+20];
-assign	CCD_DATA[2]	=	GPIO[5+20];
-assign	CCD_DATA[3]	=	GPIO[3+20];
-assign	CCD_DATA[4]	=	GPIO[2+20];
-assign	CCD_DATA[5]	=	GPIO[4+20];
-assign	CCD_DATA[6]	=	GPIO[6+20];
-assign	CCD_DATA[7]	=	GPIO[7+20];
-assign	CCD_DATA[8]	=	GPIO[8+20];
-assign	CCD_DATA[9]	=	GPIO[9+20];
-assign	GPIO[11+20]	=	CCD_MCLK;
-assign	GPIO[15+20]	=	CCD_SDAT;
-assign	GPIO[14+20]	=	CCD_SCLK;
-assign	CCD_FVAL	=	GPIO[13+20];
-assign	CCD_LVAL	=	GPIO[12+20];
-assign	CCD_PIXCLK	=	GPIO[10+20];
-*/
-assign	LEDR		=	CCD_DATA;
-assign	LEDG		=	Y_Cont;
+
+//assign	LEDR		=	CCD_DATA;
+//assign	LEDG		=	Y_Cont;
 assign	VGA_CTRL_CLK=	CCD_MCLK;
 assign	VGA_CLK		=	~CCD_MCLK;
 
@@ -359,6 +347,9 @@ end
 
 //RGBResampler r1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
 //					 .VGA_R_Out(VGA_R_wire2), .VGA_G_Out(VGA_G_wire2), .VGA_B_Out(VGA_B_wire2));
+
+Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(CLOCK_50));		
+
 
 Color_Mapper c1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
 					 .VGA_X(VGA_X), .VGA_Y(VGA_Y),
@@ -450,13 +441,14 @@ SEG7_LUT_8 			u5	(	.oSEG0(HEX0),.oSEG1(HEX1),
 							.oSEG6(HEX6),.oSEG7(HEX7),
 							.iDIG(Frame_Cont)
 							);
+							
 
 Sdram_Control_4Port	u6	(	//	HOST Side
 						    .REF_CLK(CLOCK_50),
 						    .RESET_N(1'b1),
 							//	FIFO Write Side 1
-						    .WR1_DATA(	{mCCD_G[9:5],
-										 mCCD_B[9:0]}),
+						    .WR1_DATA(	{mCCD_G2[9:5],
+										 mCCD_B2[9:0]}),
 							.WR1(mCCD_DVAL_d),
 							.WR1_ADDR(0),
 							.WR1_MAX_ADDR(640*512),
@@ -464,8 +456,8 @@ Sdram_Control_4Port	u6	(	//	HOST Side
 							.WR1_LOAD(!DLY_RST_0),
 							.WR1_CLK(CCD_PIXCLK),
 							//	FIFO Write Side 2
-						    .WR2_DATA(	{mCCD_G[4:0],
-										 mCCD_R[9:0]}),
+						    .WR2_DATA(	{mCCD_G2[4:0],
+										 mCCD_R2[9:0]}),
 							.WR2(mCCD_DVAL_d),
 							.WR2_ADDR(22'h100000),
 							.WR2_MAX_ADDR(22'h100000+640*512),

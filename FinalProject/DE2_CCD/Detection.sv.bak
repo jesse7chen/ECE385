@@ -1,0 +1,25 @@
+module Detection(
+input [9:0] Rin,
+input [9:0] Gin,
+input [9:0] Bin,
+
+output [9:0] Rout,
+output [9:0] Gout,
+output [9:0] Bout
+)
+
+	if(Rin >= 10'b0001000000)
+	begin
+assign			Rout = 10'b0000000000;
+assign			Gout = 10'b0000000000;
+assign			Bout = 10'b0000000000;
+	end
+	else
+	begin
+assign	Rout = Rin;
+assign	Gout = Gin;
+assign	Bout = Bin;
+end			
+
+
+endmodule	

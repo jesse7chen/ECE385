@@ -103,8 +103,8 @@ begin
 	0	:	LUT_DATA	<=	16'h0000;
 	1	:	LUT_DATA	<=	16'h2000;
 	2	:	LUT_DATA	<=	16'hF101;	//	Mirror Row and Columns
-	3	:	LUT_DATA	<=	{8'h09,iExposure[15:8]};//	Exposure
-	4	:	LUT_DATA	<=	{8'hF1,iExposure[7:0]};
+	3	:	LUT_DATA	<=	16'h0907;//	Exposure
+	4	:	LUT_DATA	<=	16'hF100;
 	5	:	LUT_DATA	<=	16'h2B00;	//	Green 1 Gain
 	6	:	LUT_DATA	<=	16'hF1B0;
 	7	:	LUT_DATA	<=	16'h2C00;	//	Blue Gain

@@ -17,7 +17,7 @@ module	VGA_Controller(	//	Host Side
 						iRST_N,
 						
 						VGA_X,
-						VGA_Y,
+						VGA_Y
 						//VGA_G2
 								);
 
