@@ -296,6 +296,10 @@ wire [7:0] VGA_G_wire2;
 wire [7:0] VGA_R_wire2;
 wire [7:0] VGA_B_wire2;
 
+wire [9:0] posX;
+wire [9:0] posY;
+wire		  FrameVS;
+
 wire [9:0] mCCD_R2;
 wire [9:0] mCCD_G2;
 wire [9:0] mCCD_B2;
@@ -322,6 +326,9 @@ assign	CCD_PIXCLK	=	GPIO[10];
 //assign	LEDG		=	Y_Cont;
 assign	VGA_CTRL_CLK=	CCD_MCLK;
 assign	VGA_CLK		=	~CCD_MCLK;
+assign FrameVS =  VGA_VS;
+
+
 
 always@(posedge CLOCK_50)	CCD_MCLK	<=	~CCD_MCLK; // This makes a 25 MHz clock
 
@@ -348,13 +355,13 @@ end
 //RGBResampler r1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
 //					 .VGA_R_Out(VGA_R_wire2), .VGA_G_Out(VGA_G_wire2), .VGA_B_Out(VGA_B_wire2));
 
-Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(CLOCK_50));		
-
+Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(VGA_CTRL_CLK), 
+.X(VGA_X), .Y(VGA_Y), .VGA_VS(VGA_VS), .posX(posX), .posY(posY));
 
 Color_Mapper c1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
-					 .VGA_X(VGA_X), .VGA_Y(VGA_Y),
+					 .VGA_X(VGA_X), .VGA_Y(VGA_Y), .posX(posX), .posY(posY),
 					 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B));
-
+ 
 VGA_Controller		u1	(	//	Host Side
 							.oRequest(Read),
 							.iRed(Read_DATA2[9:0]),
