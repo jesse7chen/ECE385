@@ -19,7 +19,7 @@ output reg [9:0] posY
 wire [9:0] xCount;
 wire [9:0] yCount;
 wire [9:0] frame;
-
+ 
  
 
 //3	:	LUT_DATA	<=	{8'h09,iExposure[15:8]};//	Exposure
