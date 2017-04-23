@@ -1,5 +1,5 @@
---a_gray2bin carry_chain="MANUAL" carry_chain_length=48 device_family="Cyclone IV E" ignore_carry_buffers="OFF" WIDTH=10 bin gray
---VERSION_BEGIN 16.1 cbx_a_gray2bin 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ  VERSION_END
+--lpm_compare CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEVICE_FAMILY="Cyclone IV E" LPM_WIDTH=1 ONE_INPUT_IS_CONSTANT="YES" aeb dataa datab
+--VERSION_BEGIN 16.1 cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
 
 
 -- Copyright (C) 2016  Intel Corporation. All rights reserved.
@@ -20,32 +20,23 @@
 
 
 --synthesis_resources = 
-SUBDESIGN a_gray2bin_6ib
+SUBDESIGN cmpr_ngc
 ( 
-	bin[9..0]	:	output;
-	gray[9..0]	:	input;
+	aeb	:	output;
+	dataa[0..0]	:	input;
+	datab[0..0]	:	input;
 ) 
 VARIABLE 
-	xor0	: WIRE;
-	xor1	: WIRE;
-	xor2	: WIRE;
-	xor3	: WIRE;
-	xor4	: WIRE;
-	xor5	: WIRE;
-	xor6	: WIRE;
-	xor7	: WIRE;
-	xor8	: WIRE;
+	aeb_result_wire[0..0]	: WIRE;
+	aneb_result_wire[0..0]	: WIRE;
+	data_wire[1..0]	: WIRE;
+	eq_wire	: WIRE;
 
 BEGIN 
-	bin[] = ( gray[9..9], xor8, xor7, xor6, xor5, xor4, xor3, xor2, xor1, xor0);
-	xor0 = (gray[0..0] $ xor1);
-	xor1 = (gray[1..1] $ xor2);
-	xor2 = (gray[2..2] $ xor3);
-	xor3 = (gray[3..3] $ xor4);
-	xor4 = (gray[4..4] $ xor5);
-	xor5 = (gray[5..5] $ xor6);
-	xor6 = (gray[6..6] $ xor7);
-	xor7 = (gray[7..7] $ xor8);
-	xor8 = (gray[9..9] $ gray[8..8]);
+	aeb = eq_wire;
+	aeb_result_wire[] = (! aneb_result_wire[]);
+	aneb_result_wire[] = (data_wire[0..0] $ data_wire[1..1]);
+	data_wire[] = ( datab[0..0], dataa[0..0]);
+	eq_wire = aeb_result_wire[];
 END;
 --VALID FILE
