@@ -355,13 +355,13 @@ end
 //RGBResampler r1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
 //					 .VGA_R_Out(VGA_R_wire2), .VGA_G_Out(VGA_G_wire2), .VGA_B_Out(VGA_B_wire2));
 
-Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(VGA_CTRL_CLK), 
+Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(CCD_MCLK), 
 .X(VGA_X), .Y(VGA_Y), .VGA_VS(VGA_VS), .posX(posX), .posY(posY));
 
 Color_Mapper c1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
 					 .VGA_X(VGA_X), .VGA_Y(VGA_Y), .posX(posX), .posY(posY),
 					 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B));
- 
+
 VGA_Controller		u1	(	//	Host Side
 							.oRequest(Read),
 							.iRed(Read_DATA2[9:0]),
@@ -387,30 +387,7 @@ VGA_Controller		u1	(	//	Host Side
 							//.VGA_G2(VGA_Green_Wire)
 										);
 
-/*					
-VGA_Ctrl			u1	(	//	Host Side  // DE2-115 CONTROLLER
-							//.iRed(sCCD_R),
-							//.iGreen(sCCD_G),
-							//.iBlue(sCCD_B),
-							.iRed(Read_DATA2[9:0]),
-							.iGreen({Read_DATA1[14:10],Read_DATA2[14:10]}),
-							.iBlue(Read_DATA1[9:0]),
-							//.oCurrent_X(VGA_X),
-							//.oCurrent_Y(VGA_Y),
-							.oRequest(Read),
-							//	VGA Side
-							.oVGA_R(VGA_R),
-							.oVGA_G(VGA_G),
-							.oVGA_B(VGA_B),
-							.oVGA_HS(VGA_HS),
-							.oVGA_VS(VGA_VS),
-							.oVGA_SYNC(VGA_SYNC_N),
-							.oVGA_BLANK(VGA_BLANK_N),
-							//.oVGA_CLOCK(VGA_CLK),
-							//	Control Signal
-							.iCLK(VGA_CTRL_CLK),
-							.iRST_N(DLY_RST_2)	);
-							*/
+
 
 Reset_Delay			u2	(	.iCLK(CLOCK_50),
 							.iRST(KEY[0]),
@@ -446,7 +423,7 @@ SEG7_LUT_8 			u5	(	.oSEG0(HEX0),.oSEG1(HEX1),
 							.oSEG2(HEX2),.oSEG3(HEX3),
 							.oSEG4(HEX4),.oSEG5(HEX5),
 							.oSEG6(HEX6),.oSEG7(HEX7),
-							.iDIG(Frame_Cont)
+							.i1(posX), .i2(posY)
 							);
 							
 
@@ -499,48 +476,6 @@ Sdram_Control_4Port	u6	(	//	HOST Side
 				            .DQM({DRAM_DQM[1],DRAM_DQM[0]}),
 							.SDR_CLK(DRAM_CLK)	);
 						
-					/*	
-Sdram_Control_4Port	u6	(	//	HOST Side   // DE2-115 Sdram_control_4port
-						    .REF_CLK(CLOCK_50),
-							//.CLK_18(AUD_CTRL_CLK),
-						    .RESET_N(1'b1),
-							//	FIFO Write Side 1
-						    .WR1_DATA({sCCD_G, sCCD_B, sCCD_R}),
-							.WR1(sCCD_DVAL),
-							.WR1_FULL(WR1_FULL),
-							.WR1_ADDR(0),
-							.WR1_MAX_ADDR(640*512),		//	525-18
-							.WR1_LENGTH(9'h100),
-							.WR1_LOAD(!DLY_RST_0),
-							.WR1_CLK(CCD_PIXCLK),
-							//	FIFO Read Side 1
-						    .RD1_DATA(READ_DATA_NEW),
-				        	.RD1(m1VGA_Read),
-				        	.RD1_ADDR(NTSC ? 640*13 : 640*42),			//	Read odd field and bypess blanking
-							.RD1_MAX_ADDR(NTSC ? 640*253 : 640*282),
-							.RD1_LENGTH(9'h80),
-				        	.RD1_LOAD(!DLY0),
-							.RD1_CLK(TD_CLK27),
-							//	FIFO Read Side 2
-						   //.RD2_DATA(m2YCbCr),
-				        	//.RD2(m2VGA_Read),
-				        	//.RD2_ADDR(NTSC ? 640*267 : 640*330),			//	Read even field and bypess blanking
-							//.RD2_MAX_ADDR(NTSC ? 640*507 : 640*570),
-							//.RD2_LENGTH(9'h80),
-				        	//.RD2_LOAD(!DLY0),
-							//.RD2_CLK(TD_CLK27),
-							//	SDRAM Side
-						    .SA(DRAM_ADDR),
-						    .BA(DRAM_BA),
-						    .CS_N(DRAM_CS_N),
-						    .CKE(DRAM_CKE),
-						    .RAS_N(DRAM_RAS_N),
-				            .CAS_N(DRAM_CAS_N),
-				            .WE_N(DRAM_WE_N),
-						    .DQ(DRAM_DQ),
-				            .DQM({DRAM_DQM[1],DRAM_DQM[0]}),
-							.SDR_CLK(DRAM_CLK)	);	
-							*/
 
 
 I2C_CCD_Config 		u7	(	//	Host Side

@@ -1,5 +1,5 @@
 Assembler report for DE2_CCD
-Thu Apr 20 21:51:42 2017
+Sat Apr 22 22:41:07 2017
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -10,8 +10,8 @@ Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
   2. Assembler Summary
   3. Assembler Settings
   4. Assembler Generated Files
-  5. Assembler Device Options: C:/Users/William/Desktop/ECE385/FinalProject/DE2_CCD/DE2_CCD.sof
-  6. Assembler Device Options: C:/Users/William/Desktop/ECE385/FinalProject/DE2_CCD/DE2_CCD.pof
+  5. Assembler Device Options: C:/Users/William/Documents/ECE385/FinalProject/DE2_CCD/DE2_CCD.sof
+  6. Assembler Device Options: C:/Users/William/Documents/ECE385/FinalProject/DE2_CCD/DE2_CCD.pof
   7. Assembler Messages
 
 
@@ -39,7 +39,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Thu Apr 20 21:51:42 2017 ;
+; Assembler Status      ; Successful - Sat Apr 22 22:41:07 2017 ;
 ; Revision Name         ; DE2_CCD                               ;
 ; Top-level Entity Name ; DE2_CCD                               ;
 ; Family                ; Cyclone IV E                          ;
@@ -54,37 +54,37 @@ agreement for further details.
 +--------+---------+---------------+
 
 
-+------------------------------------------------------------------+
-; Assembler Generated Files                                        ;
-+------------------------------------------------------------------+
-; File Name                                                        ;
-+------------------------------------------------------------------+
-; C:/Users/William/Desktop/ECE385/FinalProject/DE2_CCD/DE2_CCD.sof ;
-; C:/Users/William/Desktop/ECE385/FinalProject/DE2_CCD/DE2_CCD.pof ;
-+------------------------------------------------------------------+
++--------------------------------------------------------------------+
+; Assembler Generated Files                                          ;
++--------------------------------------------------------------------+
+; File Name                                                          ;
++--------------------------------------------------------------------+
+; C:/Users/William/Documents/ECE385/FinalProject/DE2_CCD/DE2_CCD.sof ;
+; C:/Users/William/Documents/ECE385/FinalProject/DE2_CCD/DE2_CCD.pof ;
++--------------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/William/Desktop/ECE385/FinalProject/DE2_CCD/DE2_CCD.sof ;
-+----------------+---------------------------------------------------------------------------+
-; Option         ; Setting                                                                   ;
-+----------------+---------------------------------------------------------------------------+
-; Device         ; EP4CE115F29C7                                                             ;
-; JTAG usercode  ; 0x00655A8E                                                                ;
-; Checksum       ; 0x00655A8E                                                                ;
-+----------------+---------------------------------------------------------------------------+
++----------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/William/Documents/ECE385/FinalProject/DE2_CCD/DE2_CCD.sof ;
++----------------+-----------------------------------------------------------------------------+
+; Option         ; Setting                                                                     ;
++----------------+-----------------------------------------------------------------------------+
+; Device         ; EP4CE115F29C7                                                               ;
+; JTAG usercode  ; 0x006B4B2D                                                                  ;
+; Checksum       ; 0x006B4B2D                                                                  ;
++----------------+-----------------------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/William/Desktop/ECE385/FinalProject/DE2_CCD/DE2_CCD.pof ;
-+--------------------+-----------------------------------------------------------------------+
-; Option             ; Setting                                                               ;
-+--------------------+-----------------------------------------------------------------------+
-; Device             ; EPCS64                                                                ;
-; JTAG usercode      ; 0x00000000                                                            ;
-; Checksum           ; 0x711EEBF4                                                            ;
-; Compression Ratio  ; 3                                                                     ;
-+--------------------+-----------------------------------------------------------------------+
++----------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/William/Documents/ECE385/FinalProject/DE2_CCD/DE2_CCD.pof ;
++--------------------+-------------------------------------------------------------------------+
+; Option             ; Setting                                                                 ;
++--------------------+-------------------------------------------------------------------------+
+; Device             ; EPCS64                                                                  ;
+; JTAG usercode      ; 0x00000000                                                              ;
+; Checksum           ; 0x7111BC25                                                              ;
+; Compression Ratio  ; 3                                                                       ;
++--------------------+-------------------------------------------------------------------------+
 
 
 +--------------------+
@@ -93,15 +93,15 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Thu Apr 20 21:51:38 2017
+    Info: Processing started: Sat Apr 22 22:41:02 2017
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off DE2_CCD -c DE2_CCD
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus Prime Assembler was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 574 megabytes
-    Info: Processing ended: Thu Apr 20 21:51:42 2017
-    Info: Elapsed time: 00:00:04
+    Info: Peak virtual memory: 581 megabytes
+    Info: Processing ended: Sat Apr 22 22:41:07 2017
+    Info: Elapsed time: 00:00:05
     Info: Total CPU time (on all processors): 00:00:04
 
 

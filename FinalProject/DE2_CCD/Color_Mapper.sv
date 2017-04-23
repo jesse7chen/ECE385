@@ -18,7 +18,7 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
                                           VGA_X, VGA_Y, posX, posY,      // Coordinates of current drawing pixel
                        output logic [7:0] VGA_R, VGA_G, VGA_B // VGA RGB output
                      );
-     
+    
     
     logic point_on;
     logic [7:0] Red, Green, Blue;
