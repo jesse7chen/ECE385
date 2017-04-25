@@ -8,91 +8,80 @@ input [9:0] X,
 input [9:0] Y,
 input VGA_VS,
 
+inout [19:0] xCount,
+inout [19:0] yCount,
+inout [19:0] frame,
+
 output [9:0] Rout,
 output [9:0] Gout,
 output [9:0] Bout,
 
-output reg [9:0] posX,
-output reg [9:0] posY
+output [10:0] posX,
+output [10:0] posY
 );
 
-logic [15:0] xCount;
-logic [15:0] yCount;
-logic [15:0] frame;
+
+reg	[19:0] frame_next;
+reg	[19:0]	xCount_next;
+reg	[19:0]	yCount_next;
 
 
+reg [10:0] posXX;
+reg [10:0] posYY;
 
-//3	:	LUT_DATA	<=	{8'h09,iExposure[15:8]};//	Exposure
+assign posX = posXX;
+assign posY = posYY;
+
+assign	Rout = Rin;
+assign	Gout = Gin;
+assign	Bout = Bin;
 
 
-always_ff@(posedge CLK)
+always_comb
 begin
+
+	if(Rin >= {SW[17:14],5'b00000} && Gin <= {SW[13:10],5'b11111} && Bin <= {SW[13:10],5'b11111})
+	begin
+		xCount_next = xCount + X;
+		yCount_next = yCount + Y;
+		frame_next = frame + 1;
+	end
+	else
+	begin
+		xCount_next = xCount;
+		yCount_next = yCount;
+		frame_next = frame;
+	end
+	
 	if(VGA_VS)
 	begin
-		posX <= xCount / frame;
-		posY <= yCount / frame;
-		xCount <= 0;
-		yCount <= 0;
-		frame <= 0;
+		posXX = xCount / frame;
+		posYY = yCount / frame;
 	end
-
-if(SW[0])
-if(Rin >= {SW[17:14],5'b00000} && Gin <= {SW[13:10],5'b11111} && Bin <= {SW[13:10],5'b11111})
-		begin
-		
-		xCount <= X + xCount;
-		yCount <= Y + yCount;
-		frame <= frame+1;
-
-
-	//Rout = 10'b1111111111;
-	//Gout = 10'b1111111111;
-	//Bout = 10'b1111111111;
-		end
-		else
-		begin 
-	Rout = Rin;
-	Gout = Gin;
-	Bout = Bin;
-	end 
-	
-	
-	
-else if(SW[1])	
-	if(Rin <= {SW[13:10],5'b11111} && Gin >= {SW[17:14],5'b11111} && Bin <= {SW[13:10],5'b11111})
-
-		begin
-	Rout = 10'b1111111111;
-	Gout = 10'b1111111111;
-	Bout = 10'b1111111111;
-		end
-		else
-		begin 
-	Rout = Rin;
-	Gout = Gin;
-	Bout = Bin;
+	else
+	begin
+		posXX = posX;
+		posYY = posY;
 	end
-	
-else if(SW[2])	
-	if(Rin <= {SW[13:10],5'b11111} && Gin <= {SW[13:10],5'b11111} && Bin >= {SW[17:14],5'b10111} )
+end
 
-		begin
-	Rout = 10'b1111111111;
-	Gout = 10'b1111111111;
-	Bout = 10'b1111111111;
-		end
-		else
-		begin 
-	Rout = Rin;
-	Gout = Gin;
-	Bout = Bin;
-	end
-	
-else 
+
+always_ff@(posedge CLK or posedge VGA_VS)
 begin
-	Rout = Rin;
-	Gout = Gin;
-	Bout = Bin;
+
+	if(VGA_VS)
+	begin
+		xCount <= 20'b0;
+		yCount <= 20'b0;
+		frame <= 20'b0;
+	end
+	else
+	begin
+		xCount <= yCount_next;
+		yCount <= xCount_next;
+		frame <= frame_next;
+	end
+
 end
-end
+
 endmodule	

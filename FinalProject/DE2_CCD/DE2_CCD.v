@@ -71,22 +71,7 @@ module DE2_CCD
 		////////////////////////	IRDA	////////////////////////
 		IRDA_TXD,						//	IRDA Transmitter
 		IRDA_RXD,						//	IRDA Receiver
-		/////////////////////	SDRAM Interface		////////////////
-		/*
-		DRAM_DQ,						//	SDRAM Data bus 16 Bits
-		DRAM_ADDR,						//	SDRAM Address bus 12 Bits
-		DRAM_LDQM,						//	SDRAM Low-byte Data Mask 
-		DRAM_UDQM,						//	SDRAM High-byte Data Mask
-		DRAM_WE_N,						//	SDRAM Write Enable
-		DRAM_CAS_N,						//	SDRAM Column Address Strobe
-		DRAM_RAS_N,						//	SDRAM Row Address Strobe
-		DRAM_CS_N,						//	SDRAM Chip Select
-		DRAM_BA_0,						//	SDRAM Bank Address 0
-		DRAM_BA_1,						//	SDRAM Bank Address 0
-		DRAM_CLK,						//	SDRAM Clock
-		DRAM_CKE,						//	SDRAM Clock Enable
-		*/
-		
+		/////////////////////	SDRAM Interface		////////////////		
 		DRAM_ADDR, // DE2-115 SDRAM
 		DRAM_BA,
 		DRAM_CAS_N,
@@ -163,20 +148,6 @@ input			UART_RXD;				//	UART Receiver
 ////////////////////////////	IRDA	////////////////////////////
 output			IRDA_TXD;				//	IRDA Transmitter
 input			IRDA_RXD;				//	IRDA Receiver
-///////////////////////		SDRAM Interface	////////////////////////
-/*inout	[15:0]	DRAM_DQ;				//	SDRAM Data bus 16 Bits
-output	[11:0]	DRAM_ADDR;				//	SDRAM Address bus 12 Bits
-output			DRAM_LDQM;				//	SDRAM Low-byte Data Mask 
-output			DRAM_UDQM;				//	SDRAM High-byte Data Mask
-output			DRAM_WE_N;				//	SDRAM Write Enable
-output			DRAM_CAS_N;				//	SDRAM Column Address Strobe
-output			DRAM_RAS_N;				//	SDRAM Row Address Strobe
-output			DRAM_CS_N;				//	SDRAM Chip Select
-output			DRAM_BA_0;				//	SDRAM Bank Address 0
-output			DRAM_BA_1;				//	SDRAM Bank Address 0
-output			DRAM_CLK;				//	SDRAM Clock
-output			DRAM_CKE;				//	SDRAM Clock Enable
-*/
 
 output		    [12:0]		DRAM_ADDR; // DE2-115 SDRAM
 output		     [1:0]		DRAM_BA;
@@ -221,11 +192,6 @@ output			VGA_SYNC_N;				//	VGA SYNC
 output	[7:0]	VGA_R;   				//	VGA Red[9:0]
 output	[7:0]	VGA_G;	 				//	VGA Green[9:0]
 output	[7:0]	VGA_B;   				//	VGA Blue[9:0]
-
-
-//assign VGA_R =  [9:2] VGA_Rr;
-//assign VGA_G =  [9:2] VGA_Gg;
-//assign VGA_B =  [9:2] VGA_Bb;
 
 
 
@@ -298,11 +264,16 @@ wire [7:0] VGA_B_wire2;
 
 wire [9:0] posX;
 wire [9:0] posY;
-wire		  FrameVS;
 
 wire [9:0] mCCD_R2;
 wire [9:0] mCCD_G2;
 wire [9:0] mCCD_B2;
+
+
+wire	[19:0]	xCount;
+wire	[19:0]	yCount;
+wire	[19:0]	frame;
+
 
 //	For Sensor 1
 assign	CCD_DATA[0]	=	GPIO[0];
@@ -326,7 +297,6 @@ assign	CCD_PIXCLK	=	GPIO[10];
 //assign	LEDG		=	Y_Cont;
 assign	VGA_CTRL_CLK=	CCD_MCLK;
 assign	VGA_CLK		=	~CCD_MCLK;
-assign FrameVS =  VGA_VS;
 
 
 
@@ -356,7 +326,7 @@ end
 //					 .VGA_R_Out(VGA_R_wire2), .VGA_G_Out(VGA_G_wire2), .VGA_B_Out(VGA_B_wire2));
 
 Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(CCD_MCLK), 
-.X(VGA_X), .Y(VGA_Y), .VGA_VS(VGA_VS), .posX(posX), .posY(posY));
+.X(VGA_X), .Y(VGA_Y), .VGA_VS(VGA_VS), .posX(posX), .posY(posY), .xCount(xCount), .yCount(yCount), .frame(frame));
 
 Color_Mapper c1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
 					 .VGA_X(VGA_X), .VGA_Y(VGA_Y), .posX(posX), .posY(posY),
@@ -418,14 +388,15 @@ RAW2RGB				u4	(	.oRed(mCCD_R),
 							.iDVAL(mCCD_DVAL),
 							.iCLK(CCD_PIXCLK),
 							.iRST(DLY_RST_1)	);
+							/*
 
 SEG7_LUT_8 			u5	(	.oSEG0(HEX0),.oSEG1(HEX1),
 							.oSEG2(HEX2),.oSEG3(HEX3),
 							.oSEG4(HEX4),.oSEG5(HEX5),
 							.oSEG6(HEX6),.oSEG7(HEX7),
-							.i1(posX), .i2(posY)
+							.i1(VGA_X), .i2(VGA_Y)
 							);
-							
+							*/
 
 Sdram_Control_4Port	u6	(	//	HOST Side
 						    .REF_CLK(CLOCK_50),

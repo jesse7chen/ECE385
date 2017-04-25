@@ -30,10 +30,15 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
     we have to first cast them from logic to int (signed by default) before they are multiplied. */
       
     int DistX, DistY, DistXX, DistYY;
-    assign DistX = posX - 10'd10;
-	 assign DistXX = posX + 10'd10;
-    assign DistY = posY - 10'd10;
-	 assign DistYY = posY + 10'd10;
+    //assign DistX = posX - 10'd10;
+	 //assign DistXX = posX + 10'd10;
+    //assign DistY = posY - 10'd10;
+	 //assign DistYY = posY + 10'd10;
+	 
+	 assign DistX = 10'd454;
+	 assign DistXX = 10'd474;
+    assign DistY = 10'd264;
+	 assign DistYY = 10'd284;
    
     assign VGA_R = Red;
     assign VGA_G = Green;
