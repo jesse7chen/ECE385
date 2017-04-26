@@ -7,81 +7,52 @@ input 		CLK,
 input [9:0] X,
 input [9:0] Y,
 input VGA_VS,
-
-inout [19:0] xCount,
-inout [19:0] yCount,
-inout [19:0] frame,
+input Reset,
+input logic [3:0] data1,
 
 output [9:0] Rout,
 output [9:0] Gout,
 output [9:0] Bout,
-
-output [10:0] posX,
-output [10:0] posY
+output logic [3:0] enable
 );
 
-
-reg	[19:0] frame_next;
-reg	[19:0]	xCount_next;
-reg	[19:0]	yCount_next;
-
-
-reg [10:0] posXX;
-reg [10:0] posYY;
-
-assign posX = posXX;
-assign posY = posYY;
-
-assign	Rout = Rin;
-assign	Gout = Gin;
-assign	Bout = Bin;
-
-
-always_comb
+always_ff@(posedge CLK)
 begin
-
-	if(Rin >= {SW[17:14],5'b00000} && Gin <= {SW[13:10],5'b11111} && Bin <= {SW[13:10],5'b11111})
+	if(Rin >= {SW[17:14],5'b00000} && Gin <= {SW[13:10],5'b11111} && Bin <= {SW[13:10],5'b11111} ) //&& X > 0 && Y > 0 && X < 640 && Y < 480)
 	begin
-		xCount_next = xCount + X;
-		yCount_next = yCount + Y;
-		frame_next = frame + 1;
+		enable = 4'b0001;
+		if(SW[2])
+		begin
+			Rout = 10'b1111111111;
+			Gout = 10'b1111111111;
+			Bout = 10'b1111111111;
+		end
+		else
+		begin
+			Rout = Rin;
+			Gout = Gin;
+			Bout = Bin;
+		end
 	end
 	else
 	begin
-		xCount_next = xCount;
-		yCount_next = yCount;
-		frame_next = frame;
-	end
-	
-	if(VGA_VS)
-	begin
-		posXX = xCount / frame;
-		posYY = yCount / frame;
-	end
-	else
-	begin
-		posXX = posX;
-		posYY = posY;
+		if(data1[0] == 1'b1)
+		begin
+			enable = data1;
+			Rout = Rin;
+			Gout = Gin;
+			Bout = Bin;
+		end
+		else
+		begin 
+			enable = 4'b0000;
+			Rout = Rin;
+			Gout = Gin;
+			Bout = Bin;
+		end
 	end
 end
 
 
-always_ff@(posedge CLK or posedge VGA_VS)
-begin
-
-	if(VGA_VS)
-	begin
-		xCount <= 20'b0;
-		yCount <= 20'b0;
-		frame <= 20'b0;
-	end
-	else
-	begin
-		xCount <= yCount_next;
-		yCount <= xCount_next;
-		frame <= frame_next;
-	end
-
-end
 
 endmodule	

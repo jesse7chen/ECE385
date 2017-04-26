@@ -1,16 +1,16 @@
-Fitter Status : Successful - Mon Apr 24 21:15:58 2017
+Fitter Status : Successful - Wed Apr 26 17:08:45 2017
 Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 Revision Name : DE2_CCD
 Top-level Entity Name : DE2_CCD
 Family : Cyclone IV E
 Device : EP4CE115F29C7
 Timing Models : Final
-Total logic elements : 4,774 / 114,480 ( 4 % )
-    Total combinational functions : 2,888 / 114,480 ( 3 % )
-    Dedicated logic registers : 3,272 / 114,480 ( 3 % )
-Total registers : 3323
-Total pins : 313 / 529 ( 59 % )
+Total logic elements : 1,651 / 114,480 ( 1 % )
+    Total combinational functions : 1,391 / 114,480 ( 1 % )
+    Dedicated logic registers : 911 / 114,480 ( < 1 % )
+Total registers : 985
+Total pins : 230 / 529 ( 43 % )
 Total virtual pins : 0
-Total memory bits : 2,135,000 / 3,981,312 ( 54 % )
+Total memory bits : 2,151,384 / 3,981,312 ( 54 % )
 Embedded Multiplier 9-bit elements : 0 / 532 ( 0 % )
 Total PLLs : 1 / 4 ( 25 % )

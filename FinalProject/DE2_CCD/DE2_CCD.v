@@ -270,9 +270,9 @@ wire [9:0] mCCD_G2;
 wire [9:0] mCCD_B2;
 
 
-wire	[19:0]	xCount;
-wire	[19:0]	yCount;
-wire	[19:0]	frame;
+int	xCount;
+int	yCount;
+int	frame;
 
 
 //	For Sensor 1
@@ -325,7 +325,7 @@ end
 //RGBResampler r1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
 //					 .VGA_R_Out(VGA_R_wire2), .VGA_G_Out(VGA_G_wire2), .VGA_B_Out(VGA_B_wire2));
 
-Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(CCD_MCLK), 
+Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(CCD_PIXCLK), 
 .X(VGA_X), .Y(VGA_Y), .VGA_VS(VGA_VS), .posX(posX), .posY(posY), .xCount(xCount), .yCount(yCount), .frame(frame));
 
 Color_Mapper c1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
