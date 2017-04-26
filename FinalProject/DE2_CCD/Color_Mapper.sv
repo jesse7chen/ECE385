@@ -15,13 +15,17 @@
 
 
 module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA input from camera   
-                                          VGA_X, VGA_Y, posX, posY,      // Coordinates of current drawing pixel
+                                          VGA_X, VGA_Y,       // Coordinates of current drawing pixel
+							  input					CLK,
+							  input 	logic		[3:0] data,
+							  input 			[17:0] SW,
                        output logic [7:0] VGA_R, VGA_G, VGA_B // VGA RGB output
                      );
     
     
     logic point_on;
     logic [7:0] Red, Green, Blue;
+	
 	 
      
  /* The ball's (pixelated) circle is generated using the standard circle formula.  Note that while 
@@ -29,21 +33,21 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
     of the 12 available multipliers on the chip! Since the multiplicants are required to be signed,
     we have to first cast them from logic to int (signed by default) before they are multiplied. */
       
-    int DistX, DistY, DistXX, DistYY;
+    //int DistX, DistY, DistXX, DistYY;
     //assign DistX = posX - 10'd10;
 	 //assign DistXX = posX + 10'd10;
     //assign DistY = posY - 10'd10;
 	 //assign DistYY = posY + 10'd10;
 	 
-	 assign DistX = 10'd454;
-	 assign DistXX = 10'd474;
-    assign DistY = 10'd264;
-	 assign DistYY = 10'd284;
+	 //assign DistX = 10'd454;
+	 //assign DistXX = 10'd474;
+    //assign DistY = 10'd264;
+	 //assign DistYY = 10'd284;
    
     assign VGA_R = Red;
     assign VGA_G = Green;
     assign VGA_B = Blue;
-    
+    /*
     // Compute whether the pixel corresponds to ball or background
     always_comb
     begin : On_point
@@ -55,11 +59,30 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
         else 
             point_on = 1'b0;
     end
-    
+    */
+	 /*
+  always_comb
+    begin : On_point
+        if (b[VGA_X][VGA_Y] == 1)
+					point_on = 1'b1;
+        else 
+            point_on = 1'b0;
+    end
+	 */
+  /*
+  always_ff@(posedge CLK)
+	 begin
+		 if(enable)
+		 begin
+			//b[VGA_X][VGA_Y] = 1;
+			point_on = 1'b1;
+		 end	 
+	 end
+	 */
     // Assign color based on ball_on signal
-    always_comb
+    always_ff @(posedge CLK)
     begin : RGB_Display
-        if ((point_on == 1'b1)) 
+        if (data[0] == 1'b1 && SW[1] == 1'b1) 
         begin
             // White box
             Red = 8'hff;
