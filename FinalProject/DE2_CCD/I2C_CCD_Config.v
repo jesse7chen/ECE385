@@ -1,14 +1,14 @@
 module I2C_CCD_Config (	//	Host Side
 						iCLK,
 						iRST_N,
-						iExposure,
+						//iExposure,
 						//	I2C Side
 						I2C_SCLK,
 						I2C_SDAT	);
 //	Host Side
 input			iCLK;
 input			iRST_N;
-input	[15:0]	iExposure;
+//input	[15:0]	iExposure;
 //	I2C Side
 output		I2C_SCLK;
 inout		I2C_SDAT;

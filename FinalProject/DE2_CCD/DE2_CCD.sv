@@ -255,6 +255,9 @@ end
 //1 is for reading to color mapper
 wire [3:0] enable;
 
+logic run;
+logic memory_on;
+assign memory_on = SW[1];
 
 wire [18:0] address_0; 
 logic [3:0] data_0;
@@ -281,12 +284,14 @@ ram ram1 (.clk(CLOCK_50), .address_0(VGA_Y * 800 + VGA_X), .data_0(enable), .cs_
 
 
 Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(CLOCK_50), 
-.X(VGA_X), .Y(VGA_Y), .VGA_VS(VGA_VS), .Reset(!DLY_RST_2), .enable(enable), .data1(data_1));
+.X(VGA_X), .Y(VGA_Y), .VGA_VS(VGA_VS), .Reset(!DLY_RST_2), .enable(enable), .data1(data_1), .run(run));
 
 
 Color_Mapper c1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
-					 .VGA_X(VGA_X), .VGA_Y(VGA_Y), .data(data_1), .SW(SW),
-					 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B), .CLK(CLOCK_50));
+					 .VGA_X(VGA_X), .VGA_Y(VGA_Y), .data(data_1), .memory_on(memory_on),
+					 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B), .CLK(CLOCK_50), .run(run));
+					 
+State_Control sc1(.clk(CLOCK_50), .reset_n(KEY[0]), .get_color(~KEY[2]), .run(run));
 
 VGA_Controller		u1	(	//	Host Side
 							.oRequest(Read),
@@ -330,7 +335,7 @@ CCD_Capture			u3	(	.oDATA(mCCD_DATA),
 							.iFVAL(rCCD_FVAL),
 							.iLVAL(rCCD_LVAL),
 							.iSTART(!KEY[3]),
-							.iEND(!KEY[2]),
+							//.iEND(!KEY[2]),
 							.iCLK(CCD_PIXCLK),
 							.iRST(DLY_RST_1)	);
 
@@ -346,12 +351,12 @@ RAW2RGB				u4	(	.oRed(mCCD_R),
 							.iRST(DLY_RST_1)	);
 							
 
-SEG7_LUT_8 			u5	(	.oSEG0(HEX0),.oSEG1(HEX1),
+/*SEG7_LUT_8 			u5	(	.oSEG0(HEX0),.oSEG1(HEX1),
 							.oSEG2(HEX2),.oSEG3(HEX3),
 							.oSEG4(HEX4),.oSEG5(HEX5),
 							.oSEG6(HEX6),.oSEG7(HEX7),
 							.i1(enable), .i2(data_1)
-							);
+							);*/
 							
 
 Sdram_Control_4Port	u6	(	//	HOST Side
@@ -408,7 +413,7 @@ Sdram_Control_4Port	u6	(	//	HOST Side
 I2C_CCD_Config 		u7	(	//	Host Side
 							.iCLK(CLOCK_50),
 							.iRST_N(KEY[1]),
-							.iExposure(SW[15:0]),
+							//.iExposure(SW[15:0]),
 							//	I2C Side
 							.I2C_SCLK(GPIO[14]),
 							.I2C_SDAT(GPIO[15])	);

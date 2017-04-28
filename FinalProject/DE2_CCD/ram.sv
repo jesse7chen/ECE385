@@ -48,7 +48,7 @@ always @ (posedge clk)
 begin : MEM_WRITE
   if ( cs_0 && we_0 ) begin
      mem[address_0] <= data_0;
-  end else if (cs_1 && we_1) begin 
+  end else if (cs_1 && we_1) begin
      mem[address_1] <= data_1;
   end
 end
@@ -73,7 +73,7 @@ end
 //Second Port of RAM
 // Tri-State Buffer control 
 // output : When we_0 = 0, oe_0 = 1, cs_0 = 1
-assign data_1 = (cs_1 && oe_1 && !we_1) ? data_1_out : 8'bz; 
+assign data_1 = (cs_1 && oe_1 && !we_1) ? data_1_out : 8'bz;
 // Memory Read Block 1 
 // Read Operation : When we_1 = 0, oe_1 = 1, cs_1 = 1
 always @ (posedge clk)
