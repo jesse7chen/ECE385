@@ -270,6 +270,10 @@ wire cs_1;
 wire we_1;
 wire oe_1;
 
+logic [9:0] red;
+logic [9:0] blue;
+logic [9:0] green;
+
 assign cs_0 = 1;
 assign we_0 = 1;
 assign oe_0 = 0;
@@ -279,17 +283,29 @@ assign we_1 = 0;
 assign oe_1 = 1;
 
 
+//HexDriver	r0	(	.Out0(HEX7),.In0({red[9:8]})	);
+HexDriver	r1	(	.Out0(HEX6),.In0(red[7:4])	);
+HexDriver	r2	(	.Out0(HEX5),.In0(red[3:0])	);
+
+//HexDriver	g0	(	.Out0(HEX4),.In0({green[9:8]})	);
+HexDriver	g1	(	.Out0(HEX3),.In0(green[7:4])	);
+HexDriver	g2	(	.Out0(HEX2),.In0(green[3:0])	);
+
+assign LEDR[10:0] = red;
+
+
 ram ram1 (.clk(CLOCK_50), .address_0(VGA_Y * 800 + VGA_X), .data_0(enable), .cs_0(cs_0), .we_0(we_0), .oe_0(oe_0),
 	.address_1(VGA_Y * 800 + VGA_X), .data_1(data_1), .cs_1(cs_1), .we_1(we_1), .oe_1(oe_1));
 
 
 Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(CLOCK_50), 
-.X(VGA_X), .Y(VGA_Y), .VGA_VS(VGA_VS), .Reset(!DLY_RST_2), .enable(enable), .data1(data_1), .run(run));
+.X(X_Cont), .Y(Y_Cont), .VGA_VS(VGA_VS), .Reset(!DLY_RST_2), .enable(enable), .data1(data_1), .run(run),
+				  .red_threshold(red), .blue_threshold(blue), .green_threshold(green));
 
 
 Color_Mapper c1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
 					 .VGA_X(VGA_X), .VGA_Y(VGA_Y), .data(data_1), .memory_on(memory_on),
-					 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B), .CLK(CLOCK_50), .run(run));
+					 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B), .CLK(VGA_CTRL_CLK), .run(run));
 					 
 State_Control sc1(.clk(CLOCK_50), .reset_n(KEY[0]), .get_color(~KEY[2]), .run(run));
 

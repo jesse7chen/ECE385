@@ -92,7 +92,10 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
 		
 	   else 
 		begin
-			if (memory_on) 
+				Red = VGA_R_In/4; 
+            Green = VGA_G_In/4;
+            Blue = VGA_B_In/4;
+			/*if (memory_on) 
 			begin
             // White box
             Red = white;
@@ -105,7 +108,7 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
             Red = VGA_R_In[9:2]; 
             Green = VGA_G_In[9:2];
             Blue = VGA_B_In[9:2];
-         end
+         end*/
 		end
     end 
     

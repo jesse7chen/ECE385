@@ -1,5 +1,5 @@
 Assembler report for DE2_CCD
-Fri Apr 28 15:32:33 2017
+Fri Apr 28 19:40:16 2017
 Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
 
 
@@ -39,7 +39,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Fri Apr 28 15:32:33 2017 ;
+; Assembler Status      ; Successful - Fri Apr 28 19:40:16 2017 ;
 ; Revision Name         ; DE2_CCD                               ;
 ; Top-level Entity Name ; DE2_CCD                               ;
 ; Family                ; Cyclone IV E                          ;
@@ -70,8 +70,8 @@ agreement for further details.
 ; Option         ; Setting                                                                          ;
 +----------------+----------------------------------------------------------------------------------+
 ; Device         ; EP4CE115F29C7                                                                    ;
-; JTAG usercode  ; 0x0064EA12                                                                       ;
-; Checksum       ; 0x0064EA12                                                                       ;
+; JTAG usercode  ; 0x00653155                                                                       ;
+; Checksum       ; 0x00653155                                                                       ;
 +----------------+----------------------------------------------------------------------------------+
 
 
@@ -82,7 +82,7 @@ agreement for further details.
 +--------------------+------------------------------------------------------------------------------+
 ; Device             ; EPCS64                                                                       ;
 ; JTAG usercode      ; 0x00000000                                                                   ;
-; Checksum           ; 0x71155C48                                                                   ;
+; Checksum           ; 0x71152D90                                                                   ;
 ; Compression Ratio  ; 3                                                                            ;
 +--------------------+------------------------------------------------------------------------------+
 
@@ -93,14 +93,14 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Assembler
     Info: Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
-    Info: Processing started: Fri Apr 28 15:32:26 2017
+    Info: Processing started: Fri Apr 28 19:40:00 2017
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off DE2_CCD -c DE2_CCD
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 652 megabytes
-    Info: Processing ended: Fri Apr 28 15:32:33 2017
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:06
+    Info: Peak virtual memory: 653 megabytes
+    Info: Processing ended: Fri Apr 28 19:40:16 2017
+    Info: Elapsed time: 00:00:16
+    Info: Total CPU time (on all processors): 00:00:11
 
 
