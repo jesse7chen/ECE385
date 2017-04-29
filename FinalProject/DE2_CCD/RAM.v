@@ -47,8 +47,8 @@ module RAM (
 
 	input	  clock;
 	input	[1:0]  data;
-	input	[18:0]  rdaddress;
-	input	[18:0]  wraddress;
+	input	[19:0]  rdaddress;
+	input	[19:0]  wraddress;
 	input	  wren;
 	output	[1:0]  q;
 `ifndef ALTERA_RESERVED_QIS
@@ -95,15 +95,15 @@ module RAM (
 		altsyncram_component.clock_enable_output_b = "BYPASS",
 		altsyncram_component.intended_device_family = "Cyclone IV E",
 		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = 307200,
-		altsyncram_component.numwords_b = 307200,
+		altsyncram_component.numwords_a = 1048576,
+		altsyncram_component.numwords_b = 1048576,
 		altsyncram_component.operation_mode = "DUAL_PORT",
 		altsyncram_component.outdata_aclr_b = "NONE",
 		altsyncram_component.outdata_reg_b = "CLOCK0",
 		altsyncram_component.power_up_uninitialized = "FALSE",
 		altsyncram_component.read_during_write_mode_mixed_ports = "OLD_DATA",
-		altsyncram_component.widthad_a = 19,
-		altsyncram_component.widthad_b = 19,
+		altsyncram_component.widthad_a = 20,
+		altsyncram_component.widthad_b = 20,
 		altsyncram_component.width_a = 2,
 		altsyncram_component.width_b = 2,
 		altsyncram_component.width_byteena_a = 1;

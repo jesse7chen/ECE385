@@ -45,7 +45,7 @@ logic [20:0] y_count;
 logic [20:0] pixel_count;
 
 
-assign threshold = 10'd75;
+assign threshold = 10'd85 + {SW[16:12], 2'b00};
 
 logic RED_match, GREEN_match, BLUE_match, y_RED_match, y_GREEN_match, y_BLUE_match;
 logic g_RED_match, g_GREEN_match, g_BLUE_match, RED_GT_GREEN_match, RED_GT_BLUE_match;
@@ -75,7 +75,7 @@ begin
 			if(SW[2])
 			begin
 				Rout = 10'b1111111111;
-				Gout = 10'b1111111111;
+				Gout = 10'b0000000000;
 				Bout = 10'b1111111111;
 			end
 			else

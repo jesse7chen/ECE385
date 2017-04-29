@@ -256,8 +256,20 @@ end
 wire [3:0] enable;
 
 logic run;
-logic memory_on;
-assign memory_on = SW[1];
+logic background;
+assign background = SW[1];
+
+logic clear;
+assign clear = SW[17];
+
+logic red_on;
+assign red_on =  SW[9];
+
+logic green_on;
+assign green_on =  SW[10];
+
+logic blue_on;
+assign blue_on =  SW[11];
 
 wire [18:0] address_0; 
 logic [3:0] data_0;
@@ -301,8 +313,9 @@ Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mC
 
 
 Color_Mapper c1(.VGA_R_In(VGA_R_wire1), .VGA_G_In(VGA_G_wire1), .VGA_B_In(VGA_B_wire1),
-					 .VGA_X(VGA_X), .VGA_Y(VGA_Y), .data(data_1), .memory_on(memory_on),
-					 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B), .CLK(VGA_CTRL_CLK), .run(run));
+					 .VGA_X(VGA_X), .VGA_Y(VGA_Y), .data(data_1), .background(background),
+					 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B), .CLK(VGA_CTRL_CLK), .run(run), .clear(clear),
+					 .red_on(red_on), .green_on(green_on), .blue_on(blue_on));
 					 
 State_Control sc1(.clk(CLOCK_50), .reset_n(KEY[0]), .get_color(~KEY[2]), .run(run));
 

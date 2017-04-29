@@ -18,7 +18,9 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
                                           VGA_X, VGA_Y,       // Coordinates of current drawing pixel
 							  input					CLK,
 							  input 	logic		[3:0] data,
-							  input 			memory_on,
+							  input 			background,
+							  input red_on, green_on, blue_on,
+							  input clear,
 							  input run,
                        output logic [7:0] VGA_R, VGA_G, VGA_B // VGA RGB output
                      );
@@ -47,7 +49,7 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
 				.clock(CLK),
 				.data(value_in),
 				.rdaddress({VGA_X, VGA_Y}),
-				.wraddress({(VGA_X-4), VGA_Y}),
+				.wraddress({(VGA_X-3), VGA_Y}),
 				.wren(1'b1),
 				.q(value_out)
 					);
@@ -104,12 +106,16 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
     // Assign color based on ball_on signal
     always_comb
     begin : RGB_Display
+		value_inT = value_out;
 		if(point_on)
 		begin
 				Red = 8'hff;
             Green = 8'hff;
             Blue = 8'hff;
-				value_inT = value_out;
+				if(clear)
+				begin
+					value_inT = 2'b00;
+				end
 		end
 		
 	   else 
@@ -117,18 +123,48 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
 				Red = VGA_R_In/4; 
             Green = VGA_G_In/4;
             Blue = VGA_B_In/4;
-				value_inT = value_out;
-				
-				if (VGA_R_In == 10'b1111111111 && VGA_G_In == 10'b1111111111 && VGA_B_In == 10'b1111111111)
+				if(run)
 				begin
-					value_inT = 2'b11;
+					if(value_out == 2'b11)
+					begin
+						Red = 8'h00;
+						Green = 8'hff;
+						Blue = 8'h00;
+					end
+					if(value_out == 2'b01)
+					begin
+						Red = 8'hff;
+						Green = 8'h00;
+						Blue = 8'h00;
+					end
+					if(value_out == 2'b10)
+					begin
+						Red = 8'h00;
+						Green = 8'h00;
+						Blue = 8'hff;
+					end
+					if (VGA_R_In == 10'b1111111111 && VGA_G_In == 10'b0000000000 && VGA_B_In == 10'b1111111111)
+					begin
+						if(red_on)
+							value_inT = 2'b01;
+						else if(blue_on)
+							value_inT = 2'b10;
+						else if (green_on)
+							value_inT = 2'b11;
+					end
+					if(~background)
+					begin
+						if(value_out == 2'b00)
+						begin
+							Red = 8'h00;
+							Green = 8'h00;
+							Blue = 8'h00;
+						end
+					end
 				end
-				if(value_out == 2'b11)
+				if(clear)
 				begin
-					Red = 8'hff;
-					Green = 8'hff;
-					Blue = 8'hff;
-					value_inT =	value_out;
+					value_inT = 2'b00;
 				end
 			/*if (memory_on) 
 			begin
