@@ -77,18 +77,17 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
 
     
     // Compute whether the pixel corresponds to ball or background
-    always_ff@(posedge CLK)
-    begin : On_point
+	always_comb
+	begin : On_point
 		point_on = 1'b0;
-		value_inT 	= 2'b00;
 		if(run == 1'b0)
 		begin
 				if ((VGA_X >= DistX && VGA_X <= DistXX && VGA_Y == centerY) || (VGA_Y >= DistY && VGA_Y <= DistYY && VGA_X == centerX))
 				begin
-					point_on <= 1'b1;
-					value_inT <= 2'b00;
+					point_on = 1'b1;
+					//value_inT <= 2'b00;
 				end
-				if (VGA_R_In == 10'b1111111111 && VGA_G_In == 10'b1111111111 && VGA_B_In == 10'b1111111111)
+				/*if (VGA_R_In == 10'b1111111111 && VGA_G_In == 10'b1111111111 && VGA_B_In == 10'b1111111111)
 				begin
 					value_inT <= 2'b11;
 				end
@@ -96,7 +95,7 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
 				begin
 					point_on <= 1'b1;
 					value_inT <=	value_out;
-				end
+				end*/
 		end
     end
     
@@ -110,6 +109,7 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
 				Red = 8'hff;
             Green = 8'hff;
             Blue = 8'hff;
+				value_inT = value_out;
 		end
 		
 	   else 
@@ -117,6 +117,19 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
 				Red = VGA_R_In/4; 
             Green = VGA_G_In/4;
             Blue = VGA_B_In/4;
+				value_inT = value_out;
+				
+				if (VGA_R_In == 10'b1111111111 && VGA_G_In == 10'b1111111111 && VGA_B_In == 10'b1111111111)
+				begin
+					value_inT = 2'b11;
+				end
+				if(value_out == 2'b11)
+				begin
+					Red = 8'hff;
+					Green = 8'hff;
+					Blue = 8'hff;
+					value_inT =	value_out;
+				end
 			/*if (memory_on) 
 			begin
             // White box

@@ -698,8 +698,6 @@ data[2] => ~NO_FANOUT~
 data[3] => ~NO_FANOUT~
 memory_on => ~NO_FANOUT~
 run => point_on.OUTPUTSELECT
-run => value_inT.OUTPUTSELECT
-run => value_inT.OUTPUTSELECT
 VGA_R[0] <= Red.DB_MAX_OUTPUT_PORT_TYPE
 VGA_R[1] <= Red.DB_MAX_OUTPUT_PORT_TYPE
 VGA_R[2] <= Red.DB_MAX_OUTPUT_PORT_TYPE
@@ -6763,8 +6761,6 @@ q[12] <= dcfifo_87o1:auto_generated.q[12]
 q[13] <= dcfifo_87o1:auto_generated.q[13]
 q[14] <= dcfifo_87o1:auto_generated.q[14]
 q[15] <= dcfifo_87o1:auto_generated.q[15]
-eccstatus[0] <= <GND>
-eccstatus[1] <= <GND>
 rdclk => dcfifo_87o1:auto_generated.rdclk
 rdreq => dcfifo_87o1:auto_generated.rdreq
 wrclk => dcfifo_87o1:auto_generated.wrclk
@@ -6797,7 +6793,7 @@ wrusedw[8] <= dcfifo_87o1:auto_generated.wrusedw[8]
 |DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated
 aclr => a_graycounter_577:rdptr_g1p.aclr
 aclr => a_graycounter_1lc:wrptr_g1p.aclr
-aclr => altsyncram_gr81:fifo_ram.aclr1
+aclr => altsyncram_mf51:fifo_ram.aclr1
 aclr => delayed_wrptr_g[9].IN0
 aclr => rdptr_g[9].IN0
 aclr => wrptr_g[9].IN0
@@ -6807,43 +6803,43 @@ aclr => _.IN0
 aclr => _.IN0
 aclr => _.IN0
 aclr => _.IN0
-data[0] => altsyncram_gr81:fifo_ram.data_a[0]
-data[1] => altsyncram_gr81:fifo_ram.data_a[1]
-data[2] => altsyncram_gr81:fifo_ram.data_a[2]
-data[3] => altsyncram_gr81:fifo_ram.data_a[3]
-data[4] => altsyncram_gr81:fifo_ram.data_a[4]
-data[5] => altsyncram_gr81:fifo_ram.data_a[5]
-data[6] => altsyncram_gr81:fifo_ram.data_a[6]
-data[7] => altsyncram_gr81:fifo_ram.data_a[7]
-data[8] => altsyncram_gr81:fifo_ram.data_a[8]
-data[9] => altsyncram_gr81:fifo_ram.data_a[9]
-data[10] => altsyncram_gr81:fifo_ram.data_a[10]
-data[11] => altsyncram_gr81:fifo_ram.data_a[11]
-data[12] => altsyncram_gr81:fifo_ram.data_a[12]
-data[13] => altsyncram_gr81:fifo_ram.data_a[13]
-data[14] => altsyncram_gr81:fifo_ram.data_a[14]
-data[15] => altsyncram_gr81:fifo_ram.data_a[15]
-q[0] <= altsyncram_gr81:fifo_ram.q_b[0]
-q[1] <= altsyncram_gr81:fifo_ram.q_b[1]
-q[2] <= altsyncram_gr81:fifo_ram.q_b[2]
-q[3] <= altsyncram_gr81:fifo_ram.q_b[3]
-q[4] <= altsyncram_gr81:fifo_ram.q_b[4]
-q[5] <= altsyncram_gr81:fifo_ram.q_b[5]
-q[6] <= altsyncram_gr81:fifo_ram.q_b[6]
-q[7] <= altsyncram_gr81:fifo_ram.q_b[7]
-q[8] <= altsyncram_gr81:fifo_ram.q_b[8]
-q[9] <= altsyncram_gr81:fifo_ram.q_b[9]
-q[10] <= altsyncram_gr81:fifo_ram.q_b[10]
-q[11] <= altsyncram_gr81:fifo_ram.q_b[11]
-q[12] <= altsyncram_gr81:fifo_ram.q_b[12]
-q[13] <= altsyncram_gr81:fifo_ram.q_b[13]
-q[14] <= altsyncram_gr81:fifo_ram.q_b[14]
-q[15] <= altsyncram_gr81:fifo_ram.q_b[15]
+data[0] => altsyncram_mf51:fifo_ram.data_a[0]
+data[1] => altsyncram_mf51:fifo_ram.data_a[1]
+data[2] => altsyncram_mf51:fifo_ram.data_a[2]
+data[3] => altsyncram_mf51:fifo_ram.data_a[3]
+data[4] => altsyncram_mf51:fifo_ram.data_a[4]
+data[5] => altsyncram_mf51:fifo_ram.data_a[5]
+data[6] => altsyncram_mf51:fifo_ram.data_a[6]
+data[7] => altsyncram_mf51:fifo_ram.data_a[7]
+data[8] => altsyncram_mf51:fifo_ram.data_a[8]
+data[9] => altsyncram_mf51:fifo_ram.data_a[9]
+data[10] => altsyncram_mf51:fifo_ram.data_a[10]
+data[11] => altsyncram_mf51:fifo_ram.data_a[11]
+data[12] => altsyncram_mf51:fifo_ram.data_a[12]
+data[13] => altsyncram_mf51:fifo_ram.data_a[13]
+data[14] => altsyncram_mf51:fifo_ram.data_a[14]
+data[15] => altsyncram_mf51:fifo_ram.data_a[15]
+q[0] <= altsyncram_mf51:fifo_ram.q_b[0]
+q[1] <= altsyncram_mf51:fifo_ram.q_b[1]
+q[2] <= altsyncram_mf51:fifo_ram.q_b[2]
+q[3] <= altsyncram_mf51:fifo_ram.q_b[3]
+q[4] <= altsyncram_mf51:fifo_ram.q_b[4]
+q[5] <= altsyncram_mf51:fifo_ram.q_b[5]
+q[6] <= altsyncram_mf51:fifo_ram.q_b[6]
+q[7] <= altsyncram_mf51:fifo_ram.q_b[7]
+q[8] <= altsyncram_mf51:fifo_ram.q_b[8]
+q[9] <= altsyncram_mf51:fifo_ram.q_b[9]
+q[10] <= altsyncram_mf51:fifo_ram.q_b[10]
+q[11] <= altsyncram_mf51:fifo_ram.q_b[11]
+q[12] <= altsyncram_mf51:fifo_ram.q_b[12]
+q[13] <= altsyncram_mf51:fifo_ram.q_b[13]
+q[14] <= altsyncram_mf51:fifo_ram.q_b[14]
+q[15] <= altsyncram_mf51:fifo_ram.q_b[15]
 rdclk => a_graycounter_577:rdptr_g1p.clock
-rdclk => altsyncram_gr81:fifo_ram.clock1
+rdclk => altsyncram_mf51:fifo_ram.clock1
 rdclk => dffpipe_oe9:rs_brp.clock
 rdclk => dffpipe_oe9:rs_bwp.clock
-rdclk => alt_synch_pipe_gpl:rs_dgwp.clock
+rdclk => alt_synch_pipe_4md:rs_dgwp.clock
 rdclk => rdptr_g[9].CLK
 rdclk => rdptr_g[8].CLK
 rdclk => rdptr_g[7].CLK
@@ -6866,10 +6862,10 @@ rdusedw[6] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 rdusedw[7] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 rdusedw[8] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 wrclk => a_graycounter_1lc:wrptr_g1p.clock
-wrclk => altsyncram_gr81:fifo_ram.clock0
+wrclk => altsyncram_mf51:fifo_ram.clock0
 wrclk => dffpipe_oe9:ws_brp.clock
 wrclk => dffpipe_oe9:ws_bwp.clock
-wrclk => alt_synch_pipe_hpl:ws_dgrp.clock
+wrclk => alt_synch_pipe_5md:ws_dgrp.clock
 wrclk => delayed_wrptr_g[9].CLK
 wrclk => delayed_wrptr_g[8].CLK
 wrclk => delayed_wrptr_g[7].CLK
@@ -7089,7 +7085,7 @@ q[8] <= counter8a8.DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= counter8a9.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_gr81:fifo_ram
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_mf51:fifo_ram
 aclr1 => ram_block11a0.CLR1
 aclr1 => ram_block11a1.CLR1
 aclr1 => ram_block11a2.CLR1
@@ -7610,7 +7606,7 @@ q[8] <= dffe11a[8].DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= dffe11a[9].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_gpl:rs_dgwp
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_4md:rs_dgwp
 clock => dffpipe_pe9:dffpipe12.clock
 clrn => dffpipe_pe9:dffpipe12.clrn
 d[0] => dffpipe_pe9:dffpipe12.d[0]
@@ -7635,7 +7631,7 @@ q[8] <= dffpipe_pe9:dffpipe12.q[8]
 q[9] <= dffpipe_pe9:dffpipe12.q[9]
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_gpl:rs_dgwp|dffpipe_pe9:dffpipe12
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_4md:rs_dgwp|dffpipe_pe9:dffpipe12
 clock => dffe13a[9].CLK
 clock => dffe13a[8].CLK
 clock => dffe13a[7].CLK
@@ -7784,7 +7780,7 @@ q[8] <= dffe11a[8].DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= dffe11a[9].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_hpl:ws_dgrp
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_5md:ws_dgrp
 clock => dffpipe_qe9:dffpipe15.clock
 clrn => dffpipe_qe9:dffpipe15.clrn
 d[0] => dffpipe_qe9:dffpipe15.d[0]
@@ -7809,7 +7805,7 @@ q[8] <= dffpipe_qe9:dffpipe15.q[8]
 q[9] <= dffpipe_qe9:dffpipe15.q[9]
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_hpl:ws_dgrp|dffpipe_qe9:dffpipe15
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_5md:ws_dgrp|dffpipe_qe9:dffpipe15
 clock => dffe16a[9].CLK
 clock => dffe16a[8].CLK
 clock => dffe16a[7].CLK
@@ -8013,8 +8009,6 @@ q[12] <= dcfifo_87o1:auto_generated.q[12]
 q[13] <= dcfifo_87o1:auto_generated.q[13]
 q[14] <= dcfifo_87o1:auto_generated.q[14]
 q[15] <= dcfifo_87o1:auto_generated.q[15]
-eccstatus[0] <= <GND>
-eccstatus[1] <= <GND>
 rdclk => dcfifo_87o1:auto_generated.rdclk
 rdreq => dcfifo_87o1:auto_generated.rdreq
 wrclk => dcfifo_87o1:auto_generated.wrclk
@@ -8047,7 +8041,7 @@ wrusedw[8] <= dcfifo_87o1:auto_generated.wrusedw[8]
 |DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated
 aclr => a_graycounter_577:rdptr_g1p.aclr
 aclr => a_graycounter_1lc:wrptr_g1p.aclr
-aclr => altsyncram_gr81:fifo_ram.aclr1
+aclr => altsyncram_mf51:fifo_ram.aclr1
 aclr => delayed_wrptr_g[9].IN0
 aclr => rdptr_g[9].IN0
 aclr => wrptr_g[9].IN0
@@ -8057,43 +8051,43 @@ aclr => _.IN0
 aclr => _.IN0
 aclr => _.IN0
 aclr => _.IN0
-data[0] => altsyncram_gr81:fifo_ram.data_a[0]
-data[1] => altsyncram_gr81:fifo_ram.data_a[1]
-data[2] => altsyncram_gr81:fifo_ram.data_a[2]
-data[3] => altsyncram_gr81:fifo_ram.data_a[3]
-data[4] => altsyncram_gr81:fifo_ram.data_a[4]
-data[5] => altsyncram_gr81:fifo_ram.data_a[5]
-data[6] => altsyncram_gr81:fifo_ram.data_a[6]
-data[7] => altsyncram_gr81:fifo_ram.data_a[7]
-data[8] => altsyncram_gr81:fifo_ram.data_a[8]
-data[9] => altsyncram_gr81:fifo_ram.data_a[9]
-data[10] => altsyncram_gr81:fifo_ram.data_a[10]
-data[11] => altsyncram_gr81:fifo_ram.data_a[11]
-data[12] => altsyncram_gr81:fifo_ram.data_a[12]
-data[13] => altsyncram_gr81:fifo_ram.data_a[13]
-data[14] => altsyncram_gr81:fifo_ram.data_a[14]
-data[15] => altsyncram_gr81:fifo_ram.data_a[15]
-q[0] <= altsyncram_gr81:fifo_ram.q_b[0]
-q[1] <= altsyncram_gr81:fifo_ram.q_b[1]
-q[2] <= altsyncram_gr81:fifo_ram.q_b[2]
-q[3] <= altsyncram_gr81:fifo_ram.q_b[3]
-q[4] <= altsyncram_gr81:fifo_ram.q_b[4]
-q[5] <= altsyncram_gr81:fifo_ram.q_b[5]
-q[6] <= altsyncram_gr81:fifo_ram.q_b[6]
-q[7] <= altsyncram_gr81:fifo_ram.q_b[7]
-q[8] <= altsyncram_gr81:fifo_ram.q_b[8]
-q[9] <= altsyncram_gr81:fifo_ram.q_b[9]
-q[10] <= altsyncram_gr81:fifo_ram.q_b[10]
-q[11] <= altsyncram_gr81:fifo_ram.q_b[11]
-q[12] <= altsyncram_gr81:fifo_ram.q_b[12]
-q[13] <= altsyncram_gr81:fifo_ram.q_b[13]
-q[14] <= altsyncram_gr81:fifo_ram.q_b[14]
-q[15] <= altsyncram_gr81:fifo_ram.q_b[15]
+data[0] => altsyncram_mf51:fifo_ram.data_a[0]
+data[1] => altsyncram_mf51:fifo_ram.data_a[1]
+data[2] => altsyncram_mf51:fifo_ram.data_a[2]
+data[3] => altsyncram_mf51:fifo_ram.data_a[3]
+data[4] => altsyncram_mf51:fifo_ram.data_a[4]
+data[5] => altsyncram_mf51:fifo_ram.data_a[5]
+data[6] => altsyncram_mf51:fifo_ram.data_a[6]
+data[7] => altsyncram_mf51:fifo_ram.data_a[7]
+data[8] => altsyncram_mf51:fifo_ram.data_a[8]
+data[9] => altsyncram_mf51:fifo_ram.data_a[9]
+data[10] => altsyncram_mf51:fifo_ram.data_a[10]
+data[11] => altsyncram_mf51:fifo_ram.data_a[11]
+data[12] => altsyncram_mf51:fifo_ram.data_a[12]
+data[13] => altsyncram_mf51:fifo_ram.data_a[13]
+data[14] => altsyncram_mf51:fifo_ram.data_a[14]
+data[15] => altsyncram_mf51:fifo_ram.data_a[15]
+q[0] <= altsyncram_mf51:fifo_ram.q_b[0]
+q[1] <= altsyncram_mf51:fifo_ram.q_b[1]
+q[2] <= altsyncram_mf51:fifo_ram.q_b[2]
+q[3] <= altsyncram_mf51:fifo_ram.q_b[3]
+q[4] <= altsyncram_mf51:fifo_ram.q_b[4]
+q[5] <= altsyncram_mf51:fifo_ram.q_b[5]
+q[6] <= altsyncram_mf51:fifo_ram.q_b[6]
+q[7] <= altsyncram_mf51:fifo_ram.q_b[7]
+q[8] <= altsyncram_mf51:fifo_ram.q_b[8]
+q[9] <= altsyncram_mf51:fifo_ram.q_b[9]
+q[10] <= altsyncram_mf51:fifo_ram.q_b[10]
+q[11] <= altsyncram_mf51:fifo_ram.q_b[11]
+q[12] <= altsyncram_mf51:fifo_ram.q_b[12]
+q[13] <= altsyncram_mf51:fifo_ram.q_b[13]
+q[14] <= altsyncram_mf51:fifo_ram.q_b[14]
+q[15] <= altsyncram_mf51:fifo_ram.q_b[15]
 rdclk => a_graycounter_577:rdptr_g1p.clock
-rdclk => altsyncram_gr81:fifo_ram.clock1
+rdclk => altsyncram_mf51:fifo_ram.clock1
 rdclk => dffpipe_oe9:rs_brp.clock
 rdclk => dffpipe_oe9:rs_bwp.clock
-rdclk => alt_synch_pipe_gpl:rs_dgwp.clock
+rdclk => alt_synch_pipe_4md:rs_dgwp.clock
 rdclk => rdptr_g[9].CLK
 rdclk => rdptr_g[8].CLK
 rdclk => rdptr_g[7].CLK
@@ -8116,10 +8110,10 @@ rdusedw[6] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 rdusedw[7] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 rdusedw[8] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 wrclk => a_graycounter_1lc:wrptr_g1p.clock
-wrclk => altsyncram_gr81:fifo_ram.clock0
+wrclk => altsyncram_mf51:fifo_ram.clock0
 wrclk => dffpipe_oe9:ws_brp.clock
 wrclk => dffpipe_oe9:ws_bwp.clock
-wrclk => alt_synch_pipe_hpl:ws_dgrp.clock
+wrclk => alt_synch_pipe_5md:ws_dgrp.clock
 wrclk => delayed_wrptr_g[9].CLK
 wrclk => delayed_wrptr_g[8].CLK
 wrclk => delayed_wrptr_g[7].CLK
@@ -8339,7 +8333,7 @@ q[8] <= counter8a8.DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= counter8a9.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_gr81:fifo_ram
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_mf51:fifo_ram
 aclr1 => ram_block11a0.CLR1
 aclr1 => ram_block11a1.CLR1
 aclr1 => ram_block11a2.CLR1
@@ -8860,7 +8854,7 @@ q[8] <= dffe11a[8].DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= dffe11a[9].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_gpl:rs_dgwp
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_4md:rs_dgwp
 clock => dffpipe_pe9:dffpipe12.clock
 clrn => dffpipe_pe9:dffpipe12.clrn
 d[0] => dffpipe_pe9:dffpipe12.d[0]
@@ -8885,7 +8879,7 @@ q[8] <= dffpipe_pe9:dffpipe12.q[8]
 q[9] <= dffpipe_pe9:dffpipe12.q[9]
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_gpl:rs_dgwp|dffpipe_pe9:dffpipe12
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_4md:rs_dgwp|dffpipe_pe9:dffpipe12
 clock => dffe13a[9].CLK
 clock => dffe13a[8].CLK
 clock => dffe13a[7].CLK
@@ -9034,7 +9028,7 @@ q[8] <= dffe11a[8].DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= dffe11a[9].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_hpl:ws_dgrp
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_5md:ws_dgrp
 clock => dffpipe_qe9:dffpipe15.clock
 clrn => dffpipe_qe9:dffpipe15.clrn
 d[0] => dffpipe_qe9:dffpipe15.d[0]
@@ -9059,7 +9053,7 @@ q[8] <= dffpipe_qe9:dffpipe15.q[8]
 q[9] <= dffpipe_qe9:dffpipe15.q[9]
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_hpl:ws_dgrp|dffpipe_qe9:dffpipe15
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:write_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_5md:ws_dgrp|dffpipe_qe9:dffpipe15
 clock => dffe16a[9].CLK
 clock => dffe16a[8].CLK
 clock => dffe16a[7].CLK
@@ -9263,8 +9257,6 @@ q[12] <= dcfifo_87o1:auto_generated.q[12]
 q[13] <= dcfifo_87o1:auto_generated.q[13]
 q[14] <= dcfifo_87o1:auto_generated.q[14]
 q[15] <= dcfifo_87o1:auto_generated.q[15]
-eccstatus[0] <= <GND>
-eccstatus[1] <= <GND>
 rdclk => dcfifo_87o1:auto_generated.rdclk
 rdreq => dcfifo_87o1:auto_generated.rdreq
 wrclk => dcfifo_87o1:auto_generated.wrclk
@@ -9297,7 +9289,7 @@ wrusedw[8] <= dcfifo_87o1:auto_generated.wrusedw[8]
 |DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated
 aclr => a_graycounter_577:rdptr_g1p.aclr
 aclr => a_graycounter_1lc:wrptr_g1p.aclr
-aclr => altsyncram_gr81:fifo_ram.aclr1
+aclr => altsyncram_mf51:fifo_ram.aclr1
 aclr => delayed_wrptr_g[9].IN0
 aclr => rdptr_g[9].IN0
 aclr => wrptr_g[9].IN0
@@ -9307,43 +9299,43 @@ aclr => _.IN0
 aclr => _.IN0
 aclr => _.IN0
 aclr => _.IN0
-data[0] => altsyncram_gr81:fifo_ram.data_a[0]
-data[1] => altsyncram_gr81:fifo_ram.data_a[1]
-data[2] => altsyncram_gr81:fifo_ram.data_a[2]
-data[3] => altsyncram_gr81:fifo_ram.data_a[3]
-data[4] => altsyncram_gr81:fifo_ram.data_a[4]
-data[5] => altsyncram_gr81:fifo_ram.data_a[5]
-data[6] => altsyncram_gr81:fifo_ram.data_a[6]
-data[7] => altsyncram_gr81:fifo_ram.data_a[7]
-data[8] => altsyncram_gr81:fifo_ram.data_a[8]
-data[9] => altsyncram_gr81:fifo_ram.data_a[9]
-data[10] => altsyncram_gr81:fifo_ram.data_a[10]
-data[11] => altsyncram_gr81:fifo_ram.data_a[11]
-data[12] => altsyncram_gr81:fifo_ram.data_a[12]
-data[13] => altsyncram_gr81:fifo_ram.data_a[13]
-data[14] => altsyncram_gr81:fifo_ram.data_a[14]
-data[15] => altsyncram_gr81:fifo_ram.data_a[15]
-q[0] <= altsyncram_gr81:fifo_ram.q_b[0]
-q[1] <= altsyncram_gr81:fifo_ram.q_b[1]
-q[2] <= altsyncram_gr81:fifo_ram.q_b[2]
-q[3] <= altsyncram_gr81:fifo_ram.q_b[3]
-q[4] <= altsyncram_gr81:fifo_ram.q_b[4]
-q[5] <= altsyncram_gr81:fifo_ram.q_b[5]
-q[6] <= altsyncram_gr81:fifo_ram.q_b[6]
-q[7] <= altsyncram_gr81:fifo_ram.q_b[7]
-q[8] <= altsyncram_gr81:fifo_ram.q_b[8]
-q[9] <= altsyncram_gr81:fifo_ram.q_b[9]
-q[10] <= altsyncram_gr81:fifo_ram.q_b[10]
-q[11] <= altsyncram_gr81:fifo_ram.q_b[11]
-q[12] <= altsyncram_gr81:fifo_ram.q_b[12]
-q[13] <= altsyncram_gr81:fifo_ram.q_b[13]
-q[14] <= altsyncram_gr81:fifo_ram.q_b[14]
-q[15] <= altsyncram_gr81:fifo_ram.q_b[15]
+data[0] => altsyncram_mf51:fifo_ram.data_a[0]
+data[1] => altsyncram_mf51:fifo_ram.data_a[1]
+data[2] => altsyncram_mf51:fifo_ram.data_a[2]
+data[3] => altsyncram_mf51:fifo_ram.data_a[3]
+data[4] => altsyncram_mf51:fifo_ram.data_a[4]
+data[5] => altsyncram_mf51:fifo_ram.data_a[5]
+data[6] => altsyncram_mf51:fifo_ram.data_a[6]
+data[7] => altsyncram_mf51:fifo_ram.data_a[7]
+data[8] => altsyncram_mf51:fifo_ram.data_a[8]
+data[9] => altsyncram_mf51:fifo_ram.data_a[9]
+data[10] => altsyncram_mf51:fifo_ram.data_a[10]
+data[11] => altsyncram_mf51:fifo_ram.data_a[11]
+data[12] => altsyncram_mf51:fifo_ram.data_a[12]
+data[13] => altsyncram_mf51:fifo_ram.data_a[13]
+data[14] => altsyncram_mf51:fifo_ram.data_a[14]
+data[15] => altsyncram_mf51:fifo_ram.data_a[15]
+q[0] <= altsyncram_mf51:fifo_ram.q_b[0]
+q[1] <= altsyncram_mf51:fifo_ram.q_b[1]
+q[2] <= altsyncram_mf51:fifo_ram.q_b[2]
+q[3] <= altsyncram_mf51:fifo_ram.q_b[3]
+q[4] <= altsyncram_mf51:fifo_ram.q_b[4]
+q[5] <= altsyncram_mf51:fifo_ram.q_b[5]
+q[6] <= altsyncram_mf51:fifo_ram.q_b[6]
+q[7] <= altsyncram_mf51:fifo_ram.q_b[7]
+q[8] <= altsyncram_mf51:fifo_ram.q_b[8]
+q[9] <= altsyncram_mf51:fifo_ram.q_b[9]
+q[10] <= altsyncram_mf51:fifo_ram.q_b[10]
+q[11] <= altsyncram_mf51:fifo_ram.q_b[11]
+q[12] <= altsyncram_mf51:fifo_ram.q_b[12]
+q[13] <= altsyncram_mf51:fifo_ram.q_b[13]
+q[14] <= altsyncram_mf51:fifo_ram.q_b[14]
+q[15] <= altsyncram_mf51:fifo_ram.q_b[15]
 rdclk => a_graycounter_577:rdptr_g1p.clock
-rdclk => altsyncram_gr81:fifo_ram.clock1
+rdclk => altsyncram_mf51:fifo_ram.clock1
 rdclk => dffpipe_oe9:rs_brp.clock
 rdclk => dffpipe_oe9:rs_bwp.clock
-rdclk => alt_synch_pipe_gpl:rs_dgwp.clock
+rdclk => alt_synch_pipe_4md:rs_dgwp.clock
 rdclk => rdptr_g[9].CLK
 rdclk => rdptr_g[8].CLK
 rdclk => rdptr_g[7].CLK
@@ -9366,10 +9358,10 @@ rdusedw[6] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 rdusedw[7] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 rdusedw[8] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 wrclk => a_graycounter_1lc:wrptr_g1p.clock
-wrclk => altsyncram_gr81:fifo_ram.clock0
+wrclk => altsyncram_mf51:fifo_ram.clock0
 wrclk => dffpipe_oe9:ws_brp.clock
 wrclk => dffpipe_oe9:ws_bwp.clock
-wrclk => alt_synch_pipe_hpl:ws_dgrp.clock
+wrclk => alt_synch_pipe_5md:ws_dgrp.clock
 wrclk => delayed_wrptr_g[9].CLK
 wrclk => delayed_wrptr_g[8].CLK
 wrclk => delayed_wrptr_g[7].CLK
@@ -9589,7 +9581,7 @@ q[8] <= counter8a8.DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= counter8a9.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_gr81:fifo_ram
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_mf51:fifo_ram
 aclr1 => ram_block11a0.CLR1
 aclr1 => ram_block11a1.CLR1
 aclr1 => ram_block11a2.CLR1
@@ -10110,7 +10102,7 @@ q[8] <= dffe11a[8].DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= dffe11a[9].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_gpl:rs_dgwp
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_4md:rs_dgwp
 clock => dffpipe_pe9:dffpipe12.clock
 clrn => dffpipe_pe9:dffpipe12.clrn
 d[0] => dffpipe_pe9:dffpipe12.d[0]
@@ -10135,7 +10127,7 @@ q[8] <= dffpipe_pe9:dffpipe12.q[8]
 q[9] <= dffpipe_pe9:dffpipe12.q[9]
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_gpl:rs_dgwp|dffpipe_pe9:dffpipe12
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_4md:rs_dgwp|dffpipe_pe9:dffpipe12
 clock => dffe13a[9].CLK
 clock => dffe13a[8].CLK
 clock => dffe13a[7].CLK
@@ -10284,7 +10276,7 @@ q[8] <= dffe11a[8].DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= dffe11a[9].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_hpl:ws_dgrp
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_5md:ws_dgrp
 clock => dffpipe_qe9:dffpipe15.clock
 clrn => dffpipe_qe9:dffpipe15.clrn
 d[0] => dffpipe_qe9:dffpipe15.d[0]
@@ -10309,7 +10301,7 @@ q[8] <= dffpipe_qe9:dffpipe15.q[8]
 q[9] <= dffpipe_qe9:dffpipe15.q[9]
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_hpl:ws_dgrp|dffpipe_qe9:dffpipe15
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo1|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_5md:ws_dgrp|dffpipe_qe9:dffpipe15
 clock => dffe16a[9].CLK
 clock => dffe16a[8].CLK
 clock => dffe16a[7].CLK
@@ -10513,8 +10505,6 @@ q[12] <= dcfifo_87o1:auto_generated.q[12]
 q[13] <= dcfifo_87o1:auto_generated.q[13]
 q[14] <= dcfifo_87o1:auto_generated.q[14]
 q[15] <= dcfifo_87o1:auto_generated.q[15]
-eccstatus[0] <= <GND>
-eccstatus[1] <= <GND>
 rdclk => dcfifo_87o1:auto_generated.rdclk
 rdreq => dcfifo_87o1:auto_generated.rdreq
 wrclk => dcfifo_87o1:auto_generated.wrclk
@@ -10547,7 +10537,7 @@ wrusedw[8] <= dcfifo_87o1:auto_generated.wrusedw[8]
 |DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated
 aclr => a_graycounter_577:rdptr_g1p.aclr
 aclr => a_graycounter_1lc:wrptr_g1p.aclr
-aclr => altsyncram_gr81:fifo_ram.aclr1
+aclr => altsyncram_mf51:fifo_ram.aclr1
 aclr => delayed_wrptr_g[9].IN0
 aclr => rdptr_g[9].IN0
 aclr => wrptr_g[9].IN0
@@ -10557,43 +10547,43 @@ aclr => _.IN0
 aclr => _.IN0
 aclr => _.IN0
 aclr => _.IN0
-data[0] => altsyncram_gr81:fifo_ram.data_a[0]
-data[1] => altsyncram_gr81:fifo_ram.data_a[1]
-data[2] => altsyncram_gr81:fifo_ram.data_a[2]
-data[3] => altsyncram_gr81:fifo_ram.data_a[3]
-data[4] => altsyncram_gr81:fifo_ram.data_a[4]
-data[5] => altsyncram_gr81:fifo_ram.data_a[5]
-data[6] => altsyncram_gr81:fifo_ram.data_a[6]
-data[7] => altsyncram_gr81:fifo_ram.data_a[7]
-data[8] => altsyncram_gr81:fifo_ram.data_a[8]
-data[9] => altsyncram_gr81:fifo_ram.data_a[9]
-data[10] => altsyncram_gr81:fifo_ram.data_a[10]
-data[11] => altsyncram_gr81:fifo_ram.data_a[11]
-data[12] => altsyncram_gr81:fifo_ram.data_a[12]
-data[13] => altsyncram_gr81:fifo_ram.data_a[13]
-data[14] => altsyncram_gr81:fifo_ram.data_a[14]
-data[15] => altsyncram_gr81:fifo_ram.data_a[15]
-q[0] <= altsyncram_gr81:fifo_ram.q_b[0]
-q[1] <= altsyncram_gr81:fifo_ram.q_b[1]
-q[2] <= altsyncram_gr81:fifo_ram.q_b[2]
-q[3] <= altsyncram_gr81:fifo_ram.q_b[3]
-q[4] <= altsyncram_gr81:fifo_ram.q_b[4]
-q[5] <= altsyncram_gr81:fifo_ram.q_b[5]
-q[6] <= altsyncram_gr81:fifo_ram.q_b[6]
-q[7] <= altsyncram_gr81:fifo_ram.q_b[7]
-q[8] <= altsyncram_gr81:fifo_ram.q_b[8]
-q[9] <= altsyncram_gr81:fifo_ram.q_b[9]
-q[10] <= altsyncram_gr81:fifo_ram.q_b[10]
-q[11] <= altsyncram_gr81:fifo_ram.q_b[11]
-q[12] <= altsyncram_gr81:fifo_ram.q_b[12]
-q[13] <= altsyncram_gr81:fifo_ram.q_b[13]
-q[14] <= altsyncram_gr81:fifo_ram.q_b[14]
-q[15] <= altsyncram_gr81:fifo_ram.q_b[15]
+data[0] => altsyncram_mf51:fifo_ram.data_a[0]
+data[1] => altsyncram_mf51:fifo_ram.data_a[1]
+data[2] => altsyncram_mf51:fifo_ram.data_a[2]
+data[3] => altsyncram_mf51:fifo_ram.data_a[3]
+data[4] => altsyncram_mf51:fifo_ram.data_a[4]
+data[5] => altsyncram_mf51:fifo_ram.data_a[5]
+data[6] => altsyncram_mf51:fifo_ram.data_a[6]
+data[7] => altsyncram_mf51:fifo_ram.data_a[7]
+data[8] => altsyncram_mf51:fifo_ram.data_a[8]
+data[9] => altsyncram_mf51:fifo_ram.data_a[9]
+data[10] => altsyncram_mf51:fifo_ram.data_a[10]
+data[11] => altsyncram_mf51:fifo_ram.data_a[11]
+data[12] => altsyncram_mf51:fifo_ram.data_a[12]
+data[13] => altsyncram_mf51:fifo_ram.data_a[13]
+data[14] => altsyncram_mf51:fifo_ram.data_a[14]
+data[15] => altsyncram_mf51:fifo_ram.data_a[15]
+q[0] <= altsyncram_mf51:fifo_ram.q_b[0]
+q[1] <= altsyncram_mf51:fifo_ram.q_b[1]
+q[2] <= altsyncram_mf51:fifo_ram.q_b[2]
+q[3] <= altsyncram_mf51:fifo_ram.q_b[3]
+q[4] <= altsyncram_mf51:fifo_ram.q_b[4]
+q[5] <= altsyncram_mf51:fifo_ram.q_b[5]
+q[6] <= altsyncram_mf51:fifo_ram.q_b[6]
+q[7] <= altsyncram_mf51:fifo_ram.q_b[7]
+q[8] <= altsyncram_mf51:fifo_ram.q_b[8]
+q[9] <= altsyncram_mf51:fifo_ram.q_b[9]
+q[10] <= altsyncram_mf51:fifo_ram.q_b[10]
+q[11] <= altsyncram_mf51:fifo_ram.q_b[11]
+q[12] <= altsyncram_mf51:fifo_ram.q_b[12]
+q[13] <= altsyncram_mf51:fifo_ram.q_b[13]
+q[14] <= altsyncram_mf51:fifo_ram.q_b[14]
+q[15] <= altsyncram_mf51:fifo_ram.q_b[15]
 rdclk => a_graycounter_577:rdptr_g1p.clock
-rdclk => altsyncram_gr81:fifo_ram.clock1
+rdclk => altsyncram_mf51:fifo_ram.clock1
 rdclk => dffpipe_oe9:rs_brp.clock
 rdclk => dffpipe_oe9:rs_bwp.clock
-rdclk => alt_synch_pipe_gpl:rs_dgwp.clock
+rdclk => alt_synch_pipe_4md:rs_dgwp.clock
 rdclk => rdptr_g[9].CLK
 rdclk => rdptr_g[8].CLK
 rdclk => rdptr_g[7].CLK
@@ -10616,10 +10606,10 @@ rdusedw[6] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 rdusedw[7] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 rdusedw[8] <= op_1.DB_MAX_OUTPUT_PORT_TYPE
 wrclk => a_graycounter_1lc:wrptr_g1p.clock
-wrclk => altsyncram_gr81:fifo_ram.clock0
+wrclk => altsyncram_mf51:fifo_ram.clock0
 wrclk => dffpipe_oe9:ws_brp.clock
 wrclk => dffpipe_oe9:ws_bwp.clock
-wrclk => alt_synch_pipe_hpl:ws_dgrp.clock
+wrclk => alt_synch_pipe_5md:ws_dgrp.clock
 wrclk => delayed_wrptr_g[9].CLK
 wrclk => delayed_wrptr_g[8].CLK
 wrclk => delayed_wrptr_g[7].CLK
@@ -10839,7 +10829,7 @@ q[8] <= counter8a8.DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= counter8a9.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_gr81:fifo_ram
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|altsyncram_mf51:fifo_ram
 aclr1 => ram_block11a0.CLR1
 aclr1 => ram_block11a1.CLR1
 aclr1 => ram_block11a2.CLR1
@@ -11360,7 +11350,7 @@ q[8] <= dffe11a[8].DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= dffe11a[9].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_gpl:rs_dgwp
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_4md:rs_dgwp
 clock => dffpipe_pe9:dffpipe12.clock
 clrn => dffpipe_pe9:dffpipe12.clrn
 d[0] => dffpipe_pe9:dffpipe12.d[0]
@@ -11385,7 +11375,7 @@ q[8] <= dffpipe_pe9:dffpipe12.q[8]
 q[9] <= dffpipe_pe9:dffpipe12.q[9]
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_gpl:rs_dgwp|dffpipe_pe9:dffpipe12
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_4md:rs_dgwp|dffpipe_pe9:dffpipe12
 clock => dffe13a[9].CLK
 clock => dffe13a[8].CLK
 clock => dffe13a[7].CLK
@@ -11534,7 +11524,7 @@ q[8] <= dffe11a[8].DB_MAX_OUTPUT_PORT_TYPE
 q[9] <= dffe11a[9].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_hpl:ws_dgrp
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_5md:ws_dgrp
 clock => dffpipe_qe9:dffpipe15.clock
 clrn => dffpipe_qe9:dffpipe15.clrn
 d[0] => dffpipe_qe9:dffpipe15.d[0]
@@ -11559,7 +11549,7 @@ q[8] <= dffpipe_qe9:dffpipe15.q[8]
 q[9] <= dffpipe_qe9:dffpipe15.q[9]
 
 
-|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_hpl:ws_dgrp|dffpipe_qe9:dffpipe15
+|DE2_CCD|Sdram_Control_4Port:u6|Sdram_FIFO:read_fifo2|dcfifo:dcfifo_component|dcfifo_87o1:auto_generated|alt_synch_pipe_5md:ws_dgrp|dffpipe_qe9:dffpipe15
 clock => dffe16a[9].CLK
 clock => dffe16a[8].CLK
 clock => dffe16a[7].CLK
