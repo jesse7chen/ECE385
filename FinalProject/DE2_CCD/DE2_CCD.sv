@@ -294,9 +294,6 @@ HexDriver	g2	(	.Out0(HEX2),.In0(green[3:0])	);
 assign LEDR[10:0] = red;
 
 
-ram ram1 (.clk(CLOCK_50), .address_0(VGA_Y * 800 + VGA_X), .data_0(enable), .cs_0(cs_0), .we_0(we_0), .oe_0(oe_0),
-	.address_1(VGA_Y * 800 + VGA_X), .data_1(data_1), .cs_1(cs_1), .we_1(we_1), .oe_1(oe_1));
-
 
 Detection d1 (.Rin(mCCD_R), .Gin(mCCD_G), .Bin(mCCD_B), .Rout(mCCD_R2), .Gout(mCCD_G2), .Bout(mCCD_B2), .SW(SW), .CLK(CLOCK_50), 
 .X(X_Cont), .Y(Y_Cont), .VGA_VS(VGA_VS), .Reset(!DLY_RST_2), .enable(enable), .data1(data_1), .run(run),

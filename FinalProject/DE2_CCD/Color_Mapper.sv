@@ -29,6 +29,28 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
 	 reg [7:0] white;
 	 assign white = 8'hff;
 	 
+	 logic	[1:0] value_in;
+	 logic	[1:0] value_out;
+	 
+	 
+	 logic	[1:0] value_inT;
+	 logic	[1:0] value_outT;
+	 
+	 always_ff@(posedge CLK)
+	 begin
+	 value_in <= value_inT;
+	 end
+	 
+	 
+	 RAM		ram1 (
+
+				.clock(CLK),
+				.data(value_in),
+				.rdaddress({VGA_X, VGA_Y}),
+				.wraddress({(VGA_X-4), VGA_Y}),
+				.wren(1'b1),
+				.q(value_out)
+					);
      
  /* The ball's (pixelated) circle is generated using the standard circle formula.  Note that while 
     the single line is quite powerful descriptively, it causes the synthesis tool to use up three
@@ -51,35 +73,35 @@ module  Color_Mapper ( input        [9:0] VGA_R_In, VGA_G_In, VGA_B_In, // VGA i
     assign VGA_R = Red;
     assign VGA_G = Green;
     assign VGA_B = Blue;
+	 
+
     
     // Compute whether the pixel corresponds to ball or background
-    always_comb
+    always_ff@(posedge CLK)
     begin : On_point
 		point_on = 1'b0;
+		value_inT 	= 2'b00;
 		if(run == 1'b0)
-			  if ((VGA_X >= DistX && VGA_X <= DistXX && VGA_Y == centerY) || (VGA_Y >= DistY && VGA_Y <= DistYY && VGA_X == centerX))
-					point_on = 1'b1;
+		begin
+				if ((VGA_X >= DistX && VGA_X <= DistXX && VGA_Y == centerY) || (VGA_Y >= DistY && VGA_Y <= DistYY && VGA_X == centerX))
+				begin
+					point_on <= 1'b1;
+					value_inT <= 2'b00;
+				end
+				if (VGA_R_In == 10'b1111111111 && VGA_G_In == 10'b1111111111 && VGA_B_In == 10'b1111111111)
+				begin
+					value_inT <= 2'b11;
+				end
+				if(value_out == 2'b11)
+				begin
+					point_on <= 1'b1;
+					value_inT <=	value_out;
+				end
+		end
     end
     
 	 
-  /*always_comb
-    begin : On_point
-        if (b[VGA_X][VGA_Y] == 1)
-					point_on = 1'b1;
-        else 
-            point_on = 1'b0;
-    end*/
-	 
-  
-  /*always_ff@(posedge CLK)
-	 begin
-		 if(enable)
-		 begin
-			//b[VGA_X][VGA_Y] = 1;
-			point_on = 1'b1;
-		 end	 
-	 end*/
-	 
+
     // Assign color based on ball_on signal
     always_comb
     begin : RGB_Display

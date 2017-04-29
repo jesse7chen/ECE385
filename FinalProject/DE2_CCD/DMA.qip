@@ -1,0 +1,33 @@
+set_global_assignment -entity "DMA" -library "DMA" -name IP_TOOL_NAME "altera_up_avalon_video_pixel_buffer_dma"
+set_global_assignment -entity "DMA" -library "DMA" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "DMA" -library "DMA" -name IP_TOOL_ENV "mwpim"
+set_global_assignment -library "DMA" -name MISC_FILE [file join $::quartus(qip_path) "DMA.cmp"]
+set_global_assignment -entity "DMA" -library "DMA" -name IP_TARGETED_DEVICE_FAMILY "Cyclone IV E"
+set_global_assignment -entity "DMA" -library "DMA" -name IP_GENERATED_DEVICE_FAMILY "{Device Agnostic}"
+set_global_assignment -entity "DMA" -library "DMA" -name IP_QSYS_MODE "UNKNOWN"
+set_global_assignment -name SYNTHESIS_ONLY_QIP ON
+set_global_assignment -entity "DMA" -library "DMA" -name IP_COMPONENT_NAME "RE1B"
+set_global_assignment -entity "DMA" -library "DMA" -name IP_COMPONENT_DISPLAY_NAME "UGl4ZWwgQnVmZmVyIERNQSBDb250cm9sbGVy"
+set_global_assignment -entity "DMA" -library "DMA" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "DMA" -library "DMA" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "DMA" -library "DMA" -name IP_COMPONENT_AUTHOR "QWx0ZXJhIFVuaXZlcnNpdHkgUHJvZ3JhbQ=="
+set_global_assignment -entity "DMA" -library "DMA" -name IP_COMPONENT_VERSION "MTMuMA=="
+set_global_assignment -entity "DMA" -library "DMA" -name IP_COMPONENT_DESCRIPTION "QSBETUEgQ29udHJvbGxlciBmb3IgYSBQaXhlbCBCdWZmZXIgZm9yIHRoZSBERS1zZXJpZXMgQm9hcmRz"
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_NAME "RE1BXzAwMDI="
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_DISPLAY_NAME "UGl4ZWwgQnVmZmVyIERNQSBDb250cm9sbGVy"
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_AUTHOR "QWx0ZXJhIFVuaXZlcnNpdHkgUHJvZ3JhbQ=="
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_VERSION "MTMuMA=="
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_DESCRIPTION "QSBETUEgQ29udHJvbGxlciBmb3IgYSBQaXhlbCBCdWZmZXIgZm9yIHRoZSBERS1zZXJpZXMgQm9hcmRz"
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_PARAMETER "YWRkcl9tb2Rl::WC1Z::QWRkcmVzc2luZyBNb2Rl"
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_PARAMETER "c3RhcnRfYWRkcmVzcw==::MA==::RGVmYXVsdCBCdWZmZXIgU3RhcnQgQWRkcmVzcw=="
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_PARAMETER "YmFja19zdGFydF9hZGRyZXNz::MA==::RGVmYXVsdCBCYWNrIEJ1ZmZlciBTdGFydCBBZGRyZXNz"
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_PARAMETER "aW1hZ2Vfd2lkdGg=::NjQw::V2lkdGggKCMgb2YgcGl4ZWxzKQ=="
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_PARAMETER "aW1hZ2VfaGVpZ2h0::NDgw::SGVpZ2h0ICgjIG9mIGxpbmVzKQ=="
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_PARAMETER "Y29sb3Jfc3BhY2U=::MzAtYml0IFJHQg==::Q29sb3IgU3BhY2U="
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
+set_global_assignment -entity "DMA_0002" -library "DMA" -name IP_COMPONENT_PARAMETER "QVVUT19DTE9DS19SRVNFVF9DTE9DS19SQVRF::LTE=::QXV0byBDTE9DS19SQVRF"
+
+set_global_assignment -library "DMA" -name VERILOG_FILE [file join $::quartus(qip_path) "DMA.v"]
+set_global_assignment -library "DMA" -name VERILOG_FILE [file join $::quartus(qip_path) "DMA/DMA_0002.v"]

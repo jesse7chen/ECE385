@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="DMA_sim/DMA.v" type="VERILOG" />
+ <topLevel name="DMA" />
+ <deviceFamily name="cycloneive" />
+</simPackage>
