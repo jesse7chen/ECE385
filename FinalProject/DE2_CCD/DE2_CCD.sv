@@ -377,13 +377,6 @@ RAW2RGB				u4	(	.oRed(mCCD_R),
 							.iRST(DLY_RST_1)	);
 							
 
-/*SEG7_LUT_8 			u5	(	.oSEG0(HEX0),.oSEG1(HEX1),
-							.oSEG2(HEX2),.oSEG3(HEX3),
-							.oSEG4(HEX4),.oSEG5(HEX5),
-							.oSEG6(HEX6),.oSEG7(HEX7),
-							.i1(enable), .i2(data_1)
-							);*/
-							
 
 Sdram_Control_4Port	u6	(	//	HOST Side
 						    .REF_CLK(CLOCK_50),
